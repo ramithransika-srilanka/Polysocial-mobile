@@ -478,8 +478,9 @@
     "type": "video",
     "width": 720,
     "height": 1280,
-    "mp4": "assets/video/0e94d45a.orig.37c58dce36.mp4",
-    "webm": "assets/video/0e94d45a.vp9.66f82d7b00.webm",
+    "targetWidth": 720,
+    "mp4": "assets/video/0e94d45a.h264.8506de33d5.mp4",
+    "webm": "assets/video/0e94d45a.vp9.65dab27bac.webm",
     "posterWebp": "assets/video/0e94d45a.poster.7ee1bdf59a.webp",
     "posterJpg": "assets/video/0e94d45a.poster.127526f6fa.jpg"
   },
@@ -487,8 +488,9 @@
     "type": "video",
     "width": 720,
     "height": 1280,
-    "mp4": "assets/video/b4631b25.orig.ec79029224.mp4",
-    "webm": "assets/video/b4631b25.vp9.acc4363fb1.webm",
+    "targetWidth": 360,
+    "mp4": "assets/video/b4631b25.h264.75e8d644a9.mp4",
+    "webm": "assets/video/b4631b25.vp9.e0a7b09d6e.webm",
     "posterWebp": "assets/video/b4631b25.poster.631f7a5688.webp",
     "posterJpg": "assets/video/b4631b25.poster.e003ee1ea4.jpg"
   },
