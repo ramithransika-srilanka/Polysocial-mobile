@@ -1,0 +1,226 @@
+{
+ "2fb456f2.png": {
+  "desktop": {
+   "top": 257,
+   "dispW": 42,
+   "dispH": 42,
+   "inVP": true,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 257,
+   "dispW": 42,
+   "dispH": 42,
+   "inVP": true,
+   "tag": "IMG"
+  }
+ },
+ "a14a7902.png": {
+  "desktop": {
+   "top": 258,
+   "dispW": 42,
+   "dispH": 42,
+   "inVP": true,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 258,
+   "dispW": 42,
+   "dispH": 42,
+   "inVP": true,
+   "tag": "IMG"
+  }
+ },
+ "6776e340.png": {
+  "desktop": {
+   "top": 257,
+   "dispW": 42,
+   "dispH": 42,
+   "inVP": true,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 257,
+   "dispW": 42,
+   "dispH": 42,
+   "inVP": true,
+   "tag": "IMG"
+  }
+ },
+ "0e94d45a.mp4": {
+  "desktop": {
+   "top": 714,
+   "dispW": 364,
+   "dispH": 612,
+   "inVP": true,
+   "tag": "VIDEO"
+  },
+  "mobile": {
+   "top": 686,
+   "dispW": 364,
+   "dispH": 612,
+   "inVP": true,
+   "tag": "VIDEO"
+  }
+ },
+ "63873e6f.svg": {
+  "desktop": {
+   "top": 1375,
+   "dispW": 36,
+   "dispH": 36,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 1347,
+   "dispW": 36,
+   "dispH": 36,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "eadccd63.svg": {
+  "desktop": {
+   "top": 2434,
+   "dispW": 170,
+   "dispH": 23,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 2322,
+   "dispW": 170,
+   "dispH": 23,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "d940bd53.png": {
+  "desktop": {
+   "top": 2644,
+   "dispW": 27,
+   "dispH": 27,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 2532,
+   "dispW": 27,
+   "dispH": 27,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "d20322b3.gif": {
+  "desktop": {
+   "top": 3398,
+   "dispW": 120,
+   "dispH": 120,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 3286,
+   "dispW": 120,
+   "dispH": 120,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "campaign-moto.jpg": {
+  "desktop": {
+   "top": 10183,
+   "dispW": 249,
+   "dispH": 241,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 9600,
+   "dispW": 249,
+   "dispH": 241,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "uber.png": {
+  "desktop": {
+   "top": 10199,
+   "dispW": 32,
+   "dispH": 32,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 9616,
+   "dispW": 32,
+   "dispH": 32,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "72b4b917.gif": {
+  "desktop": {
+   "top": 10882,
+   "dispW": 393,
+   "dispH": 560,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 10300,
+   "dispW": 390,
+   "dispH": 560,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "article-social.jpg": {
+  "desktop": {
+   "top": 11706,
+   "dispW": 200,
+   "dispH": 200,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 11124,
+   "dispW": 200,
+   "dispH": 200,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "article-rothko.jpg": {
+  "desktop": {
+   "top": 11706,
+   "dispW": 200,
+   "dispH": 200,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 11124,
+   "dispW": 200,
+   "dispH": 200,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ },
+ "a9f0640a.svg": {
+  "desktop": {
+   "top": 12190,
+   "dispW": 131,
+   "dispH": 24,
+   "inVP": false,
+   "tag": "IMG"
+  },
+  "mobile": {
+   "top": 11607,
+   "dispW": 131,
+   "dispH": 24,
+   "inVP": false,
+   "tag": "IMG"
+  }
+ }
+}

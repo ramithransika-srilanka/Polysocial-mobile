@@ -1,0 +1,36 @@
+# ---------------------------------------------------------------------------
+# Caching for the Polysocial Mobile static site (Apache).
+#
+# Everything under assets/ is content-fingerprinted (a hash is baked into each
+# filename by scripts/optimize.mjs + build_html.mjs), so those files can be
+# cached forever — a changed file gets a new name, so stale caching is
+# impossible. index.html is NOT fingerprinted and must always be revalidated
+# so new deploys are picked up immediately.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+  # Fingerprinted assets: cache for 1 year, immutable.
+  <FilesMatch "\.(avif|webp|png|jpe?g|gif|mp4|webm|woff2|svg|js|css)$">
+    <If "%{REQUEST_URI} =~ m#^/assets/#">
+      Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+  </FilesMatch>
+
+  # HTML entry point: always revalidate (never serve stale markup).
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Correct MIME types for modern formats (older Apache installs).
+<IfModule mod_mime.c>
+  AddType image/avif           .avif
+  AddType image/webp           .webp
+  AddType video/webm           .webm
+  AddType font/woff2           .woff2
+</IfModule>
+
+# Let browsers/proxies negotiate compression for text assets.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>

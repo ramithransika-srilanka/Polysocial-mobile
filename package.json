@@ -1,0 +1,28 @@
+{
+  "name": "polysocial-mobile",
+  "version": "1.0.0",
+  "description": "Landing page for **Polysocial Mobile**, exported from Figma.",
+  "type": "module",
+  "scripts": {
+    "optimize": "node scripts/optimize.mjs",
+    "build": "node scripts/optimize.mjs && node scripts/build_html.mjs",
+    "serve": "python3 -m http.server 8099"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramithransika-srilanka/Polysocial-mobile.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramithransika-srilanka/Polysocial-mobile/issues"
+  },
+  "homepage": "https://github.com/ramithransika-srilanka/Polysocial-mobile#readme",
+  "dependencies": {
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}
