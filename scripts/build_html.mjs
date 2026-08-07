@@ -99,7 +99,13 @@ html = html.replace(/<img\b[^>]*>/g, (tag) => {
     return t;
   }
 
-  const eager = isAboveFold(file);
+  const aboveFold = isAboveFold(file);
+  // Creator hero stop-motion frames must load up-front (during the initial
+  // loader screen) so the frames are already cached when the animation runs —
+  // otherwise each frame fetches on first display and the swap stutters. They
+  // load eagerly but without fetchpriority so they don't preempt the hero video.
+  const isCreatorFrame = HERO_RE.test(tag);
+  const eager = aboveFold || isCreatorFrame;
   const sizes = sizesFor(file, entry);
   // Build the fallback <img>: keep every original attribute, repoint src,
   // and add the loading/sizing hints if absent.
@@ -110,7 +116,7 @@ html = html.replace(/<img\b[^>]*>/g, (tag) => {
   add("decoding", "async");
   add("loading", eager ? "eager" : "lazy");
   if (entry.type === "raster") add("sizes", sizes);
-  if (eager && entry.width >= 200 && entry.height >= 200) add("fetchpriority", "high");
+  if (aboveFold && entry.width >= 200 && entry.height >= 200) add("fetchpriority", "high");
 
   let sources = "";
   if (entry.type === "animated") {
