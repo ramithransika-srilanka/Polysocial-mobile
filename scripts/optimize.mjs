@@ -24,9 +24,17 @@
 import sharp from "sharp";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { createRequire } from "node:module";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+// Resolve an ffmpeg binary: prefer $FFMPEG, then the bundled ffmpeg-static
+// (so the pipeline runs on machines without a system ffmpeg), else "ffmpeg".
+const require = createRequire(import.meta.url);
+let FFMPEG = "ffmpeg";
+try { FFMPEG = require("ffmpeg-static") || "ffmpeg"; } catch {}
+if (process.env.FFMPEG) FFMPEG = process.env.FFMPEG;
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const SRC = path.join(ROOT, "src-assets");
@@ -40,7 +48,23 @@ const JPG_FALLBACK = { quality: 84, mozjpeg: true };
 const PNG_FALLBACK = { compressionLevel: 9, palette: true }; // lossless-ish, small
 const WEBP_ANIM = { quality: 78, effort: 4 };
 const POSTER_WEBP = { quality: 72 };
-const WEBM = ["-c:v", "libvpx-vp9", "-crf", "34", "-b:v", "0", "-an",
+const POSTER_MAXW = 720;
+
+// Video re-encode settings. Every video here is a silent, muted, looping
+// background decoration, so audio is always stripped (-an).
+//   - Per-source TARGET width right-sizes each rendition to how big it actually
+//     renders on the page (a 159px card doesn't need a 720px file).
+//   - MP4 fallback: H.264 "main" (universal on any device from ~2013 on),
+//     CRF 26, +faststart so playback starts before the full file arrives.
+//   - WebM alternate: VP9, CRF 34 — smaller still for browsers that take it.
+const VIDEO_TARGET_W = { "0e94d45a": 720, "b4631b25": 360 };
+const DEFAULT_VIDEO_W = 720;
+const H264_CRF = 26;
+const VP9_CRF = 34;
+const H264 = (crf) => ["-c:v", "libx264", "-profile:v", "main", "-preset", "slow",
+              "-crf", String(crf), "-pix_fmt", "yuv420p", "-an",
+              "-movflags", "+faststart"];
+const VP9 = (crf) => ["-c:v", "libvpx-vp9", "-crf", String(crf), "-b:v", "0", "-an",
               "-pix_fmt", "yuv420p", "-row-mt", "1", "-deadline", "good"];
 // ---------------------------------------------------------------------------
 
@@ -130,12 +154,14 @@ function processVideo(absPath, relKey) {
   const input = fs.readFileSync(absPath);
   totalIn += input.length;
   const base = path.basename(absPath, path.extname(absPath));
+  const targetW = VIDEO_TARGET_W[base] || DEFAULT_VIDEO_W;
+  const scale = `scale='min(${targetW},iw)':-2`;
 
   // Poster frame (first frame) -> WebP + JPEG
   const tmpPng = path.join(OUT, `.tmp-${base}.png`);
   ensureDir(OUT);
-  execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", absPath,
-    "-frames:v", "1", "-vf", "scale='min(720,iw)':-2", tmpPng]);
+  execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-i", absPath,
+    "-frames:v", "1", "-vf", `scale='min(${POSTER_MAXW},iw)':-2`, tmpPng]);
   return sharp(fs.readFileSync(tmpPng)).metadata().then(async (pm) => {
     const posterWebp = await sharp(fs.readFileSync(tmpPng)).webp(POSTER_WEBP).toBuffer();
     const posterJpg = await sharp(fs.readFileSync(tmpPng)).jpeg({ quality: 78, mozjpeg: true }).toBuffer();
@@ -143,21 +169,27 @@ function processVideo(absPath, relKey) {
     const posterWebpRel = writeOut("video", outName(base, "poster", "webp", posterWebp), posterWebp);
     const posterJpgRel = writeOut("video", outName(base, "poster", "jpg", posterJpg), posterJpg);
 
-    // WebM (VP9) alternate
+    // Re-encoded, right-sized, muted, faststart H.264 MP4 fallback.
+    const tmpMp4 = path.join(OUT, `.tmp-${base}.mp4`);
+    execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-i", absPath,
+      "-vf", scale, ...H264(H264_CRF), tmpMp4]);
+    const mp4Buf = fs.readFileSync(tmpMp4); fs.unlinkSync(tmpMp4);
+    const mp4Rel = writeOut("video", outName(base, "h264", "mp4", mp4Buf), mp4Buf);
+
+    // WebM (VP9) alternate, same target width, muted.
     const tmpWebm = path.join(OUT, `.tmp-${base}.webm`);
-    execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", absPath, ...WEBM, tmpWebm]);
+    execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-i", absPath,
+      "-vf", scale, ...VP9(VP9_CRF), tmpWebm]);
     const webmBuf = fs.readFileSync(tmpWebm); fs.unlinkSync(tmpWebm);
     const webmRel = writeOut("video", outName(base, "vp9", "webm", webmBuf), webmBuf);
 
-    // Hashed copy of original MP4
-    const mp4Rel = writeOut("video", outName(base, "orig", "mp4", input), input);
-
     manifest[relKey] = {
-      type: "video", width: pm.width, height: pm.height,
+      type: "video", width: pm.width, height: pm.height, targetWidth: targetW,
       mp4: mp4Rel, webm: webmRel, posterWebp: posterWebpRel, posterJpg: posterJpgRel,
     };
-    rows.push([relKey, kb(input.length), kb(webmBuf.length),
-      `${(100 - webmBuf.length / input.length * 100).toFixed(0)}%`, "mp4→+webm+poster"]);
+    const smallest = Math.min(mp4Buf.length, webmBuf.length);
+    rows.push([relKey, kb(input.length), kb(smallest),
+      `${(100 - smallest / input.length * 100).toFixed(0)}%`, `mp4+webm@${targetW}w+poster`]);
   });
 }
 

@@ -30,19 +30,46 @@ image, emits:
 - visually-lossless quality (AVIF q82 / WebP q84).
 
 Animated GIFs become **animated WebP** (with the GIF kept as a `<picture>`
-fallback). Videos get a compressed **poster** (WebP + JPEG), a **VP9 WebM**
-alternate, and a hashed copy of the original MP4. It prints before/after sizes
-and is idempotent — re-running only re-encodes new or changed sources.
+fallback). Every video is **re-encoded**, not just copied:
+
+- **MP4 fallback** — H.264 **Main** profile, **CRF 26**, `+faststart` (playback
+  starts before the full file downloads);
+- **VP9 WebM** alternate (smaller still for browsers that accept it);
+- a compressed **poster** (WebP + JPEG) from the first frame;
+- **audio is stripped** (`-an`) — every video here is a silent, muted, looping
+  background, so its audio track is dead weight;
+- each rendition is **right-sized** to how big it renders on the page via the
+  `VIDEO_TARGET_W` map in `optimize.mjs` (e.g. a 159 px card is encoded at 360p,
+  not 720p). Videos not listed there default to `DEFAULT_VIDEO_W` (720p), so
+  **new videos are optimized automatically**.
+
+It prints before/after sizes and is idempotent — re-running only re-encodes new
+or changed sources. The originals in `src-assets/video/` are never modified.
 
 `scripts/build_html.mjs` then rewrites `build/page.raw.html` into `index.html`:
 
 - every static `<img>` becomes a `<picture>` with AVIF → WebP → original
   fallback, `srcset` + `sizes`, intrinsic `width`/`height` (no layout shift),
   `decoding="async"`, and `loading="lazy"` for below-the-fold images;
-- the above-the-fold hero video gets `preload="auto"`, a `poster`, WebM+MP4
-  `<source>`s, and its poster is `<link rel="preload" … fetchpriority="high">`ed;
-  other videos use `preload="metadata"`. All decorative videos are
-  `muted playsinline loop`.
+- **hero** videos (listed in `HERO_VIDEOS` in `build_html.mjs`) get
+  `preload="auto"`, a `poster`, WebM+MP4 `<source>`s, and a
+  `<link rel="preload" … fetchpriority="high">`ed poster. The hero video is
+  **buffered behind the dark loading screen** — the loader will not dismiss
+  until it can play through (4 s minimum, 12 s safety cap);
+- **every other** video gets `preload="none"` and is lazy: fetched and played
+  only when it scrolls near the viewport. `#fanVideo` does this via its own
+  fan-swap logic; any *future* below-the-fold video inherits the same behaviour
+  automatically through the generic `_armLazyVideos()` observer — just drop it
+  in with `preload="none"`. All decorative videos are `muted playsinline loop`.
+
+### Adding a video
+
+1. Drop the raw file in `src-assets/video/`.
+2. Reference it in `build/page.raw.html` with a `<video>` tag (see `#fanVideo`).
+3. (Optional) add its basename to `VIDEO_TARGET_W` to right-size it, and to
+   `HERO_VIDEOS` if it's above the fold.
+4. `npm run build`. It's re-encoded, right-sized, given a poster + WebM, and
+   wired to the correct loading strategy with no further code.
 
 ## Re-running the pipeline
 

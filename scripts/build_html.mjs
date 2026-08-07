@@ -135,7 +135,10 @@ html = html.replace(/<img\b[^>]*>/g, (tag) => {
 // ---------------------------------------------------------------------------
 // 3. <video> -> poster + <source> webm/mp4, correct attributes
 // ---------------------------------------------------------------------------
-const HERO_VIDEO = "0e94d45a"; // above-the-fold looping hero
+// Hero videos preload during the dark loading screen (the loader waits for
+// them); every other video is lazy (preload="none", fetched near-viewport).
+// To designate a future video as hero, add its source basename here.
+const HERO_VIDEOS = ["0e94d45a"];
 let heroPosterPreload = "";
 html = html.replace(/<video\b[^>]*>/g, (tag) => {
   const src = getSrc(tag);
@@ -143,18 +146,21 @@ html = html.replace(/<video\b[^>]*>/g, (tag) => {
   const key = "src-assets/video/" + file;
   const entry = manifest[key];
   if (!entry || entry.type !== "video") return tag;
-  const isHero = file.startsWith(HERO_VIDEO);
+  const isHero = HERO_VIDEOS.some((h) => file.startsWith(h));
 
   let t = tag.replace(/\s*\bsrc="[^"]*"/, ""); // drop src -> use <source>
   const add = (name, val) => { if (!hasAttr(t, name)) t = t.replace(/<video\b/, `<video ${name}${val ? `="${val}"` : '=""'}`); };
-  add("poster", entry.posterJpg);
-  add("preload", isHero ? "auto" : "metadata");
+  add("poster", entry.posterWebp || entry.posterJpg);
+  // Hero video is preloaded during the dark loading screen (the loader waits
+  // for it), so preload="auto". Below-the-fold videos preload="none" and are
+  // fetched lazily by JS (IntersectionObserver) only when scrolled near.
+  add("preload", isHero ? "auto" : "none");
   add("muted", "");         // required for autoplay; all these are decorative
   add("playsinline", "");
   add("loop", "");
   const sources = `<source src="${entry.webm}" type="video/webm"><source src="${entry.mp4}" type="video/mp4">`;
   if (isHero) heroPosterPreload =
-    `\n  <link rel="preload" as="image" href="${entry.posterJpg}" fetchpriority="high">`;
+    `\n  <link rel="preload" as="image" href="${entry.posterWebp || entry.posterJpg}" fetchpriority="high">`;
   return `${t}${sources}`;
 });
 
