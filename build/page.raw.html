@@ -1736,7 +1736,7 @@ a:hover { color: var(--brand-primary-hover); }
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); }
+  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); }
 
   _armFanSwap() {
     const SLOTS = {
@@ -1831,6 +1831,29 @@ class Component extends DCLogic {
     } else {
       start();
     }
+  }
+
+  // Generic mechanism for FUTURE below-the-fold videos: any autoplaying
+  // video[preload="none"] is fetched and played only when it scrolls near the
+  // viewport. #fanVideo is excluded because it has bespoke fan-swap handling
+  // above; drop any new looping background <video> in with preload="none" and
+  // it inherits this lazy-load behaviour for free (pair it with the build's
+  // optimize pipeline, which right-sizes + re-encodes it automatically).
+  _armLazyVideos() {
+    const vids = Array.from(document.querySelectorAll('video[preload="none"]'))
+      .filter((v) => v.id !== 'fanVideo');
+    if (!vids.length) return;
+    const play = (v) => {
+      v.muted = true; v.playsInline = true;
+      try { v.load(); } catch (e) {}
+      const go = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      if (v.readyState >= 2) go(); else v.addEventListener('loadeddata', go, { once: true });
+    };
+    if (!('IntersectionObserver' in window)) { vids.forEach(play); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { io.unobserve(e.target); play(e.target); } });
+    }, { rootMargin: '300px 0px' });
+    vids.forEach((v) => io.observe(v));
   }
 
   _armCreatorPage() {
