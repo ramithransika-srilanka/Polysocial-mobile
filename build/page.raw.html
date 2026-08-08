@@ -1190,8 +1190,13 @@ a:hover { color: var(--brand-primary-hover); }
         .ctaPill.expanded { width: 316px; gap: 8px; }
 
         .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; }
-        /* Logo is decorative (not a control). */
+        /* Logo: inert while collapsed; becomes the collapse control once expanded. */
         .ctaLogo   { background: #FF6B49; cursor: default; }
+        .ctaPill.expanded .ctaLogo { cursor: pointer; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
+        .ctaPill.expanded .ctaLogo:active { transform: scale(0.9); }
+        @media (hover: hover) and (pointer: fine) {
+          .ctaPill.expanded .ctaLogo:hover { transform: scale(1.08); }
+        }
         /* Interactive circles only: press + hover feedback. */
         .ctaPlus, .ctaMail, .ctaWa { cursor: pointer; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
         .ctaPlus   { background: #1548EB; }
@@ -1243,7 +1248,7 @@ a:hover { color: var(--brand-primary-hover); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .ctaPill, .ctaPlus, .ctaMail, .ctaWa { transition: none; }
+          .ctaPill, .ctaPlus, .ctaMail, .ctaWa, .ctaPill.expanded .ctaLogo { transition: none; }
           .ctaPill .ctaText, .ctaPill .ctaMail, .ctaPill .ctaWa,
           .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
@@ -1255,7 +1260,7 @@ a:hover { color: var(--brand-primary-hover); }
         </h2>
         <div class="cReveal" data-d="1" style="display: flex; justify-content: center;">
           <div id="ctaPill" class="ctaPill">
-            <span class="ctaCircle ctaLogo" aria-hidden="true">
+            <span id="ctaLogo" class="ctaCircle ctaLogo" aria-hidden="true">
               <svg width="26" height="18" viewBox="0 0 269 184" fill="none" aria-hidden="true">
                 <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#FFFFFF"></path>
                 <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#FFFFFF"></path>
@@ -1299,9 +1304,23 @@ a:hover { color: var(--brand-primary-hover); }
                 pill.classList.add('expanded');
               }, 150);
             }
+            function collapse() {
+              var pill = document.getElementById('ctaPill');
+              if (!pill || !pill.classList.contains('expanded')) return;
+              clearTimeout(tuckT);
+              var plus = document.getElementById('ctaPlus');
+              if (plus) { plus.classList.remove('leaving'); plus.setAttribute('aria-expanded', 'false'); }
+              pill.classList.remove('expanded');
+            }
             document.addEventListener('click', function (e) {
               var t = e.target;
-              if (t && t.closest && t.closest('#ctaPlus')) { e.preventDefault(); expand(); }
+              if (!t || !t.closest) return;
+              // Collapsed: the plus expands. Expanded: the logo collapses.
+              if (t.closest('#ctaPlus')) { e.preventDefault(); expand(); return; }
+              if (t.closest('#ctaLogo')) {
+                var pill = document.getElementById('ctaPill');
+                if (pill && pill.classList.contains('expanded')) { e.preventDefault(); collapse(); }
+              }
             });
           })();
         </script>
