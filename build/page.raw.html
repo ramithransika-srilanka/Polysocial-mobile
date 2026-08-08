@@ -1184,22 +1184,24 @@ a:hover { color: var(--brand-primary-hover); }
 
       <!-- ===== Section: Interested? Let's talk (expandable contact pill) ===== -->
       <style>
-        /* Pill container: morphs width on the iOS drawer curve. overflow is only
-           clipped DURING the morph (.morphing) so the idle ping ring can escape. */
-        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #121212; border-radius: 50px; width: 128px; overflow: visible; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
-        .ctaPill.morphing { overflow: hidden; }
+        /* Pill container morphs width on the iOS drawer curve; overflow clipped so
+           the incoming items are revealed as it grows. */
+        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #121212; border-radius: 50px; width: 128px; overflow: hidden; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
         .ctaPill.expanded { width: 316px; gap: 8px; }
 
-        .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
-        .ctaCircle:active { transform: scale(0.9); }
-        .ctaCircle:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
-        @media (hover: hover) and (pointer: fine) {
-          .ctaCircle:hover { transform: scale(1.08); }
-        }
-        .ctaRewind { background: #FF6B49; }
+        .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; }
+        /* Logo is decorative (not a control). */
+        .ctaLogo   { background: #FF6B49; cursor: default; }
+        /* Interactive circles only: press + hover feedback. */
+        .ctaPlus, .ctaMail, .ctaWa { cursor: pointer; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
         .ctaPlus   { background: #1548EB; }
         .ctaMail   { background: #FF8F20; }
         .ctaWa     { background: #24D366; }
+        .ctaPlus:active, .ctaMail:active, .ctaWa:active { transform: scale(0.9); }
+        .ctaPlus:focus-visible, .ctaMail:focus-visible, .ctaWa:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+        @media (hover: hover) and (pointer: fine) {
+          .ctaPlus:hover, .ctaMail:hover, .ctaWa:hover { transform: scale(1.08); }
+        }
         .ctaText { flex: 1 1 auto; min-width: 0; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
 
         .ctaPill .onExpanded { display: none; }
@@ -1227,39 +1229,23 @@ a:hover { color: var(--brand-primary-hover); }
           from { opacity: 1; transform: scale(1) rotate(0deg); }
           to   { opacity: 0; transform: scale(0.4) rotate(90deg); }
         }
-        /* --- Plus springs back in when we return to the collapsed state. --- */
-        .ctaPill:not(.expanded) .ctaPlus { animation: ctaPlusIn 0.36s cubic-bezier(0.34,1.56,0.64,1); }
-        @keyframes ctaPlusIn {
-          from { opacity: 0; transform: scale(0.6) rotate(-90deg); }
-          to   { opacity: 1; transform: scale(1) rotate(0deg); }
-        }
 
-        /* --- Idle "click me" affordance on the plus: a spin-then-hold + a sonar
-           ping ring. Both pause on hover and vanish once expanded. --- */
+        /* --- Idle affordance on the plus: a spin-then-hold that invites the tap.
+           Pauses on hover, stops once expanded. --- */
         .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 4.6s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
         @keyframes ctaPlusSpin {
           0%   { transform: rotate(0deg); }
           11%  { transform: rotate(360deg); }
           100% { transform: rotate(360deg); }
         }
-        .ctaPlus::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #1548EB; pointer-events: none; opacity: 0; animation: ctaPing 2.6s cubic-bezier(0.23,1,0.32,1) infinite; }
-        @keyframes ctaPing {
-          0%   { opacity: 0.55; transform: scale(1); }
-          70%  { opacity: 0;    transform: scale(1.8); }
-          100% { opacity: 0;    transform: scale(1.8); }
-        }
-        .ctaPill.morphing .ctaPlus::after { animation: none; opacity: 0; }
         @media (hover: hover) and (pointer: fine) {
-          .ctaPlus:hover svg,
-          .ctaPlus:hover::after { animation-play-state: paused; }
+          .ctaPlus:hover svg { animation-play-state: paused; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .ctaPill, .ctaCircle { transition: none; }
+          .ctaPill, .ctaPlus, .ctaMail, .ctaWa { transition: none; }
           .ctaPill .ctaText, .ctaPill .ctaMail, .ctaPill .ctaWa,
-          .ctaPlus, .ctaPlus.leaving, .ctaPlus svg,
-          .ctaPill:not(.expanded) .ctaPlus { animation: none !important; }
-          .ctaPlus::after { display: none; }
+          .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
       </style>
       <section id="talkSection" style="position: relative; background: #FFFFFF; padding: 72px 24px 96px; text-align: center;">
@@ -1269,12 +1255,12 @@ a:hover { color: var(--brand-primary-hover); }
         </h2>
         <div class="cReveal" data-d="1" style="display: flex; justify-content: center;">
           <div id="ctaPill" class="ctaPill">
-            <button type="button" id="ctaRewind" class="ctaCircle ctaRewind" aria-label="Collapse">
+            <span class="ctaCircle ctaLogo" aria-hidden="true">
               <svg width="26" height="18" viewBox="0 0 269 184" fill="none" aria-hidden="true">
                 <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#FFFFFF"></path>
                 <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#FFFFFF"></path>
               </svg>
-            </button>
+            </span>
             <button type="button" id="ctaPlus" class="ctaCircle ctaPlus onCollapsed" aria-label="Get in touch" aria-expanded="false" aria-controls="ctaPill">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -1294,39 +1280,29 @@ a:hover { color: var(--brand-primary-hover); }
           </div>
         </div>
         <script>
+          // Delegated on document so it survives the dc-runtime (React) re-render
+          // that replaces the pill nodes after initial parse.
           (function () {
-            var pill = document.getElementById('ctaPill');
-            var plus = document.getElementById('ctaPlus');
-            var rew  = document.getElementById('ctaRewind');
-            if (!pill || !plus || !rew) return;
             var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-            var tuckT = null, morphT = null;
-
+            var tuckT = null;
             function expand() {
-              if (pill.classList.contains('expanded')) return;
-              clearTimeout(tuckT); clearTimeout(morphT);
-              plus.setAttribute('aria-expanded', 'true');
-              pill.classList.add('morphing');
-              if (reduce.matches) { pill.classList.add('expanded'); pill.classList.remove('morphing'); return; }
+              var pill = document.getElementById('ctaPill');
+              if (!pill || pill.classList.contains('expanded')) return;
+              var plus = document.getElementById('ctaPlus');
+              clearTimeout(tuckT);
+              if (plus) plus.setAttribute('aria-expanded', 'true');
+              if (reduce.matches) { pill.classList.add('expanded'); return; }
               // Phase 1: the plus tucks away, then Phase 2: the bar unfolds.
-              plus.classList.add('leaving');
+              if (plus) plus.classList.add('leaving');
               tuckT = setTimeout(function () {
-                plus.classList.remove('leaving');
+                if (plus) plus.classList.remove('leaving');
                 pill.classList.add('expanded');
-                morphT = setTimeout(function () { pill.classList.remove('morphing'); }, 520);
               }, 150);
             }
-            function collapse() {
-              if (!pill.classList.contains('expanded') && !pill.classList.contains('morphing')) return;
-              clearTimeout(tuckT); clearTimeout(morphT);
-              plus.classList.remove('leaving');
-              plus.setAttribute('aria-expanded', 'false');
-              pill.classList.add('morphing');
-              pill.classList.remove('expanded');
-              morphT = setTimeout(function () { pill.classList.remove('morphing'); }, 520);
-            }
-            plus.addEventListener('click', expand);
-            rew.addEventListener('click', collapse);
+            document.addEventListener('click', function (e) {
+              var t = e.target;
+              if (t && t.closest && t.closest('#ctaPlus')) { e.preventDefault(); expand(); }
+            });
           })();
         </script>
       </section>
