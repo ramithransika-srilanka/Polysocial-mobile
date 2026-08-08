@@ -1140,15 +1140,6 @@ a:hover { color: var(--brand-primary-hover); }
         </div>
       </section>
 
-      <!-- ===== Section: Turn your audience into your customers (full-bleed, overlaid heading) ===== -->
-      <section id="audienceSection" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
-        <picture><source type="image/avif" sizes="900px" srcset="assets/img/fbd016fc.480w.a17694cca2.avif 480w, assets/img/fbd016fc.900w.ea04eb9390.avif 900w"><source type="image/webp" sizes="900px" srcset="assets/img/fbd016fc.480w.591b53db06.webp 480w, assets/img/fbd016fc.900w.abc1ba4f02.webp 900w"><img sizes="900px" loading="lazy" decoding="async" height="507" width="900" src="assets/img/fbd016fc.fallback.95a1474ef1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></picture>
-        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.22) 34%, rgba(0,0,0,0) 60%);"></div>
-        <h2 class="cReveal" style="position: absolute; top: 56px; left: 24px; right: 24px; margin: 0; text-align: center; font-weight: 600; font-size: 28px; line-height: 1.18; letter-spacing: -0.02em; color: #FFFFFF;">
-          Turn your audience into your customers
-        </h2>
-      </section>
-
       <!-- ===== Section: We are calling for ===== -->
       <section id="callingSection" style="position: relative; background: #FFFFFF; padding: 80px 24px 88px; text-align: center;">
         <h2 class="cReveal" style="margin: 0 0 40px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
@@ -1182,6 +1173,164 @@ a:hover { color: var(--brand-primary-hover); }
           </div>
           <span class="callLine callItem" style="position: relative; display: block; top: 0;"></span>
         </div>
+      </section>
+
+      <!-- ===== Section: Turn your audience into your customers (full-bleed, overlaid heading) ===== -->
+      <section id="audienceSection" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+        <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.37543ee903.avif 480w, assets/img/fbd016fc.960w.531f3aef1e.avif 960w, assets/img/fbd016fc.1440w.a4abb6231f.avif 1440w, assets/img/fbd016fc.1920w.d36f7cb9bb.avif 1920w, assets/img/fbd016fc.2000w.3caa63021f.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.2e61de8f2c.webp 480w, assets/img/fbd016fc.960w.6084e2e63c.webp 960w, assets/img/fbd016fc.1440w.52bca20642.webp 1440w, assets/img/fbd016fc.1920w.cadbff149e.webp 1920w, assets/img/fbd016fc.2000w.9932fd8922.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="2000" width="2000" src="assets/img/fbd016fc.fallback.3431c27823.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></picture>
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.22) 34%, rgba(0,0,0,0) 60%);"></div>
+        <h2 class="cReveal" style="position: absolute; top: 56px; left: 24px; right: 24px; margin: 0; text-align: center; font-weight: 600; font-size: 28px; line-height: 1.18; letter-spacing: -0.02em; color: #FFFFFF;">
+          Turn your audience into your customers
+        </h2>
+      </section>
+
+      <!-- ===== Section: Interested? Let's talk (expandable contact pill) ===== -->
+      <style>
+        /* Pill container: morphs width on the iOS drawer curve. overflow is only
+           clipped DURING the morph (.morphing) so the idle ping ring can escape. */
+        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #121212; border-radius: 50px; width: 128px; overflow: visible; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
+        .ctaPill.morphing { overflow: hidden; }
+        .ctaPill.expanded { width: 316px; gap: 8px; }
+
+        .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
+        .ctaCircle:active { transform: scale(0.9); }
+        .ctaCircle:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+        @media (hover: hover) and (pointer: fine) {
+          .ctaCircle:hover { transform: scale(1.08); }
+        }
+        .ctaRewind { background: #FF6B49; }
+        .ctaPlus   { background: #1548EB; }
+        .ctaMail   { background: #FF8F20; }
+        .ctaWa     { background: #24D366; }
+        .ctaText { flex: 1 1 auto; min-width: 0; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
+
+        .ctaPill .onExpanded { display: none; }
+        .ctaPill.expanded .onCollapsed { display: none; }
+        .ctaPill.expanded .onExpanded { display: inline-flex; }
+        .ctaPill.expanded .ctaText { display: block; }
+
+        /* --- Expansion: revealed items stagger in (fill: backwards so they stay
+           hidden through their delay, then hand back to hover/base after). --- */
+        .ctaPill.expanded .ctaText,
+        .ctaPill.expanded .ctaMail,
+        .ctaPill.expanded .ctaWa { animation: ctaItemIn 0.4s cubic-bezier(0.23,1,0.32,1) backwards; }
+        .ctaPill.expanded .ctaText { animation-delay: 0.06s; }
+        .ctaPill.expanded .ctaMail { animation-delay: 0.12s; }
+        .ctaPill.expanded .ctaWa   { animation-delay: 0.17s; }
+        @keyframes ctaItemIn {
+          from { opacity: 0; transform: translateX(8px) scale(0.9); }
+          to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        /* --- The plus tucks away before the bar unfolds (JS adds .leaving). --- */
+        .ctaPlus.leaving { animation: ctaPlusOut 0.16s cubic-bezier(0.23,1,0.32,1) forwards; }
+        .ctaPlus.leaving svg { animation: none; }
+        @keyframes ctaPlusOut {
+          from { opacity: 1; transform: scale(1) rotate(0deg); }
+          to   { opacity: 0; transform: scale(0.4) rotate(90deg); }
+        }
+        /* --- Plus springs back in when we return to the collapsed state. --- */
+        .ctaPill:not(.expanded) .ctaPlus { animation: ctaPlusIn 0.36s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes ctaPlusIn {
+          from { opacity: 0; transform: scale(0.6) rotate(-90deg); }
+          to   { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        /* --- Idle "click me" affordance on the plus: a spin-then-hold + a sonar
+           ping ring. Both pause on hover and vanish once expanded. --- */
+        .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 4.6s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
+        @keyframes ctaPlusSpin {
+          0%   { transform: rotate(0deg); }
+          11%  { transform: rotate(360deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .ctaPlus::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #1548EB; pointer-events: none; opacity: 0; animation: ctaPing 2.6s cubic-bezier(0.23,1,0.32,1) infinite; }
+        @keyframes ctaPing {
+          0%   { opacity: 0.55; transform: scale(1); }
+          70%  { opacity: 0;    transform: scale(1.8); }
+          100% { opacity: 0;    transform: scale(1.8); }
+        }
+        .ctaPill.morphing .ctaPlus::after { animation: none; opacity: 0; }
+        @media (hover: hover) and (pointer: fine) {
+          .ctaPlus:hover svg,
+          .ctaPlus:hover::after { animation-play-state: paused; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ctaPill, .ctaCircle { transition: none; }
+          .ctaPill .ctaText, .ctaPill .ctaMail, .ctaPill .ctaWa,
+          .ctaPlus, .ctaPlus.leaving, .ctaPlus svg,
+          .ctaPill:not(.expanded) .ctaPlus { animation: none !important; }
+          .ctaPlus::after { display: none; }
+        }
+      </style>
+      <section id="talkSection" style="position: relative; background: #FFFFFF; padding: 72px 24px 96px; text-align: center;">
+        <h2 class="cReveal" style="margin: 0 0 36px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
+          <span style="display: block; color: #ADADAD;">Interested?</span>
+          <span style="display: block; color: #121212;">Let&rsquo;s talk</span>
+        </h2>
+        <div class="cReveal" data-d="1" style="display: flex; justify-content: center;">
+          <div id="ctaPill" class="ctaPill">
+            <button type="button" id="ctaRewind" class="ctaCircle ctaRewind" aria-label="Collapse">
+              <svg width="26" height="18" viewBox="0 0 269 184" fill="none" aria-hidden="true">
+                <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#FFFFFF"></path>
+                <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#FFFFFF"></path>
+              </svg>
+            </button>
+            <button type="button" id="ctaPlus" class="ctaCircle ctaPlus onCollapsed" aria-label="Get in touch" aria-expanded="false" aria-controls="ctaPill">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+            <span class="ctaText onExpanded">Just drop a message, Machan</span>
+            <a href="mailto:support@polysocial.cc" class="ctaCircle ctaMail onExpanded" aria-label="Email support@polysocial.cc">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6L10.1076 10.6123L10.1097 10.614C10.7878 11.1113 11.1271 11.3601 11.4988 11.4562C11.8272 11.5412 12.1725 11.5412 12.501 11.4562C12.8729 11.36 13.2132 11.1105 13.8926 10.6123C13.8926 10.6123 17.8101 7.60594 20 6M3 15.8002V8.2002C3 7.08009 3 6.51962 3.21799 6.0918C3.40973 5.71547 3.71547 5.40973 4.0918 5.21799C4.51962 5 5.08009 5 6.2002 5H17.8002C18.9203 5 19.4796 5 19.9074 5.21799C20.2837 5.40973 20.5905 5.71547 20.7822 6.0918C21 6.5192 21 7.07899 21 8.19691V15.8036C21 16.9215 21 17.4805 20.7822 17.9079C20.5905 18.2842 20.2837 18.5905 19.9074 18.7822C19.48 19 18.921 19 17.8031 19H6.19691C5.07899 19 4.5192 19 4.0918 18.7822C3.71547 18.5905 3.40973 18.2842 3.21799 17.9079C3 17.4801 3 16.9203 3 15.8002Z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            <a href="https://wa.me/94772540134" target="_blank" rel="noopener" class="ctaCircle ctaWa onExpanded" aria-label="Message us on WhatsApp">
+              <svg width="25" height="25" viewBox="0 0 19 19" fill="none" aria-hidden="true">
+                <path d="M9.5 0C14.7466 1.11785e-05 19 4.25337 19 9.5C19 14.7466 14.7466 19 9.5 19C7.84546 19 6.29033 18.5766 4.93555 17.833L0 19L1.26465 14.2393C0.46024 12.8445 0 11.2259 0 9.5C5.63757e-08 4.25336 4.25337 0 9.5 0ZM9.5 1.70117C5.19308 1.70117 1.70117 5.19307 1.70117 9.5C1.70123 11.1606 2.2207 12.7001 3.10547 13.9648L2.28809 16.751L5.20312 16.0088C6.43522 16.8239 7.91218 17.2979 9.5 17.2979C13.8068 17.2978 17.2987 13.8068 17.2988 9.5C17.2988 5.19308 13.8069 1.70118 9.5 1.70117ZM6.88867 4.81152C7.00505 4.80202 7.1125 4.87003 7.16211 4.97559L8.24609 7.27344C8.29728 7.38214 8.27438 7.51171 8.18945 7.59668L7.38184 8.4043C7.20714 8.57899 7.15603 8.85152 7.27637 9.06738C7.57112 9.59588 7.96765 10.1049 8.42676 10.5732C8.89512 11.0323 9.40411 11.4292 9.93262 11.7236C10.1483 11.8438 10.4198 11.7926 10.5947 11.6182L11.4033 10.8105C11.4882 10.7257 11.6169 10.7026 11.7256 10.7539L14.0244 11.8379C14.1298 11.8875 14.197 11.9943 14.1875 12.1104C14.1627 12.4128 14.0414 13.0192 13.498 13.5625C11.9658 15.0942 9.21599 13.3643 9.09863 13.2939C8.42129 12.9301 7.77732 12.443 7.16699 11.833C6.55692 11.2229 6.06995 10.5787 5.70605 9.90137C5.63876 9.78948 3.90352 7.03496 5.4375 5.50098C5.98054 4.95813 6.5862 4.83639 6.88867 4.81152Z" fill="#FFFFFF"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <script>
+          (function () {
+            var pill = document.getElementById('ctaPill');
+            var plus = document.getElementById('ctaPlus');
+            var rew  = document.getElementById('ctaRewind');
+            if (!pill || !plus || !rew) return;
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            var tuckT = null, morphT = null;
+
+            function expand() {
+              if (pill.classList.contains('expanded')) return;
+              clearTimeout(tuckT); clearTimeout(morphT);
+              plus.setAttribute('aria-expanded', 'true');
+              pill.classList.add('morphing');
+              if (reduce.matches) { pill.classList.add('expanded'); pill.classList.remove('morphing'); return; }
+              // Phase 1: the plus tucks away, then Phase 2: the bar unfolds.
+              plus.classList.add('leaving');
+              tuckT = setTimeout(function () {
+                plus.classList.remove('leaving');
+                pill.classList.add('expanded');
+                morphT = setTimeout(function () { pill.classList.remove('morphing'); }, 520);
+              }, 150);
+            }
+            function collapse() {
+              if (!pill.classList.contains('expanded') && !pill.classList.contains('morphing')) return;
+              clearTimeout(tuckT); clearTimeout(morphT);
+              plus.classList.remove('leaving');
+              plus.setAttribute('aria-expanded', 'false');
+              pill.classList.add('morphing');
+              pill.classList.remove('expanded');
+              morphT = setTimeout(function () { pill.classList.remove('morphing'); }, 520);
+            }
+            plus.addEventListener('click', expand);
+            rew.addEventListener('click', collapse);
+          })();
+        </script>
       </section>
 
 

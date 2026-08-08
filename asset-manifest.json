@@ -214,21 +214,30 @@
   },
   "src-assets/img/fbd016fc.jpg": {
     "type": "raster",
-    "width": 900,
-    "height": 507,
+    "width": 2000,
+    "height": 2000,
     "widths": [
       480,
-      900
+      960,
+      1440,
+      1920,
+      2000
     ],
     "avif": {
-      "480": "assets/img/fbd016fc.480w.a17694cca2.avif",
-      "900": "assets/img/fbd016fc.900w.ea04eb9390.avif"
+      "480": "assets/img/fbd016fc.480w.37543ee903.avif",
+      "960": "assets/img/fbd016fc.960w.531f3aef1e.avif",
+      "1440": "assets/img/fbd016fc.1440w.a4abb6231f.avif",
+      "1920": "assets/img/fbd016fc.1920w.d36f7cb9bb.avif",
+      "2000": "assets/img/fbd016fc.2000w.3caa63021f.avif"
     },
     "webp": {
-      "480": "assets/img/fbd016fc.480w.591b53db06.webp",
-      "900": "assets/img/fbd016fc.900w.abc1ba4f02.webp"
+      "480": "assets/img/fbd016fc.480w.2e61de8f2c.webp",
+      "960": "assets/img/fbd016fc.960w.6084e2e63c.webp",
+      "1440": "assets/img/fbd016fc.1440w.52bca20642.webp",
+      "1920": "assets/img/fbd016fc.1920w.cadbff149e.webp",
+      "2000": "assets/img/fbd016fc.2000w.9932fd8922.webp"
     },
-    "fallback": "assets/img/fbd016fc.fallback.95a1474ef1.jpg",
+    "fallback": "assets/img/fbd016fc.fallback.3431c27823.jpg",
     "fallbackMime": "image/jpeg"
   },
   "src-assets/img/hero-1.png": {
