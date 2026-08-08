@@ -1207,7 +1207,9 @@ a:hover { color: var(--brand-primary-hover); }
         @media (hover: hover) and (pointer: fine) {
           .ctaPlus:hover, .ctaMail:hover, .ctaWa:hover { transform: scale(1.08); }
         }
-        .ctaText { flex: 1 1 auto; min-width: 0; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
+        /* Fixed width (its exact expanded slot) so the width morph never reflows
+           the wrap — otherwise it flashes 3 lines before settling to 2. */
+        .ctaText { flex: 0 0 132px; width: 132px; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
 
         .ctaPill .onExpanded { display: none; }
         .ctaPill.expanded .onCollapsed { display: none; }
@@ -1216,15 +1218,21 @@ a:hover { color: var(--brand-primary-hover); }
 
         /* --- Expansion: revealed items stagger in (fill: backwards so they stay
            hidden through their delay, then hand back to hover/base after). --- */
-        .ctaPill.expanded .ctaText,
         .ctaPill.expanded .ctaMail,
         .ctaPill.expanded .ctaWa { animation: ctaItemIn 0.4s cubic-bezier(0.23,1,0.32,1) backwards; }
-        .ctaPill.expanded .ctaText { animation-delay: 0.06s; }
         .ctaPill.expanded .ctaMail { animation-delay: 0.12s; }
         .ctaPill.expanded .ctaWa   { animation-delay: 0.17s; }
         @keyframes ctaItemIn {
           from { opacity: 0; transform: translateX(8px) scale(0.9); }
           to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        /* Text gets its own fade — with a blur mask (Emil) so the reveal edge and
+           the line-wrap settle stay imperceptible. No translate (it's clip-revealed
+           by the growing pill), so nothing shifts the wrap. */
+        .ctaPill.expanded .ctaText { animation: ctaTextIn 0.42s cubic-bezier(0.23,1,0.32,1) 0.1s backwards; }
+        @keyframes ctaTextIn {
+          from { opacity: 0; filter: blur(3px); }
+          to   { opacity: 1; filter: blur(0); }
         }
 
         /* --- The plus tucks away before the bar unfolds (JS adds .leaving). --- */
