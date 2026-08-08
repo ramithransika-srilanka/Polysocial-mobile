@@ -1019,9 +1019,14 @@ a:hover { color: var(--brand-primary-hover); }
        heading < block < section) holds at every width because all tokens
        scale together with the viewport. Tune the whole page from here. */
     :root {
-      --sp-section: clamp(76px, 19vw, 96px); /* interior top/bottom padding of a section */
-      --sp-block:   clamp(52px, 13vw, 72px); /* distinct block -> distinct block */
-      --sp-heading: clamp(32px,  8vw, 44px); /* heading -> its content */
+      /* One uniform boundary token drives the space between every section, so
+         the page reads as one cohesive stack instead of separated blocks.
+         Breathing room lives INSIDE sections (--sp-heading/-block/-caption),
+         not in big empty bands between them. */
+      --section-gap: clamp(8px, 1.5vw, 12px); /* the tight, uniform inter-section gutter */
+      --sp-section: clamp(40px,  9vw, 52px); /* interior top/bottom padding of a section */
+      --sp-block:   clamp(44px, 11vw, 64px); /* distinct block -> distinct block */
+      --sp-heading: clamp(30px,  7vw, 40px); /* heading -> its content */
       --sp-caption: clamp(18px,  5vw, 26px); /* visual -> its caption */
       --sp-couple:  clamp(6px,   2vw,  9px); /* coupled title <-> body */
     }
@@ -1072,7 +1077,7 @@ a:hover { color: var(--brand-primary-hover); }
     <div id="creatorPage" aria-hidden="true" style="position: fixed; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 393px; max-width: 100%; z-index: 100003; background: #FFFFFF; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity 0.26s ease-out, visibility 0.26s;">
       <div id="creatorPanel" class="noScrollbar" style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto;">
       <!-- Scroll track: tall so the hero stays pinned while the stop-motion frames cycle -->
-      <div id="creatorTrack" style="position: relative; width: 100%; height: 410vh;">
+      <div id="creatorTrack" style="position: relative; width: 100%; height: 175vh;">
         <div id="creatorStage" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #FFFFFF;">
           <!-- Top bar: same as home (logo left -> home, menu right) -->
           <div style="position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; height: 24px; margin: 14px 20px 0 25px;">
@@ -1257,10 +1262,10 @@ a:hover { color: var(--brand-primary-hover); }
 
         /* --- Idle affordance on the plus: a spin-then-hold that invites the tap.
            Pauses on hover, stops once expanded. --- */
-        .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 4.6s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
+        .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 2s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
         @keyframes ctaPlusSpin {
           0%   { transform: rotate(0deg); }
-          11%  { transform: rotate(360deg); }
+          25%  { transform: rotate(360deg); }
           100% { transform: rotate(360deg); }
         }
         @media (hover: hover) and (pointer: fine) {
