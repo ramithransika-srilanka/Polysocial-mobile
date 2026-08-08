@@ -1186,21 +1186,83 @@ a:hover { color: var(--brand-primary-hover); }
 
       <!-- ===== Section: Interested? Let's talk (expandable contact pill) ===== -->
       <style>
-        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #121212; border-radius: 50px; width: 128px; overflow: hidden; transition: width 0.46s cubic-bezier(0.22,1,0.36,1); }
+        /* Pill container: morphs width on the iOS drawer curve. overflow is only
+           clipped DURING the morph (.morphing) so the idle ping ring can escape. */
+        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #121212; border-radius: 50px; width: 128px; overflow: visible; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
+        .ctaPill.morphing { overflow: hidden; }
         .ctaPill.expanded { width: 316px; gap: 8px; }
-        .ctaCircle { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1); }
+
+        .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
         .ctaCircle:active { transform: scale(0.9); }
-        .ctaCircle:focus-visible { outline: 2px solid #1548EB; outline-offset: 2px; }
+        .ctaCircle:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+        @media (hover: hover) and (pointer: fine) {
+          .ctaCircle:hover { transform: scale(1.08); }
+        }
         .ctaRewind { background: #FF6B49; }
         .ctaPlus   { background: #1548EB; }
         .ctaMail   { background: #FF8F20; }
         .ctaWa     { background: #24D366; }
         .ctaText { flex: 1 1 auto; min-width: 0; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: center; }
+
         .ctaPill .onExpanded { display: none; }
         .ctaPill.expanded .onCollapsed { display: none; }
         .ctaPill.expanded .onExpanded { display: inline-flex; }
         .ctaPill.expanded .ctaText { display: block; }
-        @media (prefers-reduced-motion: reduce) { .ctaPill, .ctaCircle { transition: none; } }
+
+        /* --- Expansion: revealed items stagger in (fill: backwards so they stay
+           hidden through their delay, then hand back to hover/base after). --- */
+        .ctaPill.expanded .ctaText,
+        .ctaPill.expanded .ctaMail,
+        .ctaPill.expanded .ctaWa { animation: ctaItemIn 0.4s cubic-bezier(0.23,1,0.32,1) backwards; }
+        .ctaPill.expanded .ctaText { animation-delay: 0.06s; }
+        .ctaPill.expanded .ctaMail { animation-delay: 0.12s; }
+        .ctaPill.expanded .ctaWa   { animation-delay: 0.17s; }
+        @keyframes ctaItemIn {
+          from { opacity: 0; transform: translateX(8px) scale(0.9); }
+          to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        /* --- The plus tucks away before the bar unfolds (JS adds .leaving). --- */
+        .ctaPlus.leaving { animation: ctaPlusOut 0.16s cubic-bezier(0.23,1,0.32,1) forwards; }
+        .ctaPlus.leaving svg { animation: none; }
+        @keyframes ctaPlusOut {
+          from { opacity: 1; transform: scale(1) rotate(0deg); }
+          to   { opacity: 0; transform: scale(0.4) rotate(90deg); }
+        }
+        /* --- Plus springs back in when we return to the collapsed state. --- */
+        .ctaPill:not(.expanded) .ctaPlus { animation: ctaPlusIn 0.36s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes ctaPlusIn {
+          from { opacity: 0; transform: scale(0.6) rotate(-90deg); }
+          to   { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        /* --- Idle "click me" affordance on the plus: a spin-then-hold + a sonar
+           ping ring. Both pause on hover and vanish once expanded. --- */
+        .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 4.6s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
+        @keyframes ctaPlusSpin {
+          0%   { transform: rotate(0deg); }
+          11%  { transform: rotate(360deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .ctaPlus::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #1548EB; pointer-events: none; opacity: 0; animation: ctaPing 2.6s cubic-bezier(0.23,1,0.32,1) infinite; }
+        @keyframes ctaPing {
+          0%   { opacity: 0.55; transform: scale(1); }
+          70%  { opacity: 0;    transform: scale(1.8); }
+          100% { opacity: 0;    transform: scale(1.8); }
+        }
+        .ctaPill.morphing .ctaPlus::after { animation: none; opacity: 0; }
+        @media (hover: hover) and (pointer: fine) {
+          .ctaPlus:hover svg,
+          .ctaPlus:hover::after { animation-play-state: paused; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ctaPill, .ctaCircle { transition: none; }
+          .ctaPill .ctaText, .ctaPill .ctaMail, .ctaPill .ctaWa,
+          .ctaPlus, .ctaPlus.leaving, .ctaPlus svg,
+          .ctaPill:not(.expanded) .ctaPlus { animation: none !important; }
+          .ctaPlus::after { display: none; }
+        }
       </style>
       <section id="talkSection" style="position: relative; background: #FFFFFF; padding: 72px 24px 96px; text-align: center;">
         <h2 class="cReveal" style="margin: 0 0 36px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
@@ -1240,14 +1302,34 @@ a:hover { color: var(--brand-primary-hover); }
             var plus = document.getElementById('ctaPlus');
             var rew  = document.getElementById('ctaRewind');
             if (!pill || !plus || !rew) return;
-            plus.addEventListener('click', function () {
-              pill.classList.add('expanded');
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            var tuckT = null, morphT = null;
+
+            function expand() {
+              if (pill.classList.contains('expanded')) return;
+              clearTimeout(tuckT); clearTimeout(morphT);
               plus.setAttribute('aria-expanded', 'true');
-            });
-            rew.addEventListener('click', function () {
-              pill.classList.remove('expanded');
+              pill.classList.add('morphing');
+              if (reduce.matches) { pill.classList.add('expanded'); pill.classList.remove('morphing'); return; }
+              // Phase 1: the plus tucks away, then Phase 2: the bar unfolds.
+              plus.classList.add('leaving');
+              tuckT = setTimeout(function () {
+                plus.classList.remove('leaving');
+                pill.classList.add('expanded');
+                morphT = setTimeout(function () { pill.classList.remove('morphing'); }, 520);
+              }, 150);
+            }
+            function collapse() {
+              if (!pill.classList.contains('expanded') && !pill.classList.contains('morphing')) return;
+              clearTimeout(tuckT); clearTimeout(morphT);
+              plus.classList.remove('leaving');
               plus.setAttribute('aria-expanded', 'false');
-            });
+              pill.classList.add('morphing');
+              pill.classList.remove('expanded');
+              morphT = setTimeout(function () { pill.classList.remove('morphing'); }, 520);
+            }
+            plus.addEventListener('click', expand);
+            rew.addEventListener('click', collapse);
           })();
         </script>
       </section>
