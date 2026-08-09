@@ -1033,6 +1033,13 @@ a:hover { color: var(--brand-primary-hover); }
       --sp-couple:  clamp(6px,   2vw,  9px); /* coupled title <-> body */
     }
     .callItem { position: relative; padding: 22px 2px; }
+    /* Scroll-linked focus lens: JS sets transform (scale) + opacity per item based
+       on its distance from screen centre. Short, interruptible ease-out transition
+       (Emil) smooths micro-jitter and lets the emphasis "settle" when scrolling
+       stops, tracking the scroll continuously (Apple). transform-origin stays
+       centred so items grow in place. Dimming is opacity on the same #121212 ink —
+       ~0.34 lands exactly on the #ADADAD grey used elsewhere, so no new colours. */
+    .callItem[data-foc] { transform-origin: center center; will-change: transform, opacity; transition: transform 0.34s cubic-bezier(0.23,1,0.32,1), opacity 0.34s cubic-bezier(0.23,1,0.32,1); }
     .callLine { position: absolute; left: 0; width: 100%; height: 1px; background: #E4E4E4; transform: scaleX(0); transform-origin: center; transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
     .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
     .callItem.in .callLine { transform: scaleX(1); }
@@ -1049,6 +1056,7 @@ a:hover { color: var(--brand-primary-hover); }
       .callWord { transform: none; transition: opacity 0.3s ease; opacity: 0; }
       .callItem.in .callWord { opacity: 1; }
       .callLine { transform: scaleX(1); transition: none; }
+      .callItem[data-foc] { transform: none !important; opacity: 1 !important; transition: none; }
     }
     .noScrollbar::-webkit-scrollbar { display: none; width: 0; height: 0; }
     [data-anim] { animation-play-state: paused; }
@@ -1911,7 +1919,7 @@ a:hover { color: var(--brand-primary-hover); }
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); }
+  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._armCallFocus(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); }
 
   _armFanSwap() {
     const SLOTS = {
@@ -2041,7 +2049,7 @@ class Component extends DCLogic {
       page.classList.toggle('open', open);
       page.setAttribute('aria-hidden', open ? 'false' : 'true');
       document.body.style.overflow = open ? 'hidden' : '';
-      if (open) { const p = document.getElementById('creatorPanel'); if (p) p.scrollTop = 0; this._maxFrameSeen = 0; this._setFrame(0, true); }
+      if (open) { const p = document.getElementById('creatorPanel'); if (p) p.scrollTop = 0; this._maxFrameSeen = 0; this._setFrame(0, true); if (this._callFocusApply) requestAnimationFrame(this._callFocusApply); }
     };
     // Any "Start earning" CTA or the "For creators" menu link routes here.
     document.querySelectorAll('a[href="#start"], a[href="#creators"]').forEach(a => {
@@ -2096,6 +2104,54 @@ class Component extends DCLogic {
     } else {
       reveals.forEach((el) => el.classList.add('in'));
     }
+  }
+
+  // "We are calling for" focus lens. As the panel scrolls, the archetype nearest
+  // the screen's vertical centre reads as the hero — a touch larger and at full
+  // #121212 ink — while the rest recede, scaling down and dimming toward the
+  // #ADADAD grey already in the palette (opacity ~0.34 of #121212 == #ADADAD on
+  // white, so no new colour is introduced). The falloff is a smoothstep, so the
+  // centre item stands clearly apart from its neighbours without a hard edge.
+  // Emil: drive transform+opacity only (compositor-friendly), directly per node
+  // (no inheritable CSS var), throttled through rAF. Apple: continuous 1:1-ish
+  // feedback across the whole gesture, with a short interruptible transition that
+  // lets the emphasis settle when the scroll stops.
+  _armCallFocus() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const panel = document.getElementById('creatorPanel');
+    const section = document.getElementById('callingSection');
+    if (!panel || !section) return;
+    const items = Array.from(section.querySelectorAll('.callItem')).filter((el) => el.querySelector('.callWord'));
+    if (!items.length) return;
+    items.forEach((el) => el.setAttribute('data-foc', ''));
+
+    const CENTER_SCALE = 1.06, FAR_SCALE = 0.945;   // subtle zoom, centred on itself
+    const CENTER_OP = 1, FAR_OP = 0.34;             // 0.34 * #121212 on white ≈ #ADADAD
+
+    let ticking = false;
+    const apply = () => {
+      ticking = false;
+      const vpCenter = window.innerHeight / 2;
+      const range = (items[0].offsetHeight || 72) * 2.15;   // ~2 rows of falloff each side
+      for (let i = 0; i < items.length; i++) {
+        const it = items[i];
+        const r = it.getBoundingClientRect();
+        const c = r.top + r.height / 2;
+        let t = Math.abs(c - vpCenter) / range;
+        if (t > 1) t = 1; else if (t < 0) t = 0;
+        const emph = 1 - (t * t * (3 - 2 * t));      // smoothstep: 1 at centre -> 0 far
+        const scale = FAR_SCALE + (CENTER_SCALE - FAR_SCALE) * emph;
+        const op = FAR_OP + (CENTER_OP - FAR_OP) * emph;
+        it.style.transform = 'scale(' + scale.toFixed(4) + ')';
+        it.style.opacity = op.toFixed(3);
+      }
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } };
+    panel.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    this._callFocusApply = apply;   // creatorPage open hook re-runs this once visible
+    apply();
   }
 
   _setFrame(idx, silent) {
