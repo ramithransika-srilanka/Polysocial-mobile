@@ -242,226 +242,154 @@
   },
   "src-assets/img/hero-1.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-1.480w.77f112b3b6.avif",
-      "960": "assets/img/hero-1.960w.477c796733.avif",
-      "1440": "assets/img/hero-1.1440w.2d77e7ce0b.avif",
-      "1920": "assets/img/hero-1.1920w.37bf343134.avif",
-      "2276": "assets/img/hero-1.2276w.511061586b.avif"
+      "480": "assets/img/hero-1.480w.9832c84e1d.avif",
+      "720": "assets/img/hero-1.720w.b4bb3ebdfc.avif"
     },
     "webp": {
-      "480": "assets/img/hero-1.480w.1030057e42.webp",
-      "960": "assets/img/hero-1.960w.af677af6b8.webp",
-      "1440": "assets/img/hero-1.1440w.21b4530288.webp",
-      "1920": "assets/img/hero-1.1920w.1975ef3847.webp",
-      "2276": "assets/img/hero-1.2276w.7c522b6bf8.webp"
+      "480": "assets/img/hero-1.480w.f88f05f5df.webp",
+      "720": "assets/img/hero-1.720w.21c013e63e.webp"
     },
-    "fallback": "assets/img/hero-1.fallback.466f29af49.png",
+    "fallback": "assets/img/hero-1.fallback.b4055db729.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-2.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-2.480w.6e296497ea.avif",
-      "960": "assets/img/hero-2.960w.47d2fba2b8.avif",
-      "1440": "assets/img/hero-2.1440w.cced022cef.avif",
-      "1920": "assets/img/hero-2.1920w.164bcd0272.avif",
-      "2276": "assets/img/hero-2.2276w.0f35957df1.avif"
+      "480": "assets/img/hero-2.480w.d325937a31.avif",
+      "720": "assets/img/hero-2.720w.2a7cfe8981.avif"
     },
     "webp": {
-      "480": "assets/img/hero-2.480w.688b3f1a59.webp",
-      "960": "assets/img/hero-2.960w.144d100ee9.webp",
-      "1440": "assets/img/hero-2.1440w.c2a52a349c.webp",
-      "1920": "assets/img/hero-2.1920w.a0fddc64c4.webp",
-      "2276": "assets/img/hero-2.2276w.007c281ec5.webp"
+      "480": "assets/img/hero-2.480w.bc779777ff.webp",
+      "720": "assets/img/hero-2.720w.590a1d1f62.webp"
     },
-    "fallback": "assets/img/hero-2.fallback.5890726d45.png",
+    "fallback": "assets/img/hero-2.fallback.3687fb7ad9.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-3.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-3.480w.d87620dc9e.avif",
-      "960": "assets/img/hero-3.960w.b63889bbe0.avif",
-      "1440": "assets/img/hero-3.1440w.fdf148e3cd.avif",
-      "1920": "assets/img/hero-3.1920w.a4d06a8201.avif",
-      "2276": "assets/img/hero-3.2276w.1508f0f331.avif"
+      "480": "assets/img/hero-3.480w.a1da7084f2.avif",
+      "720": "assets/img/hero-3.720w.6914551259.avif"
     },
     "webp": {
-      "480": "assets/img/hero-3.480w.7f3be63ca0.webp",
-      "960": "assets/img/hero-3.960w.7545ef1b34.webp",
-      "1440": "assets/img/hero-3.1440w.dc6230bcbe.webp",
-      "1920": "assets/img/hero-3.1920w.175209f65d.webp",
-      "2276": "assets/img/hero-3.2276w.40cac5ab01.webp"
+      "480": "assets/img/hero-3.480w.63ab633e45.webp",
+      "720": "assets/img/hero-3.720w.d8602782f7.webp"
     },
-    "fallback": "assets/img/hero-3.fallback.3b0fd09dd1.png",
+    "fallback": "assets/img/hero-3.fallback.e61b96f6d6.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-4.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-4.480w.241b0dcc3a.avif",
-      "960": "assets/img/hero-4.960w.6837a02bb8.avif",
-      "1440": "assets/img/hero-4.1440w.dd95200c03.avif",
-      "1920": "assets/img/hero-4.1920w.9c3d190006.avif",
-      "2276": "assets/img/hero-4.2276w.b787348c65.avif"
+      "480": "assets/img/hero-4.480w.e624950f78.avif",
+      "720": "assets/img/hero-4.720w.10acf414c7.avif"
     },
     "webp": {
-      "480": "assets/img/hero-4.480w.d535cc2d7a.webp",
-      "960": "assets/img/hero-4.960w.68b22e64d7.webp",
-      "1440": "assets/img/hero-4.1440w.f6a8414fad.webp",
-      "1920": "assets/img/hero-4.1920w.264f6db838.webp",
-      "2276": "assets/img/hero-4.2276w.e7a530fb71.webp"
+      "480": "assets/img/hero-4.480w.073b12e9d6.webp",
+      "720": "assets/img/hero-4.720w.c39f1a96fc.webp"
     },
-    "fallback": "assets/img/hero-4.fallback.03297da52b.png",
+    "fallback": "assets/img/hero-4.fallback.440ab3cb58.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-5.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-5.480w.ff91889b6c.avif",
-      "960": "assets/img/hero-5.960w.cec97bbb81.avif",
-      "1440": "assets/img/hero-5.1440w.6f3443234e.avif",
-      "1920": "assets/img/hero-5.1920w.1b8d662e98.avif",
-      "2276": "assets/img/hero-5.2276w.ed4b234bbc.avif"
+      "480": "assets/img/hero-5.480w.7345c85be3.avif",
+      "720": "assets/img/hero-5.720w.c4fbe69ff7.avif"
     },
     "webp": {
-      "480": "assets/img/hero-5.480w.c111720d88.webp",
-      "960": "assets/img/hero-5.960w.22b16f7d6a.webp",
-      "1440": "assets/img/hero-5.1440w.841f7ed581.webp",
-      "1920": "assets/img/hero-5.1920w.4104585aa2.webp",
-      "2276": "assets/img/hero-5.2276w.07ace49611.webp"
+      "480": "assets/img/hero-5.480w.eb2058c6d3.webp",
+      "720": "assets/img/hero-5.720w.97020fb6fd.webp"
     },
-    "fallback": "assets/img/hero-5.fallback.a850301e13.png",
+    "fallback": "assets/img/hero-5.fallback.9c36271cbd.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-6.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-6.480w.31206ff2e2.avif",
-      "960": "assets/img/hero-6.960w.c49d210586.avif",
-      "1440": "assets/img/hero-6.1440w.365fe49df3.avif",
-      "1920": "assets/img/hero-6.1920w.9973fffdcb.avif",
-      "2276": "assets/img/hero-6.2276w.181001a33d.avif"
+      "480": "assets/img/hero-6.480w.ae95bea0de.avif",
+      "720": "assets/img/hero-6.720w.f9a92f7cef.avif"
     },
     "webp": {
-      "480": "assets/img/hero-6.480w.b671d4227e.webp",
-      "960": "assets/img/hero-6.960w.eec87d49af.webp",
-      "1440": "assets/img/hero-6.1440w.bec4dc39fb.webp",
-      "1920": "assets/img/hero-6.1920w.eb8d1f046d.webp",
-      "2276": "assets/img/hero-6.2276w.f467e44557.webp"
+      "480": "assets/img/hero-6.480w.32159bc1d1.webp",
+      "720": "assets/img/hero-6.720w.b350e043f7.webp"
     },
-    "fallback": "assets/img/hero-6.fallback.2ecc8bcebc.png",
+    "fallback": "assets/img/hero-6.fallback.d89b4cb003.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-7.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-7.480w.f4485e12c7.avif",
-      "960": "assets/img/hero-7.960w.6e1f93b241.avif",
-      "1440": "assets/img/hero-7.1440w.bb26ed299f.avif",
-      "1920": "assets/img/hero-7.1920w.291ada226a.avif",
-      "2276": "assets/img/hero-7.2276w.a3ea2d2d4b.avif"
+      "480": "assets/img/hero-7.480w.ba6c333e8b.avif",
+      "720": "assets/img/hero-7.720w.50fded47d8.avif"
     },
     "webp": {
-      "480": "assets/img/hero-7.480w.2892a48aef.webp",
-      "960": "assets/img/hero-7.960w.692c4afdb8.webp",
-      "1440": "assets/img/hero-7.1440w.de6745145c.webp",
-      "1920": "assets/img/hero-7.1920w.a99860eb15.webp",
-      "2276": "assets/img/hero-7.2276w.428b73f480.webp"
+      "480": "assets/img/hero-7.480w.817c92214a.webp",
+      "720": "assets/img/hero-7.720w.63a85df551.webp"
     },
-    "fallback": "assets/img/hero-7.fallback.6e0300bbec.png",
+    "fallback": "assets/img/hero-7.fallback.d8eef589f9.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/hero-8.png": {
     "type": "raster",
-    "width": 2276,
+    "width": 720,
     "height": 1280,
     "widths": [
       480,
-      960,
-      1440,
-      1920,
-      2276
+      720
     ],
     "avif": {
-      "480": "assets/img/hero-8.480w.4656982fe4.avif",
-      "960": "assets/img/hero-8.960w.d41c5971b6.avif",
-      "1440": "assets/img/hero-8.1440w.36d81a4348.avif",
-      "1920": "assets/img/hero-8.1920w.166bf15429.avif",
-      "2276": "assets/img/hero-8.2276w.0919bab55c.avif"
+      "480": "assets/img/hero-8.480w.f72d30d9ca.avif",
+      "720": "assets/img/hero-8.720w.9975bdc657.avif"
     },
     "webp": {
-      "480": "assets/img/hero-8.480w.30c0f4ffe9.webp",
-      "960": "assets/img/hero-8.960w.5e63f85d15.webp",
-      "1440": "assets/img/hero-8.1440w.3c44405df9.webp",
-      "1920": "assets/img/hero-8.1920w.9fd0c01022.webp",
-      "2276": "assets/img/hero-8.2276w.d9be0260df.webp"
+      "480": "assets/img/hero-8.480w.d59bdbda92.webp",
+      "720": "assets/img/hero-8.720w.8507087b46.webp"
     },
-    "fallback": "assets/img/hero-8.fallback.427ced85e7.png",
+    "fallback": "assets/img/hero-8.fallback.f03f013a6f.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/uber.png": {
