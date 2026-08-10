@@ -1239,9 +1239,9 @@ a:hover { color: var(--brand-primary-hover); }
         }
       </style>
       <section id="audienceSection" style="position: relative; width: 100%; height: 820px; overflow: hidden; background: #1b1b1d;">
-        <!-- Single full-bleed photo — very light 2px blur only. The card window
-             reveals this same layer in place, so inside and outside are one image. -->
-        <img src="src-assets/img/fbd016fc.jpg" alt="A content creator recording a podcast" style="position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); object-fit: cover; object-position: 50% 42%; filter: blur(2px); display: block;">
+        <!-- Single full-bleed photo — no blur. The card window reveals this same
+             layer in place, so inside and outside are one continuous image. -->
+        <img src="src-assets/img/fbd016fc.jpg" alt="A content creator recording a podcast" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; display: block;">
         <!-- Legibility scrim: darker at the very top/bottom for the white text,
              near-clear across the middle so the card window stays crisp. -->
         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.14) 24%, rgba(0,0,0,0.10) 60%, rgba(0,0,0,0.52) 100%);"></div>
