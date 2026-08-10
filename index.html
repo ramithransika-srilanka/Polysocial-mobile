@@ -1205,65 +1205,94 @@ a:hover { color: var(--brand-primary-hover); }
       </section>
 
       <!-- ===== Section: Turn your audience into your customers =====
-           Fixed 393×820 mobile canvas (Figma root frame). A blurred, darkened
-           full-bleed photo sits behind a sharp Instagram-style post card
-           ("Frame 184"). A vertical auto-layout container (top 58, 40px gaps)
-           stacks the heading, the card, and the caption. ================= -->
+           Fixed 393×820 mobile canvas (Figma root frame). A single full-bleed
+           photo runs edge to edge with a very light blur; the Instagram card is
+           a transparent OVERLAY on top of it — its header/footer are white, its
+           image area is a see-through window (2px white side strokes) so the same
+           photo shows through in the same position. A vertical auto-layout
+           container (top 58, 40px gaps) stacks heading, card, caption. ======= -->
+      <style>
+        /* Audience entrance — Emil: transform + opacity + a blur mask, strong
+           ease-out, short stagger, interruptible transitions, reduced-motion safe.
+           Driven by the existing .cReveal IntersectionObserver (adds .in). */
+        #audienceSection { --eo: cubic-bezier(0.23, 1, 0.32, 1); }
+        #audienceSection .audHead { transform: translateY(16px); filter: blur(5px); transition: opacity 0.6s var(--eo) 0.02s, transform 0.6s var(--eo) 0.02s, filter 0.6s var(--eo) 0.02s; }
+        #audienceSection .audHead.in { transform: translateY(0); filter: blur(0); }
+        #audienceSection .audCap { transform: translateY(14px); filter: blur(5px); transition: opacity 0.6s var(--eo) 0.16s, transform 0.6s var(--eo) 0.16s, filter 0.6s var(--eo) 0.16s; }
+        #audienceSection .audCap.in { transform: translateY(0); filter: blur(0); }
+        /* Card lifts and unblurs as a single unit (never from scale 0). */
+        #audienceSection .audCard { transform: translateY(26px) scale(0.965); filter: blur(6px); transition: opacity 0.6s var(--eo) 0.08s, transform 0.6s var(--eo) 0.08s, filter 0.6s var(--eo) 0.08s; }
+        #audienceSection .audCard.in { transform: translateY(0) scale(1); filter: blur(0); }
+        /* Avatar + menu fade in with the header. */
+        #audienceSection .audChrome { opacity: 0; filter: blur(2px); transition: opacity 0.5s var(--eo) 0.14s, filter 0.5s var(--eo) 0.14s; }
+        #audienceSection .audCard.in .audChrome { opacity: 1; filter: blur(0); }
+        /* Action icons cascade in once the card has settled. */
+        #audienceSection .audIcon { opacity: 0; transform: translateY(8px); filter: blur(3px); transition: opacity 0.42s var(--eo), transform 0.42s var(--eo), filter 0.42s var(--eo); }
+        #audienceSection .audCard.in .audIcon { opacity: 1; transform: translateY(0); filter: blur(0); }
+        #audienceSection .audCard.in .actIcons .audIcon:nth-child(1) { transition-delay: 0.22s; }
+        #audienceSection .audCard.in .actIcons .audIcon:nth-child(2) { transition-delay: 0.27s; }
+        #audienceSection .audCard.in .actIcons .audIcon:nth-child(3) { transition-delay: 0.32s; }
+        #audienceSection .audCard.in .audBookmark { transition-delay: 0.37s; }
+        @media (prefers-reduced-motion: reduce) {
+          #audienceSection .audHead, #audienceSection .audCap, #audienceSection .audCard,
+          #audienceSection .audChrome, #audienceSection .audIcon {
+            transform: none !important; filter: none !important;
+            transition: opacity 0.3s ease !important; }
+        }
+      </style>
       <section id="audienceSection" style="position: relative; width: 100%; height: 820px; overflow: hidden; background: #1b1b1d;">
-        <!-- Background image: the same photo, thrown out of focus + darkened so
-             the card reads as sharp against it. Inset/scaled past the edges so
-             the blur never reveals a soft border. -->
-        <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -48px; width: calc(100% + 96px); height: calc(100% + 96px); object-fit: cover; object-position: 50% 42%; filter: blur(24px) brightness(0.7) saturate(1.05); transform: scale(1.08); display: block;"></picture>
-        <div style="position: absolute; inset: 0; background: rgba(12,12,14,0.30);"></div>
+        <!-- Single full-bleed photo — very light 2px blur only. The card window
+             reveals this same layer in place, so inside and outside are one image. -->
+        <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="A content creator recording a podcast" style="position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); object-fit: cover; object-position: 50% 42%; filter: blur(2px); display: block;"></picture>
+        <!-- Legibility scrim: darker at the very top/bottom for the white text,
+             near-clear across the middle so the card window stays crisp. -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.14) 24%, rgba(0,0,0,0.10) 60%, rgba(0,0,0,0.52) 100%);"></div>
 
         <!-- Main content container — 362 wide, 40px item spacing, 58px from top. -->
         <div style="position: absolute; top: 58px; left: 50%; transform: translateX(-50%); width: 362px; max-width: calc(100% - 30px); display: flex; flex-direction: column; align-items: center; gap: 40px;">
 
-          <!-- Title (Inter SemiBold 28, white) -->
-          <h2 class="cReveal" style="margin: 0; text-align: center; font-weight: 600; font-size: 28px; line-height: 1.2; letter-spacing: 0; color: #FFFFFF;">
-            <span style="display: block;">Turn your audience</span>
-            <span style="display: block;">into your customers</span>
+          <!-- Title (Inter SemiBold 34, white) — matches the sibling section headings -->
+          <h2 class="cReveal audHead" style="margin: 0; text-align: center; font-weight: 600; font-size: 34px; line-height: 1.12; letter-spacing: -0.02em; color: #FFFFFF;">
+            <span style="display: block; white-space: nowrap;">Turn your audience</span>
+            <span style="display: block; white-space: nowrap;">into your customers</span>
           </h2>
 
-          <!-- Card container — Frame 184 (362×473, radius 20, clips, drop shadow) -->
-          <article class="cReveal" data-d="1" style="width: 100%; height: 473px; background: #FFFFFF; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 2px 4px 4px rgba(0,0,0,0.25);">
+          <!-- Card — transparent Instagram overlay (362×473, radius 20, drop shadow) -->
+          <article class="cReveal audCard" data-d="1" style="width: 100%; height: 473px; background: transparent; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 2px 4px 4px rgba(0,0,0,0.25);">
 
             <!-- Card header bar — 48px, white, space-between -->
             <div style="flex: none; height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #FFFFFF;">
               <!-- Avatar — 32×32, fully circular -->
-              <span style="position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; display: block;">
+              <span class="audChrome" style="position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; display: block;">
                 <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block;"></picture>
               </span>
               <!-- Three-dot menu — 3× 3px ellipses (#161616), 3px gap -->
-              <span style="display: inline-flex; align-items: center; gap: 3px;">
+              <span class="audChrome" style="display: inline-flex; align-items: center; gap: 3px;">
                 <span style="width: 3px; height: 3px; border-radius: 50%; background: #161616; display: block;"></span>
                 <span style="width: 3px; height: 3px; border-radius: 50%; background: #161616; display: block;"></span>
                 <span style="width: 3px; height: 3px; border-radius: 50%; background: #161616; display: block;"></span>
               </span>
             </div>
 
-            <!-- Image area — 385px, 10px padding, 2px inner white stroke -->
-            <div style="flex: none; height: 385px; padding: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #FFFFFF;">
-              <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
-                <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="A content creator recording a podcast" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.22); transform-origin: 50% 34%; display: block;"></picture>
-              </div>
-            </div>
+            <!-- Image area — 385px window: transparent (photo shows through from
+                 the background), 2px inner white stroke on all sides -->
+            <div style="flex: none; height: 385px; background: transparent; border: 2px solid #FFFFFF; box-sizing: border-box;"></div>
 
             <!-- Interaction bar — 40px, white, space-between -->
             <div style="flex: none; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #FFFFFF;">
               <!-- Left icons: heart (outline) / comment / share — 24px, 12px gap -->
-              <span style="display: inline-flex; align-items: center; gap: 12px;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7.69431C10 2.99988 3 3.49988 3 9.49991C3 15.4999 12 20.5001 12 20.5001C12 20.5001 21 15.4999 21 9.49991C21 3.49988 14 2.99988 12 7.69431Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.02068 11.372C2.14094 9.4263 2.82796 7.55829 3.99703 5.99829C5.16611 4.43829 6.76615 3.2545 8.59988 2.59287C10.4336 1.93123 12.4209 1.82067 14.3167 2.27481C16.2125 2.72896 17.934 3.72795 19.2689 5.14864C20.6038 6.56933 21.4938 8.3496 21.8291 10.27C22.1645 12.1904 21.9305 14.1669 21.1561 15.9559C20.3817 17.745 19.1007 19.2683 17.471 20.3381C15.8413 21.4079 13.9342 21.9774 11.9847 21.9764H6.17826C5.07594 21.9753 4.01908 21.5369 3.23962 20.7574C2.46016 19.978 2.02178 18.9211 2.02068 17.8188V11.372ZM3.68371 17.8188C3.68371 18.4804 3.94653 19.1149 4.41435 19.5827C4.88217 20.0505 5.51667 20.3133 6.17826 20.3133H11.9847C13.1581 20.3128 14.3181 20.065 15.3892 19.586C16.4603 19.107 17.4185 18.4077 18.2012 17.5336C18.9876 16.6599 19.5782 15.6281 19.9333 14.5075C20.2884 13.3869 20.3998 12.2033 20.26 11.0361C20.0393 9.19507 19.2121 7.47985 17.9089 6.16085C16.6057 4.84184 14.9006 3.99407 13.0624 3.75118C12.7038 3.70623 12.3428 3.68346 11.9814 3.68299C10.0436 3.67771 8.16575 4.35478 6.67718 5.59548C5.8078 6.31802 5.09421 7.20958 4.57965 8.21611C4.06509 9.22265 3.76029 10.3232 3.68371 11.451V17.8188Z" fill="#000000"></path></svg>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><g clip-path="url(#audienceShareClip)"><path d="M21.2658 2.73499C20.967 2.4326 20.5953 2.21237 20.1866 2.09559C19.7778 1.97881 19.3459 1.96942 18.9325 2.06832L5.59913 4.87666C4.83128 4.98196 4.10808 5.29956 3.51097 5.79367C2.91386 6.28778 2.46656 6.93879 2.21945 7.67338C1.97233 8.40797 1.93522 9.19696 2.11228 9.9515C2.28934 10.706 2.67355 11.3962 3.22163 11.9442L4.6533 13.375C4.73079 13.4525 4.79224 13.5444 4.83414 13.6457C4.87603 13.7469 4.89755 13.8554 4.89747 13.965V16.605C4.89931 16.9762 4.98476 17.3422 5.14747 17.6758L5.1408 17.6817L5.16247 17.7033C5.40665 18.1943 5.80545 18.5913 6.29747 18.8333L6.31913 18.855L6.32497 18.8483C6.6586 19.011 7.02461 19.0965 7.3958 19.0983H10.0358C10.2567 19.0981 10.4686 19.1857 10.625 19.3417L12.0558 20.7725C12.4396 21.1605 12.8963 21.4687 13.3998 21.6794C13.9032 21.8901 14.4434 21.999 14.9891 22C15.4439 21.9994 15.8956 21.9251 16.3266 21.78C17.0545 21.541 17.7011 21.1033 18.1935 20.5164C18.6859 19.9295 19.0045 19.2167 19.1133 18.4583L21.9258 5.09582C22.0298 4.67886 22.0237 4.24201 21.908 3.82813C21.7923 3.41425 21.571 3.03755 21.2658 2.73499V2.73499ZM5.8333 12.1983L4.4008 10.7675C4.06723 10.442 3.83344 10.028 3.72687 9.57429C3.6203 9.12055 3.64537 8.64582 3.79913 8.20582C3.94821 7.75443 4.22381 7.35535 4.59313 7.05604C4.96246 6.75674 5.40998 6.56981 5.88247 6.51749L19.0833 3.73832L6.56247 16.2608V13.965C6.56373 13.6369 6.49994 13.3119 6.37478 13.0086C6.24962 12.7054 6.06558 12.43 5.8333 12.1983V12.1983ZM17.4758 18.1733C17.4118 18.6336 17.2208 19.0669 16.9242 19.4247C16.6276 19.7824 16.2372 20.0504 15.7967 20.1986C15.3563 20.3468 14.8833 20.3693 14.4307 20.2635C13.9782 20.1578 13.5641 19.928 13.235 19.6L11.8016 18.1667C11.5703 17.934 11.2951 17.7496 10.992 17.624C10.6889 17.4984 10.3639 17.4342 10.0358 17.435H7.73997L20.2625 4.91666L17.4758 18.1733Z" fill="#000000"></path></g><defs><clipPath id="audienceShareClip"><rect width="20" height="20" fill="white" transform="translate(2 2)"></rect></clipPath></defs></svg>
+              <span class="actIcons" style="display: inline-flex; align-items: center; gap: 12px;">
+                <svg class="audIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7.69431C10 2.99988 3 3.49988 3 9.49991C3 15.4999 12 20.5001 12 20.5001C12 20.5001 21 15.4999 21 9.49991C21 3.49988 14 2.99988 12 7.69431Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <svg class="audIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.02068 11.372C2.14094 9.4263 2.82796 7.55829 3.99703 5.99829C5.16611 4.43829 6.76615 3.2545 8.59988 2.59287C10.4336 1.93123 12.4209 1.82067 14.3167 2.27481C16.2125 2.72896 17.934 3.72795 19.2689 5.14864C20.6038 6.56933 21.4938 8.3496 21.8291 10.27C22.1645 12.1904 21.9305 14.1669 21.1561 15.9559C20.3817 17.745 19.1007 19.2683 17.471 20.3381C15.8413 21.4079 13.9342 21.9774 11.9847 21.9764H6.17826C5.07594 21.9753 4.01908 21.5369 3.23962 20.7574C2.46016 19.978 2.02178 18.9211 2.02068 17.8188V11.372ZM3.68371 17.8188C3.68371 18.4804 3.94653 19.1149 4.41435 19.5827C4.88217 20.0505 5.51667 20.3133 6.17826 20.3133H11.9847C13.1581 20.3128 14.3181 20.065 15.3892 19.586C16.4603 19.107 17.4185 18.4077 18.2012 17.5336C18.9876 16.6599 19.5782 15.6281 19.9333 14.5075C20.2884 13.3869 20.3998 12.2033 20.26 11.0361C20.0393 9.19507 19.2121 7.47985 17.9089 6.16085C16.6057 4.84184 14.9006 3.99407 13.0624 3.75118C12.7038 3.70623 12.3428 3.68346 11.9814 3.68299C10.0436 3.67771 8.16575 4.35478 6.67718 5.59548C5.8078 6.31802 5.09421 7.20958 4.57965 8.21611C4.06509 9.22265 3.76029 10.3232 3.68371 11.451V17.8188Z" fill="#000000"></path></svg>
+                <svg class="audIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><g clip-path="url(#audienceShareClip)"><path d="M21.2658 2.73499C20.967 2.4326 20.5953 2.21237 20.1866 2.09559C19.7778 1.97881 19.3459 1.96942 18.9325 2.06832L5.59913 4.87666C4.83128 4.98196 4.10808 5.29956 3.51097 5.79367C2.91386 6.28778 2.46656 6.93879 2.21945 7.67338C1.97233 8.40797 1.93522 9.19696 2.11228 9.9515C2.28934 10.706 2.67355 11.3962 3.22163 11.9442L4.6533 13.375C4.73079 13.4525 4.79224 13.5444 4.83414 13.6457C4.87603 13.7469 4.89755 13.8554 4.89747 13.965V16.605C4.89931 16.9762 4.98476 17.3422 5.14747 17.6758L5.1408 17.6817L5.16247 17.7033C5.40665 18.1943 5.80545 18.5913 6.29747 18.8333L6.31913 18.855L6.32497 18.8483C6.6586 19.011 7.02461 19.0965 7.3958 19.0983H10.0358C10.2567 19.0981 10.4686 19.1857 10.625 19.3417L12.0558 20.7725C12.4396 21.1605 12.8963 21.4687 13.3998 21.6794C13.9032 21.8901 14.4434 21.999 14.9891 22C15.4439 21.9994 15.8956 21.9251 16.3266 21.78C17.0545 21.541 17.7011 21.1033 18.1935 20.5164C18.6859 19.9295 19.0045 19.2167 19.1133 18.4583L21.9258 5.09582C22.0298 4.67886 22.0237 4.24201 21.908 3.82813C21.7923 3.41425 21.571 3.03755 21.2658 2.73499V2.73499ZM5.8333 12.1983L4.4008 10.7675C4.06723 10.442 3.83344 10.028 3.72687 9.57429C3.6203 9.12055 3.64537 8.64582 3.79913 8.20582C3.94821 7.75443 4.22381 7.35535 4.59313 7.05604C4.96246 6.75674 5.40998 6.56981 5.88247 6.51749L19.0833 3.73832L6.56247 16.2608V13.965C6.56373 13.6369 6.49994 13.3119 6.37478 13.0086C6.24962 12.7054 6.06558 12.43 5.8333 12.1983V12.1983ZM17.4758 18.1733C17.4118 18.6336 17.2208 19.0669 16.9242 19.4247C16.6276 19.7824 16.2372 20.0504 15.7967 20.1986C15.3563 20.3468 14.8833 20.3693 14.4307 20.2635C13.9782 20.1578 13.5641 19.928 13.235 19.6L11.8016 18.1667C11.5703 17.934 11.2951 17.7496 10.992 17.624C10.6889 17.4984 10.3639 17.4342 10.0358 17.435H7.73997L20.2625 4.91666L17.4758 18.1733Z" fill="#000000"></path></g><defs><clipPath id="audienceShareClip"><rect width="20" height="20" fill="white" transform="translate(2 2)"></rect></clipPath></defs></svg>
               </span>
               <!-- Right icon: bookmark — 24px -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.6575 21.9971C18.3548 21.9963 18.0553 21.9343 17.7762 21.8149C17.4972 21.6955 17.2442 21.521 17.0318 21.3014L12 16.2071L6.96824 21.3047C6.64508 21.6386 6.23065 21.8656 5.77895 21.9561C5.32726 22.0466 4.85927 21.9964 4.43599 21.8121C4.00851 21.637 3.64281 21.3347 3.38665 20.9447C3.13049 20.5546 2.99578 20.095 3.0001 19.6258V6.16606C3.0001 5.06115 3.4311 4.0015 4.19829 3.22021C4.96547 2.43892 6.006 2 7.09096 2L16.909 2C17.4462 2 17.9782 2.10776 18.4745 2.31712C18.9709 2.52649 19.4218 2.83336 19.8017 3.22021C20.1816 3.60707 20.4829 4.06633 20.6885 4.57178C20.8941 5.07723 20.9999 5.61897 20.9999 6.16606V19.6258C21.0045 20.0946 20.8702 20.554 20.6147 20.944C20.3591 21.334 19.9941 21.6365 19.5673 21.8121C19.2791 21.9349 18.9698 21.9977 18.6575 21.9971ZM7.09096 3.66643C6.43998 3.66643 5.81567 3.92978 5.35536 4.39855C4.89505 4.86733 4.63645 5.50312 4.63645 6.16606V19.6258C4.63615 19.7646 4.67627 19.9004 4.75173 20.0161C4.82719 20.1317 4.93461 20.222 5.06041 20.2755C5.18622 20.329 5.32478 20.3433 5.45858 20.3166C5.59238 20.29 5.71542 20.2235 5.81216 20.1257V20.1257L11.4273 14.4424C11.5806 14.2872 11.7879 14.2001 12.0041 14.2001C12.2202 14.2001 12.4276 14.2872 12.5809 14.4424L18.1895 20.124C18.2862 20.2219 18.4092 20.2883 18.543 20.315C18.6768 20.3416 18.8154 20.3273 18.9412 20.2738C19.067 20.2203 19.1744 20.13 19.2499 20.0144C19.3254 19.8988 19.3655 19.763 19.3652 19.6241V6.16606C19.3652 5.50312 19.1066 4.86733 18.6463 4.39855C18.186 3.92978 17.5616 3.66643 16.9107 3.66643H7.09096Z" fill="#000000"></path></svg>
+              <svg class="audIcon audBookmark" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.6575 21.9971C18.3548 21.9963 18.0553 21.9343 17.7762 21.8149C17.4972 21.6955 17.2442 21.521 17.0318 21.3014L12 16.2071L6.96824 21.3047C6.64508 21.6386 6.23065 21.8656 5.77895 21.9561C5.32726 22.0466 4.85927 21.9964 4.43599 21.8121C4.00851 21.637 3.64281 21.3347 3.38665 20.9447C3.13049 20.5546 2.99578 20.095 3.0001 19.6258V6.16606C3.0001 5.06115 3.4311 4.0015 4.19829 3.22021C4.96547 2.43892 6.006 2 7.09096 2L16.909 2C17.4462 2 17.9782 2.10776 18.4745 2.31712C18.9709 2.52649 19.4218 2.83336 19.8017 3.22021C20.1816 3.60707 20.4829 4.06633 20.6885 4.57178C20.8941 5.07723 20.9999 5.61897 20.9999 6.16606V19.6258C21.0045 20.0946 20.8702 20.554 20.6147 20.944C20.3591 21.334 19.9941 21.6365 19.5673 21.8121C19.2791 21.9349 18.9698 21.9977 18.6575 21.9971ZM7.09096 3.66643C6.43998 3.66643 5.81567 3.92978 5.35536 4.39855C4.89505 4.86733 4.63645 5.50312 4.63645 6.16606V19.6258C4.63615 19.7646 4.67627 19.9004 4.75173 20.0161C4.82719 20.1317 4.93461 20.222 5.06041 20.2755C5.18622 20.329 5.32478 20.3433 5.45858 20.3166C5.59238 20.29 5.71542 20.2235 5.81216 20.1257V20.1257L11.4273 14.4424C11.5806 14.2872 11.7879 14.2001 12.0041 14.2001C12.2202 14.2001 12.4276 14.2872 12.5809 14.4424L18.1895 20.124C18.2862 20.2219 18.4092 20.2883 18.543 20.315C18.6768 20.3416 18.8154 20.3273 18.9412 20.2738C19.067 20.2203 19.1744 20.13 19.2499 20.0144C19.3254 19.8988 19.3655 19.763 19.3652 19.6241V6.16606C19.3652 5.50312 19.1066 4.86733 18.6463 4.39855C18.186 3.92978 17.5616 3.66643 16.9107 3.66643H7.09096Z" fill="#000000"></path></svg>
             </div>
           </article>
 
           <!-- Bottom caption (Inter Regular 14, white) -->
-          <p class="cReveal" data-d="2" style="margin: 0; max-width: 210px; text-align: center; font-weight: 400; font-size: 14px; line-height: 1.35; letter-spacing: 0; color: #FFFFFF;">Sometimes, I wonder about the purpose of these videos, both from the content creator&rsquo;s side and from my side as the viewer.</p>
+          <p class="cReveal audCap" data-d="2" style="margin: 0; max-width: 210px; text-align: center; font-weight: 400; font-size: 14px; line-height: 1.35; letter-spacing: 0; color: #FFFFFF;">Sometimes, I wonder about the purpose of these videos, both from the content creator&rsquo;s side and from my side as the viewer.</p>
         </div>
       </section>
 
