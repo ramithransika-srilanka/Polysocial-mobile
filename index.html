@@ -1041,7 +1041,7 @@ a:hover { color: var(--brand-primary-hover); }
        ~0.34 lands exactly on the #ADADAD grey used elsewhere, so no new colours. */
     .callItem[data-foc] { transform-origin: center center; will-change: transform, opacity; transition: transform 0.34s cubic-bezier(0.23,1,0.32,1), opacity 0.34s cubic-bezier(0.23,1,0.32,1); }
     .callLine { position: absolute; left: 0; width: 100%; height: 1px; background: #E4E4E4; transform: scaleX(0); transform-origin: center; transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
-    .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
+    .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1), color 0.3s ease; }
     .callItem.in .callLine { transform: scaleX(1); }
     .callItem.in .callWord { transform: translateY(0); }
     .callItem:nth-child(1) .callLine, .callItem:nth-child(1) .callWord { transition-delay: 0.00s; }
@@ -2206,23 +2206,34 @@ class Component extends DCLogic {
 
     const CENTER_SCALE = 1.06, FAR_SCALE = 0.945;   // subtle zoom, centred on itself
     const CENTER_OP = 1, FAR_OP = 0.34;             // 0.34 * #121212 on white ≈ #ADADAD
+    const HL_BLUE = '#1548EB', INK = '#121212';     // only the centred archetype turns blue
+    const words = items.map((el) => el.querySelector('.callWord'));
 
     let ticking = false;
     const apply = () => {
       ticking = false;
       const vpCenter = window.innerHeight / 2;
       const range = (items[0].offsetHeight || 72) * 2.15;   // ~2 rows of falloff each side
+      // First pass: emphasis per item + track the single item nearest the centre.
+      const emphs = new Array(items.length);
+      let best = 0, bestEmph = -1;
       for (let i = 0; i < items.length; i++) {
-        const it = items[i];
-        const r = it.getBoundingClientRect();
+        const r = items[i].getBoundingClientRect();
         const c = r.top + r.height / 2;
         let t = Math.abs(c - vpCenter) / range;
         if (t > 1) t = 1; else if (t < 0) t = 0;
-        const emph = 1 - (t * t * (3 - 2 * t));      // smoothstep: 1 at centre -> 0 far
+        const emph = 1 - (t * t * (3 - 2 * t));    // smoothstep: 1 at centre -> 0 far
+        emphs[i] = emph;
+        if (emph > bestEmph) { bestEmph = emph; best = i; }
+      }
+      // Second pass: scale + dim every item; paint only the centred one blue.
+      for (let i = 0; i < items.length; i++) {
+        const emph = emphs[i];
         const scale = FAR_SCALE + (CENTER_SCALE - FAR_SCALE) * emph;
         const op = FAR_OP + (CENTER_OP - FAR_OP) * emph;
-        it.style.transform = 'scale(' + scale.toFixed(4) + ')';
-        it.style.opacity = op.toFixed(3);
+        items[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
+        items[i].style.opacity = op.toFixed(3);
+        if (words[i]) words[i].style.color = (i === best) ? HL_BLUE : INK;
       }
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } };
