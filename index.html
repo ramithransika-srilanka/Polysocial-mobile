@@ -1041,7 +1041,7 @@ a:hover { color: var(--brand-primary-hover); }
        ~0.34 lands exactly on the #ADADAD grey used elsewhere, so no new colours. */
     .callItem[data-foc] { transform-origin: center center; will-change: transform, opacity; transition: transform 0.34s cubic-bezier(0.23,1,0.32,1), opacity 0.34s cubic-bezier(0.23,1,0.32,1); }
     .callLine { position: absolute; left: 0; width: 100%; height: 1px; background: #E4E4E4; transform: scaleX(0); transform-origin: center; transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
-    .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
+    .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1), color 0.3s ease; }
     .callItem.in .callLine { transform: scaleX(1); }
     .callItem.in .callWord { transform: translateY(0); }
     .callItem:nth-child(1) .callLine, .callItem:nth-child(1) .callWord { transition-delay: 0.00s; }
@@ -1204,14 +1204,65 @@ a:hover { color: var(--brand-primary-hover); }
         </div>
       </section>
 
-      <!-- ===== Section: Turn your audience into your customers (full-bleed, overlaid heading) ===== -->
-      <section id="audienceSection" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
-        <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block;"></picture>
-        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.30) 32%, rgba(0,0,0,0) 60%);"></div>
-        <h2 class="cReveal" style="position: absolute; top: 72px; left: 24px; right: 24px; margin: 0; text-align: center; font-weight: 600; font-size: clamp(22px, 7vw, 30px); line-height: 1.18; letter-spacing: -0.02em; color: #FFFFFF;">
-          <span style="display: block; white-space: nowrap;">Turn your audience</span>
-          <span style="display: block; white-space: nowrap;">into your customers</span>
-        </h2>
+      <!-- ===== Section: Turn your audience into your customers =====
+           Fixed 820px mobile canvas: a blurred, darkened full-bleed photo behind
+           a sharp Instagram-style post card (Figma "Frame 184") centred on top,
+           with the heading above and the caption below. ===================== -->
+      <section id="audienceSection" style="position: relative; width: 100%; height: 820px; overflow: hidden; background: #1b1b1d;">
+        <!-- Blurred background: the same photo thrown out of focus + darkened.
+             Inset/scaled past the edges so the blur never reveals a soft border. -->
+        <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -48px; width: calc(100% + 96px); height: calc(100% + 96px); object-fit: cover; object-position: 50% 42%; filter: blur(24px) brightness(0.7) saturate(1.05); transform: scale(1.08); display: block;"></picture>
+        <div style="position: absolute; inset: 0; background: rgba(12,12,14,0.30);"></div>
+
+        <!-- 393px design canvas (iPhone 16 width), centred; shrinks on narrower phones. -->
+        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 393px; max-width: 100%; height: 100%;">
+
+          <!-- Heading -->
+          <h2 class="cReveal" style="position: absolute; top: 60px; left: 24px; right: 24px; margin: 0; text-align: center; font-weight: 700; font-size: clamp(23px, 7vw, 28px); line-height: 1.2; letter-spacing: -0.02em; color: #FFFFFF;">
+            <span style="display: block;">Turn your audience</span>
+            <span style="display: block;">into your customers</span>
+          </h2>
+
+          <!-- Post card — Frame 184 (362×473 in Figma): header / image / action bar -->
+          <article class="cReveal" data-d="1" style="position: absolute; top: 188px; left: 50%; transform: translateX(-50%); width: 340px; max-width: calc(100% - 44px); height: 453px; background: #FFFFFF; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 26px 64px rgba(0,0,0,0.38);">
+
+            <!-- Header bar — Frame 187 (48px, white, space-between) -->
+            <div style="flex: none; height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #FFFFFF;">
+              <!-- Profile image — Frame 185 (32×32, circular) -->
+              <span style="position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; display: block;">
+                <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block;"></picture>
+              </span>
+              <!-- Three-dot menu — Frame 186 (3× 3px dots, 3px gap) -->
+              <span style="display: inline-flex; align-items: center; gap: 3px;">
+                <span style="width: 3px; height: 3px; border-radius: 50%; background: #161616; display: block;"></span>
+                <span style="width: 3px; height: 3px; border-radius: 50%; background: #161616; display: block;"></span>
+                <span style="width: 3px; height: 3px; border-radius: 50%; background: #161616; display: block;"></span>
+              </span>
+            </div>
+
+            <!-- Image area — Frame 188 (10px white inset around the sharp photo) -->
+            <div style="flex: 1 1 auto; min-height: 0; padding: 10px; background: #FFFFFF;">
+              <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+                <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="A content creator recording a podcast" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.26); transform-origin: 50% 34%; display: block;"></picture>
+              </div>
+            </div>
+
+            <!-- Action bar — Frame 189 (40px, white, space-between) -->
+            <div style="flex: none; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #FFFFFF;">
+              <!-- Left icon group: heart / comment / share (24px, 12px gap) -->
+              <span style="display: inline-flex; align-items: center; gap: 12px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.7 4.3 13a5 5 0 0 1 7.1-7l.6.6.6-.6a5 5 0 0 1 7.1 7L12 20.7Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.6c-4.7 0-8.5 3.1-8.5 7 0 2.2 1.2 4.1 3 5.4-.1 1.3-.7 2.6-1.6 3.7 1.7 0 3.4-.6 4.8-1.6.7.2 1.5.3 2.3.3 4.7 0 8.5-3.1 8.5-7s-3.8-7.1-8.5-7.1Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21.4 3.5 2.9 10.2c-.85.3-.8 1.5.05 1.75l7 2.05 2.05 7c.25.85 1.45.9 1.75.05L21.4 3.5Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"></path><path d="m10 14 4.4-4.4" stroke="#000000" stroke-width="2" stroke-linecap="round"></path></svg>
+              </span>
+              <!-- Right icon: bookmark (24px) -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 4.5h12a.5.5 0 0 1 .5.5v14.75c0 .4-.45.64-.79.42L12 16.6l-5.71 3.57a.5.5 0 0 1-.79-.42V5a.5.5 0 0 1 .5-.5Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"></path></svg>
+            </div>
+          </article>
+
+          <!-- Caption -->
+          <p class="cReveal" data-d="2" style="position: absolute; top: 678px; left: 0; right: 0; margin: 0 auto; max-width: 250px; text-align: center; font-weight: 500; font-size: 15px; line-height: 1.24; letter-spacing: -0.01em; color: #FFFFFF;">Sometimes, I wonder about the purpose of these videos, both from the content creator&rsquo;s side and from my side as the viewer.</p>
+        </div>
       </section>
 
       <!-- ===== Section: Interested? Let's talk (expandable contact pill) ===== -->
@@ -2155,23 +2206,34 @@ class Component extends DCLogic {
 
     const CENTER_SCALE = 1.06, FAR_SCALE = 0.945;   // subtle zoom, centred on itself
     const CENTER_OP = 1, FAR_OP = 0.34;             // 0.34 * #121212 on white ≈ #ADADAD
+    const HL_BLUE = '#1548EB', INK = '#121212';     // only the centred archetype turns blue
+    const words = items.map((el) => el.querySelector('.callWord'));
 
     let ticking = false;
     const apply = () => {
       ticking = false;
       const vpCenter = window.innerHeight / 2;
       const range = (items[0].offsetHeight || 72) * 2.15;   // ~2 rows of falloff each side
+      // First pass: emphasis per item + track the single item nearest the centre.
+      const emphs = new Array(items.length);
+      let best = 0, bestEmph = -1;
       for (let i = 0; i < items.length; i++) {
-        const it = items[i];
-        const r = it.getBoundingClientRect();
+        const r = items[i].getBoundingClientRect();
         const c = r.top + r.height / 2;
         let t = Math.abs(c - vpCenter) / range;
         if (t > 1) t = 1; else if (t < 0) t = 0;
-        const emph = 1 - (t * t * (3 - 2 * t));      // smoothstep: 1 at centre -> 0 far
+        const emph = 1 - (t * t * (3 - 2 * t));    // smoothstep: 1 at centre -> 0 far
+        emphs[i] = emph;
+        if (emph > bestEmph) { bestEmph = emph; best = i; }
+      }
+      // Second pass: scale + dim every item; paint only the centred one blue.
+      for (let i = 0; i < items.length; i++) {
+        const emph = emphs[i];
         const scale = FAR_SCALE + (CENTER_SCALE - FAR_SCALE) * emph;
         const op = FAR_OP + (CENTER_OP - FAR_OP) * emph;
-        it.style.transform = 'scale(' + scale.toFixed(4) + ')';
-        it.style.opacity = op.toFixed(3);
+        items[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
+        items[i].style.opacity = op.toFixed(3);
+        if (words[i]) words[i].style.color = (i === best) ? HL_BLUE : INK;
       }
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } };
