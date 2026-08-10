@@ -1253,8 +1253,8 @@ a:hover { color: var(--brand-primary-hover); }
         <!-- Main content container — 362 wide, 40px item spacing, 58px from top. -->
         <div style="position: absolute; top: 58px; left: 50%; transform: translateX(-50%); width: 362px; max-width: calc(100% - 30px); display: flex; flex-direction: column; align-items: center; gap: 40px;">
 
-          <!-- Title (Inter SemiBold 34, white) — matches the sibling section headings -->
-          <h2 class="cReveal audHead" style="margin: 0; text-align: center; font-weight: 600; font-size: 34px; line-height: 1.12; letter-spacing: -0.02em; color: #FFFFFF;">
+          <!-- Title (Inter SemiBold 26, white) — matches the "Travel buddies" archetype size -->
+          <h2 class="cReveal audHead" style="margin: 0; text-align: center; font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">
             <span style="display: block; white-space: nowrap;">Turn your audience</span>
             <span style="display: block; white-space: nowrap;">into your customers</span>
           </h2>
@@ -1377,7 +1377,7 @@ a:hover { color: var(--brand-primary-hover); }
           .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
       </style>
-      <section id="talkSection" style="position: relative; background: #161616; padding: var(--sp-section) 24px; text-align: center;">
+      <section id="talkSection" style="position: relative; background: #161616; padding: calc(var(--sp-section) + 25px) 24px; text-align: center;">
         <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
           <span style="display: block; color: #ADADAD;">Interested?</span>
           <span style="display: block; color: #FFFFFF;">Let&rsquo;s talk</span>
@@ -1454,6 +1454,44 @@ a:hover { color: var(--brand-primary-hover); }
       </div>
 
       <!-- ===== Ideas + Footer (from home) ===== -->
+
+      <!-- 8. Ideas Worth Sharing (articles) — same as home page -->
+      <section data-screen-label="Ideas worth sharing" style="position: relative; background: #FFFFFF; padding: 38px 0 10px;">
+        <h2 class="reveal" style="margin: 0 35px 24px; text-align: center; color: #000000; font-weight: 600; font-size: 28px; line-height: 1.14; letter-spacing: -0.02em;">Ideas Worth<br>Sharing</h2>
+
+        <div id="ideasScroller2" class="noScrollbar reveal" style="display: flex; gap: 21px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 42px; padding: 10px 42px; -webkit-overflow-scrolling: touch;">
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="src-assets/img/article-social.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </div>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Poverty of Trust.</span><span style="font-weight: 400;"> Sometimes, I wonder about the purpose of these videos, both from the content creator&rsquo;s side and from my side as the viewer.</span></p>
+            <a href="#article" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="src-assets/img/article-rothko.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </div>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Poverty of Trust.</span><span style="font-weight: 400;"> Sometimes, I wonder about the purpose of these videos, both from the content creator&rsquo;s side and from my side as the viewer.</span></p>
+            <a href="#article" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+        </div>
+
+        <div class="reveal" style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 22px; padding-right: 42px;">
+          <button id="ideasPrev2" aria-label="Previous" style="width: 46px; height: 46px; border-radius: 999px; border: none; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s ease-out;" style-active="transform: scale(0.92);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+          <button id="ideasNext2" aria-label="Next" style="width: 46px; height: 46px; border-radius: 999px; border: none; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s ease-out;" style-active="transform: scale(0.92);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </button>
+        </div>
+      </section>
+
        <!-- 9. Footer -->
       <footer data-screen-label="Creator footer" style="position: relative; background: #FFFFFF; padding: 60px 17px 40px;">
         <div style="display: flex; flex-direction: column; gap: 13px;">
