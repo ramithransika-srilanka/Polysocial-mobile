@@ -1240,13 +1240,17 @@ a:hover { color: var(--brand-primary-hover); }
             transition: opacity 0.3s ease !important; }
         }
       </style>
-      <section id="audienceSection" style="position: relative; width: 100%; height: 820px; overflow: hidden; background: #1b1b1d;">
+      <section id="audienceSection" style="position: relative; width: 100%; height: 820px; overflow: hidden; background: #161616;">
         <!-- Single full-bleed photo — no blur. The card window reveals this same
              layer in place, so inside and outside are one continuous image. -->
         <picture><source type="image/avif" sizes="1024px" srcset="assets/img/fbd016fc.480w.e6a37c8b4f.avif 480w, assets/img/fbd016fc.960w.d201c96db3.avif 960w, assets/img/fbd016fc.1440w.48a42e46e1.avif 1440w, assets/img/fbd016fc.1920w.551306597d.avif 1920w, assets/img/fbd016fc.2000w.6613bb536d.avif 2000w"><source type="image/webp" sizes="1024px" srcset="assets/img/fbd016fc.480w.a306b4c0bb.webp 480w, assets/img/fbd016fc.960w.5c16d3b07a.webp 960w, assets/img/fbd016fc.1440w.e0d1ab4485.webp 1440w, assets/img/fbd016fc.1920w.40af19be46.webp 1920w, assets/img/fbd016fc.2000w.a86745026a.webp 2000w"><img sizes="1024px" loading="lazy" decoding="async" height="1333" width="2000" src="assets/img/fbd016fc.fallback.c0a7aa21bd.jpg" alt="A content creator recording a podcast" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; display: block;"></picture>
         <!-- Legibility scrim: darker at the very top/bottom for the white text,
              near-clear across the middle so the card window stays crisp. -->
         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.14) 24%, rgba(0,0,0,0.10) 60%, rgba(0,0,0,0.52) 100%);"></div>
+        <!-- Bottom edge: progressively blur the photo and dissolve it into the
+             next section's solid colour (#161616), so "Interested? Let's talk"
+             reads as a seamless extension of this section. -->
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 190px; background: linear-gradient(180deg, rgba(22,22,22,0) 0%, rgba(22,22,22,0.55) 46%, #161616 100%); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 58%); mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 58%);"></div>
 
         <!-- Main content container — 362 wide, 40px item spacing, 58px from top. -->
         <div style="position: absolute; top: 58px; left: 50%; transform: translateX(-50%); width: 362px; max-width: calc(100% - 30px); display: flex; flex-direction: column; align-items: center; gap: 40px;">
@@ -1300,7 +1304,7 @@ a:hover { color: var(--brand-primary-hover); }
       <style>
         /* Pill container morphs width on the iOS drawer curve; overflow clipped so
            the incoming items are revealed as it grows. */
-        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #121212; border-radius: 50px; width: 128px; overflow: hidden; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
+        .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #FFFFFF; border-radius: 50px; width: 128px; overflow: hidden; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
         .ctaPill.expanded { width: 316px; gap: 8px; }
 
         .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; }
@@ -1323,7 +1327,7 @@ a:hover { color: var(--brand-primary-hover); }
         }
         /* Fixed width (its exact expanded slot) so the width morph never reflows
            the wrap — otherwise it flashes 3 lines before settling to 2. */
-        .ctaText { flex: 0 0 132px; width: 132px; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
+        .ctaText { flex: 0 0 132px; width: 132px; color: #000000; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
 
         .ctaPill .onExpanded { display: none; }
         .ctaPill.expanded .onCollapsed { display: none; }
@@ -1375,10 +1379,10 @@ a:hover { color: var(--brand-primary-hover); }
           .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
       </style>
-      <section id="talkSection" style="position: relative; background: #FFFFFF; padding: var(--sp-section) 24px; text-align: center;">
+      <section id="talkSection" style="position: relative; background: #161616; padding: var(--sp-section) 24px; text-align: center;">
         <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
           <span style="display: block; color: #ADADAD;">Interested?</span>
-          <span style="display: block; color: #121212;">Let&rsquo;s talk</span>
+          <span style="display: block; color: #FFFFFF;">Let&rsquo;s talk</span>
         </h2>
         <div class="cReveal" data-d="1" style="display: flex; justify-content: center;">
           <div id="ctaPill" class="ctaPill">
