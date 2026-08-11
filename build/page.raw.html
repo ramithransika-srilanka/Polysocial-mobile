@@ -1142,9 +1142,9 @@ a:hover { color: var(--brand-primary-hover); }
         </h2>
         <!-- Fanned photo collage (3-card stack, per spec: center focal + two tilted behind) -->
         <div class="cReveal" data-fanswap="" style="position: relative; width: 325px; height: 267px; margin: var(--sp-heading) auto 0;">
-          <img data-slot="left" src="src-assets/img/41bef84a.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 560ms cubic-bezier(0.22,1,0.36,1); will-change: transform;">
-          <img data-slot="right" src="src-assets/img/de2be4e7.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 560ms cubic-bezier(0.22,1,0.36,1); will-change: transform;">
-          <img data-slot="center" src="src-assets/img/35f46895.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 560ms cubic-bezier(0.22,1,0.36,1); will-change: transform;">
+          <video data-slot="left" id="fanVidLeft" src="src-assets/video/fan-beach.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
+          <video data-slot="right" id="fanVidRight" src="src-assets/video/fan-launch.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
+          <video data-slot="center" id="fanVidCenter" src="src-assets/video/fan-dancing.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
         </div>
 
         <!-- Paragraph block: Title (SemiBold 16) + Body (Regular 14), 9px gap, 202px centered -->
@@ -1155,9 +1155,9 @@ a:hover { color: var(--brand-primary-hover); }
 
         <!-- Second fan arrangement (same spec; grey placeholder side cards per PDF) -->
         <div class="cReveal" data-fanswap="" style="position: relative; width: 325px; height: 267px; margin: var(--sp-block) auto 0;">
-          <img data-slot="left" src="src-assets/img/5d1cbb31.png" alt="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 560ms cubic-bezier(0.22,1,0.36,1); will-change: transform;">
-          <div data-slot="right" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; border-radius: 20px; background: #E8E8E8; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 560ms cubic-bezier(0.22,1,0.36,1); will-change: transform;"></div>
-          <video data-slot="center" id="fanVideo" src="src-assets/video/b4631b25.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 560ms cubic-bezier(0.22,1,0.36,1); will-change: transform;"></video>
+          <img data-slot="left" src="src-assets/img/5d1cbb31.png" alt="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;">
+          <div data-slot="right" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; border-radius: 20px; background: #E8E8E8; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></div>
+          <video data-slot="center" id="fanVideo" src="src-assets/video/b4631b25.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
         </div>
 
         <!-- Paragraph block under second fan arrangement -->
@@ -2057,7 +2057,7 @@ class Component extends DCLogic {
     };
     const NEXT = { center: 'left', right: 'center', left: 'right' };
     // Outgoing front leads (it lifts off first), then the incoming card, then the back card.
-    const DELAY = { center: 0, right: 40, left: 90 };
+    const DELAY = { center: 0, right: 55, left: 120 };
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('[data-fanswap]').forEach((fan) => {
       if (fan._swapArmed) return; fan._swapArmed = true;
@@ -2084,7 +2084,9 @@ class Component extends DCLogic {
       const nxt = NEXT[cur];
       const slot = SLOTS[nxt];
       const isVid = c.tagName === 'VIDEO';
-      if (isVid && cur === 'center') { try { c.pause(); } catch (e) {} }
+      // Every fan card here is a muted, looping decorative video; keep them all
+      // playing through the swap so none freezes mid-cycle (smoother, no stutter
+      // when a card leaves the front).
 
       if (reduce) {
         c.style.transition = 'none';
@@ -2104,21 +2106,21 @@ class Component extends DCLogic {
       // where cards overlap or trade depth.
       if (c.animate) {
         c.animate(
-          [{ filter: 'blur(0px)' }, { filter: 'blur(2.5px)', offset: 0.4 }, { filter: 'blur(0px)' }],
-          { duration: 560, delay: delay, easing: 'ease-in-out' }
+          [{ filter: 'blur(0px)' }, { filter: 'blur(2.5px)', offset: 0.45 }, { filter: 'blur(0px)' }],
+          { duration: 720, delay: delay, easing: 'ease-in-out' }
         );
       }
       // The outgoing front tucks under the others while it is still moving and
       // blurred, so the depth change reads as sliding behind, not a hard reorder.
       if (cur === 'center') {
-        setTimeout(() => { c.style.zIndex = '10'; }, delay + 240);
+        setTimeout(() => { c.style.zIndex = '10'; }, delay + 320);
       }
       // Settle every card to its resting stack once the motion has ended.
       setTimeout(() => {
         c.style.zIndex = slot.z;
         c.style.transitionDelay = '0ms';
         if (isVid && nxt === 'center') { try { c.play(); } catch (e) {} }
-      }, 700);
+      }, 900);
       c.setAttribute('data-slot', nxt);
     });
   }

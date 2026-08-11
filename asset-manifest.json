@@ -431,6 +431,36 @@
     "posterWebp": "assets/video/b4631b25.poster.631f7a5688.webp",
     "posterJpg": "assets/video/b4631b25.poster.e003ee1ea4.jpg"
   },
+  "src-assets/video/fan-beach.mp4": {
+    "type": "video",
+    "width": 720,
+    "height": 1280,
+    "targetWidth": 360,
+    "mp4": "assets/video/fan-beach.h264.36b5dd3d89.mp4",
+    "webm": "assets/video/fan-beach.vp9.e3088ace35.webm",
+    "posterWebp": "assets/video/fan-beach.poster.5ecc8dec2f.webp",
+    "posterJpg": "assets/video/fan-beach.poster.ab09f2d368.jpg"
+  },
+  "src-assets/video/fan-dancing.mp4": {
+    "type": "video",
+    "width": 720,
+    "height": 1280,
+    "targetWidth": 360,
+    "mp4": "assets/video/fan-dancing.h264.e49ec2c10f.mp4",
+    "webm": "assets/video/fan-dancing.vp9.4b4cf5fef9.webm",
+    "posterWebp": "assets/video/fan-dancing.poster.01ba1c5f2c.webp",
+    "posterJpg": "assets/video/fan-dancing.poster.653aade31a.jpg"
+  },
+  "src-assets/video/fan-launch.mp4": {
+    "type": "video",
+    "width": 720,
+    "height": 1280,
+    "targetWidth": 360,
+    "mp4": "assets/video/fan-launch.h264.2890b28c9e.mp4",
+    "webm": "assets/video/fan-launch.vp9.7194266e5d.webm",
+    "posterWebp": "assets/video/fan-launch.poster.be42703a4c.webp",
+    "posterJpg": "assets/video/fan-launch.poster.8da869ee41.jpg"
+  },
   "src-assets/svg/63873e6f.svg": {
     "type": "passthrough",
     "path": "assets/svg/63873e6f.f17771b9f9.svg"
