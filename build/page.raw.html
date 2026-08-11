@@ -3,8 +3,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
+<script>
+/* Runs before the loader element is parsed. If the user arrived via an in-site
+   nav link (one-shot "psNav" flag) and this isn't a reload, hide the dark
+   loading screen up front so it can never paint even for a frame. The flag is
+   only peeked here; it's consumed (and the element removed) by the script that
+   follows the loader markup in <body>. */
+(function(){
+  try{
+    if(sessionStorage.getItem('psNav') !== '1') return;
+    var e = performance.getEntriesByType('navigation')[0];
+    if(e && e.type === 'reload') return;
+    window.__psSkipLoader = true;
+    var s = document.createElement('style');
+    s.textContent = '#loader{display:none!important}';
+    (document.head || document.documentElement).appendChild(s);
+  }catch(_){ }
+})();
+</script>
 
 <script src="src-assets/js/bc41823b.js"></script>
 
@@ -1085,23 +1101,18 @@ a:hover { color: var(--brand-primary-hover); }
     <script>
     /* The dark loading screen should appear only on a genuine full load/reload
        of the site — never when arriving here via an in-site nav-bar/footer link.
-       An in-site link click sets a one-shot "psNav" flag (see the click handler
-       below). If that flag is present on load (and this isn't a reload), remove
-       the loader before it paints so the page shows instantly. */
+       The head script above already hid the loader when appropriate (window
+       .__psSkipLoader); here we remove the element so the loader routine reveals
+       the page instantly, and always consume the one-shot "psNav" flag. */
     (function(){
-      try{
-        var viaNav = sessionStorage.getItem('psNav') === '1';
-        sessionStorage.removeItem('psNav');
-        var isReload = false;
-        try{ var e = performance.getEntriesByType('navigation')[0]; isReload = !!e && e.type === 'reload'; }catch(_){ }
-        if(viaNav && !isReload){
-          var l = document.getElementById('loader');
-          if(l && l.parentNode) l.parentNode.removeChild(l);
-          document.addEventListener('DOMContentLoaded', function(){
-            var r = document.getElementById('appRoot'); if(r) r.classList.add('loaded');
-          });
-        }
-      }catch(_){ }
+      try{ sessionStorage.removeItem('psNav'); }catch(_){ }
+      if(window.__psSkipLoader){
+        var l = document.getElementById('loader');
+        if(l && l.parentNode) l.parentNode.removeChild(l);
+        document.addEventListener('DOMContentLoaded', function(){
+          var r = document.getElementById('appRoot'); if(r) r.classList.add('loaded');
+        });
+      }
       /* Flag same-site link navigations so the destination page can tell a nav
          click apart from a fresh load / reload. Pure "#" anchors scroll the same
          page (no reload) and are ignored. */
