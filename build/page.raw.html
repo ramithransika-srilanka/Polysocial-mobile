@@ -1082,6 +1082,47 @@ a:hover { color: var(--brand-primary-hover); }
       <span id="loaderText" style="color: #FFFFFF; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; white-space: nowrap;">LOADING</span>
     </div>
 
+    <script>
+    /* The dark loading screen should appear only on a genuine full load/reload
+       of the site — never when arriving here via an in-site nav-bar/footer link.
+       An in-site link click sets a one-shot "psNav" flag (see the click handler
+       below). If that flag is present on load (and this isn't a reload), remove
+       the loader before it paints so the page shows instantly. */
+    (function(){
+      try{
+        var viaNav = sessionStorage.getItem('psNav') === '1';
+        sessionStorage.removeItem('psNav');
+        var isReload = false;
+        try{ var e = performance.getEntriesByType('navigation')[0]; isReload = !!e && e.type === 'reload'; }catch(_){ }
+        if(viaNav && !isReload){
+          var l = document.getElementById('loader');
+          if(l && l.parentNode) l.parentNode.removeChild(l);
+          document.addEventListener('DOMContentLoaded', function(){
+            var r = document.getElementById('appRoot'); if(r) r.classList.add('loaded');
+          });
+        }
+      }catch(_){ }
+      /* Flag same-site link navigations so the destination page can tell a nav
+         click apart from a fresh load / reload. Pure "#" anchors scroll the same
+         page (no reload) and are ignored. */
+      document.addEventListener('click', function(ev){
+        var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if(!a) return;
+        var href = a.getAttribute('href') || '';
+        if(!href || href.charAt(0) === '#') return;
+        if(/^(mailto:|tel:|javascript:)/i.test(href)) return;
+        var tgt = a.getAttribute('target');
+        if(tgt && tgt !== '_self') return;
+        if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button) return;
+        try{
+          var u = new URL(a.href, location.href);
+          if(u.origin !== location.origin) return;
+          sessionStorage.setItem('psNav','1');
+        }catch(_){ }
+      }, true);
+    })();
+    </script>
+
     <!-- Creator landing page (slides in from "Start earning" / "For creators") -->
     <div id="creatorPage" aria-hidden="true" style="position: fixed; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 393px; max-width: 100%; z-index: 100003; background: #FFFFFF; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity 0.26s ease-out, visibility 0.26s;">
       <div id="creatorPanel" class="noScrollbar" style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto;">

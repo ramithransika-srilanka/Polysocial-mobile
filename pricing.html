@@ -495,6 +495,28 @@
 </div>
 
   <script>
+  /* Keep the home page's dark loading screen from reappearing when the user
+     navigates away via an in-site link. Clear any stale flag from the load that
+     brought us here, then flag same-site link clicks so index.html can tell a
+     nav click apart from a fresh load / reload. */
+  (function(){
+    try{ sessionStorage.removeItem('psNav'); }catch(_){ }
+    document.addEventListener('click', function(ev){
+      var a=ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+      if(!a) return;
+      var href=a.getAttribute('href') || '';
+      if(!href || href.charAt(0)==='#') return;
+      if(/^(mailto:|tel:|javascript:)/i.test(href)) return;
+      var tgt=a.getAttribute('target');
+      if(tgt && tgt!=='_self') return;
+      if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button) return;
+      try{
+        var u=new URL(a.href, location.href);
+        if(u.origin!==location.origin) return;
+        sessionStorage.setItem('psNav','1');
+      }catch(_){ }
+    }, true);
+  })();
   (function(){
     var btn=document.getElementById('menuBtn'),ov=document.getElementById('menuOverlay');
     if(!btn||!ov)return;
