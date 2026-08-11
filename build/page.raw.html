@@ -1143,9 +1143,9 @@ a:hover { color: var(--brand-primary-hover); }
         </h2>
         <!-- Fanned photo collage (3-card stack, per spec: center focal + two tilted behind) -->
         <div class="cReveal" data-fanswap="" style="position: relative; width: 325px; height: 267px; margin: var(--sp-heading) auto 0;">
-          <video data-slot="left" id="fanVidLeft" src="src-assets/video/fan-beach.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
-          <video data-slot="right" id="fanVidRight" src="src-assets/video/fan-launch.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
-          <video data-slot="center" id="fanVidCenter" src="src-assets/video/fan-dancing.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
+          <video data-slot="left" id="fanVidLeft" src="src-assets/video/fan-beach.mp4" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
+          <video data-slot="right" id="fanVidRight" src="src-assets/video/fan-launch.mp4" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
+          <video data-slot="center" id="fanVidCenter" src="src-assets/video/fan-dancing.mp4" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
         </div>
 
         <!-- Paragraph block: Title (SemiBold 16) + Body (Regular 14), 9px gap, 202px centered -->
@@ -1158,7 +1158,7 @@ a:hover { color: var(--brand-primary-hover); }
         <div class="cReveal" data-fanswap="" style="position: relative; width: 325px; height: 267px; margin: var(--sp-block) auto 0;">
           <img data-slot="left" src="src-assets/img/5d1cbb31.png" alt="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(0px,30.74px) rotate(-2.78deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;">
           <div data-slot="right" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; border-radius: 20px; background: #E8E8E8; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(165.58px,28.51px) rotate(4.01deg) scale(1); z-index: 1; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></div>
-          <video data-slot="center" id="fanVideo" src="src-assets/video/b4631b25.mp4" autoplay="" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
+          <video data-slot="center" id="fanVideo" src="src-assets/video/b4631b25.mp4" playsinline="" style="position: absolute; left: 0; top: 0; width: 159.56px; height: 215.16px; object-fit: cover; border-radius: 20px; box-shadow: 1px 4px 12px rgba(0,0,0,0.25); transform-origin: center; transform: translate(81.22px,25.92px) rotate(0deg) scale(1.241); z-index: 2; transition: transform 720ms cubic-bezier(0.45,0,0.25,1); will-change: transform;"></video>
         </div>
 
         <!-- Paragraph block under second fan arrangement -->
@@ -2068,6 +2068,10 @@ class Component extends DCLogic {
         entries.forEach((e) => {
           if (!e.isIntersecting || fan._looping) return;
           fan._looping = true; io.disconnect();
+          // Only the center card plays; make sure it is running before the
+          // rotation starts (side cards stay paused until they reach center).
+          const mid = fan.querySelector('video[data-slot="center"]');
+          if (mid) { try { mid.muted = true; mid.playsInline = true; if (mid.readyState < 2) mid.load(); const p = mid.play(); if (p && p.catch) p.catch(() => {}); } catch (err) {} }
           fan._swapTimer = setInterval(() => this._doFanSwap(fan, SLOTS, NEXT, DELAY, reduce), 4000);
         });
       }, { threshold: 0.4 });
@@ -2087,9 +2091,10 @@ class Component extends DCLogic {
       const nxt = NEXT[cur];
       const slot = SLOTS[nxt];
       const isVid = c.tagName === 'VIDEO';
-      // Every fan card here is a muted, looping decorative video; keep them all
-      // playing through the swap so none freezes mid-cycle (smoother, no stutter
-      // when a card leaves the front).
+      // Only the card in the CENTER slot plays; every other card is paused.
+      // The front card leaving center is paused now; whatever lands on center
+      // is loaded + played once it settles (below).
+      if (isVid && cur === 'center') { try { c.pause(); } catch (e) {} }
 
       if (reduce) {
         c.style.transition = 'none';
@@ -2097,7 +2102,7 @@ class Component extends DCLogic {
         c.style.transform = slot.t;
         c.style.zIndex = slot.z;
         c.setAttribute('data-slot', nxt);
-        if (isVid && nxt === 'center') { try { c.play(); } catch (e) {} }
+        if (isVid && nxt === 'center') { try { c.muted = true; c.playsInline = true; if (c.readyState < 2) c.load(); const _p = c.play(); if (_p && _p.catch) _p.catch(() => {}); } catch (e) {} }
         return;
       }
 
@@ -2122,7 +2127,7 @@ class Component extends DCLogic {
       setTimeout(() => {
         c.style.zIndex = slot.z;
         c.style.transitionDelay = '0ms';
-        if (isVid && nxt === 'center') { try { c.play(); } catch (e) {} }
+        if (isVid && nxt === 'center') { try { c.muted = true; c.playsInline = true; if (c.readyState < 2) c.load(); const _p = c.play(); if (_p && _p.catch) _p.catch(() => {}); } catch (e) {} }
       }, 900);
       c.setAttribute('data-slot', nxt);
     });
@@ -2157,7 +2162,7 @@ class Component extends DCLogic {
   // optimize pipeline, which right-sizes + re-encodes it automatically).
   _armLazyVideos() {
     const vids = Array.from(document.querySelectorAll('video[preload="none"]'))
-      .filter((v) => v.id !== 'fanVideo');
+      .filter((v) => v.id !== 'fanVideo' && !v.closest('[data-fanswap]'));
     if (!vids.length) return;
     const play = (v) => {
       v.muted = true; v.playsInline = true;
