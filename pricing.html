@@ -358,15 +358,19 @@
     #menuOverlay.open .menuLink:nth-child(4){transition-delay:0.20s;}
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
-    .hero-title{position:relative;margin:0;font-weight:600;font-size:96px;line-height:0.9;letter-spacing:-0.02em;color:#1548EB;text-align:center;display:flex;flex-direction:column;align-items:center;}
-    .hero-badge{position:absolute;left:50%;top:44%;width:196px;max-width:78%;transform:translate(-50%,-50%) rotate(-3deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
-    @media (max-width:360px){.hero-title{font-size:84px;}}
+    /* Hero font bumped 10% (96 -> 106px). Title box shrink-wraps to its widest
+       line ("free") so the sticker can be sized as a percentage of the text. */
+    .hero-title{position:relative;margin:0;font-weight:600;font-size:106px;line-height:0.9;letter-spacing:-0.02em;color:#1548EB;text-align:center;display:inline-flex;flex-direction:column;align-items:center;}
+    /* Sticker ~1.11x the "free" line width, vertically centred, angled -9deg
+       (proportions measured from the reference image). */
+    .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(-9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
+    @media (max-width:360px){.hero-title{font-size:92px;}}
   </style>
 
 </head>
 <body>
 <div style="min-height:100vh;display:flex;justify-content:center;background:#EDEDED;">
-  <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;overflow:hidden;">
+  <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;">
 
     <div class="navScope" style="position:relative;">
     <header style="position:sticky;top:0;z-index:100002;display:flex;align-items:center;justify-content:space-between;min-height:24px;padding:14px 20px 12px 25px;background:rgba(255,255,255,0.72);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;">
@@ -401,7 +405,7 @@
         <span>free</span>
         <img class="hero-badge" src="assets/svg/group17-badge.svg" alt="polysocial">
       </h1>
-      <p style="margin:8px 0 0;font-weight:600;font-size:20px;line-height:1.05;color:#000000;text-align:center;max-width:220px;">To create any campaign</p>
+      <p style="margin:10px 0 0;font-weight:600;font-size:22px;line-height:1.05;color:#000000;text-align:center;max-width:240px;">To create any campaign</p>
     </div>
 
 
@@ -410,7 +414,7 @@
       <section style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
         display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
         <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
-          <span style="width:32px;height:32px;border-radius:999px;background:#FF3B30;border:2px solid #F6F6F6;flex:none;display:flex;align-items:center;justify-content:center;"></span><span style="width:32px;height:32px;border-radius:999px;background:#121212;border:2px solid #F6F6F6;flex:none;display:flex;align-items:center;justify-content:center;margin-left:-9px;"></span><span style="width:32px;height:32px;border-radius:999px;background:#FF6B4A;border:2px solid #F6F6F6;flex:none;display:flex;align-items:center;justify-content:center;margin-left:-9px;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.4 12.6V3.2C2.4 2.1 3.9 2.1 3.9 3.2v0.5h0.1c0.6-0.9 1.6-1.4 2.8-1.4 2.3 0 3.9 1.9 3.9 4.6s-1.6 4.6-3.9 4.6c-1.1 0-2.1-0.5-2.7-1.3H3.9v2.3C3.9 14 2.4 14 2.4 12.6Zm1.5-5.7c0 1.5 0.8 2.4 2 2.4s2-0.9 2-2.4-0.8-2.4-2-2.4-2 0.9-2 2.4Z" fill="#FFFFFF"/></svg></span>
+          <picture><source type="image/webp" srcset="assets/img/brand-briksy.64w.947e2b79f8.webp"><img decoding="async" loading="lazy" src="assets/img/brand-briksy.64w.7eff5f5069.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/webp" srcset="assets/img/brand-lunavo.64w.8f711f123f.webp"><img decoding="async" loading="lazy" src="assets/img/brand-lunavo.64w.0f4682ddfe.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/webp" srcset="assets/img/brand-polysocial-p.64w.77610a06d9.webp"><img decoding="async" loading="lazy" src="assets/img/brand-polysocial-p.64w.b96678c6b2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;">
           <h2 style="margin:0;font-weight:600;font-size:28px;line-height:0.934;color:#000000;text-align:center;">For Brands</h2>
