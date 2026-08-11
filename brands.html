@@ -387,20 +387,27 @@
     .ov-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
     .ov-reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .ov-reveal { transition: opacity 0.3s ease; transform: none; } }
-    .cl-tile { --elastic: cubic-bezier(0.34,1.7,0.5,1); opacity: 0; transform: scale(0.7); transition: opacity 220ms ease-out, transform 560ms var(--elastic); will-change: transform, opacity; }
-    .ov-reveal.in .cl-tile { opacity: 1; transform: scale(1); }
-    .cl-tile img { animation: clWobble 6s ease-in-out infinite; will-change: transform; }
+    /* Pop-in is driven by the .pop class (added per-tile in vertical order by
+       JS) rather than the container's .in state, so the scroll-scrubbed morph
+       — which rewrites each tile's inline `transition` — can never wipe the
+       stagger. Enter from a real scale (never scale(0)) with a strong,
+       lightly-sprung ease-out. */
+    .cl-tile { --elastic: cubic-bezier(0.34,1.56,0.44,1); opacity: 0; transform: scale(0.5); transition: opacity 260ms ease-out, transform 560ms var(--elastic); will-change: transform, opacity; }
+    .cl-tile.pop { opacity: 1; transform: scale(1); }
+    /* Baseline scale keeps the rotated/translated image covering the circular
+       mask at all times so the idle wobble never exposes a sliver at the rim. */
+    .cl-tile img { transform: scale(1.08); transform-origin: center center; animation: clWobble 6s ease-in-out infinite; will-change: transform; backface-visibility: hidden; }
     .cl-tile:nth-child(4n+1) img { animation-duration: 5.4s; animation-delay: -0.8s; }
     .cl-tile:nth-child(4n+2) img { animation-duration: 6.6s; animation-delay: -2.1s; }
     .cl-tile:nth-child(4n+3) img { animation-duration: 7.2s; animation-delay: -3.4s; }
     .cl-tile:nth-child(4n)   img { animation-duration: 6.0s; animation-delay: -1.3s; }
     @keyframes clWobble {
-      0%,100% { transform: translate(0,0) rotate(0deg); }
-      25% { transform: translate(0.8px,-1px) rotate(0.6deg); }
-      50% { transform: translate(-0.7px,0.7px) rotate(-0.5deg); }
-      75% { transform: translate(0.7px,0.9px) rotate(0.4deg); }
+      0%,100% { transform: scale(1.08) translate(0,0) rotate(0deg); }
+      25% { transform: scale(1.08) translate(0.8px,-1px) rotate(0.6deg); }
+      50% { transform: scale(1.08) translate(-0.7px,0.7px) rotate(-0.5deg); }
+      75% { transform: scale(1.08) translate(0.7px,0.9px) rotate(0.4deg); }
     }
-    @media (prefers-reduced-motion: reduce) { .cl-tile { transition: opacity 0.3s ease; transform: none; } .cl-tile img { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { .cl-tile { transition: opacity 0.3s ease; transform: none; } .cl-tile.pop { transform: none; } .cl-tile img { animation: none; transform: scale(1.08); } }
 
     /* "This is for" — same design + focus-lens highlighting as the creators page's
        "We are calling for" section. */
@@ -851,14 +858,43 @@
       var colors=[].slice.call(grid.querySelectorAll('[data-cl="c"]')).map(function(el,i){
         return { el:el, dx:parseFloat(el.dataset.dx)||0, dy:parseFloat(el.dataset.dy)||0, wob:(i%2?1:-1)*(3+(i%3)) };
       });
-      var SNAP='transform 340ms cubic-bezier(0.77,0,0.175,1), opacity 240ms ease-out';
+
+      // (1) Pop-in cascade in true vertical order. The first time the cluster
+      // scrolls into view, each circle pops from the top of the grid downward —
+      // a short per-item stagger reads as the faces "raining" into place. This
+      // is class-driven (not transition-delay) so the morph below, which keeps
+      // rewriting each tile's inline `transition`, can never wipe the cascade.
+      var allTiles=[].slice.call(grid.querySelectorAll('.cl-tile'));
+      var byTop=allTiles.slice().sort(function(a,b){
+        var at=(parseFloat(a.style.top)||0)+(parseFloat(a.style.height)||0)/2;
+        var bt=(parseFloat(b.style.top)||0)+(parseFloat(b.style.height)||0)/2;
+        return at-bt;
+      });
+      var popped=false;
+      function popCascade(){
+        if(popped) return; popped=true;
+        byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*22); });
+      }
+      var popIO=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
+      },{ root: overlay, threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+      popIO.observe(grid);
+
+      var SNAP='transform 420ms cubic-bezier(0.22,0.61,0.36,1), opacity 300ms ease-out';
       var ease=function(t){ return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; };
+
+      // (2) The rearrange/text reveal is driven only once the circle cluster is
+      // centred in the viewport; further scrolling past centre scrubs it in.
+      // p = 0 while the grid centre sits at or below the viewport centre, and
+      // ramps to 1 over the next ~0.22 viewport-heights of scroll.
       function measure(){
         var vh=overlay.clientHeight;
-        var secMid=section.offsetTop+section.offsetHeight/2;
-        var viewMid=overlay.scrollTop+vh/2;
-        var span=vh*0.5;
-        return Math.max(0,Math.min(1,(viewMid-secMid+span)/span));
+        var gr=grid.getBoundingClientRect();
+        var orc=overlay.getBoundingClientRect();
+        var gridCenter=(gr.top-orc.top)+gr.height/2;   // 0..vh within the overlay
+        var delta=(vh/2)-gridCenter;                    // >0 once scrolled past centre
+        var span=vh*0.22;                               // short, so the cluster + text stay near centre while it resolves
+        return Math.max(0,Math.min(1,delta/span));
       }
       function apply(p){
         var e=ease(p), active=p>0.0001, m=e*e;
