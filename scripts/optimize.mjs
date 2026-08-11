@@ -57,7 +57,8 @@ const POSTER_MAXW = 720;
 //   - MP4 fallback: H.264 "main" (universal on any device from ~2013 on),
 //     CRF 26, +faststart so playback starts before the full file arrives.
 //   - WebM alternate: VP9, CRF 34 — smaller still for browsers that take it.
-const VIDEO_TARGET_W = { "0e94d45a": 720, "b4631b25": 360 };
+const VIDEO_TARGET_W = { "0e94d45a": 720, "b4631b25": 360,
+  "fan-dancing": 360, "fan-beach": 360, "fan-launch": 360 };
 const DEFAULT_VIDEO_W = 720;
 const H264_CRF = 26;
 const VP9_CRF = 34;
