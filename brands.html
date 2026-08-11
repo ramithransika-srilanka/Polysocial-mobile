@@ -702,35 +702,45 @@
         .growTrack { position: relative; height: 210vh; }
         .growPin { position: sticky; top: 0; height: 100vh; min-height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .growGlow { position: absolute; inset: 0; background: radial-gradient(120% 82% at 50% 62%, rgba(70,70,96,0.20), rgba(22,22,22,0) 60%); pointer-events: none; }
-        /* The glass lens. Chromatic rim (::before) + soft top highlight (::after)
-           read as refracting glass over the dark ground. Scale + lift are driven
-           by scroll in JS; the inline transform seeds the very-large start state. */
+        /* The glass lens — tuned to the Figma glass params (refraction 100,
+           depth 57, dispersion 100, frost 2, splay 100). Frost 2 keeps it nearly
+           clear (2px backdrop blur); depth/splay drive the bevelled edge + cast;
+           dispersion drives the chromatic rim (::before); ::after is the specular.
+           Final diameter is 450px (scale 1); scale + lift are scrubbed in JS. */
         .growCircle {
-          position: relative; width: 116%; max-width: 560px; aspect-ratio: 1; border-radius: 50%;
+          position: relative; width: 450px; height: 450px; flex: none; border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
           transform: translateY(16vh) scale(2.3); will-change: transform;
-          background: radial-gradient(circle at 50% 38%, rgba(255,255,255,0.075), rgba(255,255,255,0.028) 58%, rgba(255,255,255,0) 72%);
-          -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
-          box-shadow: inset 0 2px 30px rgba(255,255,255,0.06), inset 0 -12px 44px rgba(0,0,0,0.38);
+          -webkit-backdrop-filter: blur(2px) saturate(1.08) brightness(1.05);
+          backdrop-filter: blur(2px) saturate(1.08) brightness(1.05);
+          background: radial-gradient(circle at 50% 34%, rgba(255,255,255,0.09), rgba(255,255,255,0.02) 52%, rgba(255,255,255,0) 72%);
+          box-shadow:
+            inset 0 0 0 1px rgba(255,255,255,0.30),      /* crisp glass edge */
+            inset 0 6px 16px rgba(255,255,255,0.22),      /* top specular bevel (depth) */
+            inset 0 -22px 50px rgba(0,0,0,0.45),          /* bottom shade (depth) */
+            inset 14px 0 34px rgba(255,255,255,0.05),
+            inset -14px 0 34px rgba(255,255,255,0.05),
+            0 34px 90px rgba(0,0,0,0.55);                 /* cast (splay) */
         }
-        .growCircle::before {
-          content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 1.5px;
-          background: conic-gradient(from 200deg, #2f4cf0, #7b3cf0, #d43bc8, #ff4d2e, #ff8a1e, #2f4cf0);
+        .growCircle::before {   /* dispersion 100 — chromatic aberration at the rim */
+          content: ''; position: absolute; inset: -1px; border-radius: 50%; padding: 3px;
+          background: conic-gradient(from 205deg, #2f4cf0, #7b3cf0, #d43bc8, #ff4d2e, #ff8a1e, #37d6ff, #2f4cf0);
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           -webkit-mask-composite: xor; mask-composite: exclude;
-          filter: blur(1px); opacity: 0.85; pointer-events: none;
+          filter: blur(1.4px); opacity: 0.95; mix-blend-mode: screen; pointer-events: none;
         }
-        .growCircle::after {
-          content: ''; position: absolute; left: 10%; top: 5%; width: 50%; height: 32%; border-radius: 50%;
-          background: radial-gradient(circle at 32% 30%, rgba(255,255,255,0.10), rgba(255,255,255,0) 70%);
-          filter: blur(5px); pointer-events: none;
+        .growCircle::after {   /* specular highlights — top-left key, bottom-right fill */
+          content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+          background:
+            radial-gradient(58% 42% at 30% 15%, rgba(255,255,255,0.30), rgba(255,255,255,0) 62%),
+            radial-gradient(48% 38% at 76% 88%, rgba(255,255,255,0.10), rgba(255,255,255,0) 64%);
         }
-        .growText { position: relative; z-index: 2; text-align: center; font-weight: 600; font-size: 58px; line-height: 0.98; letter-spacing: -0.02em; color: #FFFFFF; }
+        .growText { position: relative; z-index: 2; text-align: center; font-weight: 600; font-size: 96px; line-height: 0.95; letter-spacing: -0.03em; color: #FFFFFF; }
         .growBrand {
           background: linear-gradient(90deg, #2f4cf0 0%, #6b3df0 26%, #c23bd6 52%, #ff4a3d 80%, #ff6a1f 100%);
           -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
         }
-        @media (max-width: 360px) { .growText { font-size: 52px; } }
+        @media (max-width: 360px) { .growText { font-size: 88px; } }
         @media (prefers-reduced-motion: reduce) {
           .growTrack { height: auto; }
           .growPin { position: relative; height: auto; min-height: 0; padding: var(--sp-panel) 0; }
