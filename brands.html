@@ -892,7 +892,8 @@
         var gr=grid.getBoundingClientRect();
         var orc=overlay.getBoundingClientRect();
         var gridCenter=(gr.top-orc.top)+gr.height/2;   // 0..vh within the overlay
-        var delta=(vh/2)-gridCenter;                    // >0 once scrolled past centre
+        var lead=vh*0.09;                               // start a touch before dead-centre so the reveal + rearrange come forward
+        var delta=(vh/2)-gridCenter+lead;               // >0 as the cluster nears the middle
         var span=vh*0.22;                               // short, so the cluster + text stay near centre while it resolves
         return Math.max(0,Math.min(1,delta/span));
       }
