@@ -401,6 +401,32 @@
       75% { transform: translate(0.7px,0.9px) rotate(0.4deg); }
     }
     @media (prefers-reduced-motion: reduce) { .cl-tile { transition: opacity 0.3s ease; transform: none; } .cl-tile img { animation: none; } }
+
+    /* "This is for" — same design + focus-lens highlighting as the creators page's
+       "We are calling for" section. */
+    :root { --sp-section: clamp(40px, 9vw, 52px); --sp-heading: clamp(30px, 7vw, 40px); }
+    .cReveal { opacity: 0; transform: translateY(26px); transition: opacity 0.62s cubic-bezier(0.23,1,0.32,1), transform 0.62s cubic-bezier(0.23,1,0.32,1); will-change: transform, opacity; }
+    .cReveal.in { opacity: 1; transform: translateY(0); }
+    .callItem { position: relative; padding: 22px 2px; }
+    .callItem[data-foc] { transform-origin: center center; will-change: transform, opacity; transition: transform 0.34s cubic-bezier(0.23,1,0.32,1), opacity 0.34s cubic-bezier(0.23,1,0.32,1); }
+    .callLine { position: absolute; left: 0; width: 100%; height: 1px; background: #E4E4E4; transform: scaleX(0); transform-origin: center; transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
+    .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1), color 0.3s ease; }
+    .callItem.in .callLine { transform: scaleX(1); }
+    .callItem.in .callWord { transform: translateY(0); }
+    .callItem:nth-child(1) .callLine, .callItem:nth-child(1) .callWord { transition-delay: 0.00s; }
+    .callItem:nth-child(2) .callLine, .callItem:nth-child(2) .callWord { transition-delay: 0.07s; }
+    .callItem:nth-child(3) .callLine, .callItem:nth-child(3) .callWord { transition-delay: 0.14s; }
+    .callItem:nth-child(4) .callLine, .callItem:nth-child(4) .callWord { transition-delay: 0.21s; }
+    .callItem:nth-child(5) .callLine, .callItem:nth-child(5) .callWord { transition-delay: 0.28s; }
+    .callItem:nth-child(6) .callLine, .callItem:nth-child(6) .callWord { transition-delay: 0.35s; }
+    @media (prefers-reduced-motion: reduce) {
+      .cReveal { transition: opacity 0.3s ease; transform: none; }
+      .cReveal.in { transform: none; }
+      .callWord { transform: none; transition: opacity 0.3s ease; opacity: 0; }
+      .callItem.in .callWord { opacity: 1; }
+      .callLine { transform: scaleX(1); transition: none; }
+      .callItem[data-foc] { transform: none !important; opacity: 1 !important; transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -599,15 +625,31 @@
         </div>
       </section>
 
-      <!-- 4. Who it's for -->
-      <section data-screen-label="Who it's for" style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 72px 28px; background: #1548EB;">
-        <span class="ov-reveal" style="display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 22px;">This is for</span>
-        <div style="display: flex; flex-direction: column;">
-          <div class="ov-reveal" style="padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.22); font-weight: 600; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: #FFFFFF;">Commercial brands</div>
-          <div class="ov-reveal" style="padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.22); font-weight: 600; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: #FFFFFF; transition-delay: 0.05s;">Corporates</div>
-          <div class="ov-reveal" style="padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.22); font-weight: 600; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: #FFFFFF; transition-delay: 0.1s;">Organizations</div>
-          <div class="ov-reveal" style="padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.22); font-weight: 600; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: #FFFFFF; transition-delay: 0.15s;">Events</div>
-          <div class="ov-reveal" style="padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.22); border-bottom: 1px solid rgba(255,255,255,0.22); font-weight: 600; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: #FFFFFF; transition-delay: 0.2s;">Public figures</div>
+      <!-- 4. This is for (styled like the creators page's "We are calling for") -->
+      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-section) 24px; background: #F6F6F6; text-align: center;">
+        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212;">This is for</h2>
+        <div style="max-width: 340px; width: 100%; margin: 0 auto;">
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Commercial brands</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Corporates</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Organizations</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Events</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Public figures</span></span>
+          </div>
+          <span class="callLine callItem" style="position: relative; display: block; top: 0;"></span>
         </div>
       </section>
 
@@ -710,12 +752,57 @@
       tries=tries||0;
       var overlay=document.getElementById('agreeScreen');
       if(!overlay){ if(tries<40) setTimeout(function(){api._armOverlayReveals(tries+1);},60); return; }
-      var els=overlay.querySelectorAll('.ov-reveal, .agree-head');
+      var els=overlay.querySelectorAll('.ov-reveal, .agree-head, .cReveal, .callItem');
       if(!els.length) return;
       var io=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
       },{ root: overlay, threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
       els.forEach(function(el){ io.observe(el); });
+    };
+
+    /* "This is for" focus lens — same behaviour as the creators page's calling-for
+       section: the row nearest the overlay's vertical centre reads as the hero
+       (slightly larger, full ink, turned blue) while the rest scale down and dim. */
+    api._armCallFocus = function(tries){
+      tries=tries||0;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce) return;
+      var overlay=document.getElementById('agreeScreen');
+      var section=document.getElementById('brandsForSection');
+      if(!overlay||!section){ if(tries<60) setTimeout(function(){api._armCallFocus(tries+1);},80); return; }
+      var items=[].slice.call(section.querySelectorAll('.callItem')).filter(function(el){ return el.querySelector('.callWord'); });
+      if(!items.length) return;
+      items.forEach(function(el){ el.setAttribute('data-foc',''); });
+      var CENTER_SCALE=1.06, FAR_SCALE=0.945, CENTER_OP=1, FAR_OP=0.34, HL_BLUE='#1548EB', INK='#121212';
+      var words=items.map(function(el){ return el.querySelector('.callWord'); });
+      var ticking=false;
+      function apply(){
+        ticking=false;
+        var vpCenter=window.innerHeight/2;
+        var range=(items[0].offsetHeight||72)*2.15;
+        var emphs=new Array(items.length), best=0, bestEmph=-1;
+        for(var i=0;i<items.length;i++){
+          var r=items[i].getBoundingClientRect();
+          var c=r.top+r.height/2;
+          var t=Math.abs(c-vpCenter)/range;
+          if(t>1)t=1; else if(t<0)t=0;
+          var emph=1-(t*t*(3-2*t));
+          emphs[i]=emph;
+          if(emph>bestEmph){ bestEmph=emph; best=i; }
+        }
+        for(var j=0;j<items.length;j++){
+          var e2=emphs[j];
+          var scale=FAR_SCALE+(CENTER_SCALE-FAR_SCALE)*e2;
+          var op=FAR_OP+(CENTER_OP-FAR_OP)*e2;
+          items[j].style.transform='scale('+scale.toFixed(4)+')';
+          items[j].style.opacity=op.toFixed(3);
+          if(words[j]) words[j].style.color=(j===best)?HL_BLUE:INK;
+        }
+      }
+      function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(apply); } }
+      overlay.addEventListener('scroll',onScroll,{ passive:true });
+      window.addEventListener('resize',onScroll,{ passive:true });
+      apply();
     };
 
     api._armHowToStart = function(tries){
@@ -878,7 +965,7 @@
     function boot(){
       var root=document.getElementById('appRoot'); if(root) root.classList.add('loaded');
       var safe=function(fn){ try{ fn(); }catch(e){ console.warn('init',e); } };
-      safe(api._armMenu); safe(api._armAdVideo); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armHowToStart);
+      safe(api._armMenu); safe(api._armAdVideo); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armHowToStart); safe(api._armCallFocus);
     }
     if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
     else boot();
