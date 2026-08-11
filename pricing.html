@@ -362,8 +362,8 @@
        line ("free") so the sticker can be sized as a percentage of the text. */
     .hero-title{position:relative;margin:0;font-weight:600;font-size:106px;line-height:0.9;letter-spacing:-0.02em;color:#1548EB;text-align:center;display:inline-flex;flex-direction:column;align-items:center;}
     /* Sticker ~1.11x the "free" line width, vertically centred, angled -9deg
-       (proportions measured from the reference image). */
-    .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(-9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
+       to the horizontal (tilted clockwise, per the reference image). */
+    .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
     @media (max-width:360px){.hero-title{font-size:92px;}}
   </style>
 
