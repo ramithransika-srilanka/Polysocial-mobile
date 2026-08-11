@@ -404,7 +404,7 @@
 
     /* "This is for" — same design + focus-lens highlighting as the creators page's
        "We are calling for" section. */
-    :root { --sp-section: clamp(40px, 9vw, 52px); --sp-heading: clamp(30px, 7vw, 40px); }
+    :root { --sp-section: clamp(40px, 9vw, 52px); --sp-heading: clamp(30px, 7vw, 40px); --sp-panel: clamp(72px, 14vw, 104px); }
     .cReveal { opacity: 0; transform: translateY(26px); transition: opacity 0.62s cubic-bezier(0.23,1,0.32,1), transform 0.62s cubic-bezier(0.23,1,0.32,1); will-change: transform, opacity; }
     .cReveal.in { opacity: 1; transform: translateY(0); }
     .callItem { position: relative; padding: 22px 2px; }
@@ -430,7 +430,7 @@
   </style>
 </head>
 <body>
-<div style="min-height:100vh;display:flex;justify-content:center;background:#EDEDED;">
+<div style="min-height:100dvh;display:flex;justify-content:center;background:#EDEDED;">
   <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;overflow-x:clip;">
 
     <div class="navScope" style="position:relative;">
@@ -460,7 +460,7 @@
     </div>
 
 <!-- 2. Hero -->
-    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc((100vh - 110px) * 1.1); margin: 0 auto; padding: 20px 0 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100dvh - 118px); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
       
       <h1 style="margin: 0; font-weight: 600; font-size: 40px; line-height: 1.08; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
         <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">We can</span> <span style="color: #121212;">run</span></span>
@@ -472,15 +472,15 @@
         <a href="#start" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 6px 0 18px; background: #FFFFFF; color: #1548EB; border: 1.5px solid #1548EB; border-radius: 100px; font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; transition: transform 0.16s cubic-bezier(0.23,1,0.32,1); border-width: 2px" style-active="transform: scale(0.97);">
           Join Polysocial
           <span style="flex: none; width: 28px; height: 28px; border-radius: 999px; background: #1548EB; display: flex; align-items: center; justify-content: center;">
-            <svg class="ctaArrow" width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M5 12h13M13 6l6 6-6 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <svg class="ctaArrow" width="14" height="14" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M5 12h13M13 6l6 6-6 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </span>
         </a>
       </span>
     </div>
 
     <!-- Sponsored ad video (sticky: pins centered, independent of page scroll) -->
-    <section id="start" data-screen-label="Sponsored ad" style="position: relative; padding: 0 16px; height: 100vh;">
-      <div style="position: sticky; top: max(16px, calc((100vh - 616px) / 2)); width: 100%; height: 616px; border-radius: 28px; overflow: hidden; background: #000000; box-shadow: 0 16px 40px rgba(18,31,96,0.16);">
+    <section id="start" data-screen-label="Sponsored ad" style="position: relative; padding: 0 16px; height: 100dvh;">
+      <div style="position: sticky; top: max(16px, calc((100dvh - 616px) / 2)); width: 100%; height: 616px; border-radius: 28px; overflow: hidden; background: #000000; box-shadow: 0 16px 40px rgba(18,31,96,0.16);">
         <video id="adVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/brand-sponsored-ad.poster.d91a3d75a1.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><source src="assets/video/brand-sponsored-ad.ead70756bd.webm" type="video/webm"><source src="assets/video/brand-sponsored-ad.e89af0b56f.mp4" type="video/mp4"></video>
         <div aria-hidden="true" style="position: absolute; top: 0; left: 0; right: 0; height: 96px; background: linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
         <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 140px; background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
@@ -489,7 +489,7 @@
           <div style="display: flex; justify-content: flex-end;">
             <button id="skipAdBtn" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: none; border-radius: 999px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.28s cubic-bezier(0.23,1,0.32,1), transform 0.28s cubic-bezier(0.23,1,0.32,1); pointer-events: none;">
               Skip Ad
-              <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M17 5V19M6 10.5713V13.4287C6 15.2557 6 16.1693 6.38355 16.6958C6.71806 17.1549 7.23174 17.4496 7.79688 17.5073C8.44484 17.5733 9.23434 17.113 10.8125 16.1924L13.2617 14.7637L13.2701 14.7588C14.8216 13.8537 15.5979 13.4009 15.8595 12.8105C16.0881 12.2946 16.0881 11.7062 15.8595 11.1902C15.5974 10.5988 14.8188 10.1446 13.2617 9.2363L10.8125 7.80762C9.23434 6.88702 8.44484 6.42651 7.79688 6.49256C7.23174 6.55017 6.71806 6.84556 6.38355 7.30469C6 7.83111 6 8.74424 6 10.5713Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M17 5V19M6 10.5713V13.4287C6 15.2557 6 16.1693 6.38355 16.6958C6.71806 17.1549 7.23174 17.4496 7.79688 17.5073C8.44484 17.5733 9.23434 17.113 10.8125 16.1924L13.2617 14.7637L13.2701 14.7588C14.8216 13.8537 15.5979 13.4009 15.8595 12.8105C16.0881 12.2946 16.0881 11.7062 15.8595 11.1902C15.5974 10.5988 14.8188 10.1446 13.2617 9.2363L10.8125 7.80762C9.23434 6.88702 8.44484 6.42651 7.79688 6.49256C7.23174 6.55017 6.71806 6.84556 6.38355 7.30469C6 7.83111 6 8.74424 6 10.5713Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
           </div>
           <div style="height: 4px; border-radius: 999px; background: rgba(255,255,255,0.3); overflow: hidden;">
@@ -500,7 +500,7 @@
         <!-- Poll takeover (appears after Skip Ad) -->
         <div id="adPoll" style="position: absolute; inset: 0; z-index: 5; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; gap: 20px; background: linear-gradient(160deg, rgba(20,12,8,0.32) 0%, rgba(20,12,8,0.52) 100%); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); opacity: 0; visibility: hidden; transform: scale(1.02); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), transform 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s; pointer-events: none;">
           <button id="pollBackBtn" aria-label="Back to video" style="align-self: flex-start; width: 36px; height: 36px; border: none; border-radius: 999px; background: rgba(0,0,0,0.42); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out;" style-hover="background: rgba(0,0,0,0.6);" style-active="transform: scale(0.94);">
-            <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M15 5l-7 7 7 7" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M15 5l-7 7 7 7" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </button>
           <h3 style="margin: 0; color: #FFFFFF; font-weight: 600; font-size: 24px; line-height: 1.32; letter-spacing: -0.01em; text-wrap: pretty; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">Paid ads are not enough and market is moving towards organic. Don’t you think?</h3>
           <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -516,8 +516,8 @@
 
     <!-- Agreement payoff screen (overlay above the video: slides up partially, then scrolls to its end) -->
     <div id="agreeScreen" data-screen-label="Agreement" style="position: fixed; top: 0; bottom: 0; left: 50%; width: 393px; max-width: 100%; z-index: 200; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; transform: translate(-50%, 100%); transition: transform 0.82s cubic-bezier(0.32,0.72,0,1); pointer-events: none;">
-      <div style="height: 44vh;"></div>
-      <div style="position: relative; min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 54px 30px; background: #FFFFFF; overflow: hidden;">
+      <div style="height: 40dvh;"></div>
+      <div style="position: relative; min-height: 60dvh; display: flex; align-items: center; justify-content: center; padding: var(--sp-panel) 30px; background: #FFFFFF; overflow: hidden;">
         <div class="ov-reveal" style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 30px;">
           <p style="width: 323px; max-width: 100%; margin: 0; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 28px; line-height: normal; letter-spacing: 0; text-align: center; color: #000000;"><span style="color: #717171;">We couldn't </span><span style="color: #000000;">agree more. </span><span style="color: #717171;">Brand budgets are shifting toward </span><span style="color: #000000;">creating more organic content. </span><span style="color: #717171;">What could be more organic than</span><span style="color: #000000;"> user-generated content?</span></p>
           <img src="assets/svg/organic-badge.edce44419f.svg" alt="100% organic" style="display: block; width: 152px; height: 68px; filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.25));">
@@ -525,7 +525,7 @@
       </div>
 
       <!-- 2. Community -->
-      <section data-screen-label="Community" style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; background: #F6F6F6; overflow: hidden;">
+      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 20px; background: #F6F6F6; overflow: hidden;">
         <h2 class="ov-reveal" style="margin: 0 0 6px; font-weight: 600; font-size: 30px; line-height: 1.14; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; max-width: 15ch;">Build a community <span style="color: #717171;">around your brand</span></h2>
         <div id="clGrid" class="ov-reveal" style="position: relative; width: 345px; max-width: 100%; height: 429px; margin: 14px auto 0; transition-delay: 0.1s;">
           <div class="cl-tile" data-cl="g" style="position:absolute; left:180px; top:187px; width:56px; height:56px; z-index:56; border-radius:999px; overflow:hidden; filter:grayscale(1); transition-delay:0.000s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
@@ -561,7 +561,7 @@
       </section>
 
       <!-- 3. How to start -->
-      <section data-screen-label="How to start" style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 72px 0; background: #F6F6F6; overflow: hidden;">
+      <section data-screen-label="How to start" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 0; background: #F6F6F6; overflow: hidden;">
 
         <h2 class="ov-reveal" style="margin: 0 28px 26px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; transition-delay: 0.05s;">You can start<br>right away</h2>
 
@@ -626,8 +626,8 @@
       </section>
 
       <!-- 4. This is for (styled like the creators page's "We are calling for") -->
-      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-section) 24px; background: #F6F6F6; text-align: center;">
-        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212;">This is for</h2>
+      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 24px; background: #F6F6F6; text-align: center;">
+        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212;">This call is for</h2>
         <div style="max-width: 340px; width: 100%; margin: 0 auto;">
           <div class="callItem">
             <span class="callLine" style="top: 0;"></span>
@@ -913,8 +913,9 @@
       function lockTarget(){ var stickyTop=Math.max(16,(window.innerHeight-616)/2); var topAbs=section.getBoundingClientRect().top+window.scrollY; return topAbs-stickyTop; }
       function clampScroll(){ if(released||!section) return; var target=lockTarget(); if(window.scrollY>=target-1){ if(window.scrollY>target) window.scrollTo(0,target); } }
 
-      v.muted=true;
-      function tryPlay(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+      // Always silent — the ad never plays sound.
+      v.muted=true; v.volume=0; v.removeAttribute('controls');
+      function tryPlay(){ v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
       var playing=false;
       function check(){
         var r=v.getBoundingClientRect();
@@ -956,10 +957,8 @@
       window.addEventListener('resize',onScroll);
       check();
 
-      var unmuteOnce=function(){ v.muted=false; v.volume=1; tryPlay(); document.removeEventListener('pointerdown',unmuteOnce); document.removeEventListener('keydown',unmuteOnce); };
-      document.addEventListener('pointerdown',unmuteOnce,{ once:true });
-      document.addEventListener('keydown',unmuteOnce,{ once:true });
-      v.addEventListener('click',function(){ v.muted=!v.muted; if(!v.muted) v.volume=1; tryPlay(); });
+      // Keep it muted even if something toggles it (defensive).
+      v.addEventListener('volumechange',function(){ if(!v.muted) v.muted=true; });
     };
 
     function boot(){
