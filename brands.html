@@ -524,7 +524,7 @@
     <!-- Agreement payoff screen (overlay above the video: slides up partially, then scrolls to its end) -->
     <div id="agreeScreen" data-screen-label="Agreement" style="position: fixed; top: 0; bottom: 0; left: 50%; width: 393px; max-width: 100%; z-index: 200; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; transform: translate(-50%, 100%); transition: transform 0.82s cubic-bezier(0.32,0.72,0,1); pointer-events: none;">
       <div style="height: 40dvh;"></div>
-      <div style="position: relative; min-height: 66dvh; display: flex; align-items: center; justify-content: center; padding: var(--sp-panel) 30px; background: #FFFFFF; overflow: hidden;">
+      <div style="position: relative; min-height: max(530px, 66dvh); display: flex; align-items: center; justify-content: center; padding: var(--sp-panel) 30px; background: #FFFFFF; overflow: hidden;">
         <div class="ov-reveal" style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 30px;">
           <p style="width: 323px; max-width: 100%; margin: 0; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 28px; line-height: normal; letter-spacing: 0; text-align: center; color: #000000;"><span style="color: #717171;">We couldn't </span><span style="color: #000000;">agree more. </span><span style="color: #717171;">Brand budgets are shifting toward </span><span style="color: #000000;">creating more organic content. </span><span style="color: #717171;">What could be more organic than</span><span style="color: #000000;"> user-generated content?</span></p>
           <img src="assets/svg/organic-badge.edce44419f.svg" alt="100% organic" style="display: block; width: 152px; height: 68px; filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.25));">
@@ -883,19 +883,18 @@
       var SNAP='transform 420ms cubic-bezier(0.22,0.61,0.36,1), opacity 300ms ease-out';
       var ease=function(t){ return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; };
 
-      // (2) The rearrange/text reveal is driven only once the circle cluster is
-      // centred in the viewport; further scrolling past centre scrubs it in.
-      // p = 0 while the grid centre sits at or below the viewport centre, and
-      // ramps to 1 over the next ~0.22 viewport-heights of scroll.
+      // (2) The rearrange/text reveal begins the moment the whole cluster is on
+      // screen — i.e. as the grid's bottom edge rises past the viewport bottom —
+      // and scrubs in over the following stretch of scroll, resolving around the
+      // time the cluster reaches centre.
       function measure(){
         var vh=overlay.clientHeight;
         var gr=grid.getBoundingClientRect();
         var orc=overlay.getBoundingClientRect();
-        var gridCenter=(gr.top-orc.top)+gr.height/2;   // 0..vh within the overlay
-        var lead=vh*0.09;                               // start a touch before dead-centre so the reveal + rearrange come forward
-        var delta=(vh/2)-gridCenter+lead;               // >0 as the cluster nears the middle
-        var span=vh*0.22;                               // short, so the cluster + text stay near centre while it resolves
-        return Math.max(0,Math.min(1,delta/span));
+        var gridBottom=(gr.top-orc.top)+gr.height;     // grid bottom within the overlay viewport
+        var overshoot=vh-gridBottom;                    // 0 the instant the whole cluster is visible, grows as you scroll on
+        var span=vh*0.30;                               // resolves a little past centre, so the cluster + text land near the middle
+        return Math.max(0,Math.min(1,overshoot/span));
       }
       function apply(p){
         var e=ease(p), active=p>0.0001, m=e*e;
