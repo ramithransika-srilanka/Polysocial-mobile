@@ -362,8 +362,8 @@
        line ("free") so the sticker can be sized as a percentage of the text. */
     .hero-title{position:relative;margin:0;font-weight:600;font-size:106px;line-height:0.9;letter-spacing:-0.02em;color:#1548EB;text-align:center;display:inline-flex;flex-direction:column;align-items:center;}
     /* Sticker ~1.11x the "free" line width, vertically centred, angled -9deg
-       (proportions measured from the reference image). */
-    .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(-9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
+       to the horizontal (tilted clockwise, per the reference image). */
+    .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
     @media (max-width:360px){.hero-title{font-size:92px;}}
   </style>
 
@@ -459,6 +459,30 @@
           <a href="index.html#about" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">About this company<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
         </nav>
         <div style="height:1px;min-height:1px;flex:none;background:#A0A0A0;"></div>
+        <div style="display:flex;flex-direction:column;gap:14px;color:#717171;font-size:10px;line-height:1.5;">
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <span style="font-weight:600;">Content Review, Approval, and Disputes</span>
+            <p style="margin:0;font-weight:400;">When a Campaign Owner approves a submission, the Creator earns the base payout and any performance pay. If the Campaign Owner does not approve or reject within 48 hours, the Platform may auto-confirm payment, provided the Content followed the Campaign Owner&rsquo;s guidelines. A Campaign Owner may still raise a dispute after auto-confirmation; disputes go to a special Platform inquiry, and the Platform&rsquo;s decision is final. Rejected or unpaid Content stays fully owned by the Creator.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <span style="font-weight:600;">Payments, Fees, and the Wallet</span>
+            <p style="margin:0;font-weight:400;">The Platform holds a Campaign&rsquo;s full budget before it begins and pays it out as Content is approved and confirmed; any leftover budget is refunded to the Campaign Owner with no fee. The Platform takes a 10% commission on each Creator transaction, inclusive of all charges, so the Creator receives the balance. Campaign Owners pay no platform fee, but a 3% payment-processing charge applies to campaigns funded through an online gateway (not to bank transfers) and is borne by the Campaign Owner.</p>
+            <p style="margin:0;font-weight:400;">Earnings are made available through the Wallet, and a Creator may cash out once per day, via internet payment gateway or bank transfer. Bank details are used only for deposits and never shared. No tax is withheld from earnings; if any deduction is required, the Creator is notified on the transfer confirmation page beforehand. Each user handles their own tax obligations.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <span style="font-weight:600;">Performance-Based Pay and View Measurement</span>
+            <p style="margin:0;font-weight:400;">Performance pay is based solely on views, measured through the official APIs of the relevant social media platforms via OAuth. Only metrics each platform permits, within the scope the Creator authorizes, are accessed. The method or rate may change, with notice. To earn and keep payment, a Creator&rsquo;s post must stay online and public until the Campaign ends (or any period the Campaign Owner sets). If it is taken down, made private, or removed before then, the Creator is not paid for that Content and must resubmit it as a new transaction.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <span style="font-weight:600;">Content Ownership and Copyright</span>
+            <p style="margin:0;font-weight:400;">Creators own the Content they create and publish, and may always keep it on their own channels and reuse it in a portfolio. Where a Campaign expressly requests raw Content and payment is completed, copyright in that Content transfers to the Platform &mdash; whether it received a base payout only or also performance pay. After transfer, the Platform may use the Content on its own channels; the Campaign Owner may use it only with the Platform&rsquo;s consent; and neither may sell it to a third party. If a Creator is not paid, copyright stays fully with the Creator and none of these transfer rights apply.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <span style="font-weight:600;">Creator Status</span>
+            <p style="margin:0;font-weight:400;">Creators are independent contractors (freelancers). Nothing here creates an employment, agency, partnership, or joint-venture relationship with the Platform or any Campaign Owner, and Creators have no authority to bind either.</p>
+          </div>
+        </div>
+        <div style="height:1px;min-height:1px;flex:none;background:#A0A0A0;"></div>
         <div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;color:#717171;font-size:10px;line-height:1.5;">
           <span style="font-weight:400;">&copy; 2026 Polysocial. All rights reserved.</span>
           <a href="index.html#privacy" style="color:#717171;font-weight:400;">Privacy policy</a>
@@ -471,6 +495,28 @@
 </div>
 
   <script>
+  /* Keep the home page's dark loading screen from reappearing when the user
+     navigates away via an in-site link. Clear any stale flag from the load that
+     brought us here, then flag same-site link clicks so index.html can tell a
+     nav click apart from a fresh load / reload. */
+  (function(){
+    try{ sessionStorage.removeItem('psNav'); }catch(_){ }
+    document.addEventListener('click', function(ev){
+      var a=ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+      if(!a) return;
+      var href=a.getAttribute('href') || '';
+      if(!href || href.charAt(0)==='#') return;
+      if(/^(mailto:|tel:|javascript:)/i.test(href)) return;
+      var tgt=a.getAttribute('target');
+      if(tgt && tgt!=='_self') return;
+      if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button) return;
+      try{
+        var u=new URL(a.href, location.href);
+        if(u.origin!==location.origin) return;
+        sessionStorage.setItem('psNav','1');
+      }catch(_){ }
+    }, true);
+  })();
   (function(){
     var btn=document.getElementById('menuBtn'),ov=document.getElementById('menuOverlay');
     if(!btn||!ov)return;
