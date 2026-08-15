@@ -1254,7 +1254,7 @@
       // Fixed Figma-style glass params (the requested defaults from the reference).
       // lineGap stays tight (82%); text is rendered at a fixed 96px on-screen size.
       var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
-      var FINAL_DIA=450;          // settled circle diameter (px) — wider than the phone, so it crops from the sides
+      var FINAL_DIA=260;          // settled circle diameter (px) — kept within the phone width so the full circle always shows
       var TEXT_PX=96;             // on-screen letter size at the settled circle (Inter SemiBold)
       var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
 
@@ -1343,20 +1343,21 @@
         if(hint){ if(!hintHidden&&spring.target>0.02){ hintHidden=true; hint.style.opacity='0'; }
                   else if(hintHidden&&spring.target<=0.005){ hintHidden=false; hint.style.opacity='1'; } }
 
-        var endDia=FINAL_DIA, startDia=cssH*1.9;   // 450px settled circle (crops from the sides)
+        // The lens is ALWAYS a perfect, fully-visible circle — never cropped by the screen
+        // edges (which would read as a vertical oval) and never squashed by scroll velocity.
+        // It enters as the biggest circle that fits the width (words visible) and shrinks IN
+        // PLACE, centred, to the settled circle. No side-crop, no drift, no squash.
+        var startDia=Math.min(cssW,cssH)*0.94;   // largest circle fully inside the viewport
+        var endDia=Math.min(FINAL_DIA,startDia);
         var dia=startDia+(endDia-startDia)*p, radius=dia/2;
-        // Start the dome high enough that it already sits just under the Supplementary cards
-        // (its top ~1/4 down the screen), so there's no tall empty charcoal band before it.
-        // It still RISES from below and shrinks up to the settled circle (center 1.24H -> 0.5H) —
-        // no downward drift.
-        var startCY=cssH*1.24, endCY=cssH/2, centerY=startCY+(endCY-startCY)*p;
-        var squash = reduce ? 1 : 1+Math.max(-0.18,Math.min(0.35,spring.vel*0.9));
+        var centerY=cssH*0.5;                     // centred; shrinks in place
+        var squash=1;                             // never distort — perfect circle at all times
         // Text transition (reveal + zoom-out) resolves a touch AHEAD of the circle's final
         // settle, so the words lock into place as the lens finishes shrinking (Emil layering).
         // Both are driven by the same scroll-spring, never by scroll position directly.
         var tprog=Math.max(0,Math.min(1,(p-0.10)/0.75));
         var te=1-Math.pow(1-tprog,3);                     // ease-out cubic
-        var reveal=reduce?1:Math.max(0,Math.min(1,(p-0.25)/0.60));
+        var reveal=1;   // words are visible from the moment the glass enters (no top-first delay)
         // Text scale relative to the lens rides from 0.90x up to 1.0x as it emerges. Kept
         // <=1.0 at all times so the words can never spill past the circumference mid-animation
         // (requirement: text always inside the circle). Combined with the shrinking lens this
