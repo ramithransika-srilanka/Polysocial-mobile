@@ -704,7 +704,7 @@
            dispersion, directional light, chromatic rim) and the top-first text
            reveal are all rendered in a fragment shader, driven by a scroll-spring.
            See liquid-glass.html for the standalone reference + live controls. */
-        .growTrack { position: relative; height: 200vh; background: #161616; }
+        .growTrack { position: relative; height: 138vh; background: #161616; }
         .growPin { position: sticky; top: 0; height: 100vh; min-height: 560px; overflow: hidden; background: #161616; }
         .growGL { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
         /* Scroll hint — fades as the glass starts to move */
@@ -833,7 +833,7 @@
           .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
       </style>
-      <section id="talkSection" style="position: relative; background: #161616; padding: calc(var(--sp-section) + 25px) 24px; text-align: center;">
+      <section id="talkSection" style="position: relative; background: #161616; padding: 26px 24px calc(var(--sp-section) + 25px); text-align: center;">
         <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
           <span style="display: block; color: #ADADAD;">Interested?</span>
           <span style="display: block; color: #FFFFFF;">Let&rsquo;s talk</span>
@@ -1198,7 +1198,7 @@
         'uniform sampler2D uText; uniform float uPx;',
         'uniform float uRefraction; uniform float uDepth; uniform float uDispersion; uniform float uFrost;',
         'uniform float uSplayPow; uniform float uBlur; uniform float uSpecular; uniform float uTint;',
-        'uniform vec2 uLightDir; uniform float uLight; uniform vec2 uTextCenter; uniform float uTextHalf; uniform vec3 uBg; uniform float uBaseBlur;',
+        'uniform vec2 uLightDir; uniform float uLight; uniform vec2 uTextCenter; uniform float uTextHalf; uniform vec3 uBg; uniform float uBaseBlur; uniform float uTextAlpha;',
         'float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }',
         'vec4 sampleText(vec2 uv,float extraBlur){',
         '  if(uv.x<0.0||uv.x>1.0||uv.y<0.0||uv.y>1.0) return vec4(0.0);',
@@ -1230,7 +1230,7 @@
         '  float disp=uDispersion*shape*boost*0.9; float rimW=0.10+0.90*litFace;',
         '  float ds=disp*(0.14+0.86*rimW)*uvToTex; float baseBlur=uBaseBlur+uBlur*6.0+uFrost*2.2;',
         '  vec4 cr=sampleText(ruv+dir*ds,baseBlur); vec4 cg=sampleText(ruv,baseBlur); vec4 cb=sampleText(ruv-dir*ds,baseBlur);',
-        '  vec3 content=vec3(cr.r,cg.g,cb.b); float ca=max(cr.a,max(cg.a,cb.a));',
+        '  vec3 content=vec3(cr.r,cg.g,cb.b); float ca=max(cr.a,max(cg.a,cb.a))*uTextAlpha;',
         '  vec3 col=mix(bg,content,ca);',
         '  if(uFrost>0.0){ float grain=(hash(frag*0.9)-0.5)*0.05*uFrost; col+=grain; col=mix(col,col+vec3(0.06),uFrost*0.12); }',
         '  col=mix(col,col*vec3(0.86,0.90,1.06)+vec3(0.02,0.03,0.05),uTint*0.5);',
@@ -1252,7 +1252,7 @@
       var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
       var aPos=gl.getAttribLocation(prog,'aPos'); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
-      var U={}; ['uRes','uCenter','uRadius','uSquash','uText','uPx','uRefraction','uDepth','uDispersion','uFrost','uSplayPow','uBlur','uSpecular','uTint','uLightDir','uLight','uTextCenter','uTextHalf','uBg','uBaseBlur'].forEach(function(n){ U[n]=gl.getUniformLocation(prog,n); });
+      var U={}; ['uRes','uCenter','uRadius','uSquash','uText','uPx','uRefraction','uDepth','uDispersion','uFrost','uSplayPow','uBlur','uSpecular','uTint','uLightDir','uLight','uTextCenter','uTextHalf','uBg','uBaseBlur','uTextAlpha'].forEach(function(n){ U[n]=gl.getUniformLocation(prog,n); });
 
       // Fixed Figma-style glass params (the requested defaults from the reference).
       // lineGap stays tight (82%); text is rendered at a fixed 96px on-screen size.
@@ -1322,12 +1322,19 @@
       }
 
       // ---- scroll → spring ----
-      var spring={ value:0, target:0, vel:0 }, K=120, C=14, Mmass=1;   // slightly underdamped → elastic settle
+      // Stiff, near-critically-damped spring: it tracks the scroll position tightly (no lag /
+      // "delay"), only smoothing jitter and giving a whisper of settle when the scroll stops.
+      var spring={ value:0, target:0, vel:0 }, K=320, C=30, Mmass=1;
       function progress(){
         var oh=overlay.clientHeight, tr=track.getBoundingClientRect(), orc=overlay.getBoundingClientRect();
-        var topWithin=tr.top-orc.top, span=track.offsetHeight-oh;
-        var p=span>0?(-topWithin)/span:0; if(p<0)p=0; else if(p>1)p=1;
-        return Math.min(1,p/0.75);   // finish the transition, then rest for the last stretch
+        var top=tr.top-orc.top, span=track.offsetHeight-oh;
+        // Start the transition as the section ENTERS (its top ~40% down the viewport, i.e. the
+        // moment the dome becomes visible) and finish a touch before the pin releases. This
+        // removes the dead pre-pin scroll — every bit of scroll moves the animation, no delay.
+        var lead=oh*0.40;
+        var p=span>0?((lead-top)/((span+lead)*0.92)):0;
+        if(p<0)p=0; else if(p>1)p=1;
+        return p;
       }
       var hintHidden=false, lastT=performance.now();
       var pin=canvas.parentNode;
@@ -1373,6 +1380,9 @@
         var textHalf=tHalfStart+(tHalfEnd-tHalfStart)*eb;
         var tStartCY=cssH*0.36, tEndCY=cssH*0.5;
         var textCenterY=tStartCY+(tEndCY-tStartCY)*eb;        // moves DOWN
+        // WORDS opacity — fade 0% -> 100%, resolving exactly at the settle. Monotonic smoothstep
+        // (no overshoot on opacity) so the words materialise as they descend and lock into place.
+        var textAlpha = reduce ? 1 : (p*p*(3-2*p));
 
         gl.useProgram(prog);
         gl.uniform2f(U.uRes,W,H);
@@ -1394,6 +1404,7 @@
         gl.uniform1f(U.uTextHalf,textHalf*DPR);
         gl.uniform3f(U.uBg,BG[0],BG[1],BG[2]);
         gl.uniform1f(U.uBaseBlur, TEX/(2.0*textHalf));   // keep the glass blur ~1px on-screen at any text size
+        gl.uniform1f(U.uTextAlpha, textAlpha);
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,tex); gl.uniform1i(U.uText,0);
         gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
         requestAnimationFrame(frame);
