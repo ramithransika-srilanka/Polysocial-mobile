@@ -1343,12 +1343,12 @@
         if(hint){ if(!hintHidden&&spring.target>0.02){ hintHidden=true; hint.style.opacity='0'; }
                   else if(hintHidden&&spring.target<=0.005){ hintHidden=false; hint.style.opacity='1'; } }
 
-        // The lens is ALWAYS a perfect, fully-visible circle — never cropped by the screen
-        // edges (which would read as a vertical oval) and never squashed by scroll velocity.
-        // It enters as the biggest circle that fits the width (words visible) and shrinks IN
-        // PLACE, centred, to the settled circle. No side-crop, no drift, no squash.
-        var startDia=Math.min(cssW,cssH)*0.94;   // largest circle fully inside the viewport
-        var endDia=Math.min(FINAL_DIA,startDia);
+        // The lens geometry is ALWAYS a perfect circle (rx == ry) — it may be larger than the
+        // screen (the viewport simply clips a still-round circle), but it is never squashed into
+        // an oval. It enters large/full-bleed with the words visible and shrinks IN PLACE,
+        // centred, to the settled circle. No drift, no squash — circular at every point.
+        var startDia=cssH*1.3;                    // enters full-bleed (clipped, but perfectly round)
+        var endDia=FINAL_DIA;
         var dia=startDia+(endDia-startDia)*p, radius=dia/2;
         var centerY=cssH*0.5;                     // centred; shrinks in place
         var squash=1;                             // never distort — perfect circle at all times
