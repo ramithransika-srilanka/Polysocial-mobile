@@ -1345,7 +1345,11 @@
 
         var endDia=FINAL_DIA, startDia=cssH*1.9;   // 450px settled circle (crops from the sides)
         var dia=startDia+(endDia-startDia)*p, radius=dia/2;
-        var startCY=cssH+startDia/2-130, endCY=cssH/2, centerY=startCY+(endCY-startCY)*p;
+        // Start the dome high enough that it already sits just under the Supplementary cards
+        // (its top ~1/4 down the screen), so there's no tall empty charcoal band before it.
+        // It still RISES from below and shrinks up to the settled circle (center 1.24H -> 0.5H) —
+        // no downward drift.
+        var startCY=cssH*1.24, endCY=cssH/2, centerY=startCY+(endCY-startCY)*p;
         var squash = reduce ? 1 : 1+Math.max(-0.18,Math.min(0.35,spring.vel*0.9));
         // Text transition (reveal + zoom-out) resolves a touch AHEAD of the circle's final
         // settle, so the words lock into place as the lens finishes shrinking (Emil layering).
