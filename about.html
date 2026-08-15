@@ -2,8 +2,8 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pricing &middot; Polysocial</title>
-<meta name="description" content="Polysocial is free to create any campaign. See how pricing works for brands and creators.">
+<title>About &middot; Polysocial</title>
+<meta name="description" content="In a world where information is abundant and attention is limited, every brand needs a community that believes in it. Meet the team building Polysocial.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <style>/* cyrillic-ext */
@@ -358,13 +358,20 @@
     #menuOverlay.open .menuLink:nth-child(4){transition-delay:0.20s;}
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
-    /* Hero font bumped 10% (96 -> 106px). Title box shrink-wraps to its widest
-       line ("free") so the sticker can be sized as a percentage of the text. */
-    .hero-title{position:relative;margin:0;font-weight:600;font-size:106px;line-height:0.9;letter-spacing:-0.02em;color:#1548EB;text-align:center;display:inline-flex;flex-direction:column;align-items:center;}
-    /* Sticker ~1.11x the "free" line width, vertically centred, angled -9deg
-       to the horizontal (tilted clockwise, per the reference image). */
-    .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
-    @media (max-width:360px){.hero-title{font-size:92px;}}
+    /* About page ---------------------------------------------------------- */
+    .ab-mute{color:#717171;}
+    .ab-hero{margin:0;font-weight:600;font-size:28px;line-height:1.22;letter-spacing:-0.01em;color:#000000;text-align:center;}
+    .ab-h2{margin:0;font-weight:600;font-size:28px;line-height:1.14;letter-spacing:-0.01em;color:#000000;text-align:center;}
+    .ab-body{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:#717171;text-align:center;}
+    .ab-pill{display:inline-flex;align-items:center;justify-content:center;padding:6px 16px;border-radius:100px;font-weight:500;font-size:12px;line-height:1;border:1px solid #C9C9C9;color:#717171;background:#FFFFFF;}
+    .ab-pill.now{border-color:#1548EB;color:#1548EB;}
+    .ab-step-title{margin:0;font-weight:600;font-size:14px;line-height:1.3;color:#000000;text-align:center;}
+    .ab-step-title.now{color:#1548EB;}
+    .ab-mission-pill{display:inline-flex;align-items:center;justify-content:center;padding:9px 22px;border-radius:100px;font-weight:600;font-size:14px;line-height:1;color:#FFFFFF;background:#1548EB;}
+    .ab-mission{margin:0;font-weight:700;font-size:20px;line-height:1.2;letter-spacing:-0.01em;color:#000000;text-align:center;}
+    .ab-name{margin:0;font-weight:700;font-size:16px;line-height:1.2;color:#000000;text-align:center;}
+    .ab-social{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;color:#000000;transition:opacity 0.15s ease;}
+    .ab-social:active{opacity:0.6;}
   </style>
 
 </head>
@@ -399,43 +406,99 @@
     </div>
 
 
-    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:127px 20px 0;">
-      <h1 class="hero-title">
-        <span>It&rsquo;s</span>
-        <span>free</span>
-        <img class="hero-badge" src="assets/svg/group17-badge.svg" alt="polysocial">
+    <!-- Hero ------------------------------------------------------------- -->
+    <section style="position:relative;z-index:1;padding:96px 24px 104px;">
+      <h1 class="ab-hero">
+        <span class="ab-mute">In a world where</span><br>
+        information is abundant <span class="ab-mute">and</span><br>
+        attention is limited,<br>
+        every brand needs a<br>
+        community <span class="ab-mute">that</span><br>
+        <span class="ab-mute">believes in it.</span>
       </h1>
-      <p style="margin:10px 0 0;font-weight:600;font-size:22px;line-height:1.05;color:#000000;text-align:center;max-width:240px;">To create any campaign</p>
-    </div>
+    </section>
 
 
-    <div style="display:flex;flex-direction:column;gap:48px;padding:136px 15px 0;">
-      
-      <section style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
-        display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
-        <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
-          <picture><source type="image/webp" srcset="assets/img/brand-briksy.64w.947e2b79f8.webp"><img decoding="async" loading="lazy" src="assets/img/brand-briksy.64w.7eff5f5069.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/webp" srcset="assets/img/brand-lunavo.64w.8f711f123f.webp"><img decoding="async" loading="lazy" src="assets/img/brand-lunavo.64w.0f4682ddfe.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/webp" srcset="assets/img/brand-polysocial-p.64w.77610a06d9.webp"><img decoding="async" loading="lazy" src="assets/img/brand-polysocial-p.64w.b96678c6b2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
+    <!-- Timeline ----------------------------------------------------------- -->
+    <section style="background:#F6F6F6;padding:56px 34px;display:flex;flex-direction:column;gap:44px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <span class="ab-pill">20 years ago</span>
+        <h3 class="ab-step-title">Information was enough</h3>
+        <p class="ab-body">Think about 20 years ago. Brands only had to pass on the information &mdash; a full-page newspaper ad with all the details. The customer learns about the product. Purchase happens.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <span class="ab-pill">10 years ago</span>
+        <h3 class="ab-step-title">Then attention was the key</h3>
+        <p class="ab-body">Social media and search engines became prominent. Ads everywhere, endless product info. The brands that shined were the ones grabbing attention consistently &mdash; with good content.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <span class="ab-pill now">Now</span>
+        <h3 class="ab-step-title now">Now, trust is the edge</h3>
+        <p class="ab-body">With AI, anybody can copy good content within minutes and grab the same attention. Good content is everywhere. So who shines? The brands that can induce trust &mdash; confidence to purchase.</p>
+      </div>
+    </section>
+
+
+    <!-- A new middle layer ------------------------------------------------- -->
+    <section style="padding:64px 24px 0;">
+      <h2 class="ab-h2"><span class="ab-mute">A new</span> middle layer <span class="ab-mute">is growing</span></h2>
+    </section>
+    <figure style="margin:36px 0 0;">
+      <img src="assets/img/about-visual.jpg" alt="A frosted-glass diagram of three concentric glowing rings — a warm coral core labelled &ldquo;Your brand,&rdquo; a blue-white middle ring labelled &ldquo;A community of content creators around your brand,&rdquo; and an outer peach halo labelled &ldquo;Your customers or audience.&rdquo;" style="display:block;width:100%;height:auto;">
+    </figure>
+
+
+    <!-- Our mission -------------------------------------------------------- -->
+    <section style="padding:80px 24px 96px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <span class="ab-mission-pill">Our mission</span>
+      <p class="ab-mission" style="max-width:300px;">We empower content creators to carry brand stories straight to their target audience.</p>
+    </section>
+
+
+    <!-- Our product -------------------------------------------------------- -->
+    <section style="padding:0 24px;">
+      <h2 class="ab-h2"><span class="ab-mute">Our product</span><br>is our platform</h2>
+    </section>
+    <figure style="margin:44px 0 0;">
+      <img src="assets/img/about-phone.jpg" alt="The Polysocial mobile app showing the Campaigns screen with a Briksy toy-set review campaign." style="display:block;width:100%;height:auto;">
+    </figure>
+    <section style="padding:8px 34px 0;">
+      <p class="ab-body">We have developed a digital marketplace platform to support the transaction between content creators and brands. Along with that there is the recommendation engine for the brands to build their suitable communities and creators to earn more from their preferred industry campaigns.</p>
+    </section>
+
+
+    <!-- Who are we --------------------------------------------------------- -->
+    <section style="padding:88px 34px 96px;display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <h2 class="ab-h2">Who are we?</h2>
+      <p class="ab-body" style="max-width:320px;">We are a team of engineers from Sri Lanka building a global platform to support commerce across country boarders using content creators.</p>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:56px;margin-top:40px;width:100%;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <h3 class="ab-name">Ramith Hewavithana</h3>
+          <p class="ab-body">Co-founder<br>BSc (Hons) in Engineering,<br>University of Moratuwa</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
+            <a class="ab-social" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="Ramith Hewavithana on LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+            <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Ramith Hewavithana"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          </div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;">
-          <h2 style="margin:0;font-weight:600;font-size:28px;line-height:0.934;color:#000000;text-align:center;">For Brands</h2>
-          <p style="margin:0;font-weight:500;font-size:14px;line-height:1.35;color:#717171;text-align:center;">It&rsquo;s free to initiate any campaign within our platform. You have to only pay for the content you have approved. The total budget you have decided will be the max possible cost for you.</p>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <h3 class="ab-name">Binal Weerasena</h3>
+          <p class="ab-body">Co-founder<br>BSc (Hons) in Engineering,<br>University of Moratuwa</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
+            <a class="ab-social" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="Binal Weerasena on LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+            <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Binal Weerasena"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          </div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:15px;width:100%;"><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Campaign budget needs to be held in escrow during the campaign window.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Remaining budget will be returned to the brand.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">There might be a transaction fee for payments made through platform depending on the region.</span></div></div>
-      </section>
-      
-      <section style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
-        display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
-        <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
-          <picture><source type="image/avif" srcset="assets/img/2fb456f2.220w.ea1f6e567f.avif 220w"><source type="image/webp" srcset="assets/img/2fb456f2.220w.69fb1c54b7.webp 220w"><img decoding="async" loading="lazy" src="assets/img/2fb456f2.fallback.c759abd967.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/avif" srcset="assets/img/a14a7902.220w.2c14f172d6.avif 220w"><source type="image/webp" srcset="assets/img/a14a7902.220w.7c9f48bc2d.webp 220w"><img decoding="async" loading="lazy" src="assets/img/a14a7902.fallback.33b48a6bb4.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/avif" srcset="assets/img/6776e340.220w.b5d0e8b831.avif 220w"><source type="image/webp" srcset="assets/img/6776e340.220w.1fa0ecf82c.webp 220w"><img decoding="async" loading="lazy" src="assets/img/6776e340.fallback.69c48050e2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <h3 class="ab-name">Chathura Weerasinghe</h3>
+          <p class="ab-body">Co-founder<br>BSc (Hons) in Engineering,<br>University of Moratuwa</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
+            <a class="ab-social" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="Chathura Weerasinghe on LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+            <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Chathura Weerasinghe"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          </div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;">
-          <h2 style="margin:0;font-weight:600;font-size:28px;line-height:0.934;color:#000000;text-align:center;">For Creators</h2>
-          <p style="margin:0;font-weight:500;font-size:14px;line-height:1.35;color:#717171;text-align:center;">It&rsquo;s free to join and submit your content to any campaign. All of your payouts are arranged through the Polysocial mobile app.</p>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:15px;width:100%;"><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Marketplace commission will be deducted from your payouts every time you cash out from your digital wallet.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Incentives are arranged depending on your engagement with the platform.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">There can be a foreign currency exchange fee for oversees campaigns.</span></div></div>
-      </section>
-      <p style="margin:0;padding:8px 0 24px;font-style:italic;font-weight:400;font-size:14px;line-height:1.4;color:#717171;text-align:center;">*Refer to terms and conditions for more info</p>
-    </div>
+      </div>
+    </section>
 
 
     <footer style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
