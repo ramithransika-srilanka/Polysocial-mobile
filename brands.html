@@ -704,7 +704,7 @@
            dispersion, directional light, chromatic rim) and the top-first text
            reveal are all rendered in a fragment shader, driven by a scroll-spring.
            See liquid-glass.html for the standalone reference + live controls. */
-        .growTrack { position: relative; height: 250vh; background: #161616; }
+        .growTrack { position: relative; height: 200vh; background: #161616; }
         .growPin { position: sticky; top: 0; height: 100vh; min-height: 560px; overflow: hidden; background: #161616; }
         .growGL { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
         /* Scroll hint — fades as the glass starts to move */
@@ -1198,19 +1198,17 @@
         'uniform sampler2D uText; uniform float uPx;',
         'uniform float uRefraction; uniform float uDepth; uniform float uDispersion; uniform float uFrost;',
         'uniform float uSplayPow; uniform float uBlur; uniform float uSpecular; uniform float uTint;',
-        'uniform vec2 uLightDir; uniform float uLight; uniform float uReveal; uniform float uTextZoom; uniform vec3 uBg; uniform float uBaseBlur;',
+        'uniform vec2 uLightDir; uniform float uLight; uniform vec2 uTextCenter; uniform float uTextHalf; uniform vec3 uBg; uniform float uBaseBlur;',
         'float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }',
         'vec4 sampleText(vec2 uv,float extraBlur){',
         '  if(uv.x<0.0||uv.x>1.0||uv.y<0.0||uv.y>1.0) return vec4(0.0);',
-        '  float yv=uv.y; float front=uReveal*1.28; float localR=clamp((front-yv)/0.34,0.0,1.0);',
-        '  float rise=(1.0-localR)*0.05; float revBlur=(1.0-localR)*5.0; float b=extraBlur+revBlur;',
-        '  vec2 suv=vec2(uv.x,uv.y+rise); vec4 c;',
-        '  if(b<0.35){ c=texture2D(uText,suv); } else {',
+        '  float b=extraBlur; vec4 c;',
+        '  if(b<0.35){ c=texture2D(uText,uv); } else {',
         '    float s=b*uPx;',
-        '    c =texture2D(uText,suv)*0.28;',
-        '    c+=texture2D(uText,suv+vec2( s,0.0))*0.18; c+=texture2D(uText,suv+vec2(-s,0.0))*0.18;',
-        '    c+=texture2D(uText,suv+vec2(0.0, s))*0.18; c+=texture2D(uText,suv+vec2(0.0,-s))*0.18; }',
-        '  c*=localR; return c;',
+        '    c =texture2D(uText,uv)*0.28;',
+        '    c+=texture2D(uText,uv+vec2( s,0.0))*0.18; c+=texture2D(uText,uv+vec2(-s,0.0))*0.18;',
+        '    c+=texture2D(uText,uv+vec2(0.0, s))*0.18; c+=texture2D(uText,uv+vec2(0.0,-s))*0.18; }',
+        '  return c;',
         '}',
         'void main(){',
         '  vec2 frag=vec2(vUv.x*uRes.x,(1.0-vUv.y)*uRes.y); vec3 bg=uBg;',
@@ -1223,9 +1221,14 @@
         '  float shape=pow(t,uSplayPow);',
         '  float edge=t; float boost=1.0+2.2*edge*edge*edge; float mag=uRefraction*shape*boost;',
         '  float ndl=dot(dir,uLightDir); float litFace=clamp(ndl,0.0,1.0);',
-        '  vec2 uvC=vec2(0.5+0.5*nrm.x,0.5+0.5*nrm.y); uvC=0.5+(uvC-0.5)/uTextZoom; vec2 ruv=uvC-dir*mag;',
+        // Text is sampled in its OWN screen space (uTextCenter / uTextHalf), independent of the
+        // circle — it can be larger than the circle and sit off-centre; the circle mask above is
+        // what clips it, so only the words inside the circle are ever drawn. The lens refraction
+        // (dir/mag, in circle-radius units) is converted into this text space via uRadius/uTextHalf.
+        '  float uvToTex=uRadius/uTextHalf;',
+        '  vec2 tuv=0.5+0.5*(frag-uTextCenter)/uTextHalf; vec2 ruv=tuv-dir*mag*uvToTex;',
         '  float disp=uDispersion*shape*boost*0.9; float rimW=0.10+0.90*litFace;',
-        '  float ds=disp*(0.14+0.86*rimW); float baseBlur=uBaseBlur+uBlur*6.0+uFrost*2.2;',
+        '  float ds=disp*(0.14+0.86*rimW)*uvToTex; float baseBlur=uBaseBlur+uBlur*6.0+uFrost*2.2;',
         '  vec4 cr=sampleText(ruv+dir*ds,baseBlur); vec4 cg=sampleText(ruv,baseBlur); vec4 cb=sampleText(ruv-dir*ds,baseBlur);',
         '  vec3 content=vec3(cr.r,cg.g,cb.b); float ca=max(cr.a,max(cg.a,cb.a));',
         '  vec3 col=mix(bg,content,ca);',
@@ -1249,12 +1252,12 @@
       var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
       var aPos=gl.getAttribLocation(prog,'aPos'); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
-      var U={}; ['uRes','uCenter','uRadius','uSquash','uText','uPx','uRefraction','uDepth','uDispersion','uFrost','uSplayPow','uBlur','uSpecular','uTint','uLightDir','uLight','uReveal','uTextZoom','uBg','uBaseBlur'].forEach(function(n){ U[n]=gl.getUniformLocation(prog,n); });
+      var U={}; ['uRes','uCenter','uRadius','uSquash','uText','uPx','uRefraction','uDepth','uDispersion','uFrost','uSplayPow','uBlur','uSpecular','uTint','uLightDir','uLight','uTextCenter','uTextHalf','uBg','uBaseBlur'].forEach(function(n){ U[n]=gl.getUniformLocation(prog,n); });
 
       // Fixed Figma-style glass params (the requested defaults from the reference).
       // lineGap stays tight (82%); text is rendered at a fixed 96px on-screen size.
       var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
-      var FINAL_DIA=450;          // settled circle diameter (px) — wider than the phone, so it crops from the sides
+      var FINAL_DIA=486;          // settled circle diameter (px) — wider than the phone, so the settled circle crops on the left/right (still a perfect circle)
       var TEXT_PX=96;             // on-screen letter size at the settled circle (Inter SemiBold)
       var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
 
@@ -1319,7 +1322,7 @@
       }
 
       // ---- scroll → spring ----
-      var spring={ value:0, target:0, vel:0 }, K=120, C=20, Mmass=1;
+      var spring={ value:0, target:0, vel:0 }, K=120, C=14, Mmass=1;   // slightly underdamped → elastic settle
       function progress(){
         var oh=overlay.clientHeight, tr=track.getBoundingClientRect(), orc=overlay.getBoundingClientRect();
         var topWithin=tr.top-orc.top, span=track.offsetHeight-oh;
@@ -1343,25 +1346,33 @@
         if(hint){ if(!hintHidden&&spring.target>0.02){ hintHidden=true; hint.style.opacity='0'; }
                   else if(hintHidden&&spring.target<=0.005){ hintHidden=false; hint.style.opacity='1'; } }
 
-        var endDia=FINAL_DIA, startDia=cssH*1.9;   // 450px settled circle (crops from the sides)
-        var dia=startDia+(endDia-startDia)*p, radius=dia/2;
-        // Start the dome high enough that it already sits just under the Supplementary cards
-        // (its top ~1/4 down the screen), so there's no tall empty charcoal band before it.
-        // It still RISES from below and shrinks up to the settled circle (center 1.24H -> 0.5H) —
-        // no downward drift.
-        var startCY=cssH*1.24, endCY=cssH/2, centerY=startCY+(endCY-startCY)*p;
-        var squash = reduce ? 1 : 1+Math.max(-0.18,Math.min(0.35,spring.vel*0.9));
-        // Text transition (reveal + zoom-out) resolves a touch AHEAD of the circle's final
-        // settle, so the words lock into place as the lens finishes shrinking (Emil layering).
-        // Both are driven by the same scroll-spring, never by scroll position directly.
-        var tprog=Math.max(0,Math.min(1,(p-0.10)/0.75));
-        var te=1-Math.pow(1-tprog,3);                     // ease-out cubic
-        var reveal=reduce?1:Math.max(0,Math.min(1,(p-0.25)/0.60));
-        // Text scale relative to the lens rides from 0.90x up to 1.0x as it emerges. Kept
-        // <=1.0 at all times so the words can never spill past the circumference mid-animation
-        // (requirement: text always inside the circle). Combined with the shrinking lens this
-        // reads as the words zooming out and settling into place a beat before the circle rests.
-        var textZoom=reduce?1:(0.90+0.10*te);
+        // --- Choreography (Emil): the circle and the words move on SEPARATE tracks that
+        // converge. The lens geometry is always a perfect circle (squash=1, rx==ry); it is
+        // wider than the screen so the viewport only clips it L/R — never an oval.
+        //   • CIRCLE  rises UP  (low, large -> centred, settled) as it shrinks.
+        //   • WORDS   move DOWN (high, zoomed-in -> centred, settled) as they zoom out.
+        //     The words are masked by the circle, so a word only shows where it is inside the
+        //     glass; anything outside the circumference is clipped.
+        // easeOutBack — ease-out with a subtle elastic overshoot on the settle (eb(0)=0, eb(1)=1,
+        // peaks a hair past 1 near the end). c3 must equal c1+1 so the endpoints are exact.
+        var eb = reduce ? p : (function(t){ var c1=0.9, c3=c1+1; var u=t-1;
+                 return 1 + c3*u*u*u + c1*u*u; })(p);
+        // liquid: the glass ripples a little harder while it is actually moving (spring velocity)
+        var liquid = reduce ? 1 : 1 + Math.min(0.6, Math.abs(spring.vel)*0.75);
+
+        // CIRCLE — up + shrink, elastic settle
+        var startDia=cssH*1.24, endDia=FINAL_DIA;
+        var dia=startDia+(endDia-startDia)*eb, radius=dia/2;
+        var cStartCY=cssH*0.66, cEndCY=cssH*0.5;
+        var centerY=cStartCY+(cEndCY-cStartCY)*eb;            // rises UP
+        var squash=1;                                         // never distort — perfect circle
+
+        // WORDS — down + zoom-out, elastic settle. textHalf is the on-screen half-extent the
+        // text texture spans; at settle it equals the circle radius so the words fill the circle.
+        var tHalfStart=(FINAL_DIA/2)*2.05, tHalfEnd=(FINAL_DIA/2);
+        var textHalf=tHalfStart+(tHalfEnd-tHalfStart)*eb;
+        var tStartCY=cssH*0.36, tEndCY=cssH*0.5;
+        var textCenterY=tStartCY+(tEndCY-tStartCY)*eb;        // moves DOWN
 
         gl.useProgram(prog);
         gl.uniform2f(U.uRes,W,H);
@@ -1369,9 +1380,9 @@
         gl.uniform1f(U.uRadius,radius*DPR);
         gl.uniform1f(U.uSquash,squash);
         gl.uniform1f(U.uPx,1.0/TEX);
-        gl.uniform1f(U.uRefraction,(P.refraction/100)*0.16);
+        gl.uniform1f(U.uRefraction,(P.refraction/100)*0.16*liquid);
         gl.uniform1f(U.uDepth,0.12+(P.depth/100)*0.38);
-        gl.uniform1f(U.uDispersion,(P.dispersion/100)*0.09);
+        gl.uniform1f(U.uDispersion,(P.dispersion/100)*0.09*liquid);
         gl.uniform1f(U.uFrost,P.frost/100);
         gl.uniform1f(U.uSplayPow,0.4+(1-P.splay/100)*4.6);
         gl.uniform1f(U.uBlur,P.blur/100);
@@ -1379,10 +1390,10 @@
         gl.uniform1f(U.uTint,P.tint/100);
         var a=P.lightAngle*Math.PI/180; gl.uniform2f(U.uLightDir,Math.sin(a),-Math.cos(a));
         gl.uniform1f(U.uLight,P.light/100);
-        gl.uniform1f(U.uReveal,reveal);
-        gl.uniform1f(U.uTextZoom,textZoom);
+        gl.uniform2f(U.uTextCenter,(cssW/2)*DPR,textCenterY*DPR);
+        gl.uniform1f(U.uTextHalf,textHalf*DPR);
         gl.uniform3f(U.uBg,BG[0],BG[1],BG[2]);
-        gl.uniform1f(U.uBaseBlur, 2.0*TEX/dia);   // keep the glass blur ~2px on-screen at any circle size
+        gl.uniform1f(U.uBaseBlur, TEX/(2.0*textHalf));   // keep the glass blur ~1px on-screen at any text size
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,tex); gl.uniform1i(U.uText,0);
         gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
         requestAnimationFrame(frame);
