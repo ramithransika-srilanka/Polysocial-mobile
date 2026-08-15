@@ -704,8 +704,8 @@
            dispersion, directional light, chromatic rim) and the top-first text
            reveal are all rendered in a fragment shader, driven by a scroll-spring.
            See liquid-glass.html for the standalone reference + live controls. */
-        .growTrack { position: relative; height: 250vh; background: #000; }
-        .growPin { position: sticky; top: 0; height: 100vh; min-height: 560px; overflow: hidden; background: #000; }
+        .growTrack { position: relative; height: 250vh; background: #161616; }
+        .growPin { position: sticky; top: 0; height: 100vh; min-height: 560px; overflow: hidden; background: #161616; }
         .growGL { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
         /* Scroll hint — fades as the glass starts to move */
         .growHint {
@@ -742,7 +742,7 @@
           .growHint { display: none; }
         }
       </style>
-      <section data-screen-label="Grow your brand" style="position: relative; background: #000;">
+      <section data-screen-label="Grow your brand" style="position: relative; background: #161616;">
         <div id="growTrack" class="growTrack">
           <div class="growPin">
             <canvas id="growGL" class="growGL"></canvas>
@@ -1198,7 +1198,7 @@
         'uniform sampler2D uText; uniform float uPx;',
         'uniform float uRefraction; uniform float uDepth; uniform float uDispersion; uniform float uFrost;',
         'uniform float uSplayPow; uniform float uBlur; uniform float uSpecular; uniform float uTint;',
-        'uniform vec2 uLightDir; uniform float uLight; uniform float uReveal;',
+        'uniform vec2 uLightDir; uniform float uLight; uniform float uReveal; uniform float uTextZoom; uniform vec3 uBg;',
         'float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }',
         'vec4 sampleText(vec2 uv,float extraBlur){',
         '  if(uv.x<0.0||uv.x>1.0||uv.y<0.0||uv.y>1.0) return vec4(0.0);',
@@ -1213,7 +1213,7 @@
         '  c*=localR; return c;',
         '}',
         'void main(){',
-        '  vec2 frag=vec2(vUv.x*uRes.x,(1.0-vUv.y)*uRes.y); vec3 bg=vec3(0.0);',
+        '  vec2 frag=vec2(vUv.x*uRes.x,(1.0-vUv.y)*uRes.y); vec3 bg=uBg;',
         '  float rx=uRadius/sqrt(uSquash); float ry=uRadius*sqrt(uSquash);',
         '  vec2 pd=frag-uCenter; vec2 nrm=vec2(pd.x/rx,pd.y/ry); float d=length(nrm);',
         '  float aa=1.5/uRadius; float mask=1.0-smoothstep(1.0-aa,1.0,d);',
@@ -1223,9 +1223,9 @@
         '  float shape=pow(t,uSplayPow);',
         '  float edge=t; float boost=1.0+2.2*edge*edge*edge; float mag=uRefraction*shape*boost;',
         '  float ndl=dot(dir,uLightDir); float litFace=clamp(ndl,0.0,1.0);',
-        '  vec2 uvC=vec2(0.5+0.5*nrm.x,0.5+0.5*nrm.y); vec2 ruv=uvC-dir*mag;',
+        '  vec2 uvC=vec2(0.5+0.5*nrm.x,0.5+0.5*nrm.y); uvC=0.5+(uvC-0.5)/uTextZoom; vec2 ruv=uvC-dir*mag;',
         '  float disp=uDispersion*shape*boost*0.9; float rimW=0.10+0.90*litFace;',
-        '  float ds=disp*(0.14+0.86*rimW); float baseBlur=uBlur*6.0+uFrost*2.2;',
+        '  float ds=disp*(0.14+0.86*rimW); float baseBlur=1.2+uBlur*6.0+uFrost*2.2;',
         '  vec4 cr=sampleText(ruv+dir*ds,baseBlur); vec4 cg=sampleText(ruv,baseBlur); vec4 cb=sampleText(ruv-dir*ds,baseBlur);',
         '  vec3 content=vec3(cr.r,cg.g,cb.b); float ca=max(cr.a,max(cg.a,cb.a));',
         '  vec3 col=mix(bg,content,ca);',
@@ -1249,10 +1249,14 @@
       var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
       var aPos=gl.getAttribLocation(prog,'aPos'); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
-      var U={}; ['uRes','uCenter','uRadius','uSquash','uText','uPx','uRefraction','uDepth','uDispersion','uFrost','uSplayPow','uBlur','uSpecular','uTint','uLightDir','uLight','uReveal'].forEach(function(n){ U[n]=gl.getUniformLocation(prog,n); });
+      var U={}; ['uRes','uCenter','uRadius','uSquash','uText','uPx','uRefraction','uDepth','uDispersion','uFrost','uSplayPow','uBlur','uSpecular','uTint','uLightDir','uLight','uReveal','uTextZoom','uBg'].forEach(function(n){ U[n]=gl.getUniformLocation(prog,n); });
 
       // Fixed Figma-style glass params (the requested defaults from the reference).
-      var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, textSize:110, lineGap:82, lightAngle:-45, light:20 };
+      // lineGap stays tight (82%); text is rendered at a fixed 96px on-screen size.
+      var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
+      var FINAL_DIA=450;          // settled circle diameter (px) — wider than the phone, so it crops from the sides
+      var TEXT_PX=96;             // on-screen letter size at the settled circle (Inter SemiBold)
+      var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
 
       // ---- text texture ----
       var LINES=['Grow','your','brand','with','us'], BRAND=2, TEX=1024;
@@ -1266,20 +1270,26 @@
       function buildText(){
         var S=TEX; tc.width=S; tc.height=S; var ctx=tc.getContext('2d'); ctx.clearRect(0,0,S,S);
         ctx.save(); ctx.beginPath(); ctx.arc(S/2,S/2,S/2,0,Math.PI*2); ctx.clip();
-        var R=S/2, sizeMul=P.textSize/100, gapMul=P.lineGap/100;
+        var R=S/2, gapMul=P.lineGap/100;
+        // Target letter size: TEXT_PX (96px) on-screen when the circle is FINAL_DIA (450px);
+        // the texture spans the circle diameter, so scale the font into texture space.
+        // Tight line spacing (gapMul) is preserved. Because five 96px lines are slightly
+        // too wide for the top line ("Grow") to fit a 450px circle, shrink just enough that
+        // the farthest glyph corner lands at ~99.5% of the radius — so "Grow" / "us" corners
+        // almost touch the circumference while the whole block stays inside the clip circle.
         function metrics(fp){
           ctx.font='600 '+fp+'px Inter, sans-serif'; var lineH=fp*gapMul, widths=[], asc=0, desc=0;
           for(var i=0;i<LINES.length;i++){ var m=ctx.measureText(LINES[i]); widths.push(m.width);
             asc=Math.max(asc,m.actualBoundingBoxAscent||fp*0.72); desc=Math.max(desc,m.actualBoundingBoxDescent||fp*0.22); }
-          var n=LINES.length, totalH=(n-1)*lineH+asc+desc, base=[], top=-totalH/2;
+          var n=LINES.length, totalH=(n-1)*lineH+asc+desc, base=[], top=-totalH/2, maxD=0;
           for(var j=0;j<n;j++) base.push(top+asc+j*lineH);
-          var maxD=0;
           for(var k=0;k<n;k++){ var hw=widths[k]/2, yT=base[k]-asc, yB=base[k]+desc, dy=Math.max(Math.abs(yT),Math.abs(yB)); maxD=Math.max(maxD,Math.sqrt(hw*hw+dy*dy)); }
           return { widths:widths, asc:asc, base:base, maxD:maxD };
         }
-        var target=R*0.99*sizeMul, lo=20, hi=400, best=60, bestM=null;
-        for(var it=0;it<26;it++){ var mid=(lo+hi)/2, m=metrics(mid); if(m.maxD>target){ hi=mid; } else { lo=mid; best=mid; bestM=m; } }
-        var fp=best, M=bestM||metrics(fp);
+        var fp=TEXT_PX*(S/FINAL_DIA);
+        var m0=metrics(fp);
+        if(m0.maxD>R*0.995){ fp=fp*(R*0.995)/m0.maxD; }   // shrink only if the corner would overflow
+        var M=metrics(fp);
         ctx.font='600 '+fp+'px Inter, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='alphabetic';
         for(var i=0;i<LINES.length;i++){ var by=R+M.base[i];
           if(i===BRAND&&gradReady){
@@ -1333,11 +1343,21 @@
         if(hint){ if(!hintHidden&&spring.target>0.02){ hintHidden=true; hint.style.opacity='0'; }
                   else if(hintHidden&&spring.target<=0.005){ hintHidden=false; hint.style.opacity='1'; } }
 
-        var endDia=Math.min(cssW*0.92,360), startDia=cssH*1.9;
+        var endDia=FINAL_DIA, startDia=cssH*1.9;   // 450px settled circle (crops from the sides)
         var dia=startDia+(endDia-startDia)*p, radius=dia/2;
         var startCY=cssH+startDia/2-130, endCY=cssH/2, centerY=startCY+(endCY-startCY)*p;
         var squash = reduce ? 1 : 1+Math.max(-0.18,Math.min(0.35,spring.vel*0.9));
-        var reveal=Math.max(0,Math.min(1,(p-0.28)/0.62));
+        // Text transition (reveal + zoom-out) resolves a touch AHEAD of the circle's final
+        // settle, so the words lock into place as the lens finishes shrinking (Emil layering).
+        // Both are driven by the same scroll-spring, never by scroll position directly.
+        var tprog=Math.max(0,Math.min(1,(p-0.10)/0.75));
+        var te=1-Math.pow(1-tprog,3);                     // ease-out cubic
+        var reveal=reduce?1:Math.max(0,Math.min(1,(p-0.25)/0.60));
+        // Text scale relative to the lens rides from 0.90x up to 1.0x as it emerges. Kept
+        // <=1.0 at all times so the words can never spill past the circumference mid-animation
+        // (requirement: text always inside the circle). Combined with the shrinking lens this
+        // reads as the words zooming out and settling into place a beat before the circle rests.
+        var textZoom=reduce?1:(0.90+0.10*te);
 
         gl.useProgram(prog);
         gl.uniform2f(U.uRes,W,H);
@@ -1356,6 +1376,8 @@
         var a=P.lightAngle*Math.PI/180; gl.uniform2f(U.uLightDir,Math.sin(a),-Math.cos(a));
         gl.uniform1f(U.uLight,P.light/100);
         gl.uniform1f(U.uReveal,reveal);
+        gl.uniform1f(U.uTextZoom,textZoom);
+        gl.uniform3f(U.uBg,BG[0],BG[1],BG[2]);
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,tex); gl.uniform1i(U.uText,0);
         gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
         requestAnimationFrame(frame);
