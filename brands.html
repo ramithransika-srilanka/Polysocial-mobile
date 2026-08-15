@@ -1254,7 +1254,7 @@
       // Fixed Figma-style glass params (the requested defaults from the reference).
       // lineGap stays tight (82%); text is rendered at a fixed 96px on-screen size.
       var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
-      var FINAL_DIA=260;          // settled circle diameter (px) — kept within the phone width so the full circle always shows
+      var FINAL_DIA=450;          // settled circle diameter (px) — wider than the phone, so the settled circle crops on the left/right (still a perfect circle)
       var TEXT_PX=96;             // on-screen letter size at the settled circle (Inter SemiBold)
       var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
 
@@ -1343,12 +1343,12 @@
         if(hint){ if(!hintHidden&&spring.target>0.02){ hintHidden=true; hint.style.opacity='0'; }
                   else if(hintHidden&&spring.target<=0.005){ hintHidden=false; hint.style.opacity='1'; } }
 
-        // The lens geometry is ALWAYS a perfect circle (rx == ry) — it may be larger than the
-        // screen (the viewport simply clips a still-round circle), but it is never squashed into
-        // an oval. It enters large/full-bleed with the words visible and shrinks IN PLACE,
-        // centred, to the settled circle. No drift, no squash — circular at every point.
+        // The lens geometry is ALWAYS a perfect circle (rx == ry) — never squashed into an oval.
+        // It is intentionally wider than the screen, so the viewport clips a still-round circle
+        // on the left/right at every stage (including the settled circle). It enters full-bleed
+        // with the words visible and shrinks IN PLACE, centred, to the settled circle.
         var startDia=cssH*1.3;                    // enters full-bleed (clipped, but perfectly round)
-        var endDia=FINAL_DIA;
+        var endDia=FINAL_DIA;                     // settled circle (450px) — wider than the phone, crops L/R
         var dia=startDia+(endDia-startDia)*p, radius=dia/2;
         var centerY=cssH*0.5;                     // centred; shrinks in place
         var squash=1;                             // never distort — perfect circle at all times
