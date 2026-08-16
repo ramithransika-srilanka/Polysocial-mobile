@@ -1109,8 +1109,10 @@ a:hover { color: var(--brand-primary-hover); }
     (function(){
       try{ sessionStorage.removeItem('psNav'); }catch(_){ }
       if(window.__psSkipLoader){
-        var l = document.getElementById('loader');
-        if(l && l.parentNode) l.parentNode.removeChild(l);
+        /* Leave the #loader node in the DOM (the head script already hid it with
+           display:none) — removing it here, before the app mounts/hydrates #appRoot,
+           corrupts the render so the scroll-driven hero animation never binds.
+           _runLoader() removes the (already-invisible) node after mount instead. */
         document.addEventListener('DOMContentLoaded', function(){
           var r = document.getElementById('appRoot'); if(r) r.classList.add('loaded');
         });
@@ -2450,6 +2452,21 @@ class Component extends DCLogic {
   _runLoader() {
     const box = document.getElementById('loader');
     const el = document.getElementById('loaderText');
+    // Arrived via an in-site nav link: the dark loader was never shown (hidden up
+    // front), so reveal instantly — no scramble, no minimum time, and crucially no
+    // scroll lock. This runs AFTER mount, so the hero scroll animation stays bound.
+    if (window.__psSkipLoader) {
+      const root = document.getElementById('appRoot'); if (root) root.classList.add('loaded');
+      // Re-trigger each hero entrance animation so its timeline starts now.
+      document.querySelectorAll('[data-anim]').forEach((elm) => {
+        const orig = elm.style.animation;
+        elm.style.animation = 'none';
+        void elm.offsetWidth;            // force reflow
+        elm.style.animation = orig;
+      });
+      if (box && box.parentNode) box.parentNode.removeChild(box);
+      return;
+    }
     if (!box || !el) { const r = document.getElementById('appRoot'); if (r) r.classList.add('loaded'); return; }
     const DURATION = 4000;
     const rand = () => {
