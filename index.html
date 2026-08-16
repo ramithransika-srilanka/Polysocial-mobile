@@ -1092,7 +1092,7 @@ a:hover { color: var(--brand-primary-hover); }
     .campCard:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
 
     /* ================= Campaign detail bottom sheet (matches app prototype) ================= */
-    #campSheet, #reqOverlay {
+    #campSheet {
       --grey-50:#f6f6f6; --grey-50-90:rgba(246,246,246,.9); --grey-100:#ececec; --grey-100-20:rgba(236,236,236,.2);
       --grey-200:#d9d9d9; --grey-400:#b3b3b3; --grey-500:#a0a0a0; --grey-600:#717171; --grey-700:#414141; --grey-800:#121212;
       --blue-100:#d0dafb; --blue-200:#a1b6f7; --blue-300:#7391f3; --blue-500:#1548eb; --blue-600:#123bbd; --blue-700:#0f2d8f;
@@ -1114,12 +1114,10 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cs-body { position: relative; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; scrollbar-width: none; }
     #campSheet .cs-body::-webkit-scrollbar { display: none; }
 
-    /* Header icons over the hero */
-    #campSheet .cp-header { position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; flex-direction: column; gap: 8px; padding: 18px 0 8px; }
-    #campSheet .cp-headrow { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 36px; }
-    #campSheet .cp-headright { display: flex; gap: 12px; align-items: center; }
-    #campSheet .cp-iconbtn { display: flex; align-items: center; padding: 6px; border-radius: 20px; background: rgba(246,246,246,.5); cursor: pointer; color: #121212; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); border: none; }
-    #campSheet .cp-iconbtn svg { width: 24px; height: 24px; display: block; }
+    /* Close cross over the hero */
+    #campSheet .cp-close { position: absolute; top: 16px; right: 16px; z-index: 25; width: 40px; height: 40px; padding: 8px; border: none; border-radius: 100px; background: rgba(246,246,246,.55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); color: #121212; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+    #campSheet .cp-close:active { transform: scale(0.92); }
+    #campSheet .cp-close svg { width: 22px; height: 22px; display: block; }
 
     /* Hero + body */
     #campSheet .cp-bgimg { position: absolute; top: 0; left: 0; width: 100%; height: 640px; z-index: 0; overflow: hidden; }
@@ -1148,12 +1146,6 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-list .social svg { width: 16px; height: 16px; color: var(--grey-800); }
 
     #campSheet .cp-dark { background: var(--grey-800); display: flex; flex-direction: column; width: 100%; }
-    #campSheet .cp-infotags { background: var(--grey-50); border-radius: 0 0 28px 28px; padding: 24px 10px; display: flex; flex-direction: column; gap: 16px; align-items: center; width: 100%; }
-    #campSheet .cp-infotags h3 { font-size: 16px; font-weight: 600; line-height: 20px; color: var(--grey-800); text-align: center; }
-    #campSheet .cp-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; width: 100%; }
-    #campSheet .cp-tag { background: var(--grey-200); display: flex; gap: 4px; align-items: center; justify-content: center; padding: 6px 12px; border-radius: 100px; }
-    #campSheet .cp-tag svg { width: 20px; height: 20px; color: var(--grey-800); }
-    #campSheet .cp-tag span { font-size: 12px; font-weight: 500; line-height: 12px; color: var(--grey-800); }
     #campSheet .cp-budget { display: flex; align-items: center; justify-content: center; padding: 16px 0; }
     #campSheet .cp-budget .inner { width: 339px; max-width: 100%; padding: 8px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; }
     #campSheet .cp-budget .l { display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; line-height: 25px; }
@@ -1181,10 +1173,36 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-event-link span { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--blue-300); text-align: center; }
     #campSheet .cp-event-link .ext { width: 16px; height: 16px; flex-shrink: 0; color: var(--blue-300); }
     #campSheet .cp-event-link .ext svg { width: 16px; height: 16px; display: block; }
-    #campSheet .cp-reqs { background: var(--grey-50); border-radius: 28px 28px 0 0; padding: 32px 24px 16px; display: flex; flex-direction: column; gap: 12px; width: 100%; }
-    #campSheet .cp-reqs h3 { font-size: 16px; font-weight: 600; line-height: 20px; color: #000; }
-    #campSheet .cp-reqs p { font-size: 14px; line-height: 20px; color: #000; text-align: justify; }
-    #campSheet .cp-btn-secondary { background: var(--grey-200); border: 2px solid var(--grey-200); padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--grey-800); }
+    #campSheet .cp-darkcap { background: var(--grey-50); height: 24px; border-radius: 0 0 28px 28px; }
+    #campSheet .cp-reqfull { background: var(--grey-50); border-radius: 28px 28px 0 0; padding: 32px 32px 16px; display: flex; flex-direction: column; gap: 48px; width: 100%; }
+    #campSheet .req-section { display: flex; flex-direction: column; gap: 12px; }
+    #campSheet .req-h { font-size: 16px; font-weight: 600; line-height: 20px; color: var(--grey-800); }
+    #campSheet .req-desc { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
+    #campSheet .req-spec { background: var(--grey-50); border-radius: 12px; padding: 4px 0; display: flex; flex-direction: column; gap: 8px; }
+    #campSheet .req-spec .row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; line-height: 20px; }
+    #campSheet .req-spec .row .k { font-weight: 500; color: var(--grey-600); }
+    #campSheet .req-spec .row .v { font-weight: 600; color: var(--grey-800); }
+    #campSheet .req-spec .row.wrap { align-items: flex-start; gap: 16px; }
+    #campSheet .req-spec .row.wrap .k { width: 122px; flex-shrink: 0; }
+    #campSheet .req-spec .row.wrap .v { flex: 1; text-align: right; }
+    #campSheet .req-spec .sep { height: 1px; background: var(--grey-100); margin: 4px 0; }
+    #campSheet .req-platforms { display: flex; gap: 8px; }
+    #campSheet .req-plat { display: flex; align-items: center; gap: 8px; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; color: var(--grey-800); }
+    #campSheet .req-plat svg { width: 20px; height: 20px; flex-shrink: 0; }
+    #campSheet .req-plat span { font-size: 14px; font-weight: 500; color: var(--grey-800); }
+    #campSheet .req-cta { display: flex; flex-direction: column; gap: 20px; }
+    #campSheet .req-cta p { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
+    #campSheet .req-bullets { margin: 0; padding-left: 21px; list-style: disc; }
+    #campSheet .req-bullets li { font-size: 14px; font-weight: 400; line-height: 32px; color: var(--grey-800); }
+    #campSheet .req-reffile { display: flex; align-items: center; justify-content: space-between; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; cursor: pointer; gap: 12px; }
+    #campSheet .req-reffile + .req-reffile { margin-top: 12px; }
+    #campSheet .req-reffile span:first-child { font-size: 14px; font-weight: 500; color: var(--grey-800); }
+    #campSheet .req-reffile .ic { display: flex; color: #121212; flex-shrink: 0; }
+    #campSheet .req-reffile .ic svg { width: 24px; height: 24px; }
+    #campSheet .req-inspo { position: relative; height: 240px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    #campSheet .req-inspo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    #campSheet .req-inspo-btn { position: relative; width: 48px; height: 48px; border-radius: 100px; background: var(--grey-50); display: flex; align-items: center; justify-content: center; color: #121212; filter: drop-shadow(0 2px 6px rgba(0,0,0,.3)); }
+    #campSheet .req-inspo-btn svg { width: 24px; height: 24px; }
     #campSheet .cp-metrics { padding: 0 24px; position: relative; z-index: 2; background: var(--grey-50); }
     #campSheet .cp-createdby { display: flex; flex-direction: column; gap: 16px; padding: 10px 0; }
     #campSheet .cp-createdby>h3 { font-size: 16px; font-weight: 600; line-height: 20px; color: #000; }
@@ -1222,49 +1240,8 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-primary { position: relative; background: var(--blue-500); padding: 14px 20px; border: none; border-radius: 100px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--grey-50); }
     #campSheet .cp-primary:active { transform: scale(0.98); }
 
-    /* Requirements overlay (nested sheet opened by "Show more") */
-    #reqOverlay { position: fixed; inset: 0; z-index: 100060; display: none; justify-content: center;
-      font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; }
-    #reqOverlay.open { display: flex; }
-    #reqOverlay .cs-col { position: relative; width: 393px; max-width: 100%; height: 100%; pointer-events: none; }
-    #reqOverlay .cs-scrim { position: absolute; inset: 0; background: rgba(0,0,0,.4); opacity: 0; transition: opacity 0.32s ease; }
-    #reqOverlay.in .cs-scrim { opacity: 1; }
-    #reqOverlay .req-sheet { position: absolute; bottom: 0; left: 0; right: 0; height: 88%; background: var(--grey-50); border-radius: 28px 28px 0 0; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .5s cubic-bezier(.16,1,.3,1); overflow: hidden; pointer-events: auto; }
-    #reqOverlay.in .req-sheet { transform: translateY(0); }
-    #reqOverlay.dragging .req-sheet { transition: none; }
-    #reqOverlay .req-handle { display: flex; align-items: center; justify-content: center; height: 32px; padding: 10px; box-sizing: border-box; cursor: grab; flex-shrink: 0; position: sticky; top: 0; background: var(--grey-50); z-index: 2; touch-action: none; }
-    #reqOverlay .req-handle .bar { width: 48px; height: 4px; border-radius: 20px; background: var(--grey-600); }
-    #reqOverlay .req-scroll { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 0 32px 32px; display: flex; flex-direction: column; gap: 48px; }
-    #reqOverlay .req-scroll::-webkit-scrollbar { display: none; }
-    #reqOverlay .req-section { display: flex; flex-direction: column; gap: 12px; }
-    #reqOverlay .req-h { font-size: 16px; font-weight: 600; line-height: 20px; color: var(--grey-800); }
-    #reqOverlay .req-desc { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
-    #reqOverlay .req-spec { background: var(--grey-50); border-radius: 12px; padding: 16px 0; display: flex; flex-direction: column; gap: 8px; }
-    #reqOverlay .req-spec .row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; line-height: 20px; }
-    #reqOverlay .req-spec .row .k { font-weight: 500; color: var(--grey-600); }
-    #reqOverlay .req-spec .row .v { font-weight: 600; color: var(--grey-800); }
-    #reqOverlay .req-spec .row.wrap { align-items: flex-start; gap: 16px; }
-    #reqOverlay .req-spec .row.wrap .k { width: 122px; flex-shrink: 0; }
-    #reqOverlay .req-spec .row.wrap .v { flex: 1; text-align: right; }
-    #reqOverlay .req-spec .sep { height: 1px; background: var(--grey-100); margin: 4px 0; }
-    #reqOverlay .req-platforms { display: flex; gap: 8px; }
-    #reqOverlay .req-plat { display: flex; align-items: center; gap: 8px; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; color: var(--grey-800); }
-    #reqOverlay .req-plat svg { width: 20px; height: 20px; flex-shrink: 0; }
-    #reqOverlay .req-plat span { font-size: 14px; font-weight: 500; color: var(--grey-800); }
-    #reqOverlay .req-cta { display: flex; flex-direction: column; gap: 20px; }
-    #reqOverlay .req-cta p { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
-    #reqOverlay .req-bullets { margin: 0; padding-left: 21px; list-style: disc; }
-    #reqOverlay .req-bullets li { font-size: 14px; font-weight: 400; line-height: 32px; color: var(--grey-800); }
-    #reqOverlay .req-reffile { display: flex; align-items: center; justify-content: space-between; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; cursor: pointer; gap: 12px; }
-    #reqOverlay .req-reffile span:first-child { font-size: 14px; font-weight: 500; color: var(--grey-800); }
-    #reqOverlay .req-reffile .ic { display: flex; color: #121212; flex-shrink: 0; }
-    #reqOverlay .req-reffile .ic svg { width: 24px; height: 24px; }
-    #reqOverlay .req-inspo { position: relative; height: 240px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    #reqOverlay .req-inspo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    #reqOverlay .req-inspo-btn { position: relative; width: 48px; height: 48px; border-radius: 100px; background: var(--grey-50); display: flex; align-items: center; justify-content: center; color: #121212; filter: drop-shadow(0 2px 6px rgba(0,0,0,.3)); }
-    #reqOverlay .req-inspo-btn svg { width: 24px; height: 24px; }
     @media (prefers-reduced-motion: reduce) {
-      #campSheet .cs-sheet, #campSheet .cs-scrim, #reqOverlay .req-sheet, #reqOverlay .cs-scrim { transition: none !important; }
+      #campSheet .cs-sheet, #campSheet .cs-scrim { transition: none !important; }
     }
   </style>
 </helmet>
@@ -2924,44 +2901,27 @@ class Component extends DCLogic {
     overlay.innerHTML =
       '<div class="cs-scrim" data-close></div>' +
       '<div class="cs-col"><section class="cs-sheet" role="document">' +
-        '<div class="cp-header"><div class="cp-headrow">' +
-          '<button type="button" class="cp-iconbtn" data-close aria-label="Close">' + IC.chevL + '</button>' +
-          '<div class="cp-headright"><button type="button" class="cp-iconbtn like" aria-label="Save">' + IC.heart + '</button><button type="button" class="cp-iconbtn" aria-label="Share">' + IC.share + '</button></div>' +
-        '</div></div>' +
+        '<button type="button" class="cp-close" data-close aria-label="Close">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6L18 18M18 6L6 18" stroke-linecap="round"/></svg>' +
+        '</button>' +
         '<div class="cs-grip" aria-hidden="true"><span class="bar"></span></div>' +
         '<div class="cs-body"></div>' +
         '<div class="cp-actionbar"><button type="button" class="cp-primary">Join Campaign</button></div>' +
       '</section></div>';
     document.body.appendChild(overlay);
 
-    // Build the requirements overlay shell once
-    const req = document.createElement('div');
-    req.id = 'reqOverlay';
-    req.setAttribute('role', 'dialog');
-    req.setAttribute('aria-modal', 'true');
-    req.innerHTML =
-      '<div class="cs-scrim" data-reqclose></div>' +
-      '<div class="cs-col"><section class="req-sheet" role="document">' +
-        '<div class="req-handle" data-reqclose aria-label="Close"><span class="bar"></span></div>' +
-        '<div class="req-scroll"></div>' +
-      '</section></div>';
-    document.body.appendChild(req);
-
     const body = overlay.querySelector('.cs-body');
     const sheet = overlay.querySelector('.cs-sheet');
     const grip = overlay.querySelector('.cs-grip');
-    const reqSheet = req.querySelector('.req-sheet');
-    const reqScroll = req.querySelector('.req-scroll');
-    const reqHandle = req.querySelector('.req-handle');
     let lastFocus = null, current = null;
 
     const AV = (c) => ('<img src="' + esc(c.img) + '" alt="">').repeat(4);
 
     const render = (c) => {
       const d = c.detail || {};
+      const r = d.req || {};
       const rightTime = c.left ? '<span class="dot"></span><span>' + esc(c.left) + '</span>' : '';
       const listRows = (d.list || []).map((r) => '<div class="div"></div><div class="row"><span class="k">' + esc(r[0]) + '</span><span class="v">' + esc(r[1]) + '</span></div>').join('');
-      const tags = (d.tags || []).map((t) => '<div class="cp-tag">' + (IC[t[1]] || '') + '<span>' + esc(t[0]) + '</span></div>').join('');
       const metrics = (d.metrics || []).map((m, i) => (i ? '<div class="div"></div>' : '') + '<div class="row"><span class="k">' + esc(m[0]) + '</span><span class="v">' + esc(m[1]) + '</span></div>').join('');
       const handles = (d.handles || []).map((h) => '<div class="cp-handle"><img class="pf" src="' + esc(c.logo) + '" alt=""><div class="badge">' + (IC[h[1]] || '') + '</div><span class="fc">' + esc(h[0]) + '</span></div>').join('');
       const midBlock = d.event
@@ -2980,6 +2940,21 @@ class Component extends DCLogic {
             '<div class="l"><span class="cp-mut">creators</span><span class="cp-creators-mini">' + AV(c) + '</span><span class="cp-mut">up to now.</span></div>' +
           '</div></div>';
 
+      const spec = (r.spec || []).map((row, i) => {
+        const wrap = (i === (r.spec.length - 1)) ? ' wrap' : '';
+        return (i ? '<div class="sep"></div>' : '') + '<div class="row' + wrap + '"><span class="k">' + esc(row[0]) + '</span><span class="v">' + esc(row[1]) + '</span></div>';
+      }).join('');
+      const reqFull =
+        '<div class="cp-reqfull">' +
+          '<div class="req-section"><h3 class="req-h">Content Requirements</h3><p class="req-desc">' + esc(r.desc) + '</p><div class="req-spec">' + spec + '</div></div>' +
+          '<div class="req-section"><h3 class="req-h">Platforms to post on</h3><div class="req-platforms">' +
+            '<div class="req-plat">' + IC.insta + '<span>Instagram</span></div><div class="req-plat">' + IC.tiktok + '<span>TikTok</span></div></div></div>' +
+          '<div class="req-section"><h3 class="req-h">Call-to-Action (CTA)</h3><div class="req-cta">' + (r.cta || []).map((t) => '<p>' + esc(t) + '</p>').join('') + '</div></div>' +
+          '<div class="req-section"><h3 class="req-h">Restrictions</h3><ul class="req-bullets">' + (r.restrictions || []).map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul></div>' +
+          '<div class="req-section"><h3 class="req-h">Reference files</h3>' + (r.refFiles || []).map((t) => '<div class="req-reffile"><span>' + esc(t) + '</span><span class="ic">' + IC.reffile + '</span></div>').join('') + '</div>' +
+          '<div class="req-section"><h3 class="req-h">Inspiration posts</h3><div class="req-inspo"><img src="' + esc(c.img) + '" alt=""><div class="req-inspo-btn">' + IC.extlink + '</div></div></div>' +
+        '</div>';
+
       body.innerHTML =
         '<div class="cp-bgimg"><img src="' + esc(c.img) + '" alt=""></div>' +
         '<div class="cp-body">' +
@@ -2992,11 +2967,8 @@ class Component extends DCLogic {
             '<div class="cp-joined"><div class="tag"><div class="cp-avatars">' + AV(c) + '</div><span class="count">' + esc(d.joined) + '</span></div></div>' +
             '<div class="cp-list"><div class="row"><span class="k">Target platforms</span><span class="social">' + IC.insta + IC.tiktok + '</span></div>' + listRows + '</div>' +
           '</div>' +
-          '<div class="cp-dark">' +
-            '<div class="cp-infotags"><h3>Best suited for</h3><div class="cp-tags">' + tags + '</div></div>' +
-            midBlock +
-            '<div class="cp-reqs"><h3>Requirements &amp; Resources</h3><p>' + esc(d.reqDescShort) + '</p><button type="button" class="cp-btn-secondary" data-showreq>Show more</button></div>' +
-          '</div>' +
+          '<div class="cp-dark"><div class="cp-darkcap"></div>' + midBlock + '</div>' +
+          reqFull +
           '<div class="cp-metrics"><div class="cp-createdby"><h3>Campaign created by</h3>' +
             '<div class="cp-creatorcard">' +
               '<div class="cp-identity"><img class="av" src="' + esc(c.logo) + '" alt="" style="background:' + esc(c.logoBg) + '"><div class="cp-idtext"><p class="name">' + esc(d.brand) + '</p><p class="since">' + esc(d.since) + '</p></div></div>' +
@@ -3012,24 +2984,6 @@ class Component extends DCLogic {
       body.scrollTop = 0;
     };
 
-    const renderReq = (c) => {
-      const r = (c.detail && c.detail.req) || {};
-      const spec = (r.spec || []).map((row, i) => {
-        const wrap = (i === (r.spec.length - 1)) ? ' wrap' : '';
-        return (i ? '<div class="sep"></div>' : '') + '<div class="row' + wrap + '"><span class="k">' + esc(row[0]) + '</span><span class="v">' + esc(row[1]) + '</span></div>';
-      }).join('');
-      reqScroll.innerHTML =
-        '<div class="req-section"><h3 class="req-h">Content Requirements</h3><p class="req-desc">' + esc(r.desc) + '</p><div class="req-spec">' + spec + '</div></div>' +
-        '<div class="req-section"><h3 class="req-h">Platforms to post on</h3><div class="req-platforms">' +
-          '<div class="req-plat">' + IC.insta + '<span>Instagram</span></div><div class="req-plat">' + IC.tiktok + '<span>TikTok</span></div></div></div>' +
-        '<div class="req-section"><h3 class="req-h">Call-to-Action (CTA)</h3><div class="req-cta">' + (r.cta || []).map((t) => '<p>' + esc(t) + '</p>').join('') + '</div></div>' +
-        '<div class="req-section"><h3 class="req-h">Restrictions</h3><ul class="req-bullets">' + (r.restrictions || []).map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul></div>' +
-        '<div class="req-section"><h3 class="req-h">Reference files</h3>' + (r.refFiles || []).map((t) => '<div class="req-reffile"><span>' + esc(t) + '</span><span class="ic">' + IC.reffile + '</span></div>').join('') + '</div>' +
-        '<div class="req-section"><h3 class="req-h">Inspiration posts</h3><div class="req-inspo"><img src="' + esc(c.img) + '" alt=""><div class="req-inspo-btn">' + IC.extlink + '</div></div></div>' +
-        '<div style="height:16px"></div>';
-      reqScroll.scrollTop = 0;
-    };
-
     const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const open = (c, trigger) => {
@@ -3038,23 +2992,12 @@ class Component extends DCLogic {
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('in')));
-      const cb = overlay.querySelector('.cp-iconbtn[data-close]'); if (cb) cb.focus({ preventScroll: true });
+      const cb = overlay.querySelector('.cp-close[data-close]'); if (cb) cb.focus({ preventScroll: true });
     };
     const close = () => {
-      if (req.classList.contains('open')) closeReq();
       overlay.classList.remove('in'); sheet.style.transform = '';
       const done = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; sheet.removeEventListener('transitionend', done); if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} } };
       if (reduce()) done(); else { sheet.addEventListener('transitionend', done); setTimeout(done, 480); }
-    };
-    const openReq = () => {
-      if (!current) return; renderReq(current);
-      req.classList.add('open');
-      requestAnimationFrame(() => requestAnimationFrame(() => req.classList.add('in')));
-    };
-    const closeReq = () => {
-      req.classList.remove('in'); reqSheet.style.transform = '';
-      const done = () => { req.classList.remove('open'); reqSheet.removeEventListener('transitionend', done); };
-      if (reduce()) done(); else { reqSheet.addEventListener('transitionend', done); setTimeout(done, 520); }
     };
 
     // Open on card click / keyboard
@@ -3065,15 +3008,9 @@ class Component extends DCLogic {
     // Close / action interactions
     overlay.addEventListener('click', (e) => {
       if (e.target.closest('[data-close]')) { close(); return; }
-      if (e.target.closest('[data-showreq]')) { openReq(); return; }
       if (e.target.closest('.cp-primary')) { close(); return; }
     });
-    req.addEventListener('click', (e) => { if (e.target.closest('[data-reqclose]')) closeReq(); });
-    document.addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape') return;
-      if (req.classList.contains('open')) { closeReq(); return; }
-      if (overlay.classList.contains('open')) close();
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
 
     // Drag-to-close helper (grip + pull-down from top of a scroller)
     const wireDrag = (host, panel, gripEl, scrollEl, onClose) => {
@@ -3094,7 +3031,6 @@ class Component extends DCLogic {
       window.addEventListener('mouseup', up); window.addEventListener('touchend', up);
     };
     wireDrag(overlay, sheet, grip, body, close);
-    wireDrag(req, reqSheet, reqHandle, reqScroll, closeReq);
   }
 
   _armCarousel(tries = 0) {
