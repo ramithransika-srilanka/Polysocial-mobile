@@ -1129,8 +1129,6 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-logo { width: 40px; height: 40px; border-radius: 100px; border: 1px solid var(--grey-50); object-fit: cover; background: #fff; }
     #campSheet .cp-desc { display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; }
     #campSheet .cp-title { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-800); text-align: center; width: 100%; }
-    #campSheet .cp-time { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; line-height: 12px; color: var(--grey-500); }
-    #campSheet .cp-time .dot { width: 4px; height: 4px; border-radius: 4px; background: currentColor; }
     #campSheet .cp-joined { display: flex; justify-content: center; }
     #campSheet .cp-joined .tag { display: flex; gap: 8px; align-items: center; background: var(--grey-200); padding: 4px 12px 4px 4px; border-radius: 20px; }
     #campSheet .cp-avatars { display: flex; }
@@ -2135,11 +2133,6 @@ a:hover { color: var(--brand-primary-hover); }
             <!-- content -->
             <div style="padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px;">
               <h3 style="margin: 0; color: #000000; font-weight: 600; font-size: 14px; line-height: 20px;">{{ c.title }}</h3>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="color: #717171; font-weight: 500; font-size: 12px; line-height: 12px;">{{ c.posted }}</span>
-                <span style="width: 2px; height: 2px; border-radius: 999px; background: #717171;"></span>
-                <span style="color: #717171; font-weight: 500; font-size: 12px; line-height: 12px;">{{ c.left }}</span>
-              </div>
               <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div style="height: 6px; border-radius: 100px; background: #DDDDDD; overflow: hidden;">
                   <div style="height: 100%; width: {{ c.pct }}; border-radius: 20px; background: #1548EB;"></div>
@@ -2981,7 +2974,6 @@ class Component extends DCLogic {
     const render = (c) => {
       const d = c.detail || {};
       const r = d.req || {};
-      const rightTime = c.left ? '<span class="dot"></span><span>' + esc(c.left) + '</span>' : '';
       const listRows = (d.list || []).map((r) => '<div class="div"></div><div class="row"><span class="k">' + esc(r[0]) + '</span><span class="v">' + esc(r[1]) + '</span></div>').join('');
       const metrics = (d.metrics || []).map((m, i) => (i ? '<div class="div"></div>' : '') + '<div class="row"><span class="k">' + esc(m[0]) + '</span><span class="v">' + esc(m[1]) + '</span></div>').join('');
       const handles = (d.handles || []).map((h) => '<div class="cp-handle"><img class="pf" src="' + esc(c.logo) + '" alt=""><div class="badge">' + (IC[h[1]] || '') + '</div><span class="fc">' + esc(h[0]) + '</span></div>').join('');
@@ -3023,7 +3015,7 @@ class Component extends DCLogic {
           '<div class="cp-details">' +
             '<div class="cp-logotitle">' +
               '<img class="cp-logo" src="' + esc(c.logo) + '" alt="" style="background:' + esc(c.logoBg) + '">' +
-              '<div class="cp-desc"><p class="cp-title">' + esc(c.title) + '</p><div class="cp-time"><span>' + esc(c.posted) + '</span>' + rightTime + '</div></div>' +
+              '<div class="cp-desc"><p class="cp-title">' + esc(c.title) + '</p></div>' +
             '</div>' +
             '<div class="cp-joined"><div class="tag"><div class="cp-avatars">' + AV(c) + '</div><span class="count">' + esc(d.joined) + '</span></div></div>' +
             '<div class="cp-list"><div class="row"><span class="k">Target platforms</span><span class="social">' + IC.insta + IC.tiktok + '</span></div>' + listRows + '</div>' +
