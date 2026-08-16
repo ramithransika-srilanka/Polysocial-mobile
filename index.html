@@ -1240,8 +1240,33 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-primary { position: relative; background: var(--blue-500); padding: 14px 20px; border: none; border-radius: 100px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--grey-50); }
     #campSheet .cp-primary:active { transform: scale(0.98); }
 
+    /* Join Campaign -> Download app popup */
+    #joinPop { position: fixed; inset: 0; z-index: 100070; display: none; align-items: center; justify-content: center; padding: 20px;
+      font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif;
+      --blue-500:#1548eb; --grey-800:#121212; }
+    #joinPop.open { display: flex; }
+    #joinPop .jp-scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.28s ease; }
+    #joinPop.in .jp-scrim { opacity: 1; }
+    #joinPop .jp-card { position: relative; width: 340px; max-width: 100%; background: #fff; border-radius: 28px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.30); display: flex; flex-direction: column; align-items: center;
+      transform: translateY(12px) scale(0.94); opacity: 0; transition: transform 0.32s cubic-bezier(0.22,1,0.36,1), opacity 0.26s ease; will-change: transform, opacity; }
+    #joinPop.in .jp-card { transform: translateY(0) scale(1); opacity: 1; }
+    #joinPop .jp-close { position: absolute; top: 12px; right: 12px; z-index: 2; width: 32px; height: 32px; padding: 6px; border: none; border-radius: 100px;
+      background: rgba(18,18,18,0.06); color: #121212; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    #joinPop .jp-close:active { transform: scale(0.92); }
+    #joinPop .jp-close svg { width: 20px; height: 20px; display: block; }
+    #joinPop .jp-top { padding: 30px 26px 22px; display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; box-sizing: border-box; }
+    #joinPop .jp-icon { width: 64px; height: 64px; border-radius: 15px; display: block; box-shadow: 0 4px 12px rgba(240,82,14,0.28); }
+    #joinPop .jp-text { margin: 0; text-align: center; color: var(--grey-800); font-weight: 700; font-size: 18px; line-height: 1.34; letter-spacing: -0.01em; max-width: 260px; }
+    #joinPop .jp-btn { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px 8px 22px; border: 1.5px solid var(--blue-500); border-radius: 100px;
+      background: #fff; color: var(--blue-500); font-size: 16px; font-weight: 600; text-decoration: none; cursor: pointer; margin-top: 2px; transition: transform 0.16s ease-out; }
+    #joinPop .jp-btn:active { transform: scale(0.97); }
+    #joinPop .jp-dl { width: 24px; height: 24px; border-radius: 100px; background: var(--blue-500); display: flex; align-items: center; justify-content: center; flex: none; }
+    #joinPop .jp-dl svg { width: 14px; height: 14px; display: block; color: #fff; }
+    #joinPop .jp-phone { width: 100%; display: block; margin-top: 4px; }
     @media (prefers-reduced-motion: reduce) {
       #campSheet .cs-sheet, #campSheet .cs-scrim { transition: none !important; }
+      #joinPop .jp-card, #joinPop .jp-scrim { transition: none !important; }
     }
   </style>
 </helmet>
@@ -2911,10 +2936,45 @@ class Component extends DCLogic {
       '</section></div>';
     document.body.appendChild(overlay);
 
+    // "Download app" popup shown when Join Campaign is tapped
+    const joinPop = document.createElement('div');
+    joinPop.id = 'joinPop';
+    joinPop.setAttribute('role', 'dialog');
+    joinPop.setAttribute('aria-modal', 'true');
+    joinPop.innerHTML =
+      '<div class="jp-scrim" data-jpclose></div>' +
+      '<div class="jp-card" role="document">' +
+        '<button type="button" class="jp-close" data-jpclose aria-label="Close">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6L18 18M18 6L6 18" stroke-linecap="round"/></svg>' +
+        '</button>' +
+        '<div class="jp-top">' +
+          '<img class="jp-icon" src="assets/img/ps-appicon.webp" alt="Polysocial">' +
+          '<p class="jp-text">Download Polysocial App and discover many campaigns to join.</p>' +
+          '<a class="jp-btn" href="#download">Download App' +
+            '<span class="jp-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 4v12M6 11l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+          '</a>' +
+        '</div>' +
+        '<img class="jp-phone" src="assets/img/ps-phone.webp" alt="Polysocial app on a phone home screen">' +
+      '</div>';
+    document.body.appendChild(joinPop);
+
     const body = overlay.querySelector('.cs-body');
     const sheet = overlay.querySelector('.cs-sheet');
     const grip = overlay.querySelector('.cs-grip');
     let lastFocus = null, current = null;
+
+    const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const openJoin = () => {
+      joinPop.classList.add('open');
+      requestAnimationFrame(() => requestAnimationFrame(() => joinPop.classList.add('in')));
+      const cb = joinPop.querySelector('.jp-close'); if (cb) cb.focus({ preventScroll: true });
+    };
+    const closeJoin = () => {
+      joinPop.classList.remove('in');
+      const done = () => { joinPop.classList.remove('open'); joinPop.removeEventListener('transitionend', done); };
+      if (reducedMotion()) done(); else { joinPop.addEventListener('transitionend', done); setTimeout(done, 360); }
+    };
+    joinPop.addEventListener('click', (e) => { if (e.target.closest('[data-jpclose]')) closeJoin(); });
 
     const AV = (c) => ('<img src="' + esc(c.img) + '" alt="">').repeat(4);
 
@@ -2995,6 +3055,7 @@ class Component extends DCLogic {
       const cb = overlay.querySelector('.cp-close[data-close]'); if (cb) cb.focus({ preventScroll: true });
     };
     const close = () => {
+      if (joinPop.classList.contains('open')) closeJoin();
       overlay.classList.remove('in'); sheet.style.transform = '';
       const done = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; sheet.removeEventListener('transitionend', done); if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} } };
       if (reduce()) done(); else { sheet.addEventListener('transitionend', done); setTimeout(done, 480); }
@@ -3008,9 +3069,13 @@ class Component extends DCLogic {
     // Close / action interactions
     overlay.addEventListener('click', (e) => {
       if (e.target.closest('[data-close]')) { close(); return; }
-      if (e.target.closest('.cp-primary')) { close(); return; }
+      if (e.target.closest('.cp-primary')) { e.preventDefault(); openJoin(); return; }
     });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (joinPop.classList.contains('open')) { closeJoin(); return; }
+      if (overlay.classList.contains('open')) close();
+    });
 
     // Drag-to-close helper (grip + pull-down from top of a scroller)
     const wireDrag = (host, panel, gripEl, scrollEl, onClose) => {
