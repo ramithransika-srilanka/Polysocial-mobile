@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site (static HTML + assets, already committed to the repo) to
+# GitHub Pages. It intentionally does NOT run `npm run build`: index.html is the
+# maintained source of truth, while build/page.raw.html is a stale artifact, so
+# a rebuild would overwrite the live page. We upload the repository as-is.
+
+on:
+  push:
+    branches:
+      - claude/generate-website-github-gkc3sv
+  workflow_dispatch:
+
+# Allow the workflow to publish to Pages via OIDC.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deploy at a time; let a newer push cancel an in-flight run.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Publish the repository root (contains index.html, the other pages,
+          # assets/, and .nojekyll so Pages serves the files untouched).
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
