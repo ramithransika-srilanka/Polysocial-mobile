@@ -1089,6 +1089,91 @@ a:hover { color: var(--brand-primary-hover); }
     @media (prefers-reduced-motion: reduce) {
       [data-anim], .avatarFloat, .ctaBtn, .ctaArrow { animation: none !important; opacity: 1 !important; transform: none !important; box-shadow: 2px 2px 12px rgba(0,0,0,0.10) !important; animation-play-state: running !important; }
     }
+    .campCard:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+
+    /* ---- Campaign detail bottom sheet ---- */
+    #campSheet { position: fixed; inset: 0; z-index: 100050; display: none; justify-content: center; }
+    #campSheet.open { display: flex; }
+    #campSheet .cs-col { position: relative; width: 393px; max-width: 100%; height: 100%; pointer-events: none; }
+    #campSheet .cs-scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.32s ease; }
+    #campSheet.in .cs-scrim { opacity: 1; }
+    #campSheet .cs-sheet { position: absolute; left: 0; right: 0; bottom: 0; max-height: 93%; display: flex; flex-direction: column;
+      background: #FFFFFF; border-radius: 24px 24px 0 0; box-shadow: 0 -12px 40px rgba(0,0,0,0.28); overflow: hidden; pointer-events: auto;
+      transform: translateY(100%); transition: transform 0.42s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
+    #campSheet.in .cs-sheet { transform: translateY(0); }
+    #campSheet.dragging .cs-sheet { transition: none; }
+    #campSheet .cs-grip { position: absolute; top: 0; left: 0; right: 0; height: 56px; z-index: 5; cursor: grab; touch-action: none; }
+    #campSheet .cs-grip:active { cursor: grabbing; }
+    #campSheet .cs-handle { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 40px; height: 4px; border-radius: 999px; background: rgba(255,255,255,0.85); z-index: 6; pointer-events: none; }
+    #campSheet .cs-close { position: absolute; top: 14px; right: 14px; z-index: 7; width: 32px; height: 32px; border: none; border-radius: 999px;
+      background: rgba(0,0,0,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+    #campSheet .cs-close:active { transform: scale(0.92); }
+    #campSheet .cs-body { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+    .cs-hero { position: relative; height: 300px; }
+    .cs-hero img.cs-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-hero .cs-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #FFFFFF 92%); }
+    .cs-card { position: relative; margin-top: -78px; z-index: 2; background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 6px 24px rgba(0,0,0,0.10); }
+    .cs-logo { width: 40px; height: 40px; border-radius: 999px; border: 1px solid #F0F0F0; overflow: hidden; display: block; margin: 0 auto; }
+    .cs-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-title { margin: 12px 0 0; text-align: center; color: #121212; font-weight: 600; font-size: 18px; line-height: 1.25; letter-spacing: -0.01em; }
+    .cs-sub { margin: 8px 0 0; display: flex; align-items: center; justify-content: center; gap: 8px; color: #717171; font-weight: 500; font-size: 12px; }
+    .cs-sub .dot { width: 2px; height: 2px; border-radius: 999px; background: #9C9C9C; }
+    .cs-joined { margin: 12px auto 0; display: flex; align-items: center; gap: 8px; width: max-content; padding: 4px 12px 4px 6px; border-radius: 999px; background: #F4F4F4; }
+    .cs-joined .av { display: flex; }
+    .cs-joined .av span { width: 22px; height: 22px; border-radius: 999px; border: 2px solid #FFFFFF; margin-left: -8px; background-size: cover; background-position: center; }
+    .cs-joined .av span:first-child { margin-left: 0; }
+    .cs-joined b { color: #121212; font-weight: 600; font-size: 12px; }
+    .cs-rows { margin-top: 20px; }
+    .cs-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; }
+    .cs-row + .cs-row { border-top: 1px solid #EFEFEF; }
+    .cs-row .k { color: #717171; font-weight: 500; font-size: 13px; }
+    .cs-row .v { color: #121212; font-weight: 600; font-size: 13px; text-align: right; }
+    .cs-plat { display: flex; align-items: center; gap: 8px; }
+    .cs-plat img { width: 16px; height: 16px; display: block; filter: brightness(0); opacity: 0.82; }
+    .cs-spent { margin: 4px 16px 0; padding: 22px 22px; background: #111114; color: #FFFFFF; border-radius: 20px; }
+    .cs-spent p { margin: 0; font-weight: 600; font-size: 17px; line-height: 1.5; letter-spacing: -0.01em; }
+    .cs-spent .amt { color: #FFFFFF; }
+    .cs-spent .muted { color: rgba(255,255,255,0.62); }
+    .cs-mini { display: inline-block; vertical-align: middle; width: 46px; height: 12px; margin: 0 6px; border-radius: 999px; background: rgba(255,255,255,0.22); overflow: hidden; }
+    .cs-mini i { display: block; height: 100%; background: #3B82F6; }
+    .cs-avin { display: inline-flex; vertical-align: middle; margin: 0 4px; }
+    .cs-avin span { width: 15px; height: 15px; border-radius: 999px; border: 1.5px solid #111114; margin-left: -6px; background: #6B7280; background-size: cover; }
+    .cs-avin span:first-child { margin-left: 0; }
+    .cs-sec { padding: 26px 16px 0; }
+    .cs-h { margin: 0 0 12px; color: #121212; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+    .cs-desc { margin: 0 0 14px; color: #4A4A4A; font-weight: 400; font-size: 13.5px; line-height: 1.5; }
+    .cs-cta { margin: 0 0 10px; color: #333333; font-weight: 500; font-size: 13.5px; line-height: 1.5; }
+    .cs-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cs-chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; background: #F1F1F1; color: #121212; font-weight: 500; font-size: 13px; }
+    .cs-chip img { width: 15px; height: 15px; display: block; filter: brightness(0); opacity: 0.82; }
+    .cs-ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .cs-ul li { position: relative; padding-left: 20px; color: #333333; font-weight: 500; font-size: 13.5px; line-height: 1.4; }
+    .cs-ul li::before { content: ''; position: absolute; left: 4px; top: 7px; width: 5px; height: 5px; border-radius: 999px; background: #B4B4B4; }
+    .cs-file { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #F4F4F4; color: #121212; font-weight: 500; font-size: 13px; }
+    .cs-file + .cs-file { margin-top: 10px; }
+    .cs-creator { margin: 8px 16px 0; padding: 24px 20px 26px; background: #F7F7F7; border-radius: 20px; text-align: center; }
+    .cs-creator .clogo { display: block; width: 64px; height: 64px; border-radius: 999px; overflow: hidden; margin: 0 auto; border: 1px solid #EDEDED; }
+    .cs-creator .clogo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-creator .cname { margin: 14px 0 0; color: #121212; font-weight: 600; font-size: 17px; }
+    .cs-creator .csince { margin: 4px 0 0; color: #9C9C9C; font-weight: 500; font-size: 11px; }
+    .cs-creator .cdesc { margin: 12px auto 0; max-width: 300px; color: #4A4A4A; font-weight: 400; font-size: 13px; line-height: 1.5; }
+    .cs-stats { display: flex; align-items: center; justify-content: center; gap: 0; margin-top: 20px; }
+    .cs-stats .st { flex: 1; }
+    .cs-stats .st b { display: block; color: #121212; font-weight: 600; font-size: 20px; }
+    .cs-stats .st span { display: block; margin-top: 2px; color: #717171; font-weight: 500; font-size: 12px; }
+    .cs-stats .sep { width: 1px; height: 38px; background: #DDDDDD; }
+    .cs-metrics { margin-top: 20px; text-align: left; }
+    .cs-handles { display: flex; align-items: flex-start; justify-content: center; gap: 26px; margin-top: 22px; }
+    .cs-handles .h { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .cs-handles .h .hi { width: 44px; height: 44px; border-radius: 999px; overflow: hidden; border: 1px solid #EDEDED; }
+    .cs-handles .h .hi img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-handles .h span { color: #121212; font-weight: 600; font-size: 12px; }
+    .cs-foot { position: sticky; bottom: 0; padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #FFFFFF 34%); }
+    .cs-join { width: 100%; height: 46px; border: none; border-radius: 100px; background: #1845E7; color: #FFFFFF; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.16s ease-out; }
+    .cs-join:active { transform: scale(0.98); }
+    @media (prefers-reduced-motion: reduce) {
+      #campSheet .cs-sheet, #campSheet .cs-scrim { transition: none !important; }
+    }
   </style>
 </helmet>
 
@@ -1934,7 +2019,7 @@ a:hover { color: var(--brand-primary-hover); }
 
       <div id="campScroller" class="noScrollbar" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 20px 10px; -webkit-overflow-scrolling: touch;">
         <sc-for list="{{ campaigns }}" as="c" hint-placeholder-count="3">
-          <div class="campCard" style="scroll-snap-align: center; flex: none; width: 273px; padding: 4px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 4px 7.9px rgba(0,0,0,0.25);">
+          <div class="campCard" data-camp="{{ c.key }}" role="button" tabindex="0" aria-label="Open {{ c.title }} campaign details" style="scroll-snap-align: center; flex: none; width: 273px; padding: 4px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 4px 7.9px rgba(0,0,0,0.25); cursor: pointer;">
             <div style="position: relative; height: 256px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 2px rgba(0,0,0,0.16);">
               <img src="{{ c.img }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
               <!-- logo bar -->
@@ -2112,7 +2197,7 @@ a:hover { color: var(--brand-primary-hover); }
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._armCallFocus(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); }
+  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._armCallFocus(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); this._armSheet(); }
 
   _armFanSwap() {
     const SLOTS = {
@@ -2544,14 +2629,122 @@ class Component extends DCLogic {
   }
   renderVals() {
     const R = (window.__resources || {});
-    const moto = R.campMoto || 'assets/img/campaign-moto.760w.d1cfd4198c.webp';
-    const uber = R.uberLogo || 'assets/img/uber.900w.a92a1a8418.webp';
+    const campaigns = [
+      {
+        key: 'lunavo',
+        img: 'assets/img/lunavo-cover.webp', logo: 'assets/img/lunavo-logo.webp', logoBg: '#000000',
+        rate: 'Rs.2000/1K', title: 'Lunavo Moto everyday city rides UGC', posted: '5 hrs ago', left: '10 d left',
+        pct: '55%', raised: 'Rs. 284,536', goal: 'Rs. 500,000',
+        detail: {
+          joined: '400+',
+          platforms: ['instagram', 'tiktok'],
+          basePrice: 'Rs. 6,488', maxEarning: 'Rs. 100,000', perfPricing: 'Rs. 2000 / 1K views', totalBudget: 'Rs. 500,000',
+          available: 'Rs. 284,536', spent: 'Rs. 215,464',
+          reqDesc: 'Show your audience how Lunavo Moto can make everyday city travel quicker, easier, and more convenient.',
+          reqs: [
+            { k: 'Format', v: 'Vertical 9:16' },
+            { k: 'Duration', v: '30–45 seconds' },
+            { k: 'Quality', v: 'Min 1080p' },
+            { k: 'Language', v: 'English, Sinhala' },
+            { k: 'Captions', v: 'Required' },
+            { k: 'Brand visibility', v: 'Lunavo app and Moto option must be clearly visible' }
+          ],
+          cta: [
+            '“Next time the traffic is testing you, check Lunavo Moto.”',
+            '“Open the Lunavo app and see whether Moto is available near you.”',
+            '“Try Lunavo Moto for your next city trip.”'
+          ],
+          restrictions: [
+            'No AI generated content', 'Face must be visible in the content', 'No competitor brands in the frame',
+            'Caption must tag the brand handle', 'Use only licensed or original audio'
+          ],
+          refFiles: ['Lunavo logo files', 'Campaign whitepaper'],
+          creator: {
+            name: 'Lunavo Sri Lanka', since: 'Since Mar 2026',
+            desc: 'Create creative content while you ride with the Lunavo Moto city-travel service.',
+            totalPaid: 'Rs. 2.6 M', campaigns: '48', approvalRate: '96 %', approvalTime: '1 d', responds: '2 hrs',
+            handles: ['10K', '2.5K', '546']
+          }
+        }
+      },
+      {
+        key: 'briksy',
+        img: 'assets/img/briksy-cover.webp', logo: 'assets/img/briksy-logo.webp', logoBg: '#E11B22',
+        rate: 'Rs.1500/1K', title: 'Briksy Build-a-World family playtime reels', posted: '8 hrs ago', left: '6 d left',
+        pct: '38%', raised: 'Rs. 152,000', goal: 'Rs. 400,000',
+        detail: {
+          joined: '250+',
+          platforms: ['instagram', 'tiktok'],
+          basePrice: 'Rs. 5,200', maxEarning: 'Rs. 80,000', perfPricing: 'Rs. 1500 / 1K views', totalBudget: 'Rs. 400,000',
+          available: 'Rs. 152,000', spent: 'Rs. 248,000',
+          reqDesc: 'Capture real family playtime and show how Briksy building sets spark imagination and hours of screen-free fun.',
+          reqs: [
+            { k: 'Format', v: 'Vertical 9:16' },
+            { k: 'Duration', v: '20–40 seconds' },
+            { k: 'Quality', v: 'Min 1080p' },
+            { k: 'Language', v: 'English, Sinhala' },
+            { k: 'Captions', v: 'Required' },
+            { k: 'Brand visibility', v: 'Briksy box and built model must be clearly visible' }
+          ],
+          cta: [
+            '“Build. Play. Imagine — with Briksy.”',
+            '“Grab a Briksy set and start building today.”',
+            '“Tag us in your best Briksy build.”'
+          ],
+          restrictions: [
+            'No AI generated content', 'Children must be supervised on camera', 'No competitor brands in the frame',
+            'Caption must tag the brand handle', 'Use only licensed or original audio'
+          ],
+          refFiles: ['Briksy logo files', 'Campaign whitepaper'],
+          creator: {
+            name: 'Briksy Sri Lanka', since: 'Since Jan 2026',
+            desc: 'Create playful content featuring Briksy building sets for kids and families.',
+            totalPaid: 'Rs. 1.8 M', campaigns: '31', approvalRate: '94 %', approvalTime: '1 d', responds: '3 hrs',
+            handles: ['8.2K', '3.1K', '420']
+          }
+        }
+      },
+      {
+        key: 'sunora',
+        img: 'assets/img/sunora-cover.webp', logo: 'assets/img/sunora-logo.webp', logoBg: '#F4520E',
+        rate: 'Rs.2500/1K', title: 'Sunora Nightfall Festival hype reels', posted: '1 d ago', left: '14 d left',
+        pct: '72%', raised: 'Rs. 361,200', goal: 'Rs. 500,000',
+        detail: {
+          joined: '600+',
+          platforms: ['instagram', 'tiktok'],
+          basePrice: 'Rs. 7,500', maxEarning: 'Rs. 120,000', perfPricing: 'Rs. 2500 / 1K views', totalBudget: 'Rs. 500,000',
+          available: 'Rs. 361,200', spent: 'Rs. 138,800',
+          reqDesc: 'Build the hype for the Sunora Nightfall Festival — show the line-up, the energy, and why nobody should miss the night.',
+          reqs: [
+            { k: 'Format', v: 'Vertical 9:16' },
+            { k: 'Duration', v: '15–30 seconds' },
+            { k: 'Quality', v: 'Min 1080p' },
+            { k: 'Language', v: 'English, Sinhala' },
+            { k: 'Captions', v: 'Required' },
+            { k: 'Brand visibility', v: 'Sunora logo and event date must be clearly visible' }
+          ],
+          cta: [
+            '“The night belongs to you — Sunora Nightfall Festival.”',
+            '“Grab your tickets before the gates sell out.”',
+            '“Tag a friend you’re bringing to Sunora.”'
+          ],
+          restrictions: [
+            'No AI generated content', 'Face must be visible in the content', 'No competitor events in the frame',
+            'Caption must tag the event handle', 'Use only licensed or original audio'
+          ],
+          refFiles: ['Sunora brand kit', 'Event whitepaper'],
+          creator: {
+            name: 'Sunora Events', since: 'Since Feb 2026',
+            desc: 'Create high-energy content promoting Sunora live events and festivals.',
+            totalPaid: 'Rs. 3.4 M', campaigns: '57', approvalRate: '98 %', approvalTime: '12 hrs', responds: '1 hr',
+            handles: ['24K', '5.6K', '1.2K']
+          }
+        }
+      }
+    ];
+    window.__psCampaigns = campaigns;
     return {
-      campaigns: [
-        { img: moto, logo: uber, logoBg: '#000000', rate: 'Rs.2000/1K', title: 'Uber Moto UGC campaign in Colombo Book festival', posted: '5 hrs ago', left: '10 d left', pct: '55%', raised: 'Rs. 284,536', goal: 'Rs. 500,000' },
-        { img: moto, logo: uber, logoBg: '#000000', rate: 'Rs.2000/1K', title: 'Uber Moto rides for Kandy Perahera season', posted: '8 hrs ago', left: '6 d left', pct: '38%', raised: 'Rs. 152,000', goal: 'Rs. 400,000' },
-        { img: moto, logo: uber, logoBg: '#000000', rate: 'Rs.2500/1K', title: 'Uber Eats late-night cravings in Colombo', posted: '1 d ago', left: '14 d left', pct: '72%', raised: 'Rs. 361,200', goal: 'Rs. 500,000' }
-      ],
+      campaigns: campaigns,
       articles: [
         { img: R.artSocial || 'assets/img/article-social.620w.258c428c71.webp' },
         { img: R.artRothko || 'assets/img/article-rothko.620w.d1a2f23846.webp' }
@@ -2603,6 +2796,180 @@ class Component extends DCLogic {
         cio.observe(scroller);
       }
     }
+  }
+
+  _armSheet(tries = 0) {
+    const scroller = document.getElementById('campScroller');
+    if (!scroller || !scroller.querySelector('.campCard')) { if (tries < 40) setTimeout(() => this._armSheet(tries + 1), 60); return; }
+    if (this._sheetArmed) return; this._sheetArmed = true;
+
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const IG = 'assets/svg/instagram.svg';
+    const TT = 'assets/svg/tiktok.svg';
+    const platImg = (p) => '<img src="' + (p === 'tiktok' ? TT : IG) + '" alt="' + esc(p) + '">';
+
+    // Build the sheet shell once, appended to <body> so it overlays the phone column.
+    const overlay = document.createElement('div');
+    overlay.id = 'campSheet';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML =
+      '<div class="cs-scrim" data-close></div>' +
+      '<div class="cs-col">' +
+        '<section class="cs-sheet" role="document">' +
+          '<div class="cs-grip" aria-hidden="true"></div>' +
+          '<span class="cs-handle" aria-hidden="true"></span>' +
+          '<button type="button" class="cs-close" data-close aria-label="Close">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/></svg>' +
+          '</button>' +
+          '<div class="cs-body"></div>' +
+        '</section>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    const body = overlay.querySelector('.cs-body');
+    const sheet = overlay.querySelector('.cs-sheet');
+    const grip = overlay.querySelector('.cs-grip');
+    let lastFocus = null;
+
+    const render = (c) => {
+      const d = c.detail || {};
+      const cr = d.creator || {};
+      const rowsHtml = [
+        '<div class="cs-row"><span class="k">Target platforms</span><span class="v cs-plat">' + (d.platforms || []).map(platImg).join('') + '</span></div>',
+        '<div class="cs-row"><span class="k">Base price per content</span><span class="v">' + esc(d.basePrice) + '</span></div>',
+        '<div class="cs-row"><span class="k">Max earning per content</span><span class="v">' + esc(d.maxEarning) + '</span></div>',
+        '<div class="cs-row"><span class="k">Performance pricing</span><span class="v">' + esc(d.perfPricing) + '</span></div>',
+        '<div class="cs-row"><span class="k">Total budget</span><span class="v">' + esc(d.totalBudget) + '</span></div>'
+      ].join('');
+      const reqHtml = (d.reqs || []).map((r) =>
+        '<div class="cs-row"><span class="k">' + esc(r.k) + '</span><span class="v">' + esc(r.v) + '</span></div>'
+      ).join('');
+      const avatars = () => '<span style="background-image:url(' + c.img + ')"></span>' +
+        '<span style="background-image:url(' + c.img + ')"></span>' +
+        '<span style="background-image:url(' + c.img + ')"></span>';
+
+      body.innerHTML =
+        '<div class="cs-hero">' +
+          '<img class="cs-cover" src="' + esc(c.img) + '" alt="">' +
+          '<div class="cs-fade"></div>' +
+        '</div>' +
+        '<div class="cs-card">' +
+          '<span class="cs-logo" style="background:' + esc(c.logoBg) + '"><img src="' + esc(c.logo) + '" alt=""></span>' +
+          '<h3 class="cs-title">' + esc(c.title) + '</h3>' +
+          '<div class="cs-sub"><span>' + esc(c.posted) + '</span><span class="dot"></span><span>' + esc(c.left) + '</span></div>' +
+          '<div class="cs-joined"><span class="av">' + avatars() + '</span><b>' + esc(d.joined) + '</b></div>' +
+          '<div class="cs-rows">' + rowsHtml + '</div>' +
+        '</div>' +
+        '<div class="cs-spent" style="margin-top:20px">' +
+          '<p><span class="amt">' + esc(d.available) + '</span><span class="cs-mini"><i style="width:' + esc(c.pct) + '"></i></span><span class="muted"> is available to spend.</span></p>' +
+          '<p style="margin-top:6px"><span class="amt">' + esc(d.spent) + '</span><span class="cs-avin">' + avatars() + '</span><span class="muted"> was spent on creators up to now.</span></p>' +
+        '</div>' +
+        '<div class="cs-sec"><h4 class="cs-h">Content Requirements</h4><p class="cs-desc">' + esc(d.reqDesc) + '</p><div class="cs-rows" style="margin-top:0">' + reqHtml + '</div></div>' +
+        '<div class="cs-sec"><h4 class="cs-h">Platforms to post on</h4><div class="cs-chips">' +
+          (d.platforms || []).map((p) => '<span class="cs-chip">' + platImg(p) + (p === 'tiktok' ? 'TikTok' : 'Instagram') + '</span>').join('') +
+        '</div></div>' +
+        '<div class="cs-sec"><h4 class="cs-h">Call-to-Action (CTA)</h4>' + (d.cta || []).map((t) => '<p class="cs-cta">' + esc(t) + '</p>').join('') + '</div>' +
+        '<div class="cs-sec"><h4 class="cs-h">Restrictions</h4><ul class="cs-ul">' + (d.restrictions || []).map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul></div>' +
+        '<div class="cs-sec"><h4 class="cs-h">Reference files</h4>' + (d.refFiles || []).map((t) =>
+          '<div class="cs-file"><span>' + esc(t) + '</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="#717171" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+        ).join('') + '</div>' +
+        '<div class="cs-sec"><h4 class="cs-h">Campaign created by</h4>' +
+          '<div class="cs-creator">' +
+            '<span class="clogo" style="background:' + esc(c.logoBg) + '"><img src="' + esc(c.logo) + '" alt=""></span>' +
+            '<p class="cname">' + esc(cr.name) + '</p>' +
+            '<p class="csince">' + esc(cr.since) + '</p>' +
+            '<p class="cdesc">' + esc(cr.desc) + '</p>' +
+            '<div class="cs-stats"><div class="st"><b>' + esc(cr.totalPaid) + '</b><span>Total paid</span></div><div class="sep"></div><div class="st"><b>' + esc(cr.campaigns) + '</b><span>Campaigns</span></div></div>' +
+            '<div class="cs-rows cs-metrics">' +
+              '<div class="cs-row"><span class="k">Content approval rate</span><span class="v">' + esc(cr.approvalRate) + '</span></div>' +
+              '<div class="cs-row"><span class="k">Approval time</span><span class="v">' + esc(cr.approvalTime) + '</span></div>' +
+              '<div class="cs-row"><span class="k">Responds within</span><span class="v">' + esc(cr.responds) + '</span></div>' +
+            '</div>' +
+            '<div class="cs-handles">' + (cr.handles || []).map((h) =>
+              '<div class="h"><span class="hi" style="display:block;background:' + esc(c.logoBg) + '"><img src="' + esc(c.logo) + '" alt=""></span><span>' + esc(h) + '</span></div>'
+            ).join('') + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="cs-foot"><button type="button" class="cs-join">Join Campaign</button></div>';
+      body.scrollTop = 0;
+    };
+
+    let openT = null;
+    const open = (c, trigger) => {
+      lastFocus = trigger || document.activeElement;
+      render(c);
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // next frame -> add .in to trigger transitions
+      requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('in')));
+      overlay.querySelector('.cs-close').focus({ preventScroll: true });
+    };
+    const close = () => {
+      overlay.classList.remove('in');
+      sheet.style.transform = '';
+      const done = () => {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        sheet.removeEventListener('transitionend', done);
+        if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
+      };
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(); }
+      else { sheet.addEventListener('transitionend', done); setTimeout(done, 480); }
+    };
+
+    // Open on card click / keyboard
+    const cardOf = (e) => e.target.closest('.campCard');
+    scroller.addEventListener('click', (e) => {
+      const card = cardOf(e); if (!card) return;
+      const list = window.__psCampaigns || [];
+      const c = list.find((x) => x.key === card.getAttribute('data-camp')) || list[Array.from(scroller.querySelectorAll('.campCard')).indexOf(card)];
+      if (c) open(c, card);
+    });
+    scroller.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const card = cardOf(e); if (!card) return;
+      e.preventDefault();
+      const list = window.__psCampaigns || [];
+      const c = list.find((x) => x.key === card.getAttribute('data-camp')) || list[Array.from(scroller.querySelectorAll('.campCard')).indexOf(card)];
+      if (c) open(c, card);
+    });
+
+    // Close interactions
+    overlay.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+
+    // Drag-down to close (grip handle, and pull-down when body already at top)
+    let dragging = false, startY = 0, curY = 0, fromBody = false;
+    const canDragFromBody = () => body.scrollTop <= 0;
+    const onDown = (e, viaBody) => {
+      const y = (e.touches ? e.touches[0].clientY : e.clientY);
+      dragging = true; startY = y; curY = 0; fromBody = !!viaBody;
+      overlay.classList.add('dragging');
+    };
+    const onMove = (e) => {
+      if (!dragging) return;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY);
+      let dy = y - startY;
+      if (fromBody && dy <= 0) { dragging = false; overlay.classList.remove('dragging'); sheet.style.transform = ''; return; }
+      if (dy < 0) dy = 0;
+      curY = dy;
+      if (fromBody && dy > 0 && e.cancelable) e.preventDefault();
+      sheet.style.transform = 'translateY(' + dy + 'px)';
+    };
+    const onUp = () => {
+      if (!dragging) return;
+      dragging = false; overlay.classList.remove('dragging');
+      if (curY > 120) close();
+      else sheet.style.transform = '';
+    };
+    grip.addEventListener('mousedown', (e) => onDown(e, false));
+    grip.addEventListener('touchstart', (e) => onDown(e, false), { passive: true });
+    body.addEventListener('touchstart', (e) => { if (canDragFromBody()) onDown(e, true); }, { passive: true });
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchend', onUp);
   }
 
   _armCarousel(tries = 0) {
