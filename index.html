@@ -1089,6 +1089,185 @@ a:hover { color: var(--brand-primary-hover); }
     @media (prefers-reduced-motion: reduce) {
       [data-anim], .avatarFloat, .ctaBtn, .ctaArrow { animation: none !important; opacity: 1 !important; transform: none !important; box-shadow: 2px 2px 12px rgba(0,0,0,0.10) !important; animation-play-state: running !important; }
     }
+    .campCard:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+
+    /* ================= Campaign detail bottom sheet (matches app prototype) ================= */
+    #campSheet {
+      --grey-50:#f6f6f6; --grey-50-90:rgba(246,246,246,.9); --grey-100:#ececec; --grey-100-20:rgba(236,236,236,.2);
+      --grey-200:#d9d9d9; --grey-400:#b3b3b3; --grey-500:#a0a0a0; --grey-600:#717171; --grey-700:#414141; --grey-800:#121212;
+      --blue-100:#d0dafb; --blue-200:#a1b6f7; --blue-300:#7391f3; --blue-500:#1548eb; --blue-600:#123bbd; --blue-700:#0f2d8f;
+    }
+    #campSheet { position: fixed; inset: 0; z-index: 100050; display: none; justify-content: center;
+      font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; }
+    #campSheet.open { display: flex; }
+    #campSheet .cs-col { position: relative; width: 393px; max-width: 100%; height: 100%; pointer-events: none; }
+    #campSheet .cs-scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.32s ease; }
+    #campSheet.in .cs-scrim { opacity: 1; }
+    #campSheet .cs-sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 94%; display: flex; flex-direction: column;
+      background: var(--grey-50); border-radius: 24px 24px 0 0; box-shadow: 0 -12px 40px rgba(0,0,0,0.28); overflow: hidden; pointer-events: auto;
+      transform: translateY(100%); transition: transform 0.42s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
+    #campSheet.in .cs-sheet { transform: translateY(0); }
+    #campSheet.dragging .cs-sheet { transition: none; }
+    #campSheet .cs-grip { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 30px; z-index: 30; cursor: grab; touch-action: none; display: flex; align-items: center; justify-content: center; }
+    #campSheet .cs-grip:active { cursor: grabbing; }
+    #campSheet .cs-grip .bar { width: 44px; height: 4px; border-radius: 999px; background: rgba(255,255,255,0.9); box-shadow: 0 1px 3px rgba(0,0,0,0.35); margin-top: 8px; }
+    #campSheet .cs-body { position: relative; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; scrollbar-width: none; }
+    #campSheet .cs-body::-webkit-scrollbar { display: none; }
+
+    /* Close cross over the hero */
+    #campSheet .cp-close { position: absolute; top: 16px; right: 16px; z-index: 25; width: 40px; height: 40px; padding: 8px; border: none; border-radius: 100px; background: rgba(246,246,246,.55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); color: #121212; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+    #campSheet .cp-close:active { transform: scale(0.92); }
+    #campSheet .cp-close svg { width: 22px; height: 22px; display: block; }
+
+    /* Hero + body */
+    #campSheet .cp-bgimg { position: absolute; top: 0; left: 0; width: 100%; height: 640px; z-index: 0; overflow: hidden; }
+    #campSheet .cp-bgimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #campSheet .cp-body { position: relative; z-index: 1; }
+    #campSheet .cp-topgap { height: 300px; }
+    #campSheet .cp-details { display: flex; flex-direction: column; gap: 12px; align-items: center; padding: 16px 16px 0; background: var(--grey-50); border-radius: 40px 40px 0 0; }
+    #campSheet .cp-logotitle { display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 16px; width: 100%; }
+    #campSheet .cp-logo { width: 40px; height: 40px; border-radius: 100px; border: 1px solid var(--grey-50); object-fit: cover; background: #fff; }
+    #campSheet .cp-desc { display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; }
+    #campSheet .cp-title { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-800); text-align: center; width: 100%; }
+    #campSheet .cp-time { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; line-height: 12px; color: var(--grey-500); }
+    #campSheet .cp-time .dot { width: 4px; height: 4px; border-radius: 4px; background: currentColor; }
+    #campSheet .cp-joined { display: flex; justify-content: center; }
+    #campSheet .cp-joined .tag { display: flex; gap: 8px; align-items: center; background: var(--grey-200); padding: 4px 12px 4px 4px; border-radius: 20px; }
+    #campSheet .cp-avatars { display: flex; }
+    #campSheet .cp-avatars img { width: 24px; height: 24px; border-radius: 20px; border: 1px solid #f6f6f6; object-fit: cover; margin-left: -8px; background: #ddd; }
+    #campSheet .cp-avatars img:first-child { margin-left: 0; }
+    #campSheet .cp-joined .count { font-size: 14px; font-weight: 600; color: var(--grey-600); }
+    #campSheet .cp-list { background: var(--grey-50); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    #campSheet .cp-list .row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; line-height: 20px; }
+    #campSheet .cp-list .row .k { font-weight: 500; color: var(--grey-600); }
+    #campSheet .cp-list .row .v { font-weight: 600; color: var(--grey-800); }
+    #campSheet .cp-list .div { height: 1px; background: var(--grey-200); margin: 4px 0; }
+    #campSheet .cp-list .social { display: flex; gap: 8px; align-items: center; }
+    #campSheet .cp-list .social svg { width: 16px; height: 16px; color: var(--grey-800); }
+
+    #campSheet .cp-dark { background: var(--grey-800); display: flex; flex-direction: column; width: 100%; }
+    #campSheet .cp-budget { display: flex; align-items: center; justify-content: center; padding: 16px 0; }
+    #campSheet .cp-budget .inner { width: 339px; max-width: 100%; padding: 8px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; }
+    #campSheet .cp-budget .l { display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; line-height: 25px; }
+    #campSheet .cp-light { color: var(--grey-50); }
+    #campSheet .cp-mut { color: var(--grey-500); }
+    #campSheet .cp-white { color: #fff; }
+    #campSheet .cp-coin { width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 35% 35%,#ffd76a,#e0952b); display: inline-block; }
+    #campSheet .cp-mini { width: 54px; height: 16px; background: var(--blue-200); border-radius: 20px; position: relative; overflow: hidden; display: inline-block; }
+    #campSheet .cp-mini .track { position: absolute; left: 9px; top: 6px; width: 36px; height: 4px; background: var(--grey-50); border-radius: 20px; }
+    #campSheet .cp-mini .fill { position: absolute; left: 9px; top: 6px; width: 10.8px; height: 4px; background: var(--blue-500); border-radius: 20px; }
+    #campSheet .cp-creators-mini { display: flex; }
+    #campSheet .cp-creators-mini img { width: 16px; height: 16px; border-radius: 20px; object-fit: cover; margin-left: -4px; background: #ddd; }
+    #campSheet .cp-creators-mini img:first-child { margin-left: 0; }
+    #campSheet .cp-event { display: flex; flex-direction: column; align-items: center; padding: 0 24px 8px; width: 100%; }
+    #campSheet .cp-event-card { display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%; padding: 16px 20px; border-radius: 20px; overflow: hidden; }
+    #campSheet .cp-event-info { display: flex; flex-direction: column; align-items: center; }
+    #campSheet .cp-event-info .line { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-50); text-align: center; }
+    #campSheet .cp-event-info .mut { color: var(--grey-500); }
+    #campSheet .cp-event-row { display: flex; gap: 8px; align-items: center; justify-content: center; }
+    #campSheet .cp-event-ic { width: 24px; height: 24px; flex-shrink: 0; color: var(--grey-50); }
+    #campSheet .cp-event-ic svg { width: 24px; height: 24px; display: block; }
+    #campSheet .cp-event-cta { display: flex; flex-direction: column; align-items: center; }
+    #campSheet .cp-event-cta .lbl { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--grey-500); text-align: center; }
+    #campSheet .cp-event-link { display: flex; gap: 4px; align-items: center; justify-content: flex-end; cursor: pointer; }
+    #campSheet .cp-event-link span { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--blue-300); text-align: center; }
+    #campSheet .cp-event-link .ext { width: 16px; height: 16px; flex-shrink: 0; color: var(--blue-300); }
+    #campSheet .cp-event-link .ext svg { width: 16px; height: 16px; display: block; }
+    #campSheet .cp-darkcap { background: var(--grey-50); height: 24px; border-radius: 0 0 28px 28px; }
+    #campSheet .cp-reqfull { background: var(--grey-50); border-radius: 28px 28px 0 0; padding: 32px 32px 16px; display: flex; flex-direction: column; gap: 48px; width: 100%; }
+    #campSheet .req-section { display: flex; flex-direction: column; gap: 12px; }
+    #campSheet .req-h { font-size: 16px; font-weight: 600; line-height: 20px; color: var(--grey-800); }
+    #campSheet .req-desc { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
+    #campSheet .req-spec { background: var(--grey-50); border-radius: 12px; padding: 4px 0; display: flex; flex-direction: column; gap: 8px; }
+    #campSheet .req-spec .row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; line-height: 20px; }
+    #campSheet .req-spec .row .k { font-weight: 500; color: var(--grey-600); }
+    #campSheet .req-spec .row .v { font-weight: 600; color: var(--grey-800); }
+    #campSheet .req-spec .row.wrap { align-items: flex-start; gap: 16px; }
+    #campSheet .req-spec .row.wrap .k { width: 122px; flex-shrink: 0; }
+    #campSheet .req-spec .row.wrap .v { flex: 1; text-align: right; }
+    #campSheet .req-spec .sep { height: 1px; background: var(--grey-100); margin: 4px 0; }
+    #campSheet .req-platforms { display: flex; gap: 8px; }
+    #campSheet .req-plat { display: flex; align-items: center; gap: 8px; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; color: var(--grey-800); }
+    #campSheet .req-plat svg { width: 20px; height: 20px; flex-shrink: 0; }
+    #campSheet .req-plat span { font-size: 14px; font-weight: 500; color: var(--grey-800); }
+    #campSheet .req-cta { display: flex; flex-direction: column; gap: 20px; }
+    #campSheet .req-cta p { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
+    #campSheet .req-bullets { margin: 0; padding-left: 21px; list-style: disc; }
+    #campSheet .req-bullets li { font-size: 14px; font-weight: 400; line-height: 32px; color: var(--grey-800); }
+    #campSheet .req-reffile { display: flex; align-items: center; justify-content: space-between; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; cursor: pointer; gap: 12px; }
+    #campSheet .req-reffile + .req-reffile { margin-top: 12px; }
+    #campSheet .req-reffile span:first-child { font-size: 14px; font-weight: 500; color: var(--grey-800); }
+    #campSheet .req-reffile .ic { display: flex; color: #121212; flex-shrink: 0; }
+    #campSheet .req-reffile .ic svg { width: 24px; height: 24px; }
+    #campSheet .req-inspo { position: relative; height: 240px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    #campSheet .req-inspo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    #campSheet .req-inspo-btn { position: relative; width: 48px; height: 48px; border-radius: 100px; background: var(--grey-50); display: flex; align-items: center; justify-content: center; color: #121212; filter: drop-shadow(0 2px 6px rgba(0,0,0,.3)); }
+    #campSheet .req-inspo-btn svg { width: 24px; height: 24px; }
+    #campSheet .cp-metrics { padding: 0 24px; position: relative; z-index: 2; background: var(--grey-50); }
+    #campSheet .cp-createdby { display: flex; flex-direction: column; gap: 16px; padding: 10px 0; }
+    #campSheet .cp-createdby>h3 { font-size: 16px; font-weight: 600; line-height: 20px; color: #000; }
+    #campSheet .cp-creatorcard { background: #fff; border-radius: 20px; filter: drop-shadow(2px 4px 2px rgba(0,0,0,.12)); display: flex; flex-direction: column; gap: 16px; padding: 8px 0; }
+    #campSheet .cp-identity { display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 16px 32px 4px; }
+    #campSheet .cp-identity .av { width: 80px; height: 80px; border-radius: 100px; object-fit: cover; background: #fff; }
+    #campSheet .cp-idtext { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    #campSheet .cp-identity .name { font-size: 20px; font-weight: 600; line-height: 20px; color: var(--grey-800); margin: 0; }
+    #campSheet .cp-identity .since { font-size: 12px; line-height: 16px; color: var(--grey-600); margin: 0; }
+    #campSheet .cp-cdesc { padding: 0 8px; font-size: 14px; line-height: 20px; color: #000; text-align: center; margin: 0; }
+    #campSheet .cp-stats { display: flex; align-items: center; justify-content: center; padding: 16px 48px; }
+    #campSheet .cp-stat { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    #campSheet .cp-stat .big { font-size: 20px; font-weight: 600; color: var(--grey-800); }
+    #campSheet .cp-stat .lbl { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--grey-600); }
+    #campSheet .cp-stat-div { width: 1px; height: 39px; background: var(--grey-200); }
+    #campSheet .cp-cmetrics { display: flex; flex-direction: column; gap: 8px; padding: 8px 16px; }
+    #campSheet .cp-cmetrics .row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; line-height: 20px; }
+    #campSheet .cp-cmetrics .row .k { font-weight: 400; color: var(--grey-600); }
+    #campSheet .cp-cmetrics .row .v { font-weight: 600; color: var(--grey-800); }
+    #campSheet .cp-cmetrics .div { height: 1px; background: var(--grey-100); margin: 4px 0; }
+    #campSheet .cp-handles { display: flex; gap: 16px; align-items: center; justify-content: center; }
+    #campSheet .cp-handle { display: flex; flex-direction: column; gap: 4px; align-items: center; padding: 8px; position: relative; }
+    #campSheet .cp-handle .pf { width: 64px; height: 64px; border-radius: 100px; object-fit: cover; background: #fff; }
+    #campSheet .cp-handle .badge { position: absolute; left: 52px; top: 0; background: #fff; padding: 6px; border-radius: 20px; display: flex; filter: drop-shadow(0 2px 1px rgba(0,0,0,.25)); color: #121212; }
+    #campSheet .cp-handle .badge svg { width: 12px; height: 12px; display: block; }
+    #campSheet .cp-handle .fc { font-size: 14px; font-weight: 500; line-height: 20px; color: #121212; }
+    #campSheet .cp-questions { padding: 8px 16px; width: 100%; }
+    #campSheet .cp-btn-questions { background: var(--blue-100); border: 2px solid var(--blue-100); padding: 12px 0; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--blue-700); }
+    #campSheet .cp-actionbar { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; align-items: center; z-index: 20; }
+    #campSheet .cp-actionbar::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+      background: linear-gradient(to bottom,rgba(255,255,255,0),var(--grey-50-90) 40%);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      -webkit-mask-image: linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.25) 20%,rgba(0,0,0,.65) 32%,#000 45%);
+              mask-image: linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.25) 20%,rgba(0,0,0,.65) 32%,#000 45%); }
+    #campSheet .cp-primary { position: relative; background: var(--blue-500); padding: 14px 20px; border: none; border-radius: 100px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--grey-50); }
+    #campSheet .cp-primary:active { transform: scale(0.98); }
+
+    /* Join Campaign -> Download app popup */
+    #joinPop { position: fixed; inset: 0; z-index: 100070; display: none; align-items: center; justify-content: center; padding: 20px;
+      font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif;
+      --blue-500:#1548eb; --grey-800:#121212; }
+    #joinPop.open { display: flex; }
+    #joinPop .jp-scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.28s ease; }
+    #joinPop.in .jp-scrim { opacity: 1; }
+    #joinPop .jp-card { position: relative; width: 340px; max-width: 100%; background: #fff; border-radius: 28px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.30); display: flex; flex-direction: column; align-items: center;
+      transform: translateY(12px) scale(0.94); opacity: 0; transition: transform 0.32s cubic-bezier(0.22,1,0.36,1), opacity 0.26s ease; will-change: transform, opacity; }
+    #joinPop.in .jp-card { transform: translateY(0) scale(1); opacity: 1; }
+    #joinPop .jp-close { position: absolute; top: 12px; right: 12px; z-index: 2; width: 32px; height: 32px; padding: 6px; border: none; border-radius: 100px;
+      background: rgba(18,18,18,0.06); color: #121212; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    #joinPop .jp-close:active { transform: scale(0.92); }
+    #joinPop .jp-close svg { width: 20px; height: 20px; display: block; }
+    #joinPop .jp-top { padding: 30px 26px 22px; display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; box-sizing: border-box; }
+    #joinPop .jp-icon { width: 64px; height: 64px; border-radius: 15px; display: block; box-shadow: 0 4px 12px rgba(240,82,14,0.28); }
+    #joinPop .jp-text { margin: 0; text-align: center; color: var(--grey-800); font-weight: 700; font-size: 18px; line-height: 1.34; letter-spacing: -0.01em; max-width: 260px; }
+    #joinPop .jp-btn { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px 8px 22px; border: 1.5px solid var(--blue-500); border-radius: 100px;
+      background: #fff; color: var(--blue-500); font-size: 16px; font-weight: 600; text-decoration: none; cursor: pointer; margin-top: 2px; transition: transform 0.16s ease-out; }
+    #joinPop .jp-btn:active { transform: scale(0.97); }
+    #joinPop .jp-dl { width: 24px; height: 24px; border-radius: 100px; background: var(--blue-500); display: flex; align-items: center; justify-content: center; flex: none; }
+    #joinPop .jp-dl svg { width: 14px; height: 14px; display: block; color: #fff; }
+    #joinPop .jp-phone { width: 100%; display: block; margin-top: 4px; }
+    @media (prefers-reduced-motion: reduce) {
+      #campSheet .cs-sheet, #campSheet .cs-scrim { transition: none !important; }
+      #joinPop .jp-card, #joinPop .jp-scrim { transition: none !important; }
+    }
   </style>
 </helmet>
 
@@ -1700,7 +1879,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">now</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Item #188 sold by creator, Tharushi for 2 units totalling Rs. 8,400.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">5 units of item #188 sold. Rs. 5,688 commission earned.</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1710,7 +1889,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">2m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 3,568 from PickMe bike campaign in Colombo.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 3,568 earned from the Brightloom campaign</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1720,7 +1899,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">6m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Dinuka joined your Uber Eats campaign.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your content submitted for Zentra campaign got approved</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1730,7 +1909,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">12m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Item #204 sold by creator, Sanuki for 5 units totalling Rs. 21,000.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">3 units of item #204 sold. Rs. 12,400 commission earned.</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1740,7 +1919,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">18m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your campaign "Glow with KFC" passed 100K views.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your campaign "Glow with Lumora" passed 100K views</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1750,7 +1929,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">24m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 5,200 from Hiru TV promo campaign.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 5,200 earned from the Neon Nights event campaign</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1760,7 +1939,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">31m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Nethmi joined your KFC campaign.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your content submitted for Fernpay campaign got approved</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1770,7 +1949,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">38m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 12,688 from Uber Moto campaign in Kandy.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 12,688 earned from the Meridio campaign</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1780,7 +1959,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">45m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Item #231 sold by creator, Kavindu for 3 units totalling Rs. 14,700.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">4 units of item #231 sold. Rs. 9,750 commission earned.</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1790,7 +1969,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">52m</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Ishara joined your PickMe campaign.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 6,420 earned from the Sunset Sessions event campaign</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1800,7 +1979,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">1h</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your campaign "Book fest reels" passed 250K views.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your campaign "Kavira launch reels" passed 250K views</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1810,7 +1989,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">1h</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 7,940 from Colombo food tour campaign.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">+ Rs. 7,940 earned from the Solaya campaign</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1820,7 +1999,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">2h</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Sahan joined your Hiru TV campaign.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Your content submitted for Trevio campaign got approved</p>
         </div>
       </div>
       <div class="notif" style="width: 100%; height: 74px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 20px; background: rgba(30,30,34,0.34); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 12px 30px rgba(0,0,0,0.28); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);">
@@ -1830,7 +2009,7 @@ a:hover { color: var(--brand-primary-hover); }
             <span style="color: #FFFFFF; font-weight: 600; font-size: 14px; line-height: 1.2;">Polysocial</span>
             <span style="color: rgba(255,255,255,0.72); font-weight: 500; font-size: 11px; line-height: 1.2; flex: none;">2h</span>
           </div>
-          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">Item #256 sold by creator, Amaya for 4 units totalling Rs. 16,800.</p>
+          <p style="margin: 2px 0 0; color: rgba(255,255,255,0.92); font-weight: 400; font-size: 12.5px; line-height: 1.28;">2 units of item #256 sold. Rs. 4,880 commission earned.</p>
         </div>
       </div>
     </div>
@@ -1934,7 +2113,7 @@ a:hover { color: var(--brand-primary-hover); }
 
       <div id="campScroller" class="noScrollbar" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 20px 10px; -webkit-overflow-scrolling: touch;">
         <sc-for list="{{ campaigns }}" as="c" hint-placeholder-count="3">
-          <div class="campCard" style="scroll-snap-align: center; flex: none; width: 273px; padding: 4px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 4px 7.9px rgba(0,0,0,0.25);">
+          <div class="campCard" data-camp="{{ c.key }}" role="button" tabindex="0" aria-label="Open {{ c.title }} campaign details" style="scroll-snap-align: center; flex: none; width: 273px; padding: 4px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 4px 7.9px rgba(0,0,0,0.25); cursor: pointer;">
             <div style="position: relative; height: 256px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 2px rgba(0,0,0,0.16);">
               <img src="{{ c.img }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
               <!-- logo bar -->
@@ -2112,7 +2291,7 @@ a:hover { color: var(--brand-primary-hover); }
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._armCallFocus(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); }
+  componentDidMount() { this._arm(); this._armCarousel(); this._armReveals(); this._armCallFocus(); this._runLoader(); this._armMenu(); this._armCreatorPage(); this._armFanVideo(); this._armFanSwap(); this._armLazyVideos(); this._armSheet(); }
 
   _armFanSwap() {
     const SLOTS = {
@@ -2544,14 +2723,126 @@ class Component extends DCLogic {
   }
   renderVals() {
     const R = (window.__resources || {});
-    const moto = R.campMoto || 'assets/img/campaign-moto.760w.d1cfd4198c.webp';
-    const uber = R.uberLogo || 'assets/img/uber.900w.a92a1a8418.webp';
+    const campaigns = [
+      {
+        key: 'lunavo', abbr: 'Lu',
+        img: 'assets/img/lunavo-cover.webp', logo: 'assets/img/lunavo-logo.webp', logoBg: '#000000',
+        rate: 'Rs.2200/1K', title: 'Lunavo Moto — beat the Colombo rush', posted: '3 hrs ago', left: '12 d left',
+        pct: '54%', raised: 'Rs. 241,200', goal: 'Rs. 450,000',
+        detail: {
+          joined: '360+',
+          list: [
+            ['Base price per content', 'Rs. 6800'],
+            ['Max earning per content', 'Rs. 110,000'],
+            ['Performance pricing', 'Rs. 2200 / 1K views'],
+            ['Total budget', 'Rs. 450,000']
+          ],
+          tags: [['Commuters', 'people'], ['18-34 age', 'age'], ['Colombo', 'pin'], ['POV ride', 'camera'], ['Reels', 'video']],
+          available: 'Rs. 208,800', spent: 'Rs. 241,200',
+          reqDescShort: 'Show how a Lunavo Moto ride gets you across the city faster and cheaper than sitting in the traffic.',
+          brand: 'Lunavo Mobility', since: 'Since Apr 2026',
+          brandDesc: 'The bike-taxi app getting Colombo where it needs to be — one quick, affordable ride at a time.',
+          totalPaid: 'Rs. 2.9 M', campaigns: '52',
+          metrics: [['Content approval rate', '95 %'], ['Approval time', '1 d'], ['Responds within', '90 min']],
+          handles: [['12K', 'insta'], ['4.1K', 'tiktok'], ['680', 'linkedin']],
+          req: {
+            desc: 'Show how a Lunavo Moto ride gets you across the city faster and cheaper than sitting in the traffic — from booking to helmet on to drop-off.',
+            spec: [
+              ['Format', 'Vertical 9:16'], ['Duration', '20–40 seconds'], ['Quality', 'Min 1080p'],
+              ['Language', 'English, Sinhala'], ['Captions', 'Required'],
+              ['Brand visibility', 'Lunavo app screen and the rider helmet must be clearly visible']
+            ],
+            cta: [
+              '“Stuck in traffic? Book a Lunavo Moto and skip the jam.”',
+              '“Tap, ride, arrive — Lunavo Moto gets you there.”',
+              '“Your city, your shortcut. Ride Lunavo Moto.”'
+            ],
+            restrictions: ['No AI generated content', 'Rider must wear a helmet in every riding shot', 'No competitor ride-hailing brands in the frame', 'Caption must tag the brand handle', 'Use only licensed or original audio'],
+            refFiles: ['Lunavo brand assets', 'Rider safety guide']
+          }
+        }
+      },
+      {
+        key: 'briksy', abbr: 'Br',
+        img: 'assets/img/briksy-cover.webp', logo: 'assets/img/briksy-logo.webp', logoBg: '#E11B22',
+        rate: 'Rs.1700/1K', title: 'Briksy Mega Box build-along challenge', posted: '7 hrs ago', left: '9 d left',
+        pct: '56%', raised: 'Rs. 201,600', goal: 'Rs. 360,000',
+        detail: {
+          joined: '290+',
+          list: [
+            ['Base price per content', 'Rs. 5600'],
+            ['Max earning per content', 'Rs. 92,000'],
+            ['Performance pricing', 'Rs. 1700 / 1K views'],
+            ['Total budget', 'Rs. 360,000']
+          ],
+          tags: [['Parents', 'people'], ['Kids 3-9', 'age'], ['Islandwide', 'pin'], ['Unboxing', 'camera'], ['Reels', 'video']],
+          available: 'Rs. 158,400', spent: 'Rs. 201,600',
+          reqDescShort: 'Film the joy of a Briksy build — unbox the set, snap the bricks together, and show off what your kids create.',
+          brand: 'Briksy Toys', since: 'Since Feb 2026',
+          brandDesc: 'Colourful building-block sets that turn screen time into imagination time for kids across the island.',
+          totalPaid: 'Rs. 1.6 M', campaigns: '29',
+          metrics: [['Content approval rate', '93 %'], ['Approval time', '2 d'], ['Responds within', '4 hrs']],
+          handles: [['9.4K', 'insta'], ['3.6K', 'tiktok'], ['510', 'linkedin']],
+          req: {
+            desc: 'Film the joy of a Briksy build — unbox the Mega Box, snap the bricks together with your kids, and reveal the finished creation.',
+            spec: [
+              ['Format', 'Vertical 9:16'], ['Duration', '20–40 seconds'], ['Quality', 'Min 1080p'],
+              ['Language', 'English, Sinhala'], ['Captions', 'Required'],
+              ['Brand visibility', 'Briksy box art and the finished build must be clearly visible']
+            ],
+            cta: [
+              '“Build. Play. Imagine — with Briksy.”',
+              '“Open the box, spark the fun — grab a Briksy Mega Box.”',
+              '“Show us your best Briksy build and tag us.”'
+            ],
+            restrictions: ['No AI generated content', 'Children must be supervised on camera', 'No competitor toy brands in the frame', 'Caption must tag the brand handle', 'Use only licensed or original audio'],
+            refFiles: ['Briksy pack shots', 'Build inspiration deck']
+          }
+        }
+      },
+      {
+        key: 'sunora', abbr: 'Su',
+        img: 'assets/img/sunora-cover.webp', logo: 'assets/img/sunora-logo.webp', logoBg: '#F4520E',
+        rate: 'Rs.2800/1K', title: 'Sunora Aurora Nights music festival', posted: 'Happening on Sep 13', left: null,
+        pct: '66%', raised: 'Rs. 396,000', goal: 'Rs. 600,000',
+        detail: {
+          joined: '740+',
+          list: [
+            ['Base price per content', 'Rs. 8400'],
+            ['Max earning per content', 'Rs. 140,000'],
+            ['Performance pricing', 'Rs. 2800 / 1K views'],
+            ['Total budget', 'Rs. 600,000']
+          ],
+          tags: [['All ages', 'people'], ['Colombo', 'pin'], ['EDM', 'video'], ['Reels', 'video'], ['Story', 'camera']],
+          event: { date: 'September 13', time: '6 pm till late', location: 'Galle Face Green, Colombo', ticket: 'Sunora Tickets' },
+          available: 'Rs. 396,000', spent: 'Rs. 204,000',
+          reqDescShort: 'Build the hype for Sunora Aurora Nights — tease the line-up, the lights, and the after-dark energy.',
+          brand: 'Sunora Live', since: 'Since Jan 2026',
+          brandDesc: 'A live-events crew throwing the loudest, brightest music nights on the island.',
+          totalPaid: 'Rs. 4.1 M', campaigns: '63',
+          metrics: [['Content approval rate', '97 %'], ['Approval time', '8 hrs'], ['Responds within', '1 hr']],
+          handles: [['31K', 'insta'], ['7.2K', 'tiktok'], ['1.4K', 'linkedin']],
+          req: {
+            desc: 'Build the hype for Sunora Aurora Nights — tease the line-up, the light show, and the after-dark energy so nobody wants to miss it.',
+            spec: [
+              ['Format', 'Vertical 9:16'], ['Duration', '15–30 seconds'], ['Quality', 'Min 1080p'],
+              ['Language', 'English, Sinhala'], ['Captions', 'Required'],
+              ['Brand visibility', 'Sunora logo and the Sep 13 date must be clearly visible']
+            ],
+            cta: [
+              '“Aurora Nights is coming — are you in? Sunora, Sep 13.”',
+              '“Grab your tickets before the gates sell out.”',
+              '“Tag the crew you’re bringing to Sunora Aurora Nights.”'
+            ],
+            restrictions: ['No AI generated content', 'Face must be visible in the content', 'No competitor events in the frame', 'Caption must tag the event handle', 'Use only licensed or original audio'],
+            refFiles: ['Sunora brand kit', 'Festival press pack']
+          }
+        }
+      }
+    ];
+    window.__psCampaigns = campaigns;
     return {
-      campaigns: [
-        { img: moto, logo: uber, logoBg: '#000000', rate: 'Rs.2000/1K', title: 'Uber Moto UGC campaign in Colombo Book festival', posted: '5 hrs ago', left: '10 d left', pct: '55%', raised: 'Rs. 284,536', goal: 'Rs. 500,000' },
-        { img: moto, logo: uber, logoBg: '#000000', rate: 'Rs.2000/1K', title: 'Uber Moto rides for Kandy Perahera season', posted: '8 hrs ago', left: '6 d left', pct: '38%', raised: 'Rs. 152,000', goal: 'Rs. 400,000' },
-        { img: moto, logo: uber, logoBg: '#000000', rate: 'Rs.2500/1K', title: 'Uber Eats late-night cravings in Colombo', posted: '1 d ago', left: '14 d left', pct: '72%', raised: 'Rs. 361,200', goal: 'Rs. 500,000' }
-      ],
+      campaigns: campaigns,
       articles: [
         { img: R.artSocial || 'assets/img/article-social.620w.258c428c71.webp' },
         { img: R.artRothko || 'assets/img/article-rothko.620w.d1a2f23846.webp' }
@@ -2603,6 +2894,208 @@ class Component extends DCLogic {
         cio.observe(scroller);
       }
     }
+  }
+
+  _armSheet(tries = 0) {
+    const scroller = document.getElementById('campScroller');
+    if (!scroller || !scroller.querySelector('.campCard')) { if (tries < 40) setTimeout(() => this._armSheet(tries + 1), 60); return; }
+    if (this._sheetArmed) return; this._sheetArmed = true;
+
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const IC = {
+      chevL: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19L8 12L15 5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 7.69431C10 2.99988 3 3.49988 3 9.49991C3 15.4999 12 20.5001 12 20.5001C12 20.5001 21 15.4999 21 9.49991C21 3.49988 14 2.99988 12 7.69431Z" stroke-linejoin="round"/></svg>',
+      share: '<svg viewBox="0 0 24 24" fill="none"><path d="M15 6L12 3L9 6M12 3V13M7.00023 10C6.06835 10 5.60241 10 5.23486 10.1522C4.74481 10.3552 4.35523 10.7448 4.15224 11.2349C4 11.6024 4 12.0681 4 13V17.8C4 18.9201 4 19.4798 4.21799 19.9076C4.40973 20.2839 4.71547 20.5905 5.0918 20.7822C5.5192 21 6.07899 21 7.19691 21H16.8036C17.9215 21 18.4805 21 18.9079 20.7822C19.2842 20.5905 19.5905 20.2839 19.7822 19.9076C20 19.4802 20 18.921 20 17.8031V13C20 12.0681 19.9999 11.6024 19.8477 11.2349C19.6447 10.7448 19.2554 10.3552 18.7654 10.1522C18.3978 10 17.9319 10 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      insta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>',
+      tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.5 3.5 3.8V10c-1.3 0-2.6-.4-3.5-1v6.5A5.5 5.5 0 1110.5 10v3.2A2.3 2.3 0 1013 15.5V3z"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM3 9h4v12H3zM10 9h3.8v1.7c.5-.9 1.8-1.9 3.7-1.9 4 0 4.5 2.6 4.5 6V21H18v-4.8c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6V21h-3.9z"/></svg>',
+      people: '<svg viewBox="0 0 24 24" fill="none"><path d="M20 21C20 18.2386 16.4183 16 12 16C7.58172 16 4 18.2386 4 21M12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8C17 10.7614 14.7614 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      age: '<svg viewBox="0 0 24 24" fill="none"><path d="M15 13L12 16L9 13M12 16V8M21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      pin: '<svg viewBox="0 0 24 24" fill="none"><path d="M5 9.92285C5 14.7747 9.24448 18.7869 11.1232 20.3252C11.3921 20.5454 11.5281 20.6568 11.7287 20.7132C11.8849 20.7572 12.1148 20.7572 12.271 20.7132C12.472 20.6567 12.6071 20.5463 12.877 20.3254C14.7557 18.7871 18.9999 14.7751 18.9999 9.9233C18.9999 8.08718 18.2625 6.32605 16.9497 5.02772C15.637 3.72939 13.8566 3 12.0001 3C10.1436 3 8.36301 3.7295 7.05025 5.02783C5.7375 6.32616 5 8.08674 5 9.92285Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 9C10 10.1046 10.8954 11 12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7C10.8954 7 10 7.89543 10 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      camera: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 10.2C3 9.08 3 8.52 3.218 8.092C3.41 7.715 3.715 7.41 4.092 7.218C4.52 7 5.08 7 6.2 7H7.05L7.5 5.8C7.66 5.37 7.74 5.15 7.87 4.99C8.16 4.53 8.65 4.24 9.19 4.19C9.26 4.19 9.34 4.19 9.5 4.19H14.5C14.66 4.19 14.74 4.19 14.81 4.19C15.35 4.24 15.84 4.53 16.13 4.99C16.26 5.15 16.34 5.37 16.5 5.8L16.95 7H17.8C18.92 7 19.48 7 19.908 7.218C20.285 7.41 20.59 7.715 20.782 8.092C21 8.52 21 9.08 21 10.2V15.8C21 16.92 21 17.48 20.782 17.908C20.59 18.285 20.285 18.59 19.908 18.782C19.48 19 18.92 19 17.8 19H6.2C5.08 19 4.52 19 4.092 18.782C3.715 18.59 3.41 18.285 3.218 17.908C3 17.48 3 16.92 3 15.8V10.2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="2"/></svg>',
+      video: '<svg viewBox="0 0 24 24" fill="none"><path d="M15 20H9M4 13.8002V8.2002C4 7.08009 4 6.51962 4.21799 6.0918C4.40973 5.71547 4.71547 5.40973 5.0918 5.21799C5.51962 5 6.08009 5 7.2002 5H16.8002C17.9203 5 18.4796 5 18.9074 5.21799C19.2837 5.40973 19.5905 5.71547 19.7822 6.0918C20 6.5192 20 7.07899 20 8.19691V13.8031C20 14.921 20 15.48 19.7822 15.9074C19.5905 16.2837 19.2837 16.5905 18.9074 16.7822C18.48 17 17.921 17 16.8031 17H7.19691C6.07899 17 5.5192 17 5.0918 16.7822C4.71547 16.5905 4.40973 16.2837 4.21799 15.9074C4 15.4796 4 14.9203 4 13.8002ZM14.5 11L10 8V14L14.5 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      calendar: '<svg viewBox="0 0 24 24" fill="none"><path d="M8 2V6M16 2V6M3 10H21M5 4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      extlink: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.0799 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19H13.8C14.9201 19 15.4802 19 15.908 18.782C16.2843 18.5903 16.5903 18.2843 16.782 17.908C17 17.4802 17 16.9201 17 15.8V13M20 9V4M20 4H15M20 4L9.5 14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      reffile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M15 4H20V9M20 4L13 11"/></svg>'
+    };
+
+    // Build the campaign sheet shell once (appended to body -> overlays the phone column)
+    const overlay = document.createElement('div');
+    overlay.id = 'campSheet';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML =
+      '<div class="cs-scrim" data-close></div>' +
+      '<div class="cs-col"><section class="cs-sheet" role="document">' +
+        '<button type="button" class="cp-close" data-close aria-label="Close">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6L18 18M18 6L6 18" stroke-linecap="round"/></svg>' +
+        '</button>' +
+        '<div class="cs-grip" aria-hidden="true"><span class="bar"></span></div>' +
+        '<div class="cs-body"></div>' +
+        '<div class="cp-actionbar"><button type="button" class="cp-primary">Join Campaign</button></div>' +
+      '</section></div>';
+    document.body.appendChild(overlay);
+
+    // "Download app" popup shown when Join Campaign is tapped
+    const joinPop = document.createElement('div');
+    joinPop.id = 'joinPop';
+    joinPop.setAttribute('role', 'dialog');
+    joinPop.setAttribute('aria-modal', 'true');
+    joinPop.innerHTML =
+      '<div class="jp-scrim" data-jpclose></div>' +
+      '<div class="jp-card" role="document">' +
+        '<button type="button" class="jp-close" data-jpclose aria-label="Close">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6L18 18M18 6L6 18" stroke-linecap="round"/></svg>' +
+        '</button>' +
+        '<div class="jp-top">' +
+          '<img class="jp-icon" src="assets/img/ps-appicon.webp" alt="Polysocial">' +
+          '<p class="jp-text">Download Polysocial App and discover many campaigns to join.</p>' +
+          '<a class="jp-btn" href="#download">Download App' +
+            '<span class="jp-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 4v12M6 11l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+          '</a>' +
+        '</div>' +
+        '<img class="jp-phone" src="assets/img/ps-phone.webp" alt="Polysocial app on a phone home screen">' +
+      '</div>';
+    document.body.appendChild(joinPop);
+
+    const body = overlay.querySelector('.cs-body');
+    const sheet = overlay.querySelector('.cs-sheet');
+    const grip = overlay.querySelector('.cs-grip');
+    let lastFocus = null, current = null;
+
+    const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const openJoin = () => {
+      joinPop.classList.add('open');
+      requestAnimationFrame(() => requestAnimationFrame(() => joinPop.classList.add('in')));
+      const cb = joinPop.querySelector('.jp-close'); if (cb) cb.focus({ preventScroll: true });
+    };
+    const closeJoin = () => {
+      joinPop.classList.remove('in');
+      const done = () => { joinPop.classList.remove('open'); joinPop.removeEventListener('transitionend', done); };
+      if (reducedMotion()) done(); else { joinPop.addEventListener('transitionend', done); setTimeout(done, 360); }
+    };
+    joinPop.addEventListener('click', (e) => { if (e.target.closest('[data-jpclose]')) closeJoin(); });
+
+    const AV = (c) => ('<img src="' + esc(c.img) + '" alt="">').repeat(4);
+
+    const render = (c) => {
+      const d = c.detail || {};
+      const r = d.req || {};
+      const rightTime = c.left ? '<span class="dot"></span><span>' + esc(c.left) + '</span>' : '';
+      const listRows = (d.list || []).map((r) => '<div class="div"></div><div class="row"><span class="k">' + esc(r[0]) + '</span><span class="v">' + esc(r[1]) + '</span></div>').join('');
+      const metrics = (d.metrics || []).map((m, i) => (i ? '<div class="div"></div>' : '') + '<div class="row"><span class="k">' + esc(m[0]) + '</span><span class="v">' + esc(m[1]) + '</span></div>').join('');
+      const handles = (d.handles || []).map((h) => '<div class="cp-handle"><img class="pf" src="' + esc(c.logo) + '" alt=""><div class="badge">' + (IC[h[1]] || '') + '</div><span class="fc">' + esc(h[0]) + '</span></div>').join('');
+      const midBlock = d.event
+        ? '<div class="cp-event"><div class="cp-event-card">' +
+            '<div class="cp-event-info">' +
+              '<div class="cp-event-row"><span class="line"><span class="mut">Happening on </span>' + esc(d.event.date) + '</span><span class="cp-event-ic">' + IC.calendar + '</span></div>' +
+              '<span class="line">' + esc(d.event.time) + ' <span class="mut">at</span></span>' +
+              '<div class="cp-event-row"><span class="cp-event-ic">' + IC.pin + '</span><span class="line">' + esc(d.event.location) + '</span></div>' +
+            '</div>' +
+            '<div class="cp-event-cta"><span class="lbl">Buy tickets from</span><a class="cp-event-link"><span>' + esc(d.event.ticket) + '</span><span class="ext">' + IC.extlink + '</span></a></div>' +
+          '</div></div>'
+        : '<div class="cp-budget"><div class="inner">' +
+            '<div class="l"><span class="cp-light">' + esc(d.available) + '</span><span class="cp-mini"><span class="track"></span><span class="fill"></span></span><span class="cp-mut">is</span></div>' +
+            '<div class="l"><span class="cp-mut">available to spend.</span></div>' +
+            '<div class="l"><span class="cp-white">' + esc(d.spent) + '</span><span class="cp-coin"></span><span class="cp-light">was spent <span class="cp-mut">on</span></span></div>' +
+            '<div class="l"><span class="cp-mut">creators</span><span class="cp-creators-mini">' + AV(c) + '</span><span class="cp-mut">up to now.</span></div>' +
+          '</div></div>';
+
+      const spec = (r.spec || []).map((row, i) => {
+        const wrap = (i === (r.spec.length - 1)) ? ' wrap' : '';
+        return (i ? '<div class="sep"></div>' : '') + '<div class="row' + wrap + '"><span class="k">' + esc(row[0]) + '</span><span class="v">' + esc(row[1]) + '</span></div>';
+      }).join('');
+      const reqFull =
+        '<div class="cp-reqfull">' +
+          '<div class="req-section"><h3 class="req-h">Content Requirements</h3><p class="req-desc">' + esc(r.desc) + '</p><div class="req-spec">' + spec + '</div></div>' +
+          '<div class="req-section"><h3 class="req-h">Platforms to post on</h3><div class="req-platforms">' +
+            '<div class="req-plat">' + IC.insta + '<span>Instagram</span></div><div class="req-plat">' + IC.tiktok + '<span>TikTok</span></div></div></div>' +
+          '<div class="req-section"><h3 class="req-h">Call-to-Action (CTA)</h3><div class="req-cta">' + (r.cta || []).map((t) => '<p>' + esc(t) + '</p>').join('') + '</div></div>' +
+          '<div class="req-section"><h3 class="req-h">Restrictions</h3><ul class="req-bullets">' + (r.restrictions || []).map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul></div>' +
+          '<div class="req-section"><h3 class="req-h">Reference files</h3>' + (r.refFiles || []).map((t) => '<div class="req-reffile"><span>' + esc(t) + '</span><span class="ic">' + IC.reffile + '</span></div>').join('') + '</div>' +
+          '<div class="req-section"><h3 class="req-h">Inspiration posts</h3><div class="req-inspo"><img src="' + esc(c.img) + '" alt=""><div class="req-inspo-btn">' + IC.extlink + '</div></div></div>' +
+        '</div>';
+
+      body.innerHTML =
+        '<div class="cp-bgimg"><img src="' + esc(c.img) + '" alt=""></div>' +
+        '<div class="cp-body">' +
+          '<div class="cp-topgap"></div>' +
+          '<div class="cp-details">' +
+            '<div class="cp-logotitle">' +
+              '<img class="cp-logo" src="' + esc(c.logo) + '" alt="" style="background:' + esc(c.logoBg) + '">' +
+              '<div class="cp-desc"><p class="cp-title">' + esc(c.title) + '</p><div class="cp-time"><span>' + esc(c.posted) + '</span>' + rightTime + '</div></div>' +
+            '</div>' +
+            '<div class="cp-joined"><div class="tag"><div class="cp-avatars">' + AV(c) + '</div><span class="count">' + esc(d.joined) + '</span></div></div>' +
+            '<div class="cp-list"><div class="row"><span class="k">Target platforms</span><span class="social">' + IC.insta + IC.tiktok + '</span></div>' + listRows + '</div>' +
+          '</div>' +
+          '<div class="cp-dark"><div class="cp-darkcap"></div>' + midBlock + reqFull + '</div>' +
+          '<div class="cp-metrics"><div class="cp-createdby"><h3>Campaign created by</h3>' +
+            '<div class="cp-creatorcard">' +
+              '<div class="cp-identity"><img class="av" src="' + esc(c.logo) + '" alt="" style="background:' + esc(c.logoBg) + '"><div class="cp-idtext"><p class="name">' + esc(d.brand) + '</p><p class="since">' + esc(d.since) + '</p></div></div>' +
+              '<p class="cp-cdesc">' + esc(d.brandDesc) + '</p>' +
+              '<div class="cp-stats"><div class="cp-stat"><span class="big">' + esc(d.totalPaid) + '</span><span class="lbl">Total paid</span></div><div class="cp-stat-div"></div><div class="cp-stat"><span class="big">' + esc(d.campaigns) + '</span><span class="lbl">Campaigns</span></div></div>' +
+              '<div class="cp-cmetrics">' + metrics + '</div>' +
+              '<div class="cp-handles">' + handles + '</div>' +
+              '<div class="cp-questions"><button type="button" class="cp-btn-questions">Any questions?</button></div>' +
+            '</div>' +
+          '</div></div>' +
+          '<div style="height:130px"></div>' +
+        '</div>';
+      body.scrollTop = 0;
+    };
+
+    const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const open = (c, trigger) => {
+      lastFocus = trigger || document.activeElement; current = c;
+      render(c);
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('in')));
+      const cb = overlay.querySelector('.cp-close[data-close]'); if (cb) cb.focus({ preventScroll: true });
+    };
+    const close = () => {
+      if (joinPop.classList.contains('open')) closeJoin();
+      overlay.classList.remove('in'); sheet.style.transform = '';
+      const done = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; sheet.removeEventListener('transitionend', done); if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} } };
+      if (reduce()) done(); else { sheet.addEventListener('transitionend', done); setTimeout(done, 480); }
+    };
+
+    // Open on card click / keyboard
+    const campOf = (card) => (window.__psCampaigns || []).find((x) => x.key === card.getAttribute('data-camp')) || (window.__psCampaigns || [])[Array.from(scroller.querySelectorAll('.campCard')).indexOf(card)];
+    scroller.addEventListener('click', (e) => { const card = e.target.closest('.campCard'); if (!card) return; const c = campOf(card); if (c) open(c, card); });
+    scroller.addEventListener('keydown', (e) => { if (e.key !== 'Enter' && e.key !== ' ') return; const card = e.target.closest('.campCard'); if (!card) return; e.preventDefault(); const c = campOf(card); if (c) open(c, card); });
+
+    // Close / action interactions
+    overlay.addEventListener('click', (e) => {
+      if (e.target.closest('[data-close]')) { close(); return; }
+      if (e.target.closest('.cp-primary')) { e.preventDefault(); openJoin(); return; }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (joinPop.classList.contains('open')) { closeJoin(); return; }
+      if (overlay.classList.contains('open')) close();
+    });
+
+    // Drag-to-close helper (grip + pull-down from top of a scroller)
+    const wireDrag = (host, panel, gripEl, scrollEl, onClose) => {
+      let dragging = false, startY = 0, curY = 0, fromScroll = false;
+      const down = (e, viaScroll) => { const y = e.touches ? e.touches[0].clientY : e.clientY; dragging = true; startY = y; curY = 0; fromScroll = !!viaScroll; host.classList.add('dragging'); };
+      const move = (e) => {
+        if (!dragging) return;
+        const y = e.touches ? e.touches[0].clientY : e.clientY; let dy = y - startY;
+        if (fromScroll && dy <= 0) { dragging = false; host.classList.remove('dragging'); panel.style.transform = ''; return; }
+        if (dy < 0) dy = 0; curY = dy;
+        if (fromScroll && dy > 0 && e.cancelable) e.preventDefault();
+        panel.style.transform = 'translateY(' + dy + 'px)';
+      };
+      const up = () => { if (!dragging) return; dragging = false; host.classList.remove('dragging'); if (curY > 120) onClose(); else panel.style.transform = ''; };
+      if (gripEl) { gripEl.addEventListener('mousedown', (e) => down(e, false)); gripEl.addEventListener('touchstart', (e) => down(e, false), { passive: true }); }
+      if (scrollEl) scrollEl.addEventListener('touchstart', (e) => { if (scrollEl.scrollTop <= 0) down(e, true); }, { passive: true });
+      window.addEventListener('mousemove', move); window.addEventListener('touchmove', move, { passive: false });
+      window.addEventListener('mouseup', up); window.addEventListener('touchend', up);
+    };
+    wireDrag(overlay, sheet, grip, body, close);
   }
 
   _armCarousel(tries = 0) {
