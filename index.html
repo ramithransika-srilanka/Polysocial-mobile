@@ -1124,9 +1124,9 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-bgimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
     #campSheet .cp-body { position: relative; z-index: 1; }
     #campSheet .cp-topgap { height: 300px; }
-    #campSheet .cp-details { display: flex; flex-direction: column; gap: 12px; align-items: center; padding: 16px 16px 0; background: var(--grey-50); border-radius: 40px 40px 0 0; }
+    #campSheet .cp-details { display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 16px 16px 0; background: var(--grey-50); border-radius: 40px 40px 0 0; }
     #campSheet .cp-logotitle { display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 16px; width: 100%; }
-    #campSheet .cp-logo { width: 40px; height: 40px; border-radius: 100px; border: 1px solid var(--grey-50); object-fit: cover; background: #fff; }
+    #campSheet .cp-logo { width: 48px; height: 48px; border-radius: 100px; border: 1px solid var(--grey-50); object-fit: cover; background: #fff; }
     #campSheet .cp-desc { display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; }
     #campSheet .cp-title { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-800); text-align: center; width: 100%; }
     #campSheet .cp-joined { display: flex; justify-content: center; }
@@ -1188,7 +1188,7 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .req-plat { display: flex; align-items: center; gap: 8px; background: var(--grey-200); border-radius: 20px; padding: 8px 16px; color: var(--grey-800); }
     #campSheet .req-plat svg { width: 20px; height: 20px; flex-shrink: 0; }
     #campSheet .req-plat span { font-size: 14px; font-weight: 500; color: var(--grey-800); }
-    #campSheet .req-cta { display: flex; flex-direction: column; gap: 20px; }
+    #campSheet .req-cta { display: flex; flex-direction: column; gap: 8px; }
     #campSheet .req-cta p { font-size: 14px; font-weight: 400; line-height: 20px; color: var(--grey-800); text-align: justify; }
     #campSheet .req-bullets { margin: 0; padding-left: 21px; list-style: disc; }
     #campSheet .req-bullets li { font-size: 14px; font-weight: 400; line-height: 32px; color: var(--grey-800); }
@@ -1197,7 +1197,7 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .req-reffile span:first-child { font-size: 14px; font-weight: 500; color: var(--grey-800); }
     #campSheet .req-reffile .ic { display: flex; color: #121212; flex-shrink: 0; }
     #campSheet .req-reffile .ic svg { width: 24px; height: 24px; }
-    #campSheet .req-inspo { position: relative; height: 240px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    #campSheet .req-inspo { position: relative; height: 240px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     #campSheet .req-inspo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     #campSheet .req-inspo-btn { position: relative; width: 48px; height: 48px; border-radius: 100px; background: var(--grey-50); display: flex; align-items: center; justify-content: center; color: #121212; filter: drop-shadow(0 2px 6px rgba(0,0,0,.3)); }
     #campSheet .req-inspo-btn svg { width: 24px; height: 24px; }
@@ -2721,7 +2721,7 @@ class Component extends DCLogic {
         rate: 'Rs.2200/1K', title: 'Lunavo Moto — beat the Colombo rush', posted: '3 hrs ago', left: '12 d left',
         pct: '54%', raised: 'Rs. 241,200', goal: 'Rs. 450,000',
         detail: {
-          joined: '360+',
+          joined: '25+',
           list: [
             ['Base price per content', 'Rs. 6800'],
             ['Max earning per content', 'Rs. 110,000'],
@@ -2759,7 +2759,7 @@ class Component extends DCLogic {
         rate: 'Rs.1700/1K', title: 'Briksy Mega Box build-along challenge', posted: '7 hrs ago', left: '9 d left',
         pct: '56%', raised: 'Rs. 201,600', goal: 'Rs. 360,000',
         detail: {
-          joined: '290+',
+          joined: '18+',
           list: [
             ['Base price per content', 'Rs. 5600'],
             ['Max earning per content', 'Rs. 92,000'],
@@ -2797,7 +2797,7 @@ class Component extends DCLogic {
         rate: 'Rs.2800/1K', title: 'Sunora Aurora Nights music festival', posted: 'Happening on Sep 13', left: null,
         pct: '66%', raised: 'Rs. 396,000', goal: 'Rs. 600,000',
         detail: {
-          joined: '740+',
+          joined: '42+',
           list: [
             ['Base price per content', 'Rs. 8400'],
             ['Max earning per content', 'Rs. 140,000'],
@@ -2897,9 +2897,9 @@ class Component extends DCLogic {
       chevL: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19L8 12L15 5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 7.69431C10 2.99988 3 3.49988 3 9.49991C3 15.4999 12 20.5001 12 20.5001C12 20.5001 21 15.4999 21 9.49991C21 3.49988 14 2.99988 12 7.69431Z" stroke-linejoin="round"/></svg>',
       share: '<svg viewBox="0 0 24 24" fill="none"><path d="M15 6L12 3L9 6M12 3V13M7.00023 10C6.06835 10 5.60241 10 5.23486 10.1522C4.74481 10.3552 4.35523 10.7448 4.15224 11.2349C4 11.6024 4 12.0681 4 13V17.8C4 18.9201 4 19.4798 4.21799 19.9076C4.40973 20.2839 4.71547 20.5905 5.0918 20.7822C5.5192 21 6.07899 21 7.19691 21H16.8036C17.9215 21 18.4805 21 18.9079 20.7822C19.2842 20.5905 19.5905 20.2839 19.7822 19.9076C20 19.4802 20 18.921 20 17.8031V13C20 12.0681 19.9999 11.6024 19.8477 11.2349C19.6447 10.7448 19.2554 10.3552 18.7654 10.1522C18.3978 10 17.9319 10 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      insta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>',
-      tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.5 3.5 3.8V10c-1.3 0-2.6-.4-3.5-1v6.5A5.5 5.5 0 1110.5 10v3.2A2.3 2.3 0 1013 15.5V3z"/></svg>',
-      linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM3 9h4v12H3zM10 9h3.8v1.7c.5-.9 1.8-1.9 3.7-1.9 4 0 4.5 2.6 4.5 6V21H18v-4.8c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6V21h-3.9z"/></svg>',
+      insta: '<svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1.26055C8.87031 1.26055 9.0918 1.26875 9.82734 1.30156C10.5109 1.33164 10.8801 1.44648 11.1262 1.54219C11.4516 1.66797 11.6867 1.82109 11.9301 2.06445C12.1762 2.31055 12.3266 2.54297 12.4523 2.86836C12.548 3.11445 12.6629 3.48633 12.693 4.16719C12.7258 4.90547 12.734 5.12695 12.734 6.99453C12.734 8.86484 12.7258 9.08633 12.693 9.82188C12.6629 10.5055 12.548 10.8746 12.4523 11.1207C12.3266 11.4461 12.1734 11.6812 11.9301 11.9246C11.684 12.1707 11.4516 12.3211 11.1262 12.4469C10.8801 12.5426 10.5082 12.6574 9.82734 12.6875C9.08906 12.7203 8.86758 12.7285 7 12.7285C5.12969 12.7285 4.9082 12.7203 4.17266 12.6875C3.48906 12.6574 3.11992 12.5426 2.87383 12.4469C2.54844 12.3211 2.31328 12.168 2.06992 11.9246C1.82383 11.6785 1.67344 11.4461 1.54766 11.1207C1.45195 10.8746 1.33711 10.5027 1.30703 9.82188C1.27422 9.08359 1.26602 8.86211 1.26602 6.99453C1.26602 5.12422 1.27422 4.90273 1.30703 4.16719C1.33711 3.48359 1.45195 3.11445 1.54766 2.86836C1.67344 2.54297 1.82656 2.30781 2.06992 2.06445C2.31602 1.81836 2.54844 1.66797 2.87383 1.54219C3.11992 1.44648 3.4918 1.33164 4.17266 1.30156C4.9082 1.26875 5.12969 1.26055 7 1.26055ZM7 0C5.09961 0 4.86172 0.00820312 4.11523 0.0410156C3.37148 0.0738281 2.86016 0.194141 2.41719 0.366406C1.95508 0.546875 1.56406 0.784766 1.17578 1.17578C0.784766 1.56406 0.546875 1.95508 0.366406 2.41445C0.194141 2.86016 0.0738281 3.36875 0.0410156 4.1125C0.00820313 4.86172 0 5.09961 0 7C0 8.90039 0.00820313 9.13828 0.0410156 9.88477C0.0738281 10.6285 0.194141 11.1398 0.366406 11.5828C0.546875 12.0449 0.784766 12.4359 1.17578 12.8242C1.56406 13.2125 1.95508 13.4531 2.41445 13.6309C2.86016 13.8031 3.36875 13.9234 4.1125 13.9562C4.85898 13.9891 5.09687 13.9973 6.99727 13.9973C8.89766 13.9973 9.13555 13.9891 9.88203 13.9562C10.6258 13.9234 11.1371 13.8031 11.5801 13.6309C12.0395 13.4531 12.4305 13.2125 12.8187 12.8242C13.207 12.4359 13.4477 12.0449 13.6254 11.5855C13.7977 11.1398 13.918 10.6313 13.9508 9.8875C13.9836 9.14102 13.9918 8.90312 13.9918 7.00273C13.9918 5.10234 13.9836 4.86445 13.9508 4.11797C13.918 3.37422 13.7977 2.86289 13.6254 2.41992C13.4531 1.95508 13.2152 1.56406 12.8242 1.17578C12.4359 0.7875 12.0449 0.546875 11.5855 0.369141C11.1398 0.196875 10.6313 0.0765625 9.8875 0.04375C9.13828 0.00820313 8.90039 0 7 0Z"/><path d="M7 3.4043C5.01484 3.4043 3.4043 5.01484 3.4043 7C3.4043 8.98516 5.01484 10.5957 7 10.5957C8.98516 10.5957 10.5957 8.98516 10.5957 7C10.5957 5.01484 8.98516 3.4043 7 3.4043ZM7 9.33242C5.71211 9.33242 4.66758 8.28789 4.66758 7C4.66758 5.71211 5.71211 4.66758 7 4.66758C8.28789 4.66758 9.33242 5.71211 9.33242 7C9.33242 8.28789 8.28789 9.33242 7 9.33242Z"/><path d="M11.5773 3.26212C11.5773 3.72697 11.2 4.10158 10.7379 4.10158C10.273 4.10158 9.89844 3.72423 9.89844 3.26212C9.89844 2.79728 10.2758 2.42267 10.7379 2.42267C11.2 2.42267 11.5773 2.80001 11.5773 3.26212Z"/></svg>',
+      tiktok: '<svg viewBox="0 0 14 14" fill="currentColor"><path d="M9.95905 0H7.59964V9.53622C7.59964 10.6725 6.69219 11.6058 5.5629 11.6058C4.43361 11.6058 3.52615 10.6725 3.52615 9.53622C3.52615 8.4203 4.41345 7.50723 5.50242 7.46667V5.07247C3.10267 5.11303 1.16675 7.08116 1.16675 9.53622C1.16675 12.0116 3.143 14 5.58308 14C8.02312 14 9.99937 11.9913 9.99937 9.53622V4.64637C10.8867 5.29566 11.9756 5.68116 13.1251 5.70146V3.30725C11.3505 3.24638 9.95905 1.78551 9.95905 0Z"/></svg>',
+      linkedin: '<svg viewBox="0 0 12 12" fill="currentColor"><path d="M11.1117 0H0.885937C0.396094 0 0 0.386719 0 0.864844V11.1328C0 11.6109 0.396094 12 0.885937 12H11.1117C11.6016 12 12 11.6109 12 11.1352V0.864844C12 0.386719 11.6016 0 11.1117 0ZM3.56016 10.2258H1.77891V4.49766H3.56016V10.2258ZM2.66953 3.71719C2.09766 3.71719 1.63594 3.25547 1.63594 2.68594C1.63594 2.11641 2.09766 1.65469 2.66953 1.65469C3.23906 1.65469 3.70078 2.11641 3.70078 2.68594C3.70078 3.25312 3.23906 3.71719 2.66953 3.71719ZM10.2258 10.2258H8.44687V7.44141C8.44687 6.77813 8.43516 5.92266 7.52109 5.92266C6.59531 5.92266 6.45469 6.64688 6.45469 7.39453V10.2258H4.67813V4.49766H6.38437V5.28047H6.40781C6.64453 4.83047 7.22578 4.35469 8.09063 4.35469C9.89297 4.35469 10.2258 5.54063 10.2258 7.08281V10.2258V10.2258Z"/></svg>',
       people: '<svg viewBox="0 0 24 24" fill="none"><path d="M20 21C20 18.2386 16.4183 16 12 16C7.58172 16 4 18.2386 4 21M12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8C17 10.7614 14.7614 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       age: '<svg viewBox="0 0 24 24" fill="none"><path d="M15 13L12 16L9 13M12 16V8M21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       pin: '<svg viewBox="0 0 24 24" fill="none"><path d="M5 9.92285C5 14.7747 9.24448 18.7869 11.1232 20.3252C11.3921 20.5454 11.5281 20.6568 11.7287 20.7132C11.8849 20.7572 12.1148 20.7572 12.271 20.7132C12.472 20.6567 12.6071 20.5463 12.877 20.3254C14.7557 18.7871 18.9999 14.7751 18.9999 9.9233C18.9999 8.08718 18.2625 6.32605 16.9497 5.02772C15.637 3.72939 13.8566 3 12.0001 3C10.1436 3 8.36301 3.7295 7.05025 5.02783C5.7375 6.32616 5 8.08674 5 9.92285Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 9C10 10.1046 10.8954 11 12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7C10.8954 7 10 7.89543 10 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -2967,7 +2967,7 @@ class Component extends DCLogic {
     };
     joinPop.addEventListener('click', (e) => { if (e.target.closest('[data-jpclose]')) closeJoin(); });
 
-    const AV = (c) => ('<img src="' + esc(c.img) + '" alt="">').repeat(4);
+    const AV = () => ['community-1', 'community-2', 'community-3', 'community-4'].map((n) => '<img src="assets/img/' + n + '.webp" alt="">').join('');
 
     const render = (c) => {
       const d = c.detail || {};
@@ -3060,6 +3060,7 @@ class Component extends DCLogic {
     overlay.addEventListener('click', (e) => {
       if (e.target.closest('[data-close]')) { close(); return; }
       if (e.target.closest('.cp-primary')) { e.preventDefault(); openJoin(); return; }
+      if (e.target.closest('.req-reffile, .req-inspo, .cp-event-link')) { e.preventDefault(); openJoin(); return; }
     });
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
