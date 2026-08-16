@@ -1639,7 +1639,9 @@ a:hover { color: var(--brand-primary-hover); }
     </div>
 
     <!-- 2. Hero Text Block (x43 y188, 306×287, gap 16) -->
-    <div style="position: relative; z-index: 1; width: 306px; min-height: calc(100dvh - 12px); margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+    <!-- Hero sits at 88dvh (not full height) so the video card in the next section
+         peeks ~85px at zero scroll; the following section is pulled up to meet it. -->
+    <div style="position: relative; z-index: 1; width: 306px; min-height: 88dvh; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
       <h1 style="width: 306px; margin: 0; font-weight: 600; font-size: 48px; line-height: 1.09; letter-spacing: -0.02em; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0px">
         
         <span data-anim="" style="color: #121212; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.12s">Welcome</span><span data-anim="" style="color: #ADADAD; display: flex; align-items: center; justify-content: center; gap: 12px; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.19s;">
@@ -1664,7 +1666,9 @@ a:hover { color: var(--brand-primary-hover); }
     </div>
 
     <!-- 3. Sticky scroll section: headline exits, notification pops in -->
-    <section id="quoteTrack" style="position: relative; width: 100%; height: 1040vh; margin-top: 118px;">
+    <!-- Negative top margin lifts this section so its video card peeks ~85px below
+         the (88dvh) hero at zero scroll; the sticky card still centers once pinned. -->
+    <section id="quoteTrack" style="position: relative; width: 100%; height: 1040vh; margin-top: -155px;">
       <div style="position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center;">
         <div id="quoteCard" style="position: relative; width: 364px; height: 612px; border-radius: 20px; overflow: hidden;">
           <video preload="auto" poster="assets/video/0e94d45a.poster.7ee1bdf59a.webp" id="quoteImg" autoplay="" loop="" muted="" playsinline="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><source src="assets/video/0e94d45a.vp9.65dab27bac.webm" type="video/webm"><source src="assets/video/0e94d45a.h264.8506de33d5.mp4" type="video/mp4"></video>
