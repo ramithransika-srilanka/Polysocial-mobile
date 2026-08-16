@@ -1129,8 +1129,6 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-logo { width: 40px; height: 40px; border-radius: 100px; border: 1px solid var(--grey-50); object-fit: cover; background: #fff; }
     #campSheet .cp-desc { display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; }
     #campSheet .cp-title { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-800); text-align: center; width: 100%; }
-    #campSheet .cp-time { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; line-height: 12px; color: var(--grey-500); }
-    #campSheet .cp-time .dot { width: 4px; height: 4px; border-radius: 4px; background: currentColor; }
     #campSheet .cp-joined { display: flex; justify-content: center; }
     #campSheet .cp-joined .tag { display: flex; gap: 8px; align-items: center; background: var(--grey-200); padding: 4px 12px 4px 4px; border-radius: 20px; }
     #campSheet .cp-avatars { display: flex; }
@@ -1229,8 +1227,6 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-handle .badge { position: absolute; left: 52px; top: 0; background: #fff; padding: 6px; border-radius: 20px; display: flex; filter: drop-shadow(0 2px 1px rgba(0,0,0,.25)); color: #121212; }
     #campSheet .cp-handle .badge svg { width: 12px; height: 12px; display: block; }
     #campSheet .cp-handle .fc { font-size: 14px; font-weight: 500; line-height: 20px; color: #121212; }
-    #campSheet .cp-questions { padding: 8px 16px; width: 100%; }
-    #campSheet .cp-btn-questions { background: var(--blue-100); border: 2px solid var(--blue-100); padding: 12px 0; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--blue-700); }
     #campSheet .cp-actionbar { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; align-items: center; z-index: 20; }
     #campSheet .cp-actionbar::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
       background: linear-gradient(to bottom,rgba(255,255,255,0),var(--grey-50-90) 40%);
@@ -2126,8 +2122,8 @@ a:hover { color: var(--brand-primary-hover); }
               <!-- overlay bar -->
               <div style="position: absolute; left: 8px; right: 8px; bottom: 8px; height: 47px; border-radius: 12px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%); display: flex; align-items: center; justify-content: space-between; padding: 0 18px 0 16px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
-                  <svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="#FFFFFF" style="display: block;"><path d="M16.5 3c.4 2.6 2 4.4 4.5 4.7v3.1c-1.6.1-3.1-.4-4.5-1.2v6.1c0 3.6-3 6.3-6.5 5.6C7 20.7 5 18.4 5 15.8c0-3 2.7-5.3 5.7-4.8v3.2c-.5-.2-1.1-.2-1.7 0-1 .3-1.6 1.3-1.4 2.3.2 1 1.2 1.7 2.2 1.5 1-.1 1.7-1 1.7-2V3h3Z"></path></svg>
-                  <svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" stroke="#F6F6F6" stroke-width="2" style="display: block;"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="#F6F6F6" stroke="none"></circle></svg>
+                  <svg width="14" height="14" sc-camel-view-box="0 0 14 14" fill="none" style="display: block;"><path d="M9.95905 0H7.59964V9.53622C7.59964 10.6725 6.69219 11.6058 5.5629 11.6058C4.43361 11.6058 3.52615 10.6725 3.52615 9.53622C3.52615 8.4203 4.41345 7.50723 5.50242 7.46667V5.07247C3.10267 5.11303 1.16675 7.08116 1.16675 9.53622C1.16675 12.0116 3.143 14 5.58308 14C8.02312 14 9.99937 11.9913 9.99937 9.53622V4.64637C10.8867 5.29566 11.9756 5.68116 13.1251 5.70146V3.30725C11.3505 3.24638 9.95905 1.78551 9.95905 0Z" fill="#FFFFFF"></path></svg>
+                  <svg width="14" height="14" sc-camel-view-box="0 0 14 14" fill="none" style="display: block;"><path d="M7 1.26055C8.87031 1.26055 9.0918 1.26875 9.82734 1.30156C10.5109 1.33164 10.8801 1.44648 11.1262 1.54219C11.4516 1.66797 11.6867 1.82109 11.9301 2.06445C12.1762 2.31055 12.3266 2.54297 12.4523 2.86836C12.548 3.11445 12.6629 3.48633 12.693 4.16719C12.7258 4.90547 12.734 5.12695 12.734 6.99453C12.734 8.86484 12.7258 9.08633 12.693 9.82188C12.6629 10.5055 12.548 10.8746 12.4523 11.1207C12.3266 11.4461 12.1734 11.6812 11.9301 11.9246C11.684 12.1707 11.4516 12.3211 11.1262 12.4469C10.8801 12.5426 10.5082 12.6574 9.82734 12.6875C9.08906 12.7203 8.86758 12.7285 7 12.7285C5.12969 12.7285 4.9082 12.7203 4.17266 12.6875C3.48906 12.6574 3.11992 12.5426 2.87383 12.4469C2.54844 12.3211 2.31328 12.168 2.06992 11.9246C1.82383 11.6785 1.67344 11.4461 1.54766 11.1207C1.45195 10.8746 1.33711 10.5027 1.30703 9.82188C1.27422 9.08359 1.26602 8.86211 1.26602 6.99453C1.26602 5.12422 1.27422 4.90273 1.30703 4.16719C1.33711 3.48359 1.45195 3.11445 1.54766 2.86836C1.67344 2.54297 1.82656 2.30781 2.06992 2.06445C2.31602 1.81836 2.54844 1.66797 2.87383 1.54219C3.11992 1.44648 3.4918 1.33164 4.17266 1.30156C4.9082 1.26875 5.12969 1.26055 7 1.26055ZM7 0C5.09961 0 4.86172 0.00820312 4.11523 0.0410156C3.37148 0.0738281 2.86016 0.194141 2.41719 0.366406C1.95508 0.546875 1.56406 0.784766 1.17578 1.17578C0.784766 1.56406 0.546875 1.95508 0.366406 2.41445C0.194141 2.86016 0.0738281 3.36875 0.0410156 4.1125C0.00820313 4.86172 0 5.09961 0 7C0 8.90039 0.00820313 9.13828 0.0410156 9.88477C0.0738281 10.6285 0.194141 11.1398 0.366406 11.5828C0.546875 12.0449 0.784766 12.4359 1.17578 12.8242C1.56406 13.2125 1.95508 13.4531 2.41445 13.6309C2.86016 13.8031 3.36875 13.9234 4.1125 13.9562C4.85898 13.9891 5.09687 13.9973 6.99727 13.9973C8.89766 13.9973 9.13555 13.9891 9.88203 13.9562C10.6258 13.9234 11.1371 13.8031 11.5801 13.6309C12.0395 13.4531 12.4305 13.2125 12.8187 12.8242C13.207 12.4359 13.4477 12.0449 13.6254 11.5855C13.7977 11.1398 13.918 10.6313 13.9508 9.8875C13.9836 9.14102 13.9918 8.90312 13.9918 7.00273C13.9918 5.10234 13.9836 4.86445 13.9508 4.11797C13.918 3.37422 13.7977 2.86289 13.6254 2.41992C13.4531 1.95508 13.2152 1.56406 12.8242 1.17578C12.4359 0.7875 12.0449 0.546875 11.5855 0.369141C11.1398 0.196875 10.6313 0.0765625 9.8875 0.04375C9.13828 0.00820313 8.90039 0 7 0Z" fill="#F6F6F6"></path><path d="M7 3.4043C5.01484 3.4043 3.4043 5.01484 3.4043 7C3.4043 8.98516 5.01484 10.5957 7 10.5957C8.98516 10.5957 10.5957 8.98516 10.5957 7C10.5957 5.01484 8.98516 3.4043 7 3.4043ZM7 9.33242C5.71211 9.33242 4.66758 8.28789 4.66758 7C4.66758 5.71211 5.71211 4.66758 7 4.66758C8.28789 4.66758 9.33242 5.71211 9.33242 7C9.33242 8.28789 8.28789 9.33242 7 9.33242Z" fill="#F6F6F6"></path><path d="M11.5773 3.26212C11.5773 3.72697 11.2 4.10158 10.7379 4.10158C10.273 4.10158 9.89844 3.72423 9.89844 3.26212C9.89844 2.79728 10.2758 2.42267 10.7379 2.42267C11.2 2.42267 11.5773 2.80001 11.5773 3.26212Z" fill="#F6F6F6"></path></svg>
                 </div>
                 <span style="padding: 4px 8px; border-radius: 20px; background: rgba(236,236,236,0.2); color: #FFFFFF; font-size: 10px; font-weight: 500; line-height: 12px;">{{ c.rate }}</span>
               </div>
@@ -2135,11 +2131,6 @@ a:hover { color: var(--brand-primary-hover); }
             <!-- content -->
             <div style="padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px;">
               <h3 style="margin: 0; color: #000000; font-weight: 600; font-size: 14px; line-height: 20px;">{{ c.title }}</h3>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="color: #717171; font-weight: 500; font-size: 12px; line-height: 12px;">{{ c.posted }}</span>
-                <span style="width: 2px; height: 2px; border-radius: 999px; background: #717171;"></span>
-                <span style="color: #717171; font-weight: 500; font-size: 12px; line-height: 12px;">{{ c.left }}</span>
-              </div>
               <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div style="height: 6px; border-radius: 100px; background: #DDDDDD; overflow: hidden;">
                   <div style="height: 100%; width: {{ c.pct }}; border-radius: 20px; background: #1548EB;"></div>
@@ -2981,7 +2972,6 @@ class Component extends DCLogic {
     const render = (c) => {
       const d = c.detail || {};
       const r = d.req || {};
-      const rightTime = c.left ? '<span class="dot"></span><span>' + esc(c.left) + '</span>' : '';
       const listRows = (d.list || []).map((r) => '<div class="div"></div><div class="row"><span class="k">' + esc(r[0]) + '</span><span class="v">' + esc(r[1]) + '</span></div>').join('');
       const metrics = (d.metrics || []).map((m, i) => (i ? '<div class="div"></div>' : '') + '<div class="row"><span class="k">' + esc(m[0]) + '</span><span class="v">' + esc(m[1]) + '</span></div>').join('');
       const handles = (d.handles || []).map((h) => '<div class="cp-handle"><img class="pf" src="' + esc(c.logo) + '" alt=""><div class="badge">' + (IC[h[1]] || '') + '</div><span class="fc">' + esc(h[0]) + '</span></div>').join('');
@@ -3023,7 +3013,7 @@ class Component extends DCLogic {
           '<div class="cp-details">' +
             '<div class="cp-logotitle">' +
               '<img class="cp-logo" src="' + esc(c.logo) + '" alt="" style="background:' + esc(c.logoBg) + '">' +
-              '<div class="cp-desc"><p class="cp-title">' + esc(c.title) + '</p><div class="cp-time"><span>' + esc(c.posted) + '</span>' + rightTime + '</div></div>' +
+              '<div class="cp-desc"><p class="cp-title">' + esc(c.title) + '</p></div>' +
             '</div>' +
             '<div class="cp-joined"><div class="tag"><div class="cp-avatars">' + AV(c) + '</div><span class="count">' + esc(d.joined) + '</span></div></div>' +
             '<div class="cp-list"><div class="row"><span class="k">Target platforms</span><span class="social">' + IC.insta + IC.tiktok + '</span></div>' + listRows + '</div>' +
@@ -3036,8 +3026,8 @@ class Component extends DCLogic {
               '<div class="cp-stats"><div class="cp-stat"><span class="big">' + esc(d.totalPaid) + '</span><span class="lbl">Total paid</span></div><div class="cp-stat-div"></div><div class="cp-stat"><span class="big">' + esc(d.campaigns) + '</span><span class="lbl">Campaigns</span></div></div>' +
               '<div class="cp-cmetrics">' + metrics + '</div>' +
               '<div class="cp-handles">' + handles + '</div>' +
-              '<div class="cp-questions"><button type="button" class="cp-btn-questions">Any questions?</button></div>' +
             '</div>' +
+            '<p style="margin:0; padding:0 8px; text-align:center; font-style:italic; font-size:12px; font-weight:500; line-height:16px; color:var(--grey-500);">*These campaigns are placeholders. Get the Polysocial app to access real-time campaigns.</p>' +
           '</div></div>' +
           '<div style="height:130px"></div>' +
         '</div>';
