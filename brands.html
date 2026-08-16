@@ -467,7 +467,7 @@
     </div>
 
 <!-- 2. Hero -->
-    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: 100dvh; margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100dvh - 12px); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
       
       <h1 style="margin: 0; font-weight: 600; font-size: 40px; line-height: 1.08; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
         <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">We can</span> <span style="color: #121212;">run</span></span>
@@ -1257,8 +1257,8 @@
       // Fixed Figma-style glass params (the requested defaults from the reference).
       // lineGap stays tight (82%); text is rendered at a fixed 96px on-screen size.
       var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
-      var FINAL_DIA=486;          // settled circle diameter (px) — wider than the phone, so the settled circle crops on the left/right (still a perfect circle)
-      var TEXT_PX=96;             // on-screen letter size at the settled circle (Inter SemiBold)
+      var FINAL_DIA=583.2;        // settled circle diameter (px) — scaled +20%; wider than the phone, so the settled circle crops on the left/right (still a perfect circle)
+      var TEXT_PX=115.2;          // on-screen letter size at the settled circle (Inter SemiBold) — scaled +20% in step with the circle
       var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
 
       // ---- text texture ----
@@ -1380,9 +1380,11 @@
         var textHalf=tHalfStart+(tHalfEnd-tHalfStart)*eb;
         var tStartCY=cssH*0.36, tEndCY=cssH*0.5;
         var textCenterY=tStartCY+(tEndCY-tStartCY)*eb;        // moves DOWN
-        // WORDS opacity — fade 0% -> 100%, resolving exactly at the settle. Monotonic smoothstep
-        // (no overshoot on opacity) so the words materialise as they descend and lock into place.
-        var textAlpha = reduce ? 1 : (p*p*(3-2*p));
+        // WORDS opacity — fade 0% -> 100% quickly, reaching full opacity well before the settle
+        // (at ~50% of progress). Monotonic smoothstep over the compressed range (no overshoot) so
+        // the words materialise fast as they start descending, then hold at 100% as they lock in.
+        var ap = Math.min(1, p/0.5);
+        var textAlpha = reduce ? 1 : (ap*ap*(3-2*ap));
 
         gl.useProgram(prog);
         gl.uniform2f(U.uRes,W,H);
