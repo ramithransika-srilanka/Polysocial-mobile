@@ -1666,9 +1666,10 @@ a:hover { color: var(--brand-primary-hover); }
     </div>
 
     <!-- 3. Sticky scroll section: headline exits, notification pops in -->
-    <!-- Negative top margin lifts this section so its video card peeks ~85px below
-         the (88dvh) hero at zero scroll; the sticky card still centers once pinned. -->
-    <section id="quoteTrack" style="position: relative; width: 100%; height: 1040vh; margin-top: -155px;">
+    <!-- Negative top margin lifts this section so its video card peeks below the
+         (88dvh) hero at zero scroll; tuned so the gap under the CTA roughly matches
+         the gap above the headline. The sticky card still centers once pinned. -->
+    <section id="quoteTrack" style="position: relative; width: 100%; height: 1040vh; margin-top: -125px;">
       <div style="position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center;">
         <div id="quoteCard" style="position: relative; width: 364px; height: 612px; border-radius: 20px; overflow: hidden;">
           <video preload="auto" poster="assets/video/0e94d45a.poster.7ee1bdf59a.webp" id="quoteImg" autoplay="" loop="" muted="" playsinline="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><source src="assets/video/0e94d45a.vp9.65dab27bac.webm" type="video/webm"><source src="assets/video/0e94d45a.h264.8506de33d5.mp4" type="video/mp4"></video>
