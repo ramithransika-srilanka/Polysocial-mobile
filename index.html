@@ -1227,8 +1227,6 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-handle .badge { position: absolute; left: 52px; top: 0; background: #fff; padding: 6px; border-radius: 20px; display: flex; filter: drop-shadow(0 2px 1px rgba(0,0,0,.25)); color: #121212; }
     #campSheet .cp-handle .badge svg { width: 12px; height: 12px; display: block; }
     #campSheet .cp-handle .fc { font-size: 14px; font-weight: 500; line-height: 20px; color: #121212; }
-    #campSheet .cp-questions { padding: 8px 16px; width: 100%; }
-    #campSheet .cp-btn-questions { background: var(--blue-100); border: 2px solid var(--blue-100); padding: 12px 0; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 6px rgba(0,0,0,.08); cursor: pointer; width: 100%; font-size: 14px; font-weight: 500; color: var(--blue-700); }
     #campSheet .cp-actionbar { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; align-items: center; z-index: 20; }
     #campSheet .cp-actionbar::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
       background: linear-gradient(to bottom,rgba(255,255,255,0),var(--grey-50-90) 40%);
@@ -3028,7 +3026,6 @@ class Component extends DCLogic {
               '<div class="cp-stats"><div class="cp-stat"><span class="big">' + esc(d.totalPaid) + '</span><span class="lbl">Total paid</span></div><div class="cp-stat-div"></div><div class="cp-stat"><span class="big">' + esc(d.campaigns) + '</span><span class="lbl">Campaigns</span></div></div>' +
               '<div class="cp-cmetrics">' + metrics + '</div>' +
               '<div class="cp-handles">' + handles + '</div>' +
-              '<div class="cp-questions"><button type="button" class="cp-btn-questions">Any questions?</button></div>' +
             '</div>' +
           '</div></div>' +
           '<div style="height:130px"></div>' +
