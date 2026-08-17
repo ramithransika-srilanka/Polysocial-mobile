@@ -3327,16 +3327,19 @@ class Component extends DCLogic {
      Full-width bar; its contents are held to the 1024px content width.
      Height stays identical to mobile (same vertical padding, logo height
      under the 24px min-height). Only horizontal room + label size grow. */
-  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; }
-  #siteNav > svg { width: 30px !important; height: 21px !important; }
+  /* All nav elements (logo, menu, Get App) sit together, centred as one
+     group with even gaps. Logo is 20% smaller than before (30 -> 24). */
+  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; justify-content: center !important; gap: 32px !important; }
+  #siteNav > svg { width: 24px !important; height: 16.8px !important; }
   #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
   #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
-  /* Expanded, centred primary menu replaces the hamburger on desktop. */
+  /* Expanded primary menu replaces the hamburger on desktop, flowing
+     inline with the logo and Get App button (no longer absolute). */
   #siteNav #menuBtn { display: none !important; }
   #deskNav {
     display: flex !important;
-    position: absolute; left: 50%; transform: translateX(-50%);
-    align-items: center; gap: 36px; white-space: nowrap;
+    position: static !important; transform: none !important;
+    align-items: center; gap: 32px; white-space: nowrap;
   }
   #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
   #deskNav a:hover { color: #1845E7; }
@@ -3351,6 +3354,15 @@ class Component extends DCLogic {
   #heroBlock { width: 100% !important; padding: 0 var(--edge) !important; box-sizing: border-box; }
   #heroBlock > h1, #heroBlock > span { display: none !important; }
   #heroDesk { display: flex !important; align-items: center; justify-content: center; width: 100%; }
+  /* Headline scales with the viewport up to 96px at the widest layout;
+     avatars, inline gaps and the CTA button scale in step with it. */
+  #heroDesk h1 { font-size: clamp(62px, 8.4vw, 96px) !important; }
+  #heroDesk h1 > span:nth-child(2) { gap: clamp(18px, 2vw, 28px) !important; }
+  #heroDesk h1 > span:nth-child(3) { gap: clamp(20px, 2.4vw, 32px) !important; }
+  #heroDesk .avatarFloat { width: clamp(58px, 7.7vw, 88px) !important; height: clamp(58px, 7.7vw, 88px) !important; }
+  #heroDesk .avatarFloat[style*="margin-left"] { margin-left: clamp(-16px, -1.35vw, -10px) !important; }
+  #heroDesk .ctaBtn { height: clamp(48px, 6.3vw, 70px) !important; padding: 0 clamp(24px, 3vw, 34px) !important; font-size: clamp(16px, 2vw, 23px) !important; gap: clamp(8px, 1vw, 12px) !important; }
+  #heroDesk .ctaBtn svg { width: clamp(16px, 1.8vw, 22px) !important; height: clamp(16px, 1.8vw, 22px) !important; }
 
   /* ================= QUOTE / VIDEO CARD (device mock) =================
      Kept device-like; only a modest scale-up so it reads on desktop. */
