@@ -1522,6 +1522,28 @@
   })();
   </script>
 
+  <script>
+  /* Desktop hero centering: the hero is pulled up by the sticky nav's height
+     so its content lands at the true vertical middle of the viewport and the
+     next (video) section sits flush at the bottom edge. The exact nav height
+     varies with fonts/zoom, so measure it and feed it into --nav-h rather than
+     trusting a hardcoded guess. Keeps both the centering and the flush bottom
+     precise on any browser. */
+  (function(){
+    var nav=document.getElementById('siteNav');
+    if(!nav) return;
+    function syncNavH(){
+      var h=nav.getBoundingClientRect().height;
+      if(h) document.documentElement.style.setProperty('--nav-h', h+'px');
+    }
+    syncNavH();
+    window.addEventListener('resize', syncNavH, { passive:true });
+    window.addEventListener('load', syncNavH);
+    // The nav can reflow taller/shorter once the web font swaps in.
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(syncNavH);
+  })();
+  </script>
+
 <style id="desktop-view">
 /* =====================================================================
    DESKTOP / TABLET VIEW  (For Brands)
