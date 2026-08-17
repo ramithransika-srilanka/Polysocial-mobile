@@ -3471,10 +3471,15 @@ class Component extends DCLogic {
   #creatorDeskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
   #creatorDeskNav a:hover { color: #1845E7; }
 
-  /* ---- Hero: keep the stop-motion frames exactly as authored (they are
-     sized from viewport height, not frame width). Only scale the headline
-     up to the same visual weight as the home hero. ---- */
+  /* ---- Hero: the frames keep their authored size. The headline scales up
+     to the home-hero weight, so on desktop it needs its own room — push the
+     figure's resting top down below the headline so the two never overlap.
+     The reveal math (JS) reads the figure's computed top, so the feet still
+     land at the foot of the stage at full scroll; only the resting gap grows.
+     The hero is allowed to run taller than the viewport (stage overflow is
+     visible and the scroll runway absorbs the extra height). ---- */
   #creatorHeadline { font-size: clamp(58px, 7.4vw, 88px) !important; }
+  #creatorFrames .creatorFrame { top: 320px !important; }
 
   /* ---- More you hustle / More you earn ---- */
   #hustleSection { padding: 96px var(--edge) !important; }
