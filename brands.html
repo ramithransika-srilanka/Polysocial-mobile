@@ -1626,6 +1626,13 @@
   /* Community */
   #agreeScreen section[data-screen-label="Community"] { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
   #agreeScreen section[data-screen-label="Community"] h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 22ch !important; }
+  #agreeScreen section[data-screen-label="Community"] > p.ov-reveal { max-width: 46ch !important; font-size: 17px !important; margin-top: 34px !important; }
+  /* Blow the photo cluster up to make real use of the desktop width. `zoom`
+     scales the whole grid uniformly — circles, positions AND the JS morph
+     offsets (which are authored in px against the 345px layout) — so the
+     rearrange/wobble/pop animations are preserved exactly, just larger. It
+     also reserves layout space (unlike transform), so nothing overlaps. */
+  #clGrid { zoom: 2; }
 
   /* How to start */
   #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
@@ -1656,6 +1663,12 @@
   #agreeScreen footer > div { max-width: 1024px !important; margin: 0 auto !important; }
   #agreeScreen footer img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
   #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
+}
+
+/* On wide monitors the section content caps at 1024px, so push the community
+   cluster a little larger to fill that fixed width (keeps ~side breathing room). */
+@media (min-width: 1200px) {
+  #clGrid { zoom: 2.4; }
 }
 </style>
 
