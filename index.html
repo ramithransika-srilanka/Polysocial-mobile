@@ -1791,11 +1791,17 @@ a:hover { color: var(--brand-primary-hover); }
     <!-- Sticky nav scope: the top bar stays pinned to the top until the footer -->
     <div class="navScope" style="position: relative;">
     <!-- 1. Navigation Bar (x25 y14, 348×24) -->
-    <header data-anim="" style="position: sticky; top: 0; z-index: 100002; display: flex; align-items: center; justify-content: space-between; min-height: 24px; padding: 14px 20px 12px 25px; background: rgba(255,255,255,0.72); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%); animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.05s;">
+    <header id="siteNav" data-anim="" style="position: sticky; top: 0; z-index: 100002; display: flex; align-items: center; justify-content: space-between; min-height: 24px; padding: 14px 20px 12px 25px; background: rgba(255,255,255,0.72); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%); animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.05s;">
       <svg width="23" height="16" sc-camel-view-box="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block; flex: none;">
         <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path>
         <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
       </svg>
+      <nav id="deskNav" aria-label="Primary" style="display: none;">
+        <a href="#creators">Creators</a>
+        <a href="brands.html">Brands</a>
+        <a href="#franchise">Franchise</a>
+        <a href="pricing.html">Pricing</a>
+      </nav>
       <div style="display: flex; align-items: center; gap: 12px; flex: none;">
         <a class="getAppBtn" href="#download" style="display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 5px 4px 8px; border: 1px solid #1548EB; border-radius: 100px; color: #1548EB; font-weight: 500; font-size: 12px; line-height: normal; white-space: nowrap; transition: transform 0.16s ease-out;" style-active="transform: scale(0.96);">Get App<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><circle cx="8" cy="8" r="8" fill="#1745E7"></circle><path d="M8 4.67V11.33M5.33 8.67L8 11.33L10.67 8.67" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
         <button id="menuBtn" aria-label="Menu" aria-expanded="false" style="position: relative; z-index: 100002; width: 24px; height: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: none; border: none; padding: 0; cursor: pointer; flex: none;">
@@ -1818,7 +1824,7 @@ a:hover { color: var(--brand-primary-hover); }
     <!-- 2. Hero Text Block (x43 y188, 306×287, gap 16) -->
     <!-- Hero sits at 88dvh (not full height) so the video card in the next section
          peeks ~85px at zero scroll; the following section is pulled up to meet it. -->
-    <div style="position: relative; z-index: 1; width: 306px; min-height: 88dvh; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+    <div id="heroBlock" style="position: relative; z-index: 1; width: 306px; min-height: 88dvh; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
       <h1 style="width: 306px; margin: 0; font-weight: 600; font-size: 48px; line-height: 1.09; letter-spacing: -0.02em; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0px">
         
         <span data-anim="" style="color: #121212; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.12s">Welcome</span><span data-anim="" style="color: #ADADAD; display: flex; align-items: center; justify-content: center; gap: 12px; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.19s;">
@@ -1840,6 +1846,29 @@ a:hover { color: var(--brand-primary-hover); }
           <svg class="ctaArrow" width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M5 12h13M13 6l6 6-6 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </a>
       </span>
+
+      <!-- Desktop hero: 3 lines, left-aligned, CTA inline on the last line.
+           Hidden on mobile; shown at >=768px (mobile h1 + CTA are hidden there). -->
+      <div id="heroDesk" aria-hidden="true" style="display: none;">
+        <h1 style="margin: 0; font-weight: 600; font-size: 66px; line-height: 1.04; letter-spacing: -0.02em; text-align: center;">
+          <span data-anim="" style="display: block; color: #ADADAD; white-space: nowrap; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.12s;">Welcome to the</span>
+          <span data-anim="" style="display: flex; align-items: center; justify-content: center; gap: 20px; white-space: nowrap; margin-top: 8px; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.2s;">
+            <span style="display: inline-flex; align-items: center; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.16));">
+              <picture><source type="image/avif" srcset="assets/img/2fb456f2.220w.ea1f6e567f.avif 220w"><source type="image/webp" srcset="assets/img/2fb456f2.220w.69fb1c54b7.webp 220w"><img loading="eager" decoding="async" height="220" width="220" class="avatarFloat" src="assets/img/2fb456f2.fallback.c759abd967.png" alt="" style="width: 64px; height: 64px; border-radius: 999px; object-fit: cover; border: 1.4px solid #F6F6F6; flex: none; animation: drift1 7.5s ease-in-out infinite;"></picture>
+              <picture><source type="image/avif" srcset="assets/img/a14a7902.220w.2c14f172d6.avif 220w"><source type="image/webp" srcset="assets/img/a14a7902.220w.7c9f48bc2d.webp 220w"><img loading="eager" decoding="async" height="220" width="220" class="avatarFloat" src="assets/img/a14a7902.fallback.33b48a6bb4.png" alt="" style="width: 64px; height: 64px; border-radius: 999px; object-fit: cover; border: 1.4px solid #F6F6F6; margin-left: -10px; flex: none; animation: drift2 8.7s ease-in-out infinite; animation-delay: 0.6s;"></picture>
+              <picture><source type="image/avif" srcset="assets/img/6776e340.220w.b5d0e8b831.avif 220w"><source type="image/webp" srcset="assets/img/6776e340.220w.1fa0ecf82c.webp 220w"><img loading="eager" decoding="async" height="298" width="220" class="avatarFloat" src="assets/img/6776e340.fallback.69c48050e2.png" alt="" style="width: 64px; height: 64px; border-radius: 999px; object-fit: cover; border: 1.4px solid #F6F6F6; margin-left: -10px; flex: none; animation: drift3 6.9s ease-in-out infinite; animation-delay: 1.1s;"></picture>
+            </span>
+            <span style="color: #121212;">creator</span>
+          </span>
+          <span data-anim="" style="display: flex; align-items: center; justify-content: center; gap: 26px; white-space: nowrap; margin-top: 8px; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.28s;">
+            <span style="color: #121212;">economy.</span>
+            <a class="ctaBtn" href="#start" style="display: inline-flex; align-items: center; justify-content: center; gap: 12px; height: 54px; padding: 0 30px; background-color: #1845E7; background-image: linear-gradient(100deg, #1845E7 0%, #1845E7 58%, #FF6B4A 128%); background-size: 180% 100%; color: #FFFFFF; border-radius: 100px; font-size: 18px; font-weight: 500; line-height: 1; white-space: nowrap; transition: transform 0.16s ease-out;" style-active="transform: scale(0.96);">
+              Start earning
+              <svg class="ctaArrow" width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M5 12h13M13 6l6 6-6 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </span>
+        </h1>
+      </div>
     </div>
 
     <!-- 3. Sticky scroll section: headline exits, notification pops in -->
@@ -2104,7 +2133,7 @@ a:hover { color: var(--brand-primary-hover); }
     </section>
 
     <!-- 5. Campaign recommendations (light grey) -->
-    <section data-screen-label="Campaign recommendations" style="position: relative; background: #F1F1F1; padding: 64px 0 72px;">
+    <section id="campSection" data-screen-label="Campaign recommendations" style="position: relative; background: #F1F1F1; padding: 64px 0 72px;">
       <h2 id="campHead" class="reveal" style="margin: 0 20px 34px; text-align: center; color: #121212; font-weight: 600; font-size: 30px; line-height: 1.08; letter-spacing: -0.03em; text-wrap: balance;">AI-curated campaign recommendations for your vibe.</h2>
 
       <div id="campScroller" class="noScrollbar" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 20px 10px; -webkit-overflow-scrolling: touch;">
@@ -2172,7 +2201,7 @@ a:hover { color: var(--brand-primary-hover); }
     </section>
 
     <!-- 6. Brand CTA (slow gradient sweep) -->
-    <section data-screen-label="Brand CTA" style="position: relative; overflow: hidden; min-height: 560px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 30px;">
+    <section id="brandCtaSection" data-screen-label="Brand CTA" style="position: relative; overflow: hidden; min-height: 560px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 30px;">
       <img loading="lazy" decoding="async" height="1000" width="1512" src="assets/img/brand-cta-gradient.jpg" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;">
       <div class="reveal" style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 340px;">
         <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
@@ -2187,12 +2216,12 @@ a:hover { color: var(--brand-primary-hover); }
     </section>
 
     <!-- 7. Closing line -->
-    <section data-screen-label="Closing line" style="background: #FFFFFF; padding: 20px 40px 44px; text-align: center;">
+    <section id="closingSection" data-screen-label="Closing line" style="background: #FFFFFF; padding: 20px 40px 44px; text-align: center;">
       <p class="reveal" style="margin: 0; color: var(--grey-grey-700); font-weight: 500; font-style: italic; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; text-wrap: balance">You better hurry because your competitor is already doing it.</p>
     </section>
 
     <!-- 8. Ideas Worth Sharing (articles) -->
-    <section data-screen-label="Ideas worth sharing" style="position: relative; background: #FFFFFF; padding: 38px 0 10px;">
+    <section id="ideasSection" data-screen-label="Ideas worth sharing" style="position: relative; background: #FFFFFF; padding: 38px 0 10px;">
       <h2 class="reveal" style="margin: 0 35px 24px; text-align: center; color: #000000; font-weight: 600; font-size: 28px; line-height: 1.14; letter-spacing: -0.02em;">Ideas Worth<br>Sharing</h2>
 
       <div id="ideasScroller" class="noScrollbar reveal" style="display: flex; gap: 21px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 42px; padding: 10px 42px; -webkit-overflow-scrolling: touch;">
@@ -2222,7 +2251,7 @@ a:hover { color: var(--brand-primary-hover); }
     </div>
 
     <!-- 9. Footer -->
-    <footer data-screen-label="Footer" style="position: relative; background: #FFFFFF; padding: 60px 17px 40px;">
+    <footer id="siteFooter" data-screen-label="Footer" style="position: relative; background: #FFFFFF; padding: 60px 17px 40px;">
       <div style="display: flex; flex-direction: column; gap: 13px;">
         <div style="height: 1px; min-height: 1px; flex: none; background: #A0A0A0;"></div>
 
@@ -3270,5 +3299,114 @@ class Component extends DCLogic {
 }
 </script>
 
+<style id="desktop-view">
+/* =====================================================================
+   DESKTOP / TABLET VIEW
+   The site is authored mobile-first against a 393px frame. Everything
+   below 768px is left untouched (the mobile view). At >=768px the frame
+   widens to a tablet-like 720px column, centred on the grey canvas with
+   free space on both sides on large monitors, and type + spacing scale
+   up proportionally. The nav bar keeps its original vertical height.
+   Only layout/visual properties are overridden here; the scroll
+   choreography (driven by viewport height + scroll position, not frame
+   width) is deliberately left intact.
+   ===================================================================== */
+@media (min-width: 768px) {
+
+  /* ---- Frame: widen the mobile column to a tablet width ---- */
+  #appRoot,
+  #creatorPage,
+  #campSheet .cs-col { width: 720px !important; max-width: 100% !important; }
+
+  /* ================= NAV BAR =================
+     Height stays identical to mobile (same vertical padding, logo height
+     under the 24px min-height). Only horizontal room + label size grow. */
+  #siteNav { padding: 14px 40px 12px 40px !important; }
+  #siteNav > svg { width: 30px !important; height: 21px !important; }
+  #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
+  #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
+  /* Expanded, centred primary menu replaces the hamburger on desktop. */
+  #siteNav #menuBtn { display: none !important; }
+  #deskNav {
+    display: flex !important;
+    position: absolute; left: 50%; transform: translateX(-50%);
+    align-items: center; gap: 36px; white-space: nowrap;
+  }
+  #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
+  #deskNav a:hover { color: #1845E7; }
+
+  /* Fullscreen menu overlay links (still used if opened) */
+  #menuOverlay nav { gap: 34px !important; }
+  #menuOverlay .menuLink { font-size: 30px !important; }
+
+  /* ================= HERO =================
+     Swap the centred mobile stack for the left-aligned 3-line desktop
+     hero with the CTA inline on the last line. */
+  #heroBlock { width: 100% !important; padding: 0 40px !important; box-sizing: border-box; }
+  #heroBlock > h1, #heroBlock > span { display: none !important; }
+  #heroDesk { display: flex !important; align-items: center; justify-content: center; width: 100%; }
+
+  /* ================= QUOTE / VIDEO CARD (device mock) =================
+     Kept device-like; only a modest scale-up so it reads on desktop. */
+  #quoteCard { width: 404px !important; height: 680px !important; }
+  #quoteText { width: 372px !important; font-size: 42px !important; }
+
+  /* ================= HOW-IT-WORKS CHAT ================= */
+  #chatHead { width: auto !important; max-width: 520px !important; font-size: 40px !important; margin-bottom: 36px !important; }
+  #whiteSection #chat { max-width: 470px !important; margin: 0 auto !important; }
+
+  /* ================= CAMPAIGN RECOMMENDATIONS ================= */
+  #campSection { padding: 88px 0 96px !important; }
+  #campHead { margin: 0 40px 44px !important; font-size: 44px !important; }
+  #campScroller { gap: 22px !important; padding: 8px 40px 12px !important; }
+  #campSection .campCard,
+  #campSection .campGetApp { width: 330px !important; }
+  #campSection .campCard div[style*="height: 256px"] { height: 300px !important; }
+  #campSection .campCard h3 { font-size: 17px !important; }
+  #campSection .campGetApp p { font-size: 17px !important; max-width: 240px !important; }
+  #campSection .campGetApp img { width: 58px !important; height: 58px !important; }
+  #campSection > p.reveal { max-width: 500px !important; font-size: 18px !important; margin-top: 56px !important; }
+  #campSection .ctaBtn { height: 52px !important; padding: 0 34px !important; font-size: 18px !important; }
+  #campSection button#campPrev, #campSection button#campNext { width: 52px !important; height: 52px !important; }
+  #campSection [style*="padding-right: 20px"] { padding-right: 40px !important; }
+
+  /* ================= BRAND CTA ================= */
+  #brandCtaSection { min-height: 660px !important; padding: 110px 40px !important; }
+  #brandCtaSection > .reveal { max-width: 540px !important; gap: 36px !important; }
+  #brandCtaSection p { font-size: 18px !important; }
+  #brandCtaSection h2 { font-size: 44px !important; }
+  #brandCtaSection a { height: 52px !important; padding: 0 34px !important; font-size: 18px !important; }
+  #brandCtaSection a svg { width: 20px !important; height: 20px !important; }
+
+  /* ================= CLOSING LINE ================= */
+  #closingSection { padding: 32px 40px 60px !important; }
+  #closingSection p { font-size: 21px !important; }
+
+  /* ================= IDEAS WORTH SHARING ================= */
+  #ideasSection { padding: 56px 0 16px !important; }
+  #ideasSection > h2.reveal { margin: 0 42px 32px !important; font-size: 44px !important; }
+  #ideasSection #ideasScroller { gap: 28px !important; padding: 12px 42px !important; scroll-padding-left: 42px !important; }
+  #ideasSection article { width: 264px !important; }
+  #ideasSection article > div[style*="width: 200px"] { width: 264px !important; height: 264px !important; }
+  #ideasSection article p { font-size: 16px !important; }
+  #ideasSection article a { font-size: 16px !important; }
+  #ideasSection button#ideasPrev, #ideasSection button#ideasNext { width: 52px !important; height: 52px !important; }
+  #ideasSection [style*="padding-right: 42px"] { padding-right: 42px !important; }
+
+  /* ================= FOOTER ================= */
+  #siteFooter { padding: 72px 40px 52px !important; }
+  #siteFooter > div { max-width: 640px !important; margin: 0 auto !important; }
+  #siteFooter img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
+  #siteFooter span[style*="Monetizing"], #siteFooter p[style*="call us"], #siteFooter nav a { font-size: 14px !important; }
+  #siteFooter nav a { height: 30px !important; }
+  #siteFooter div[style*="font-size: 10px"] { font-size: 12px !important; }
+}
+
+/* Slightly larger frame breathing room from ~1024px up (still 720px column,
+   just confirms the centred layout on true desktops). */
+@media (min-width: 1024px) {
+  #appRoot, #creatorPage { box-shadow: 0 0 0 1px rgba(18,31,97,0.04); }
+}
+</style>
 
 </body></html>
