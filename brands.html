@@ -1153,7 +1153,10 @@
         // the cluster centre sits just below the middle and resolves to 1 just
         // above it, so the text lands right as the cluster reaches centre.
         var gridCenter=(gr.top-orc.top)+gr.height/2;
-        var start=vh*0.60, end=vh*0.42;
+        // Resolve to 1 exactly as the cluster centre reaches the viewport centre
+        // (0.50) — so the text is fully visible at centre — beginning the reveal
+        // just before that (centre still below the middle) so it fades in on the way up.
+        var start=vh*0.72, end=vh*0.50;
         return Math.max(0,Math.min(1,(start-gridCenter)/(start-end)));
       }
       function apply(p){
