@@ -3351,8 +3351,11 @@ class Component extends DCLogic {
   /* ================= HERO =================
      Swap the centred mobile stack for the left-aligned 3-line desktop
      hero with the CTA inline on the last line. */
-  #heroBlock { width: 100% !important; padding: 0 var(--edge) !important; box-sizing: border-box; }
+  #heroBlock { width: 100% !important; padding: 0 var(--edge) !important; box-sizing: border-box; min-height: 100dvh !important; }
   #heroBlock > h1, #heroBlock > span { display: none !important; }
+  /* Give the hero a full-height stage so the following video card doesn't
+     peek so far up at zero scroll (removes the mobile -40px pull too). */
+  #quoteTrack { margin-top: 0 !important; }
   #heroDesk { display: flex !important; align-items: center; justify-content: center; width: 100%; }
   /* Headline scales with the viewport up to 96px at the widest layout;
      avatars, inline gaps and the CTA button scale in step with it. */
@@ -3376,8 +3379,16 @@ class Component extends DCLogic {
   #sheetText { font-size: clamp(30px, 3.4vw, 42px) !important; }
 
   /* ================= HOW-IT-WORKS CHAT ================= */
-  #chatHead { width: auto !important; max-width: 520px !important; font-size: 40px !important; margin-bottom: 36px !important; }
-  #whiteSection #chat { max-width: 470px !important; margin: 0 auto !important; }
+  #chatHead { width: auto !important; max-width: 640px !important; font-size: 44px !important; margin-bottom: 44px !important; }
+  /* Widen the conversation so bubbles spread out across the desktop width. */
+  #whiteSection #chat { max-width: 900px !important; margin: 0 auto !important; }
+  /* Larger bubble text + roomier bubbles. */
+  #chat div[style*="background: #E7E8FD"],
+  #chat div[style*="background: #ECECEC"] { font-size: 17px !important; line-height: 1.42 !important; padding: 12px 22px !important; max-width: 380px !important; }
+  /* Slightly larger avatars (spacer columns matched to keep alignment). */
+  #chat img[style*="width: 34px"] { width: 44px !important; height: 44px !important; }
+  #chat div[style*="width: 34px"] { width: 44px !important; }
+  #chat picture img[style*="width: 150px"] { width: 188px !important; height: 188px !important; }
 
   /* ================= CAMPAIGN RECOMMENDATIONS ================= */
   #campSection { padding: 88px 0 96px !important; }
