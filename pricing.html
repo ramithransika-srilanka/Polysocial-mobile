@@ -373,13 +373,19 @@
   <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;">
 
     <div class="navScope" style="position:relative;">
-    <header style="position:sticky;top:0;z-index:100002;display:flex;align-items:center;justify-content:space-between;min-height:24px;padding:14px 20px 12px 25px;background:rgba(255,255,255,0.72);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;">
+    <header id="siteNav" style="position:sticky;top:0;z-index:100002;display:flex;align-items:center;justify-content:space-between;min-height:24px;padding:14px 20px 12px 25px;background:rgba(255,255,255,0.72);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;">
       <a href="index.html" aria-label="Polysocial home" style="display:block;flex:none;line-height:0;">
         <svg width="23" height="16" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
           <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path>
           <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
         </svg>
       </a>
+      <nav id="deskNav" aria-label="Primary" style="display:none;">
+        <a href="index.html#creators">Creators</a>
+        <a href="brands.html">Brands</a>
+        <a href="index.html#franchise">Franchise</a>
+        <a href="pricing.html" aria-current="page">Pricing</a>
+      </nav>
       <div style="display:flex;align-items:center;gap:12px;flex:none;">
         <a class="getAppBtn" href="index.html#download" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 5px 4px 8px;border:1px solid #1548EB;border-radius:100px;color:#1548EB;font-weight:500;font-size:12px;line-height:normal;white-space:nowrap;transition:transform 0.16s ease-out;">Get App<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:block;flex:none;"><circle cx="8" cy="8" r="8" fill="#1745E7"></circle><path d="M8 4.67V11.33M5.33 8.67L8 11.33L10.67 8.67" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
         <button id="menuBtn" aria-label="Menu" aria-expanded="false" style="position:relative;z-index:100002;width:24px;height:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:none;border:none;padding:0;cursor:pointer;flex:none;">
@@ -399,7 +405,7 @@
     </div>
 
 
-    <div style="position:relative;z-index:1;min-height:88dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:20px;">
+    <div id="heroBlock" style="position:relative;z-index:1;min-height:88dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:20px;">
       <h1 class="hero-title">
         <span>It&rsquo;s</span>
         <span>free</span>
@@ -409,9 +415,9 @@
     </div>
 
 
-    <div style="display:flex;flex-direction:column;gap:48px;padding:136px 15px 0;">
-      
-      <section style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
+    <div id="priceStack" style="display:flex;flex-direction:column;gap:48px;padding:136px 15px 0;">
+
+      <section class="priceCard" style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
         display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
         <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
           <picture><source type="image/webp" srcset="assets/img/brand-briksy.64w.947e2b79f8.webp"><img decoding="async" loading="lazy" src="assets/img/brand-briksy.64w.7eff5f5069.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/webp" srcset="assets/img/brand-lunavo.64w.8f711f123f.webp"><img decoding="async" loading="lazy" src="assets/img/brand-lunavo.64w.0f4682ddfe.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/webp" srcset="assets/img/brand-polysocial-p.64w.77610a06d9.webp"><img decoding="async" loading="lazy" src="assets/img/brand-polysocial-p.64w.b96678c6b2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
@@ -423,7 +429,7 @@
         <div style="display:flex;flex-direction:column;align-items:center;gap:15px;width:100%;"><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Campaign budget needs to be held in escrow during the campaign window.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Remaining budget will be returned to the brand.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">There might be a transaction fee for payments made through platform depending on the region.</span></div></div>
       </section>
       
-      <section style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
+      <section class="priceCard" style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
         display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
         <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
           <picture><source type="image/avif" srcset="assets/img/2fb456f2.220w.ea1f6e567f.avif 220w"><source type="image/webp" srcset="assets/img/2fb456f2.220w.69fb1c54b7.webp 220w"><img decoding="async" loading="lazy" src="assets/img/2fb456f2.fallback.c759abd967.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/avif" srcset="assets/img/a14a7902.220w.2c14f172d6.avif 220w"><source type="image/webp" srcset="assets/img/a14a7902.220w.7c9f48bc2d.webp 220w"><img decoding="async" loading="lazy" src="assets/img/a14a7902.fallback.33b48a6bb4.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/avif" srcset="assets/img/6776e340.220w.b5d0e8b831.avif 220w"><source type="image/webp" srcset="assets/img/6776e340.220w.1fa0ecf82c.webp 220w"><img decoding="async" loading="lazy" src="assets/img/6776e340.fallback.69c48050e2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
@@ -434,11 +440,11 @@
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:15px;width:100%;"><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Marketplace commission will be deducted from your payouts every time you cash out from your digital wallet.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Incentives are arranged depending on your engagement with the platform.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">There can be a foreign currency exchange fee for oversees campaigns.</span></div></div>
       </section>
-      <p style="margin:0;padding:8px 0 24px;font-style:italic;font-weight:400;font-size:14px;line-height:1.4;color:#717171;text-align:center;">*Refer to terms and conditions for more info</p>
+      <p class="priceNote" style="margin:0;padding:8px 0 24px;font-style:italic;font-weight:400;font-size:14px;line-height:1.4;color:#717171;text-align:center;">*Refer to terms and conditions for more info</p>
     </div>
 
 
-    <footer style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
+    <footer id="siteFooter" style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
       <div style="display:flex;flex-direction:column;gap:13px;">
         <div style="height:1px;min-height:1px;flex:none;background:#A0A0A0;"></div>
         <div style="display:flex;flex-direction:column;gap:15px;">
@@ -526,5 +532,64 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
   })();
   </script>
+
+<style id="desktop-view">
+/* =====================================================================
+   DESKTOP / TABLET VIEW  (mirrors index.html's model)
+   Authored mobile-first against a 393px frame; everything below 768px is
+   left untouched. At >=768px the app frame goes full-width so section
+   backgrounds bleed edge-to-edge, while CONTENT is capped at 1024px and
+   centred via the --edge gutter. Type + spacing scale up; the nav keeps
+   its original vertical height.
+   ===================================================================== */
+@media (min-width: 768px) {
+
+  :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
+
+  /* ---- Frame: full-width so section backgrounds span the whole screen ---- */
+  #appRoot { width: 100% !important; max-width: none !important; }
+
+  /* ================= NAV BAR =================
+     Logo, expanded menu and Get App centred as one group with even gaps.
+     Height matches mobile; only horizontal room + label size grow. */
+  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; justify-content: center !important; gap: 32px !important; }
+  #siteNav > a[aria-label="Polysocial home"] svg { width: 24px !important; height: 16.8px !important; }
+  #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
+  #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
+  #siteNav #menuBtn { display: none !important; }
+  #deskNav {
+    display: flex !important;
+    align-items: center; gap: 32px; white-space: nowrap;
+  }
+  #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
+  #deskNav a:hover { color: #1845E7; }
+  #deskNav a[aria-current="page"] { color: #1845E7; }
+  #menuOverlay nav { gap: 34px !important; }
+  #menuOverlay .menuLink { font-size: 30px !important; }
+
+  /* ================= HERO =================
+     Reclaim the sticky nav's height so the hero spans the full viewport and
+     its centred content lands at the true vertical middle at zero scroll. */
+  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; gap: 12px !important; }
+  .hero-title { font-size: clamp(112px, 13vw, 156px) !important; }
+  #heroBlock > p { margin-top: 18px !important; font-size: clamp(24px, 2.6vw, 32px) !important; max-width: none !important; }
+
+  /* ================= PRICING CARDS =================
+     The two cards sit side by side within the 1024px content column. */
+  #priceStack { max-width: 1024px !important; margin: 0 auto !important; padding: 120px var(--edge) 24px !important; flex-direction: row !important; flex-wrap: wrap !important; align-items: stretch !important; gap: 28px !important; }
+  #priceStack .priceCard { flex: 1 1 0 !important; padding: 48px 44px !important; gap: 22px !important; }
+  #priceStack .priceCard h2 { font-size: 34px !important; }
+  #priceStack .priceCard p { font-size: 16px !important; }
+  #priceStack .priceCard > div:last-child span[style*="line-height"] { font-size: 16px !important; }
+  #priceStack .priceNote { flex-basis: 100% !important; font-size: 15px !important; padding-top: 16px !important; }
+
+  /* ================= FOOTER ================= */
+  #siteFooter { padding: 72px var(--edge) 52px !important; }
+  #siteFooter > div { max-width: 1024px !important; margin: 0 auto !important; }
+  #siteFooter img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
+  #siteFooter span[style*="Monetizing"], #siteFooter p[style*="call us"], #siteFooter nav a { font-size: 14px !important; }
+  #siteFooter div[style*="font-size:10px"] { font-size: 12px !important; }
+}
+</style>
 
 </body></html>
