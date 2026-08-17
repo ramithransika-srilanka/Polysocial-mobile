@@ -1145,10 +1145,16 @@
         var vh=overlay.clientHeight;
         var gr=grid.getBoundingClientRect();
         var orc=overlay.getBoundingClientRect();
-        var gridBottom=(gr.top-orc.top)+gr.height;     // grid bottom within the overlay viewport
-        var overshoot=vh-gridBottom;                    // 0 the instant the whole cluster is visible, grows as you scroll on
-        var span=vh*0.30;                               // resolves a little past centre, so the cluster + text land near the middle
-        return Math.max(0,Math.min(1,overshoot/span));
+        // Drive the reveal from the cluster's CENTRE relative to the viewport
+        // centre — not its bottom edge. The old bottom-edge measure assumed the
+        // whole cluster fits on screen; the desktop zoom makes it far taller than
+        // the viewport, which pushed the "your community is your vibe" reveal way
+        // past centre. Centre-vs-centre is height-independent: progress hits 0 as
+        // the cluster centre sits just below the middle and resolves to 1 just
+        // above it, so the text lands right as the cluster reaches centre.
+        var gridCenter=(gr.top-orc.top)+gr.height/2;
+        var start=vh*0.60, end=vh*0.42;
+        return Math.max(0,Math.min(1,(start-gridCenter)/(start-end)));
       }
       function apply(p){
         var e=ease(p), active=p>0.0001, m=e*e;
