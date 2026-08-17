@@ -3369,6 +3369,12 @@ class Component extends DCLogic {
   #quoteCard { width: 404px !important; height: 680px !important; }
   #quoteText { width: 372px !important; font-size: 42px !important; }
 
+  /* ============ INTRO SHEET ("We are a marketplace …") ============
+     Widen the narrow 330px mobile column to a comfortable desktop
+     measure and enlarge the type to match. */
+  #cover div[style*="max-width: 330px"] { max-width: 780px !important; gap: 34px !important; }
+  #sheetText { font-size: clamp(30px, 3.4vw, 42px) !important; }
+
   /* ================= HOW-IT-WORKS CHAT ================= */
   #chatHead { width: auto !important; max-width: 520px !important; font-size: 40px !important; margin-bottom: 36px !important; }
   #whiteSection #chat { max-width: 470px !important; margin: 0 auto !important; }
