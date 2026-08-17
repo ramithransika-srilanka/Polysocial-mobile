@@ -1076,6 +1076,13 @@ a:hover { color: var(--brand-primary-hover); }
       .callItem[data-foc] { transform: none !important; opacity: 1 !important; transition: none; }
     }
     .noScrollbar::-webkit-scrollbar { display: none; width: 0; height: 0; }
+    /* The creators page scrolls inside #creatorPanel (a fixed overlay), not the
+       window. On desktop it shows the native scrollbar like every other page;
+       only on the mobile app-frame do we hide it. */
+    @media (max-width: 767px) {
+      #creatorPanel { scrollbar-width: none; -ms-overflow-style: none; }
+      #creatorPanel::-webkit-scrollbar { display: none; width: 0; height: 0; }
+    }
     [data-anim] { animation-play-state: paused; }
     #appRoot.loaded [data-anim] { animation-play-state: running; }
     .reveal { opacity: 0; transform: translateY(22px); will-change: transform, opacity; transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); }
@@ -1315,7 +1322,7 @@ a:hover { color: var(--brand-primary-hover); }
 
     <!-- Creator landing page (slides in from "Start earning" / "For creators") -->
     <div id="creatorPage" aria-hidden="true" style="position: fixed; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 393px; max-width: 100%; z-index: 100003; background: #FFFFFF; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity 0.26s ease-out, visibility 0.26s;">
-      <div id="creatorPanel" class="noScrollbar" style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto;">
+      <div id="creatorPanel" style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto;">
       <!-- Sticky nav scope: the top bar stays pinned to the top until the creator footer -->
       <div id="creatorNavScope" style="position: relative;">
       <div id="creatorNav" style="position: sticky; top: 0; z-index: 100002; display: flex; align-items: center; justify-content: space-between; min-height: 24px; padding: 14px 20px 12px 25px; background: rgba(255,255,255,0.72); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);">
