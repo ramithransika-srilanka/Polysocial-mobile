@@ -3382,9 +3382,11 @@ class Component extends DCLogic {
   #chatHead { width: auto !important; max-width: 640px !important; font-size: 44px !important; margin-bottom: 44px !important; }
   /* Widen the conversation so bubbles spread out across the desktop width. */
   #whiteSection #chat { max-width: 900px !important; margin: 0 auto !important; }
-  /* Larger bubble text + roomier bubbles. */
-  #chat div[style*="background: #E7E8FD"],
-  #chat div[style*="background: #ECECEC"] { font-size: 17px !important; line-height: 1.42 !important; padding: 12px 22px !important; max-width: 380px !important; }
+  /* Larger bubble text; each message stays on one line, using the width.
+     (The runtime re-serialises inline colours to rgb(), so bubbles are
+     matched by their rendered rgb background, not the authored hex.) */
+  #chat div[style*="rgb(231, 232, 253)"],
+  #chat div[style*="rgb(236, 236, 236)"] { font-size: 20px !important; line-height: 1.35 !important; padding: 12px 24px !important; max-width: none !important; white-space: nowrap !important; }
   /* Slightly larger avatars (spacer columns matched to keep alignment). */
   #chat img[style*="width: 34px"] { width: 44px !important; height: 44px !important; }
   #chat div[style*="width: 34px"] { width: 44px !important; }
