@@ -3316,7 +3316,7 @@ class Component extends DCLogic {
   /* --edge = the side gutter that centres content at a 1024px max width.
      Backgrounds live on the full-width sections; content sits inside the
      gutter, so it never exceeds 1024px and keeps a 40px min margin. */
-  :root { --edge: max(40px, calc((100% - 1024px) / 2)); }
+  :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
 
   /* ---- Frame: full-width so section backgrounds span the whole screen ---- */
   #appRoot { width: 100% !important; max-width: none !important; }
@@ -3351,10 +3351,13 @@ class Component extends DCLogic {
   /* ================= HERO =================
      Swap the centred mobile stack for the left-aligned 3-line desktop
      hero with the CTA inline on the last line. */
-  #heroBlock { width: 100% !important; padding: 0 var(--edge) !important; box-sizing: border-box; min-height: 100dvh !important; }
+  /* Full-height stage. The sticky nav sits in flow above the hero, so we
+     pull the hero up by the nav height (--nav-h): the hero then spans the
+     entire viewport (0 -> 100dvh) and its centred content lands at the true
+     vertical middle of the screen at zero scroll — equal gap above/below —
+     with the next video section flush to the bottom edge, on any screen. */
+  #heroBlock { width: 100% !important; padding: 0 var(--edge) !important; box-sizing: border-box; min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; }
   #heroBlock > h1, #heroBlock > span { display: none !important; }
-  /* Give the hero a full-height stage so the following video card doesn't
-     peek so far up at zero scroll (removes the mobile -40px pull too). */
   #quoteTrack { margin-top: 0 !important; }
   #heroDesk { display: flex !important; align-items: center; justify-content: center; width: 100%; }
   /* Headline scales with the viewport up to 96px at the widest layout;
