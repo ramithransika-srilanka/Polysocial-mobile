@@ -450,7 +450,8 @@
       <h2 class="ab-h2"><span class="ab-mute">A new</span> middle layer <span class="ab-mute">is growing</span></h2>
     </section>
     <figure id="layerFigure" style="margin:36px 0 0;">
-      <img src="assets/img/about-visual.jpg" alt="A frosted-glass diagram of three concentric glowing rings — a warm coral core labelled &ldquo;Your brand,&rdquo; a blue-white middle ring labelled &ldquo;A community of content creators around your brand,&rdquo; and an outer peach halo labelled &ldquo;Your customers or audience.&rdquo;" style="display:block;width:100%;height:auto;">
+      <img class="lf-mobile" src="assets/img/about-visual.jpg" alt="A frosted-glass diagram of three concentric glowing rings — a warm coral core labelled &ldquo;Your brand,&rdquo; a blue-white middle ring labelled &ldquo;A community of content creators around your brand,&rdquo; and an outer peach halo labelled &ldquo;Your customers or audience.&rdquo;" style="display:block;width:100%;height:auto;">
+      <img class="lf-desktop" src="assets/svg/about-middle-layer.svg" alt="A frosted-glass diagram of three concentric glowing rings — a warm coral core labelled &ldquo;Your brand,&rdquo; a blue-white middle ring labelled &ldquo;A community of content creators around your brand,&rdquo; and an outer peach halo labelled &ldquo;Your customers or audience.&rdquo;" style="display:none;">
     </figure>
 
 
@@ -644,8 +645,13 @@
   /* ================= A NEW MIDDLE LAYER ================= */
   #layerSection { padding: 120px var(--edge) 0 !important; }
   #layerSection .ab-h2 { font-size: 48px !important; }
-  #layerFigure { margin: 48px auto 0 !important; padding: 0 var(--edge) !important; }
-  #layerFigure img { display: block; max-width: 820px !important; margin: 0 auto !important; }
+  /* Swap the mobile JPG for the vector diagram on desktop. The SVG fades to
+     transparent at its edges (no hard crop) and its divider sits at the
+     viewBox centre, so centring the graphic puts the centre line on the
+     screen's centre. */
+  #layerFigure { margin: 44px 0 0 !important; padding: 0 !important; }
+  #layerFigure .lf-mobile { display: none !important; }
+  #layerFigure .lf-desktop { display: block !important; width: 100% !important; max-width: 780px !important; height: auto !important; margin: 0 auto !important; }
 
   /* ================= OUR MISSION ================= */
   #missionSection { padding: 120px var(--edge) 128px !important; gap: 34px !important; }
