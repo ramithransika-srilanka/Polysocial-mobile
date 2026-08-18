@@ -3405,8 +3405,10 @@ class Component extends DCLogic {
   #heroDesk h1 > span:nth-child(3) { gap: clamp(20px, 2.4vw, 32px) !important; }
   #heroDesk .avatarFloat { width: clamp(58px, 7.7vw, 88px) !important; height: clamp(58px, 7.7vw, 88px) !important; }
   #heroDesk .avatarFloat[style*="margin-left"] { margin-left: clamp(-16px, -1.35vw, -10px) !important; }
-  #heroDesk .ctaBtn { height: clamp(48px, 6.3vw, 70px) !important; padding: 0 clamp(24px, 3vw, 34px) !important; font-size: clamp(16px, 2vw, 23px) !important; gap: clamp(8px, 1vw, 12px) !important; }
-  #heroDesk .ctaBtn svg { width: clamp(16px, 1.8vw, 22px) !important; height: clamp(16px, 1.8vw, 22px) !important; }
+  /* CTA kept at a compact 14px on desktop (not scaled with the headline);
+     the pill is sized to that text. */
+  #heroDesk .ctaBtn { height: 40px !important; padding: 0 22px !important; font-size: 14px !important; letter-spacing: -0.01em !important; gap: 8px !important; }
+  #heroDesk .ctaBtn svg { width: 16px !important; height: 16px !important; }
 
   /* ================= QUOTE / VIDEO CARD (device mock) =================
      Kept device-like; only a modest scale-up so it reads on desktop. */
