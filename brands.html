@@ -1596,8 +1596,9 @@
     gap: clamp(28px, 3.2vw, 44px) !important;
   }
   #top > h1 { font-size: clamp(56px, 7.2vw, 92px) !important; }
-  #top a[href="#start"] { height: clamp(46px, 5.4vw, 60px) !important; padding: 0 8px 0 24px !important; font-size: clamp(15px, 1.7vw, 19px) !important; gap: 12px !important; }
-  #top a[href="#start"] > span { width: clamp(32px, 3.4vw, 40px) !important; height: clamp(32px, 3.4vw, 40px) !important; }
+  /* CTA kept at a compact 14px on desktop; the pill + arrow circle are sized to it. */
+  #top a[href="#start"] { height: 40px !important; padding: 0 6px 0 20px !important; font-size: 14px !important; letter-spacing: -0.01em !important; gap: 8px !important; }
+  #top a[href="#start"] > span { width: 28px !important; height: 28px !important; }
 
   /* ============ SPONSORED AD → landscape card ============
      The card becomes a 16:9 landscape block (max 1024px wide), centred and
