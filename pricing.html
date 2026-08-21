@@ -366,6 +366,30 @@
        to the horizontal (tilted clockwise, per the reference image). */
     .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
     @media (max-width:360px){.hero-title{font-size:92px;}}
+
+    /* ===== Pricing section circle placeholders =====
+       A cluster of 5 overlapping placeholder circles; the centre (lead) one
+       sits on top and slightly larger, neighbours fade out toward the edges. */
+    .circleCluster .circlePh{
+      display:block;flex:none;width:96px;height:96px;border-radius:999px;
+      background:radial-gradient(circle at 50% 42%, #3a3a3a 0%, #262626 100%);
+      margin-left:-24px;position:relative;
+    }
+    .circleCluster .circlePh:first-child{margin-left:0;}
+    .circleCluster .circlePh[data-pos="1"]{opacity:0.55;}
+    .circleCluster .circlePh[data-pos="2"]{opacity:0.28;}
+    .circleCluster .circlePh--lead{
+      opacity:1;z-index:2;transform:scale(1.06);
+      box-shadow:0 6px 20px rgba(0,0,0,0.5);
+    }
+    /* Faint "image" glyph inside each placeholder */
+    .circleCluster .circlePh::after{
+      content:"";position:absolute;left:50%;top:50%;
+      width:34px;height:34px;transform:translate(-50%,-50%);
+      background:no-repeat center/contain url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='3'/><circle cx='8.5' cy='8.5' r='1.8'/><path d='M21 15l-5-5L5 21'/></svg>");
+      opacity:0.55;
+    }
+    @media (max-width:360px){.circleCluster .circlePh{width:78px;height:78px;margin-left:-20px;}}
   </style>
 
 </head>
@@ -418,33 +442,39 @@
     </div>
 
 
-    <div id="priceStack" style="display:flex;flex-direction:column;gap:48px;padding:136px 15px 0;">
+    <section id="pricingSection" style="background:#000000;padding:80px 24px;display:flex;flex-direction:column;align-items:center;gap:120px;">
 
-      <section class="priceCard" style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
-        display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
-        <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
-          <picture><source type="image/webp" srcset="assets/img/brand-briksy.64w.947e2b79f8.webp"><img decoding="async" loading="lazy" src="assets/img/brand-briksy.64w.7eff5f5069.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/webp" srcset="assets/img/brand-lunavo.64w.8f711f123f.webp"><img decoding="async" loading="lazy" src="assets/img/brand-lunavo.64w.0f4682ddfe.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/webp" srcset="assets/img/brand-polysocial-p.64w.77610a06d9.webp"><img decoding="async" loading="lazy" src="assets/img/brand-polysocial-p.64w.b96678c6b2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
+      <!-- ===== For Brands ===== -->
+      <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:26px;width:100%;max-width:520px;">
+        <div class="circleCluster" style="display:flex;align-items:center;justify-content:center;">
+          <span class="circlePh" data-pos="2"></span>
+          <span class="circlePh" data-pos="1"></span>
+          <span class="circlePh circlePh--lead" data-pos="0"></span>
+          <span class="circlePh" data-pos="1"></span>
+          <span class="circlePh" data-pos="2"></span>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;">
-          <h2 style="margin:0;font-weight:600;font-size:28px;line-height:0.934;color:#000000;text-align:center;">For Brands</h2>
-          <p style="margin:0;font-weight:500;font-size:14px;line-height:1.35;color:#717171;text-align:center;">It&rsquo;s free to initiate any campaign within our platform. You have to only pay for the content you have approved. The total budget you have decided will be the max possible cost for you.</p>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;">
+          <h2 style="margin:0;font-weight:600;font-size:34px;line-height:1;color:#FFFFFF;text-align:center;">For Brands</h2>
+          <p style="margin:0;font-weight:500;font-size:20px;line-height:1.4;color:#FFFFFF;text-align:center;">It&rsquo;s free to initiate any campaign within our platform. You have to only pay for the content you have approved. The total budget you have decided will be the max possible cost for you.</p>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:15px;width:100%;"><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Campaign budget needs to be held in escrow during the campaign window.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Remaining budget will be returned to the brand.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">There might be a transaction fee for payments made through platform depending on the region.</span></div></div>
-      </section>
-      
-      <section class="priceCard" style="width:100%;background:#F6F6F6;border-radius:20px;padding:32px 29px;
-        display:flex;flex-direction:column;align-items:center;gap:15px;box-sizing:border-box;">
-        <div style="display:flex;align-items:center;filter:drop-shadow(1px 2px 4px rgba(0,0,0,0.25));">
-          <picture><source type="image/avif" srcset="assets/img/2fb456f2.220w.ea1f6e567f.avif 220w"><source type="image/webp" srcset="assets/img/2fb456f2.220w.69fb1c54b7.webp 220w"><img decoding="async" loading="lazy" src="assets/img/2fb456f2.fallback.c759abd967.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;"></picture><picture><source type="image/avif" srcset="assets/img/a14a7902.220w.2c14f172d6.avif 220w"><source type="image/webp" srcset="assets/img/a14a7902.220w.7c9f48bc2d.webp 220w"><img decoding="async" loading="lazy" src="assets/img/a14a7902.fallback.33b48a6bb4.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture><picture><source type="image/avif" srcset="assets/img/6776e340.220w.b5d0e8b831.avif 220w"><source type="image/webp" srcset="assets/img/6776e340.220w.1fa0ecf82c.webp 220w"><img decoding="async" loading="lazy" src="assets/img/6776e340.fallback.69c48050e2.png" alt="" style="width:32px;height:32px;border-radius:999px;object-fit:cover;border:2px solid #F6F6F6;flex:none;margin-left:-9px;"></picture>
+      </div>
+
+      <!-- ===== For Creators ===== -->
+      <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:26px;width:100%;max-width:520px;">
+        <div class="circleCluster" style="display:flex;align-items:center;justify-content:center;">
+          <span class="circlePh" data-pos="2"></span>
+          <span class="circlePh" data-pos="1"></span>
+          <span class="circlePh circlePh--lead" data-pos="0"></span>
+          <span class="circlePh" data-pos="1"></span>
+          <span class="circlePh" data-pos="2"></span>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;">
-          <h2 style="margin:0;font-weight:600;font-size:28px;line-height:0.934;color:#000000;text-align:center;">For Creators</h2>
-          <p style="margin:0;font-weight:500;font-size:14px;line-height:1.35;color:#717171;text-align:center;">It&rsquo;s free to join and submit your content to any campaign. All of your payouts are arranged through the Polysocial mobile app.</p>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;">
+          <h2 style="margin:0;font-weight:600;font-size:34px;line-height:1;color:#FFFFFF;text-align:center;">For Creators</h2>
+          <p style="margin:0;font-weight:500;font-size:20px;line-height:1.4;color:#FFFFFF;text-align:center;">It&rsquo;s free to join and submit your content to any campaign. All of your payouts are arranged through the Polysocial mobile app.</p>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:15px;width:100%;"><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Marketplace commission will be deducted from your payouts every time you cash out from your digital wallet.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">Incentives are arranged depending on your engagement with the platform.</span></div><div style="display:flex;justify-content:center;"><span style="width:6px;height:6px;border-radius:999px;background:#121212;flex:none;"></span></div><div style="display:flex;justify-content:center;"><span style="color:#000000;font-weight:500;font-size:14px;line-height:1.35;text-align:center;">There can be a foreign currency exchange fee for oversees campaigns.</span></div></div>
-      </section>
-      <p class="priceNote" style="margin:0;padding:8px 0 24px;font-style:italic;font-weight:400;font-size:14px;line-height:1.4;color:#717171;text-align:center;">*Refer to terms and conditions for more info</p>
-    </div>
+      </div>
+
+    </section>
 
 
     <footer id="siteFooter" style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
@@ -577,46 +607,17 @@
   .hero-title { font-size: clamp(112px, 13vw, 156px) !important; }
   #heroBlock > p { margin-top: 18px !important; font-size: clamp(24px, 2.6vw, 32px) !important; max-width: none !important; }
 
-  /* ================= PRICING CARDS =================
-     Each plan is a full-width band that uses the whole 1024px column: an
-     asymmetric two-column split — identity (avatars + title + intro) on the
-     left, the terms as a left-aligned list on the right — so the content
-     fills the width instead of shrinking to a centred half-card. */
-  #priceStack { padding: 120px var(--edge) 24px !important; flex-direction: column !important; flex-wrap: nowrap !important; align-items: stretch !important; gap: 32px !important; }
-
-  #priceStack .priceCard {
-    width: auto !important;
-    display: grid !important;
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr) !important;
-    column-gap: 72px !important;
-    row-gap: 22px !important;
-    align-items: start !important;
-    text-align: left !important;
-    padding: 60px 64px !important;
-    box-shadow: 0 24px 48px -28px rgba(20, 34, 74, 0.16) !important;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  }
-  #priceStack .priceCard:hover { transform: translateY(-2px) !important; box-shadow: 0 30px 56px -26px rgba(20, 34, 74, 0.22) !important; }
-
-  /* Left column: avatar cluster (row 1) then title + intro (row 2). */
-  #priceStack .priceCard > div:nth-child(1) { grid-column: 1 !important; grid-row: 1 !important; justify-self: start !important; }
-  #priceStack .priceCard > div:nth-child(1) img { width: 46px !important; height: 46px !important; }
-  #priceStack .priceCard > div:nth-child(1) img[style*="margin-left"] { margin-left: -13px !important; }
-  #priceStack .priceCard > div:nth-child(2) { grid-column: 1 !important; grid-row: 2 !important; align-items: flex-start !important; text-align: left !important; gap: 16px !important; width: auto !important; }
-  #priceStack .priceCard > div:nth-child(2) h2 { font-size: 36px !important; line-height: 1 !important; text-align: left !important; }
-  #priceStack .priceCard > div:nth-child(2) p { font-size: 16px !important; line-height: 1.55 !important; text-align: left !important; max-width: 40ch !important; }
-
-  /* Right column: the terms as a proper left-aligned list. The mobile markup
-     alternates a centred dot div with each text div; on desktop we hide those
-     dot dividers and give each term its own accent bullet, vertically centred
-     against the identity block. */
-  #priceStack .priceCard > div:last-child { grid-column: 2 !important; grid-row: 1 / span 2 !important; align-self: center !important; align-items: stretch !important; gap: 22px !important; width: auto !important; }
-  #priceStack .priceCard > div:last-child > div:nth-child(odd) { display: none !important; }
-  #priceStack .priceCard > div:last-child > div:nth-child(even) { justify-content: flex-start !important; position: relative !important; padding-left: 26px !important; }
-  #priceStack .priceCard > div:last-child > div:nth-child(even)::before { content: "" !important; position: absolute !important; left: 0 !important; top: 0.52em !important; width: 8px !important; height: 8px !important; border-radius: 999px !important; background: #1548EB !important; }
-  #priceStack .priceCard > div:last-child > div:nth-child(even) span { font-size: 16px !important; line-height: 1.55 !important; text-align: left !important; }
-
-  #priceStack .priceNote { font-size: 15px !important; padding-top: 12px !important; text-align: center !important; }
+  /* ================= PRICING SECTION =================
+     Full-bleed dark band. The two groups (For Brands, For Creators) stay
+     stacked one above the other — same as mobile — just with more breathing
+     room and larger type + placeholder circles. */
+  #pricingSection { padding: 120px var(--edge) !important; gap: 160px !important; }
+  #pricingSection .pricingGroup { max-width: 720px !important; gap: 34px !important; }
+  #pricingSection .pricingGroup h2 { font-size: 48px !important; }
+  #pricingSection .pricingGroup p { font-size: 24px !important; line-height: 1.45 !important; max-width: 640px !important; }
+  #pricingSection .circleCluster .circlePh { width: 128px !important; height: 128px !important; margin-left: -32px !important; }
+  #pricingSection .circleCluster .circlePh:first-child { margin-left: 0 !important; }
+  #pricingSection .circleCluster .circlePh::after { width: 44px !important; height: 44px !important; }
 
   /* ================= FOOTER ================= */
   #siteFooter { padding: 72px var(--edge) 52px !important; }
