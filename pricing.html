@@ -390,6 +390,9 @@
       opacity:0.55;
     }
     @media (max-width:360px){.circleCluster .circlePh{width:78px;height:78px;margin-left:-20px;}}
+
+    /* ===== Phrase section: active phrase (nearest viewport centre) turns blue ===== */
+    .phraseItem.active{color:#1548EB !important;}
   </style>
 
 </head>
@@ -474,6 +477,15 @@
         </div>
       </div>
 
+    </section>
+
+
+    <section id="phraseSection" style="background:#FFFFFF;padding:42vh 24px;display:flex;flex-direction:column;align-items:center;gap:26vh;">
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Campaign budget needs to be held in escrow during the campaign window.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Remaining budget will be returned to the brand.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Platform commission will be deducted from creator payouts every time the creator cash out from the digital wallet.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Incentives are arranged for creators depending on the engagement with the platform.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">There can be a foreign currency exchange fee for oversees campaigns.</p>
     </section>
 
 
@@ -564,6 +576,31 @@
     ov.addEventListener('click',function(e){if(e.target===ov||e.target.classList.contains('menuLink'))setOpen(false);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
   })();
+  /* Highlight the phrase whose vertical centre is closest to the viewport
+     centre — only its colour changes (to brand blue), never its size. */
+  (function(){
+    var items=Array.prototype.slice.call(document.querySelectorAll('#phraseSection .phraseItem'));
+    if(!items.length)return;
+    var ticking=false,current=null;
+    function update(){
+      ticking=false;
+      var mid=window.innerHeight/2,best=null,bestDist=Infinity;
+      for(var i=0;i<items.length;i++){
+        var r=items[i].getBoundingClientRect();
+        var d=Math.abs((r.top+r.bottom)/2-mid);
+        if(d<bestDist){bestDist=d;best=items[i];}
+      }
+      if(best!==current){
+        if(current)current.classList.remove('active');
+        if(best)best.classList.add('active');
+        current=best;
+      }
+    }
+    function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll,{passive:true});
+    update();
+  })();
   </script>
 
 <style id="desktop-view">
@@ -618,6 +655,10 @@
   #pricingSection .circleCluster .circlePh { width: 128px !important; height: 128px !important; margin-left: -32px !important; }
   #pricingSection .circleCluster .circlePh:first-child { margin-left: 0 !important; }
   #pricingSection .circleCluster .circlePh::after { width: 44px !important; height: 44px !important; }
+
+  /* ================= PHRASE SECTION ================= */
+  #phraseSection { padding: 44vh var(--edge) !important; gap: 30vh !important; }
+  #phraseSection .phraseItem { font-size: clamp(26px, 3.4vw, 36px) !important; max-width: 820px !important; }
 
   /* ================= FOOTER ================= */
   #siteFooter { padding: 72px var(--edge) 52px !important; }
