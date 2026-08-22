@@ -2,8 +2,8 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Franchise &middot; Polysocial</title>
-<meta name="description" content="Polysocial for digital marketing agencies. Plug a global network of content creators into every client you serve — automated payouts, unified analytics, one platform. Franchise model coming soon.">
+<title>Partner &middot; Polysocial</title>
+<meta name="description" content="Polysocial for digital marketing agencies. Plug a global network of content creators into every client you serve — automated payouts, unified analytics, one platform. Partner model coming soon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <style>/* cyrillic-ext */
@@ -358,7 +358,7 @@
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
 
-    /* ---- Franchise page --------------------------------------------------- */
+    /* ---- Partner page --------------------------------------------------- */
     :root{ --sp-section:clamp(40px,9vw,52px); --sp-heading:clamp(28px,7vw,40px); --sp-panel:clamp(48px,12vw,84px); }
 
     .fr-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:100px;font-weight:500;font-size:12px;line-height:1;border:1px solid #1548EB;color:#1548EB;background:#FFFFFF;letter-spacing:0.01em;}
@@ -387,10 +387,10 @@
     /* ---- "Partner with us" scroll-scrubbed image (Apple-style shrink to card) --- */
     #pwSection{position:relative;height:200vh;--pw-p:0;--pw-hpad:clamp(14px,4vw,60px);--pw-vpad:clamp(14px,6vh,68px);}
     .pw-sticky{position:sticky;top:0;height:100dvh;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:calc(var(--pw-vpad) * var(--pw-p)) calc(var(--pw-hpad) * var(--pw-p));}
-    .pw-media{position:relative;width:100%;height:100%;max-width:1180px;overflow:hidden;background:#111418;border-radius:calc(30px * var(--pw-p));box-shadow:0 calc(26px * var(--pw-p)) calc(64px * var(--pw-p)) rgba(15,20,40,calc(0.30 * var(--pw-p)));will-change:width,height,border-radius;}
+    .pw-media{position:relative;width:100%;height:100%;max-width:calc(1180px + (100% - 1180px) * (1 - var(--pw-p)));overflow:hidden;background:#111418;border-radius:calc(30px * var(--pw-p));box-shadow:0 calc(26px * var(--pw-p)) calc(64px * var(--pw-p)) rgba(15,20,40,calc(0.30 * var(--pw-p)));will-change:max-width,height,border-radius;}
     .pw-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
     .pw-overlay{position:absolute;inset:0;background:rgba(10,12,20,0.34);pointer-events:none;}
-    .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:700;font-size:clamp(40px,8.6vw,108px);line-height:1.02;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
+    .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:600;font-size:clamp(40px,8.6vw,108px);line-height:1.04;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
 
     /* Feature cards */
     .fr-card{display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #ECECEC;border-radius:20px;padding:20px;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
@@ -434,8 +434,8 @@
     .fr-ok.show{display:flex;}
     /* ---- "Interested?" contact form (PDF spec) --------------------------- */
     .pl-wrap{width:100%;max-width:620px;margin:0 auto;display:flex;flex-direction:column;align-items:center;}
-    .pl-head{margin:0 0 clamp(30px,5vw,46px);text-align:center;font-weight:700;line-height:1.06;letter-spacing:-0.022em;font-size:clamp(32px,6.4vw,58px);text-wrap:balance;}
-    .pl-head .muted{display:block;color:#7C7C85;}
+    .pl-head{margin:0 0 clamp(30px,5vw,46px);text-align:center;font-weight:600;line-height:1.14;letter-spacing:-0.02em;font-size:clamp(30px,3.4vw,44px);text-wrap:balance;}
+    .pl-head .muted{display:block;color:#8A8A92;}
     .pl-head .lead{display:block;color:#FFFFFF;}
     .pl-card{width:100%;box-sizing:border-box;background:#FFFFFF;border-radius:30px;padding:clamp(22px,3.4vw,34px);text-align:left;}
     .pl-label{display:block;margin:0 0 12px;color:#111111;font-weight:600;font-size:clamp(15px,1.5vw,18px);letter-spacing:-0.005em;}
@@ -535,9 +535,9 @@
     <section id="pwSection" aria-label="Partner with us">
       <div class="pw-sticky">
         <figure class="pw-media">
-          <img src="assets/img/partner-with-us.jpg" alt="A creative marketing team collaborating around a table covered with magazines, laptops and coffee." decoding="async">
+          <img src="assets/img/fbd016fc.1920w.40af19be46.webp" alt="Two creators recording a podcast together at a microphone-equipped table." decoding="async">
           <div class="pw-overlay"></div>
-          <h2 class="pw-title">Partner with us.</h2>
+          <h2 class="pw-title">Partner<br>with us.</h2>
         </figure>
       </div>
     </section>
@@ -753,7 +753,7 @@
   })();
   </script>
   <script>
-  /* Franchise page — scroll reveals + interest form. */
+  /* Partner page — scroll reveals + interest form. */
   (function(){
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var els = [].slice.call(document.querySelectorAll('.reveal'));
