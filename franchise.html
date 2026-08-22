@@ -384,6 +384,13 @@
     .fr-media{position:relative;width:100%;border-radius:22px;overflow:hidden;background:linear-gradient(150deg,#EEF1FB 0%,#F6F6F6 60%,#FDECE6 100%);display:flex;align-items:center;justify-content:center;}
     .fr-media .ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:#9BA2B8;}
     .fr-media .ph span{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;}
+    /* ---- "Partner with us" scroll-scrubbed image (Apple-style shrink to card) --- */
+    #pwSection{position:relative;height:200vh;--pw-p:0;--pw-hpad:clamp(14px,4vw,60px);--pw-vpad:clamp(14px,6vh,68px);}
+    .pw-sticky{position:sticky;top:0;height:100dvh;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:calc(var(--pw-vpad) * var(--pw-p)) calc(var(--pw-hpad) * var(--pw-p));}
+    .pw-media{position:relative;width:100%;height:100%;max-width:1180px;overflow:hidden;background:#111418;border-radius:calc(30px * var(--pw-p));box-shadow:0 calc(26px * var(--pw-p)) calc(64px * var(--pw-p)) rgba(15,20,40,calc(0.30 * var(--pw-p)));will-change:width,height,border-radius;}
+    .pw-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+    .pw-overlay{position:absolute;inset:0;background:rgba(10,12,20,0.34);pointer-events:none;}
+    .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:700;font-size:clamp(40px,8.6vw,108px);line-height:1.02;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
 
     /* Feature cards */
     .fr-card{display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #ECECEC;border-radius:20px;padding:20px;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
@@ -425,6 +432,38 @@
     .fr-note{font-size:11.5px;font-weight:500;line-height:1.5;color:#7C849B;text-align:center;}
     .fr-ok{display:none;flex-direction:column;align-items:center;gap:14px;text-align:center;}
     .fr-ok.show{display:flex;}
+    /* ---- "Interested?" contact form (PDF spec) --------------------------- */
+    .pl-wrap{width:100%;max-width:620px;margin:0 auto;display:flex;flex-direction:column;align-items:center;}
+    .pl-head{margin:0 0 clamp(30px,5vw,46px);text-align:center;font-weight:700;line-height:1.06;letter-spacing:-0.022em;font-size:clamp(32px,6.4vw,58px);text-wrap:balance;}
+    .pl-head .muted{display:block;color:#7C7C85;}
+    .pl-head .lead{display:block;color:#FFFFFF;}
+    .pl-card{width:100%;box-sizing:border-box;background:#FFFFFF;border-radius:30px;padding:clamp(22px,3.4vw,34px);text-align:left;}
+    .pl-label{display:block;margin:0 0 12px;color:#111111;font-weight:600;font-size:clamp(15px,1.5vw,18px);letter-spacing:-0.005em;}
+    .pl-gap{margin-top:24px;}
+    .pl-input{width:100%;box-sizing:border-box;height:60px;padding:0 22px;border:none;border-radius:22px;background:#E9E9EB;color:#111111;font-family:inherit;font-weight:500;font-size:clamp(15px,1.5vw,17px);transition:background 0.16s ease,box-shadow 0.16s ease;}
+    .pl-input::placeholder{color:#8A8A8F;font-weight:500;}
+    .pl-input:focus{outline:none;background:#E3E3E7;box-shadow:inset 0 0 0 2px #1B4DF5;}
+    .pl-input.err{box-shadow:inset 0 0 0 2px #FF453A;}
+    /* grouped email + contact number, one grey block with a hairline divider */
+    .pl-group{margin-top:24px;background:#E9E9EB;border-radius:22px;padding:3px 0;}
+    .pl-group .pl-input{background:transparent;border-radius:0;height:57px;}
+    .pl-group .pl-input:focus{background:rgba(0,0,0,0.035);box-shadow:none;}
+    .pl-group .pl-input.err{box-shadow:none;color:#C22;}
+    .pl-divider{height:1px;margin:0 22px;background:#C9C9CE;}
+    textarea.pl-input{height:auto;min-height:150px;padding:18px 22px;line-height:1.5;resize:vertical;}
+    /* hide number input spinners */
+    .pl-input[type=number]{-moz-appearance:textfield;}
+    .pl-input[type=number]::-webkit-outer-spin-button,.pl-input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+    .pl-submit{width:100%;height:60px;margin-top:24px;border:none;border-radius:30px;background:#1B4DF5;color:#FFFFFF;font-family:inherit;font-weight:600;font-size:17px;cursor:pointer;transition:transform 0.16s ease,background 0.16s ease,box-shadow 0.2s ease;}
+    .pl-submit:active{transform:scale(0.99);}
+    @media (hover:hover){.pl-submit:not(:disabled):hover{background:#1541DC;box-shadow:0 12px 30px rgba(21,72,235,0.4);}}
+    .pl-submit:disabled{background:#B7C0D8;color:#F1F3FA;cursor:not-allowed;box-shadow:none;transform:none;}
+    .pl-prio{margin:clamp(44px,7vw,64px) auto 0;max-width:460px;text-align:center;}
+    .pl-prio h3{margin:0 0 clamp(24px,4vw,32px);color:#FFFFFF;font-weight:700;font-size:clamp(20px,2.3vw,26px);letter-spacing:-0.01em;}
+    .pl-tier{margin:0 0 clamp(22px,3.4vw,28px);}
+    .pl-tier:last-child{margin-bottom:0;}
+    .pl-tier .t{margin:0 0 6px;color:#FF453A;font-weight:600;font-size:clamp(16px,1.8vw,19px);}
+    .pl-tier .d{margin:0 auto;max-width:30ch;color:#FFFFFF;font-weight:500;font-size:clamp(15px,1.7vw,18px);line-height:1.42;}
 
     /* Scroll reveal */
     .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.62s cubic-bezier(0.22,1,0.36,1),transform 0.62s cubic-bezier(0.22,1,0.36,1);will-change:transform,opacity;}
@@ -433,6 +472,9 @@
       .reveal,.fr-forWord,.fr-forLine{transition:opacity 0.3s ease !important;transform:none !important;}
       .fr-forItem .fr-forWord{opacity:0;} .fr-forItem.in .fr-forWord{opacity:1;}
       .fr-forLine{transform:scaleX(1) !important;}
+      /* No scroll-scrub: show the image as a tidy inset rounded card. */
+      #pwSection{height:auto;--pw-p:1;}
+      .pw-sticky{position:relative;height:auto;min-height:74dvh;}
     }
   </style>
 </head>
@@ -451,7 +493,7 @@
       <nav id="deskNav" aria-label="Primary" style="display:none;">
         <a href="creators.html">Creators</a>
         <a href="brands.html">Brands</a>
-        <a href="franchise.html" aria-current="page" style="color:#1845E7;">Franchise</a>
+        <a href="franchise.html" aria-current="page" style="color:#1845E7;">Partner</a>
         <a href="pricing.html">Pricing</a>
         <a href="about.html">Our Story</a>
       </nav>
@@ -468,7 +510,7 @@
       <nav style="display:flex;flex-direction:column;align-items:center;gap:26px;">
         <a class="menuLink" href="creators.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">For Creators</a>
         <a class="menuLink" href="brands.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">For Brands</a>
-        <a class="menuLink" href="franchise.html" style="color:#1845E7;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Franchise</a>
+        <a class="menuLink" href="franchise.html" style="color:#1845E7;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Partner</a>
         <a class="menuLink" href="pricing.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Pricing</a>
         <a class="menuLink" href="about.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Our Story</a>
       </nav>
@@ -477,23 +519,27 @@
 
     <!-- 1. Hero -------------------------------------------------------------- -->
     <section id="heroBlock" style="position:relative;z-index:1;min-height:86dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px 22px;">
-      <span class="fr-eyebrow" data-anim style="animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.08s;"><span class="dot"></span>Franchise &middot; Coming soon</span>
-      <h1 class="fr-h1" style="max-width:15ch;">
-        <span data-anim style="display:block;animation:riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.16s;"><span class="fr-mute">The world&rsquo;s</span> creator network,</span>
-        <span data-anim style="display:block;animation:riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.23s;">in <span class="fr-mute">your agency&rsquo;s</span> hands.</span>
+      <span class="fr-eyebrow" data-anim style="animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.08s;"><span class="dot"></span>Coming soon</span>
+      <h1 class="fr-h1" style="max-width:24ch;">
+        <span data-anim style="display:block;animation:riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.16s;"><span class="fr-mute">If you&rsquo;re a marketing agency,</span></span>
+        <span data-anim style="display:block;animation:riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.23s;">your life is about to get pretty easy.</span>
       </h1>
-      <p class="fr-lead" data-anim style="max-width:33ch;animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.30s;">A platform built for digital marketing agencies. Plug our global community of content creators into every client you serve.</p>
+      <p class="fr-lead" data-anim style="max-width:33ch;animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.30s;">A Partner Program for digital marketing agencies to access Polysocial creator network.</p>
       <div data-anim style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.40s;">
         <a href="#interest" class="fr-cta">Register interest<span class="a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#1548EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
         <a href="#how" class="fr-cta ghost">See how it works</a>
       </div>
     </section>
 
-    <!-- 2. Platform preview (media placeholder) ------------------------------ -->
-    <section style="padding:0 16px 8px;">
-      <figure class="fr-media reveal" style="margin:0;aspect-ratio:16/10;">
-        <div class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#9BA2B8" stroke-width="1.5"/><path d="M10 8.5l5 3.5-5 3.5v-7z" fill="#9BA2B8"/></svg><span>Platform preview &mdash; visual coming soon</span></div>
-      </figure>
+    <!-- 2. Partner with us — scroll-scrubbed full-bleed image that insets to a rounded card -->
+    <section id="pwSection" aria-label="Partner with us">
+      <div class="pw-sticky">
+        <figure class="pw-media">
+          <img src="assets/img/partner-with-us.jpg" alt="A creative marketing team collaborating around a table covered with magazines, laptops and coffee." decoding="async">
+          <div class="pw-overlay"></div>
+          <h2 class="pw-title">Partner with us.</h2>
+        </figure>
+      </div>
     </section>
 
     <!-- 3. Big statement ----------------------------------------------------- -->
@@ -541,29 +587,6 @@
       </div>
     </section>
 
-    <!-- 5. You create. We operate. (dark split) ------------------------------ -->
-    <section style="background:#161616;padding:var(--sp-panel) 24px;">
-      <h2 class="fr-h2 reveal" style="color:#FFFFFF;margin-bottom:10px;">You create.<br>We operate.</h2>
-      <p class="fr-lead reveal" style="color:#9A9A9A;max-width:32ch;margin:0 auto 36px;">Be creative in designing the best brand image for your client. Leave the annoying, operational part to us.</p>
-      <div id="frSplit" style="display:flex;flex-direction:column;gap:30px;max-width:340px;margin:0 auto;">
-        <div class="fr-split-col reveal">
-          <div class="fr-split-head"><span class="tag" style="background:#EAF0FF;color:#1548EB;">You, the agency</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#4C79FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Design the brand image and the brand message.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#4C79FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Craft the campaign — the hooks, the guidelines, the script.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#4C79FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Choose the creator community that fits the brand.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#4C79FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Stay creative. That is the part only you can do.</span></div>
-        </div>
-        <div class="fr-split-col reveal">
-          <div class="fr-split-head"><span class="tag" style="background:rgba(255,210,45,0.16);color:#FFD22D;">Polysocial, the platform</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FFD22D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Push creators to raise their craft, every brief.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FFD22D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Get the work delivered — on time, on spec.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FFD22D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pay creators on time and reward performance.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FFD22D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Grow the creator pool across every market you need.</span></div>
-          <div class="fr-line" style="color:#EDEDED;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FFD22D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sell your client&rsquo;s products through creators when it fits.</span></div>
-        </div>
-      </div>
-    </section>
-
     <!-- 6. The human part ---------------------------------------------------- -->
     <section style="padding:var(--sp-panel) 28px;">
       <p class="fr-eyebrow reveal" style="display:inline-flex;margin:0 auto 22px;border-color:#C9C9C9;color:#717171;"><span class="dot" style="background:#717171;"></span>The human part</p>
@@ -599,43 +622,44 @@
       </div>
     </section>
 
-    <!-- 8. Register interest ------------------------------------------------- -->
-    <section id="interest" style="background:#0F1116;padding:var(--sp-panel) 24px;">
-      <div style="max-width:360px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;">
-        <span class="fr-eyebrow dark reveal"><span class="dot"></span>Franchise model &mdash; coming soon</span>
-        <h2 class="fr-h2 reveal" style="color:#FFFFFF;">Be first in line</h2>
-        <p class="fr-lead reveal" style="color:#9A9FB2;max-width:32ch;">We&rsquo;re opening the franchise program to a first group of agencies. Tell us about yours and we&rsquo;ll reach out to talk.</p>
+    <!-- 8. Interested? — contact form --------------------------------------- -->
+    <section id="interest" style="background:linear-gradient(180deg,#000000 0%,#05070D 58%,#0A0F1C 100%);padding:var(--sp-panel) 24px;">
+      <div class="pl-wrap">
+        <h2 class="pl-head reveal">
+          <span class="muted">Interested?</span>
+          <span class="lead">Drop us a &ldquo;Hi&rdquo;, and we&rsquo;ll call you back.</span>
+        </h2>
 
-        <form id="frForm" class="reveal" style="width:100%;display:flex;flex-direction:column;gap:14px;margin-top:14px;" novalidate>
-          <div class="fr-field">
-            <label for="frAgency">Agency name</label>
-            <input class="fr-input" id="frAgency" name="agency" type="text" placeholder="Your agency" autocomplete="organization" required>
+        <form id="frForm" class="pl-card reveal" novalidate>
+          <label class="pl-label" for="frName">Who is the contact person?</label>
+          <input class="pl-input" id="frName" name="name" type="text" placeholder="Enter your name" autocomplete="name" maxlength="60" required>
+
+          <label class="pl-label pl-gap" for="frAgency">What is your agency name?</label>
+          <input class="pl-input" id="frAgency" name="agency" type="text" placeholder="Agency name" autocomplete="organization" maxlength="80" required>
+
+          <div class="pl-group">
+            <input class="pl-input" id="frEmail" name="email" type="email" placeholder="Agency email address" autocomplete="email" maxlength="120" required>
+            <div class="pl-divider"></div>
+            <input class="pl-input" id="frPhone" name="phone" type="number" inputmode="numeric" placeholder="Agency contact number" autocomplete="tel" maxlength="20" required>
           </div>
-          <div class="fr-field">
-            <label for="frName">Your name</label>
-            <input class="fr-input" id="frName" name="name" type="text" placeholder="First and last name" autocomplete="name" required>
-          </div>
-          <div class="fr-field">
-            <label for="frEmail">Work email</label>
-            <input class="fr-input" id="frEmail" name="email" type="email" placeholder="you@agency.com" autocomplete="email" required>
-          </div>
-          <div class="fr-field">
-            <label for="frMsg">What would you run first? <span style="color:#5A6178;">(optional)</span></label>
-            <textarea class="fr-input" id="frMsg" name="message" placeholder="A campaign, a market, a client brief&hellip;"></textarea>
-          </div>
-          <button type="submit" class="fr-submit">Register interest<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <p class="fr-note">Non-binding. We&rsquo;ll only use this to talk to you about the franchise program.</p>
+
+          <textarea class="pl-input pl-gap" id="frMsg" name="message" placeholder="What do you want our relationship to be like?" maxlength="600"></textarea>
+
+          <button type="submit" class="pl-submit" disabled>Submit</button>
         </form>
 
-        <div id="frOk" class="fr-ok" style="margin-top:8px;">
+        <div id="frOk" class="fr-ok" style="margin-top:22px;">
           <span style="width:56px;height:56px;border-radius:999px;background:rgba(36,211,102,0.16);display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#24D366" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <h3 style="margin:0;color:#FFFFFF;font-weight:600;font-size:20px;">Your email is ready to send</h3>
-          <p style="margin:0;color:#9A9FB2;font-weight:500;font-size:14px;line-height:1.5;max-width:30ch;">We&rsquo;ve opened your mail app with the details filled in. Hit send and we&rsquo;ll be in touch. Prefer another way? Message us below.</p>
+          <p style="margin:0;color:#9A9FB2;font-weight:500;font-size:14px;line-height:1.5;max-width:30ch;">We&rsquo;ve opened your mail app with the details filled in. Hit send and we&rsquo;ll call you back.</p>
         </div>
 
-        <div class="reveal" style="display:flex;align-items:center;gap:18px;margin-top:20px;">
-          <a href="mailto:support@polysocial.cc" aria-label="Email support@polysocial.cc" style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:#FF8F20;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6l6.1 4.6c.68.5 1.02.75 1.4.85.32.08.66.08.99 0 .37-.1.71-.35 1.39-.85L20 6M3 15.8V8.2c0-1.12 0-1.68.22-2.11.19-.38.5-.68.87-.87C4.52 5 5.08 5 6.2 5h11.6c1.12 0 1.68 0 2.11.22.38.19.68.5.87.87.22.43.22.99.22 2.11v7.6c0 1.12 0 1.68-.22 2.11-.19.38-.5.68-.87.87-.43.22-.99.22-2.11.22H6.2c-1.12 0-1.68 0-2.11-.22a1.99 1.99 0 0 1-.87-.87C3 17.48 3 16.92 3 15.8z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a href="https://wa.me/94772540134" target="_blank" rel="noopener" aria-label="Message us on WhatsApp" style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:#24D366;"><svg width="24" height="24" viewBox="0 0 19 19" fill="none"><path d="M9.5 0C14.7466 0 19 4.25337 19 9.5C19 14.7466 14.7466 19 9.5 19C7.84546 19 6.29033 18.5766 4.93555 17.833L0 19L1.26465 14.2393C0.46024 12.8445 0 11.2259 0 9.5C0 4.25336 4.25337 0 9.5 0ZM9.5 1.70117C5.19308 1.70117 1.70117 5.19307 1.70117 9.5C1.70123 11.1606 2.2207 12.7001 3.10547 13.9648L2.28809 16.751L5.20312 16.0088C6.43522 16.8239 7.91218 17.2979 9.5 17.2979C13.8068 17.2978 17.2987 13.8068 17.2988 9.5C17.2988 5.19308 13.8069 1.70118 9.5 1.70117ZM6.88867 4.81152C7.00505 4.80202 7.1125 4.87003 7.16211 4.97559L8.24609 7.27344C8.29728 7.38214 8.27438 7.51171 8.18945 7.59668L7.38184 8.4043C7.20714 8.57899 7.15603 8.85152 7.27637 9.06738C7.57112 9.59588 7.96765 10.1049 8.42676 10.5732C8.89512 11.0323 9.40411 11.4292 9.93262 11.7236C10.1483 11.8438 10.4198 11.7926 10.5947 11.6182L11.4033 10.8105C11.4882 10.7257 11.6169 10.7026 11.7256 10.7539L14.0244 11.8379C14.1298 11.8875 14.197 11.9943 14.1875 12.1104C14.1627 12.4128 14.0414 13.0192 13.498 13.5625C11.9658 15.0942 9.21599 13.3643 9.09863 13.2939C8.42129 12.9301 7.77732 12.443 7.16699 11.833C6.55692 11.2229 6.06995 10.5787 5.70605 9.90137C5.63876 9.78948 3.90352 7.03496 5.4375 5.50098C5.98054 4.95813 6.5862 4.83639 6.88867 4.81152Z" fill="#FFFFFF"/></svg></a>
+        <div class="pl-prio reveal">
+          <h3>This is how we prioritize your request.</h3>
+          <div class="pl-tier"><p class="t">Top priority</p><p class="d">Agencies submitted every field with care.</p></div>
+          <div class="pl-tier"><p class="t">Second priority</p><p class="d">Agencies submit their agency name and contact details with care.</p></div>
+          <div class="pl-tier"><p class="t">After that</p><p class="d">Agencies submit their agency name with care.</p></div>
+          <div class="pl-tier"><p class="t">At last</p><p class="d">Other submissions</p></div>
         </div>
       </div>
     </section>
@@ -656,7 +680,7 @@
         <nav style="display:flex;flex-direction:column;">
           <a href="creators.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">For content creators<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="brands.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">For brands<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-          <a href="franchise.html" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#1548EB;font-weight:500;font-size:12px;">Franchise business<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          <a href="franchise.html" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#1548EB;font-weight:500;font-size:12px;">Partner business<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="pricing.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">Pricing<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="about.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">Our Story<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
         </nav>
@@ -752,23 +776,58 @@
       } else { item.classList.add('in'); }
     });
 
+    // "Partner with us" — scrub the image from full-bleed to a rounded inset card on scroll.
+    var pw = document.getElementById('pwSection');
+    if(pw && !reduce){
+      var pwTick = false;
+      var pwUpdate = function(){
+        pwTick = false;
+        var dist = pw.offsetHeight - window.innerHeight;
+        if(dist <= 0){ pw.style.setProperty('--pw-p', 1); return; }
+        var p = -pw.getBoundingClientRect().top / dist;
+        p = p < 0 ? 0 : (p > 1 ? 1 : p);
+        pw.style.setProperty('--pw-p', p.toFixed(4));
+      };
+      var pwOnScroll = function(){ if(!pwTick){ pwTick = true; requestAnimationFrame(pwUpdate); } };
+      window.addEventListener('scroll', pwOnScroll, { passive: true });
+      window.addEventListener('resize', pwOnScroll);
+      pwUpdate();
+    }
+
     // Interest form -> compose a prefilled email (no backend needed).
     var form = document.getElementById('frForm'), ok = document.getElementById('frOk');
     if(form){
+      var submitBtn = form.querySelector('.pl-submit');
+      var fieldIds  = ['frName','frAgency','frEmail','frPhone','frMsg'];
+      var val = function(id){ var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+      // Enable Submit only once at least one field has been filled.
+      var refreshBtn = function(){
+        var anyFilled = fieldIds.some(function(id){ return val(id) !== ''; });
+        if(submitBtn) submitBtn.disabled = !anyFilled;
+      };
+      fieldIds.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el){ el.addEventListener('input', function(){ el.classList.remove('err'); refreshBtn(); }); }
+      });
+      refreshBtn();
+
       form.addEventListener('submit', function(ev){
         ev.preventDefault();
-        var agency = (document.getElementById('frAgency').value || '').trim();
-        var name   = (document.getElementById('frName').value || '').trim();
-        var email  = (document.getElementById('frEmail').value || '').trim();
-        var msg    = (document.getElementById('frMsg').value || '').trim();
-        if(!agency || !name || !email){
-          [['frAgency',agency],['frName',name],['frEmail',email]].forEach(function(p){
-            var i = document.getElementById(p[0]); if(i) i.style.borderColor = p[1] ? '' : '#FF6B49';
-          });
+        var name   = val('frName');
+        var agency = val('frAgency');
+        var email  = val('frEmail');
+        var phone  = val('frPhone');
+        var msg    = val('frMsg');
+        // Need at least one field; guard even if the button is somehow enabled.
+        if(!name && !agency && !email && !phone && !msg){ refreshBtn(); return; }
+        // If an email was entered, it must be a valid address.
+        var emailEl = document.getElementById('frEmail');
+        if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+          if(emailEl){ emailEl.classList.add('err'); emailEl.focus(); }
           return;
         }
-        var subject = 'Franchise interest — ' + agency;
-        var body = 'Agency: ' + agency + '\nName: ' + name + '\nEmail: ' + email + '\n\n' + (msg || '(no message)');
+        var subject = 'Partner interest — ' + (agency || name || 'agency');
+        var body = 'Contact person: ' + name + '\nAgency: ' + agency + '\nEmail: ' + email + '\nContact number: ' + phone + '\n\nRelationship: ' + (msg || '(no message)');
         var href = 'mailto:support@polysocial.cc?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.location.href = href;
         form.style.display = 'none';
@@ -809,8 +868,7 @@
 
   /* Section rhythm */
   section[id], section { }
-  #heroBlock + section { padding-left: var(--edge) !important; padding-right: var(--edge) !important; }
-  #heroBlock + section .fr-media { max-width: 1024px; margin: 0 auto !important; aspect-ratio: 16/9 !important; }
+  /* #pwSection (the "Partner with us" image) stays full-bleed and self-manages its own inset. */
 
   /* Statement + human-part big lines */
   section > p.reveal[style*="max-width:19ch"] { max-width: 26ch !important; font-size: clamp(30px,3.6vw,44px) !important; }
@@ -835,7 +893,7 @@
   #frFor .fr-forWord { font-size: 30px !important; }
 
   /* Interest form */
-  #interest > div { max-width: 460px !important; }
+  #interest > .pl-wrap { max-width: 620px !important; }
 
   /* Padding on full-bleed sections */
   #how, section[style*="#161616"], section[style*="#F6F6F6"], #interest { padding-left: var(--edge) !important; padding-right: var(--edge) !important; }
