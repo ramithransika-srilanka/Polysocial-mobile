@@ -1136,7 +1136,7 @@ a:hover { color: var(--brand-primary-hover); }
     #campSheet .cp-logotitle { display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 16px; width: 100%; }
     #campSheet .cp-logo { width: 48px; height: 48px; border-radius: 100px; border: 1px solid var(--grey-50); object-fit: cover; background: #fff; }
     #campSheet .cp-desc { display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; }
-    #campSheet .cp-title { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-800); text-align: center; width: 100%; }
+    #campSheet .cp-title { margin: 0; font-size: 20px; font-weight: 600; line-height: 24px; color: var(--grey-800); text-align: center; width: 100%; }
     #campSheet .cp-joined { display: flex; justify-content: center; }
     #campSheet .cp-joined .tag { display: flex; gap: 8px; align-items: center; background: var(--grey-200); padding: 4px 12px 4px 4px; border-radius: 20px; }
     #campSheet .cp-avatars { display: flex; }
@@ -1710,9 +1710,8 @@ a:hover { color: var(--brand-primary-hover); }
         </sc-for>
         <!-- 4th card: frameless "Download app" tile, blends into the section background -->
         <a href="#download" class="campGetApp" aria-label="Download the Polysocial app" style="scroll-snap-align: center; flex: none; width: 273px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 16px; border-radius: 16px; background: transparent; text-decoration: none;">
-          <img src="assets/img/ps-appicon.webp" alt="Polysocial" width="48" height="48" style="display: block; width: 48px; height: 48px; border-radius: 12px; box-shadow: 0 4px 12px rgba(240,82,14,0.28);">
-          <p style="margin: 0; text-align: center; color: #121212; font-weight: 700; font-size: 14px; line-height: 17px; letter-spacing: -0.01em; max-width: 200px;">Download Polysocial App and discover many campaigns to join.</p>
-          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px 7px 18px; border: 1.5px solid #1548EB; border-radius: 100px; background: #FFFFFF; color: #1548EB; font-size: 14px; font-weight: 600; transition: transform 0.16s ease-out;" style-active="transform: scale(0.96);">Download App<span style="width: 18px; height: 18px; border-radius: 100px; background: #1745E7; display: flex; align-items: center; justify-content: center; flex: none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" style="display: block;"><path d="M12 4v12M6 11l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          <p style="margin: 0; text-align: center; color: #121212; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: -0.01em; max-width: 200px;">Download Polysocial App and discover many campaigns to join.</p>
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px 7px 18px; border: 1.5px solid #1548EB; border-radius: 100px; background: transparent; color: #1548EB; font-size: 14px; font-weight: 600; transition: transform 0.16s ease-out;" style-active="transform: scale(0.96);">Download App<span style="width: 18px; height: 18px; border-radius: 100px; background: #1745E7; display: flex; align-items: center; justify-content: center; flex: none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" style="display: block;"><path d="M12 4v12M6 11l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
         </a>
       </div>
 
@@ -2351,7 +2350,7 @@ class Component extends DCLogic {
       {
         key: 'lunavo', abbr: 'Lu',
         img: 'assets/img/lunavo-cover.webp', logo: 'assets/img/lunavo-logo.webp', logoBg: '#000000',
-        rate: 'Rs.2200/1K', title: 'Lunavo Moto — beat the Colombo rush', posted: '3 hrs ago', left: '12 d left',
+        rate: 'Rs.2200/1K', title: 'Lunavo Bike UGC campaign at Colombo Book festival', posted: '3 hrs ago', left: '12 d left',
         pct: '54%', raised: 'Rs. 241,200', goal: 'Rs. 450,000',
         detail: {
           joined: '25+',
@@ -2389,7 +2388,7 @@ class Component extends DCLogic {
       {
         key: 'briksy', abbr: 'Br',
         img: 'assets/img/briksy-cover.webp', logo: 'assets/img/briksy-logo.webp', logoBg: '#E11B22',
-        rate: 'Rs.1700/1K', title: 'Briksy Mega Box build-along challenge', posted: '7 hrs ago', left: '9 d left',
+        rate: 'Rs.1700/1K', title: 'Briksy Mega Box build-along challenge | Product review', posted: '7 hrs ago', left: '9 d left',
         pct: '56%', raised: 'Rs. 201,600', goal: 'Rs. 360,000',
         detail: {
           joined: '18+',
@@ -2427,7 +2426,7 @@ class Component extends DCLogic {
       {
         key: 'sunora', abbr: 'Su',
         img: 'assets/img/sunora-cover.webp', logo: 'assets/img/sunora-logo.webp', logoBg: '#F4520E',
-        rate: 'Rs.2800/1K', title: 'Sunora Aurora Nights music festival', posted: 'Happening on Sep 13', left: null,
+        rate: 'Rs.2800/1K', title: 'Sunora Aurora Nights music festival | Post event campaign', posted: 'Happening on Sep 13', left: null,
         pct: '66%', raised: 'Rs. 396,000', goal: 'Rs. 600,000',
         detail: {
           joined: '42+',
