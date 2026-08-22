@@ -64,7 +64,11 @@
     pointer-events: none;
     z-index: 0;
   }
-  .ea-hero__bg img { width: 100%; height: auto; display: block; }
+  .ea-hero__bg img {
+    width: 100%; height: auto; display: block;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.35) 84%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.35) 84%, transparent 100%);
+  }
   .ea-hero__veil {
     position: absolute; inset: 0; z-index: 1;
     background: radial-gradient(120% 80% at 50% 45%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.72) 60%, rgba(0,0,0,0.92) 100%);
