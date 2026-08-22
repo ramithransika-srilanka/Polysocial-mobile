@@ -360,6 +360,8 @@
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
     /* About page ---------------------------------------------------------- */
+    .noScrollbar{scrollbar-width:none;-ms-overflow-style:none;}
+    .noScrollbar::-webkit-scrollbar{display:none;}
     .ab-mute{color:#717171;}
     .ab-hero{margin:0;font-weight:600;font-size:28px;line-height:1.22;letter-spacing:-0.01em;color:#000000;text-align:center;}
     .ab-h2{margin:0;font-weight:600;font-size:28px;line-height:1.14;letter-spacing:-0.01em;color:#000000;text-align:center;}
@@ -418,12 +420,11 @@
     <!-- Hero ------------------------------------------------------------- -->
     <section id="heroBlock" style="position:relative;z-index:1;min-height:88dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;">
       <h1 class="ab-hero">
-        <span class="ab-mute">In a world where</span><br>
+        <span class="ab-mute">We live in a world where</span><br>
         information is abundant<br>
-        <span class="ab-mute">and</span> attention is limited,<br>
-        every brand needs a<br>
-        community <span class="ab-mute">that</span><br>
-        <span class="ab-mute">believes in it.</span>
+        <span class="ab-mute">and</span> attention is limited.<br>
+        <span class="ab-mute">So, the new</span><br>
+        edge is trust.
       </h1>
     </section>
 
@@ -507,6 +508,74 @@
             <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Chathura Weerasinghe"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           </div>
         </div>
+      </div>
+    </section>
+
+
+    <!-- Ideas Worth Sharing (articles) ------------------------------------- -->
+    <section id="ideasSection" style="position: relative; background: #FFFFFF; padding: 38px 0 10px;">
+      <h2 style="margin: 0 35px 24px; text-align: center; color: #000000; font-weight: 600; font-size: 28px; line-height: 1.14; letter-spacing: -0.02em;">Ideas Worth<br>Sharing</h2>
+
+      <div id="ideasScroller" class="noScrollbar" style="display: flex; gap: 21px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 42px; padding: 10px 42px; -webkit-overflow-scrolling: touch;">
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <a href="poverty-of-trust.html" aria-label="Poverty of Trust" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="assets/img/articles/poverty-of-trust-hero.png" alt="A viewer before a large dark Rothko-style painting in a gallery" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Poverty of Trust.</span><span style="font-weight: 400;"> Sometimes I wonder about the purpose of these videos &mdash; both for the creator and for me as the viewer.</span></p>
+            <a href="poverty-of-trust.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <a href="the-kumar-method.html" aria-label="The Kumar Method" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="assets/img/articles/kumar-method-hero.png" alt="A stern retired man in rimless glasses and a black turtleneck" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">The Kumar Method.</span><span style="font-weight: 400;"> A retired accountant walked onto Instagram with zero followers and one idea: be the last thing the feed expects.</span></p>
+            <a href="the-kumar-method.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <a href="reach-vs-followers.html" aria-label="Reach vs. Followers" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="assets/img/articles/reach-vs-followers-hero.png" alt="A red social engagement badge showing millions of comments, likes and followers" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Reach vs. Followers.</span><span style="font-weight: 400;"> Follower count is no longer the game. The algorithm is favouring reach and engagement more and more.</span></p>
+            <a href="reach-vs-followers.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <a href="habibi-come-to-dubai.html" aria-label="Habibi Come to Dubai" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="assets/img/articles/habibi-come-to-dubai-hero.png" alt="Aerial view of Palm Jumeirah and the Dubai skyline at golden hour" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Habibi Come to Dubai.</span><span style="font-weight: 400;"> How a catchy TikTok line became an unofficial, UGC-driven tourism campaign for Dubai.</span></p>
+            <a href="habibi-come-to-dubai.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
+            <a href="new-guy-in-town.html" aria-label="There is a new guy in town" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
+              <img src="assets/img/articles/new-guy-in-town-hero.png" alt="A content creator speaking to a camera on a tripod on a beach at sunrise" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">There is a new guy in town.</span><span style="font-weight: 400;"> The spotlight has shifted to the content creator &mdash; the new layer between brands and their customers.</span></p>
+            <a href="new-guy-in-town.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
+              View article
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+          </article>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 22px; padding-right: 42px;">
+        <button id="ideasPrev" aria-label="Previous" style="width: 46px; height: 46px; border-radius: 999px; border: none; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s ease-out;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+        <button id="ideasNext" aria-label="Next" style="width: 46px; height: 46px; border-radius: 999px; border: none; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s ease-out;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
       </div>
     </section>
 
@@ -598,6 +667,15 @@
     ov.addEventListener('click',function(e){if(e.target===ov||e.target.classList.contains('menuLink'))setOpen(false);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
   })();
+  (function(){
+    var isc=document.getElementById('ideasScroller'),
+        ip=document.getElementById('ideasPrev'),
+        inx=document.getElementById('ideasNext');
+    if(!isc||!ip||!inx)return;
+    var istep=function(){var c=isc.querySelector('article');return c?c.getBoundingClientRect().width+21:221;};
+    ip.addEventListener('click',function(){isc.scrollBy({left:-istep(),behavior:'smooth'});});
+    inx.addEventListener('click',function(){isc.scrollBy({left:istep(),behavior:'smooth'});});
+  })();
   </script>
 
 <style id="desktop-view">
@@ -678,6 +756,17 @@
   #founderRow .ab-founder { flex: 0 1 300px !important; }
   #teamSection .ab-name { font-size: 20px !important; }
   #teamSection .ab-founder .ab-body { font-size: 15px !important; }
+
+  /* ================= IDEAS WORTH SHARING ================= */
+  #ideasSection { padding: 96px 0 10px !important; }
+  #ideasSection h2 { font-size: 48px !important; }
+  #ideasSection #ideasScroller { gap: 28px !important; padding: 12px var(--edge) !important; scroll-padding-left: var(--edge) !important; }
+  #ideasSection #ideasScroller article { width: 264px !important; }
+  #ideasSection #ideasScroller article > a[aria-label] { width: 264px !important; height: 264px !important; }
+  #ideasSection #ideasScroller article p { font-size: 16px !important; }
+  #ideasSection #ideasScroller article a { font-size: 16px !important; }
+  #ideasSection > div:last-of-type { padding-right: var(--edge) !important; }
+  #ideasSection button#ideasPrev, #ideasSection button#ideasNext { width: 52px !important; height: 52px !important; }
 
   /* ================= FOOTER ================= */
   #siteFooter { padding: 72px var(--edge) 52px !important; }
