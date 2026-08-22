@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get early access — Polysocial</title>
+<meta name="description" content="Polysocial is curating the platform for the region. Access is limited to a select group of creators. Request early access.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #000000; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { text-decoration: none; }
+
+  /* ---- Top nav ---- */
+  .ea-nav {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 24px; padding: 14px 20px 12px 25px;
+    background: rgba(0,0,0,0.55);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+  .ea-nav .home { display: flex; align-items: center; }
+
+  /* ---- Hero ---- */
+  .ea-hero {
+    position: relative;
+    min-height: calc(100svh - 50px);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding: 40px 24px 64px;
+  }
+  /* Faded phone screenshot behind the copy */
+  .ea-hero__bg {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(360px, 92vw);
+    max-width: 92vw;
+    opacity: 0.28;
+    filter: grayscale(0.1) brightness(0.9);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ea-hero__bg img { width: 100%; height: auto; display: block; }
+  /* Darkening veil so the white text stays legible over the mockup */
+  .ea-hero__veil {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      radial-gradient(120% 80% at 50% 45%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.72) 60%, rgba(0,0,0,0.92) 100%);
+  }
+  .ea-hero__inner {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 620px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    gap: 34px;
+  }
+  .ea-hero__copy {
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: clamp(30px, 8.6vw, 46px);
+    line-height: 1.16;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .ea-cta {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 17px 40px;
+    background: #F0281E;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    border-radius: 100px;
+    box-shadow: 0 10px 30px rgba(240,40,30,0.32);
+    transition: transform 0.16s ease-out, background 0.16s ease-out;
+  }
+  .ea-cta:hover { background: #ff372c; }
+  .ea-cta:active { transform: scale(0.97); }
+
+  /* ---- Dark footer ---- */
+  .ea-footer {
+    position: relative;
+    background: #0A0A0A;
+    padding: 60px 17px 40px;
+  }
+  .ea-footer .col { display: flex; flex-direction: column; gap: 13px; }
+  .ea-footer .rule { height: 1px; min-height: 1px; flex: none; background: #2A2A2A; }
+  .ea-footer .brand { display: flex; flex-direction: column; gap: 4px; }
+  .ea-footer .brand img { width: 131px; height: 24px; display: block; filter: brightness(0) invert(1); opacity: 0.92; }
+  .ea-footer .tag { color: #8C8C8C; font-weight: 500; font-size: 14px; line-height: 1.3; }
+  .ea-footer .contact { color: #8C8C8C; font-weight: 500; font-size: 12px; line-height: 1.5; margin: 0; }
+  .ea-footer .contact a { color: #4C7BFF; }
+  .ea-footer .region { color: #8C8C8C; font-weight: 500; font-size: 12px; line-height: 1; }
+  .ea-footer nav { display: flex; flex-direction: column; }
+  .ea-footer nav a {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 24px; color: #8C8C8C; font-weight: 500; font-size: 12px;
+  }
+  .ea-footer .legal { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; color: #8C8C8C; font-size: 10px; line-height: 1.5; }
+  .ea-footer .legal a { color: #8C8C8C; font-weight: 400; }
+</style>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <header class="ea-nav">
+    <a class="home" href="index.html" aria-label="Polysocial home">
+      <svg width="23" height="16" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;flex:none;">
+        <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#FFFFFF"></path>
+        <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#FFFFFF"></path>
+      </svg>
+    </a>
+    <a href="index.html" style="color:#8C8C8C;font-weight:500;font-size:12px;">Back to site</a>
+  </header>
+
+  <!-- Hero: faded phone mockup + early-access copy -->
+  <section class="ea-hero">
+    <div class="ea-hero__bg" aria-hidden="true">
+      <img src="assets/svg/early-access-phone.svg" alt="" loading="eager" decoding="async">
+    </div>
+    <div class="ea-hero__veil" aria-hidden="true"></div>
+    <div class="ea-hero__inner">
+      <h1 class="ea-hero__copy">We&rsquo;re currently curating the platform for the region. Access is limited to a select group of creators for now. Interested in getting early access?</h1>
+      <a class="ea-cta" href="mailto:support@polysocial.cc?subject=Early%20access%20request&amp;body=Hi%20Polysocial%20team%2C%20I%27d%20like%20to%20request%20early%20access.">Request early access</a>
+    </div>
+  </section>
+
+  <!-- Dark footer -->
+  <footer class="ea-footer">
+    <div class="col">
+      <div class="rule"></div>
+
+      <div style="display:flex;flex-direction:column;gap:15px;">
+        <div class="brand">
+          <img decoding="async" loading="lazy" src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial">
+          <span class="tag">Monetizing word-of-mouth</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <p class="contact"><span>You can call us on </span><a href="tel:+94772540134">+94 772 540 134</a><span> or email us on </span><a href="mailto:support@polysocial.cc">support@polysocial.cc</a></p>
+          <span class="region">Sri Lanka</span>
+        </div>
+      </div>
+
+      <nav>
+        <a href="creators.html">For content creators<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+        <a href="brands.html">For brands<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+        <a href="franchise.html">Franchise business<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+        <a href="pricing.html">Pricing<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+        <a href="about.html">Our Story<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      </nav>
+
+      <div class="rule"></div>
+
+      <div class="legal">
+        <span style="font-weight:400;">&copy; 2026 Polysocial. All rights reserved.</span>
+        <a href="#privacy">Privacy policy</a>
+        <a href="#terms">Terms and conditions</a>
+      </div>
+    </div>
+  </footer>
+
+</body></html>
