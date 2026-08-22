@@ -456,7 +456,8 @@
     .pl-input[type=number]::-webkit-outer-spin-button,.pl-input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
     .pl-submit{width:100%;height:60px;margin-top:24px;border:none;border-radius:30px;background:#1B4DF5;color:#FFFFFF;font-family:inherit;font-weight:600;font-size:17px;cursor:pointer;transition:transform 0.16s ease,background 0.16s ease,box-shadow 0.2s ease;}
     .pl-submit:active{transform:scale(0.99);}
-    @media (hover:hover){.pl-submit:hover{background:#1541DC;box-shadow:0 12px 30px rgba(21,72,235,0.4);}}
+    @media (hover:hover){.pl-submit:not(:disabled):hover{background:#1541DC;box-shadow:0 12px 30px rgba(21,72,235,0.4);}}
+    .pl-submit:disabled{background:#B7C0D8;color:#F1F3FA;cursor:not-allowed;box-shadow:none;transform:none;}
     .pl-prio{margin:clamp(44px,7vw,64px) auto 0;max-width:460px;text-align:center;}
     .pl-prio h3{margin:0 0 clamp(24px,4vw,32px);color:#FFFFFF;font-weight:700;font-size:clamp(20px,2.3vw,26px);letter-spacing:-0.01em;}
     .pl-tier{margin:0 0 clamp(22px,3.4vw,28px);}
@@ -631,20 +632,20 @@
 
         <form id="frForm" class="pl-card reveal" novalidate>
           <label class="pl-label" for="frName">Who is the contact person?</label>
-          <input class="pl-input" id="frName" name="name" type="text" placeholder="Enter your name" autocomplete="name" required>
+          <input class="pl-input" id="frName" name="name" type="text" placeholder="Enter your name" autocomplete="name" maxlength="60" required>
 
           <label class="pl-label pl-gap" for="frAgency">What is your agency name?</label>
-          <input class="pl-input" id="frAgency" name="agency" type="text" placeholder="Agency name" autocomplete="organization" required>
+          <input class="pl-input" id="frAgency" name="agency" type="text" placeholder="Agency name" autocomplete="organization" maxlength="80" required>
 
           <div class="pl-group">
-            <input class="pl-input" id="frEmail" name="email" type="text" placeholder="Agency email address" autocomplete="email" required>
+            <input class="pl-input" id="frEmail" name="email" type="email" placeholder="Agency email address" autocomplete="email" maxlength="120" required>
             <div class="pl-divider"></div>
-            <input class="pl-input" id="frPhone" name="phone" type="number" inputmode="numeric" placeholder="Agency contact number" autocomplete="tel" required>
+            <input class="pl-input" id="frPhone" name="phone" type="number" inputmode="numeric" placeholder="Agency contact number" autocomplete="tel" maxlength="20" required>
           </div>
 
-          <textarea class="pl-input pl-gap" id="frMsg" name="message" placeholder="What do you want our relationship to be like?"></textarea>
+          <textarea class="pl-input pl-gap" id="frMsg" name="message" placeholder="What do you want our relationship to be like?" maxlength="600"></textarea>
 
-          <button type="submit" class="pl-submit">Submit</button>
+          <button type="submit" class="pl-submit" disabled>Submit</button>
         </form>
 
         <div id="frOk" class="fr-ok" style="margin-top:22px;">
@@ -796,20 +797,36 @@
     // Interest form -> compose a prefilled email (no backend needed).
     var form = document.getElementById('frForm'), ok = document.getElementById('frOk');
     if(form){
+      var submitBtn = form.querySelector('.pl-submit');
+      var fieldIds  = ['frName','frAgency','frEmail','frPhone','frMsg'];
+      var val = function(id){ var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+      // Enable Submit only once at least one field has been filled.
+      var refreshBtn = function(){
+        var anyFilled = fieldIds.some(function(id){ return val(id) !== ''; });
+        if(submitBtn) submitBtn.disabled = !anyFilled;
+      };
+      fieldIds.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el){ el.addEventListener('input', function(){ el.classList.remove('err'); refreshBtn(); }); }
+      });
+      refreshBtn();
+
       form.addEventListener('submit', function(ev){
         ev.preventDefault();
-        var name   = (document.getElementById('frName').value || '').trim();
-        var agency = (document.getElementById('frAgency').value || '').trim();
-        var email  = (document.getElementById('frEmail').value || '').trim();
-        var phone  = (document.getElementById('frPhone').value || '').trim();
-        var msg    = (document.getElementById('frMsg').value || '').trim();
-        var missing = false;
-        [['frName',name],['frAgency',agency],['frEmail',email],['frPhone',phone]].forEach(function(p){
-          var i = document.getElementById(p[0]); if(!i) return;
-          if(p[1]){ i.classList.remove('err'); } else { i.classList.add('err'); missing = true; }
-        });
-        if(missing) return;
-        var subject = 'Partner interest — ' + agency;
+        var name   = val('frName');
+        var agency = val('frAgency');
+        var email  = val('frEmail');
+        var phone  = val('frPhone');
+        var msg    = val('frMsg');
+        // Need at least one field; guard even if the button is somehow enabled.
+        if(!name && !agency && !email && !phone && !msg){ refreshBtn(); return; }
+        // If an email was entered, it must be a valid address.
+        var emailEl = document.getElementById('frEmail');
+        if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+          if(emailEl){ emailEl.classList.add('err'); emailEl.focus(); }
+          return;
+        }
+        var subject = 'Partner interest — ' + (agency || name || 'agency');
         var body = 'Contact person: ' + name + '\nAgency: ' + agency + '\nEmail: ' + email + '\nContact number: ' + phone + '\n\nRelationship: ' + (msg || '(no message)');
         var href = 'mailto:support@polysocial.cc?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.location.href = href;
