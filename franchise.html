@@ -384,6 +384,13 @@
     .fr-media{position:relative;width:100%;border-radius:22px;overflow:hidden;background:linear-gradient(150deg,#EEF1FB 0%,#F6F6F6 60%,#FDECE6 100%);display:flex;align-items:center;justify-content:center;}
     .fr-media .ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:#9BA2B8;}
     .fr-media .ph span{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;}
+    /* ---- "Partner with us" scroll-scrubbed image (Apple-style shrink to card) --- */
+    #pwSection{position:relative;height:200vh;--pw-p:0;--pw-hpad:clamp(14px,4vw,60px);--pw-vpad:clamp(14px,6vh,68px);}
+    .pw-sticky{position:sticky;top:0;height:100dvh;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:calc(var(--pw-vpad) * var(--pw-p)) calc(var(--pw-hpad) * var(--pw-p));}
+    .pw-media{position:relative;width:100%;height:100%;max-width:1180px;overflow:hidden;background:#111418;border-radius:calc(30px * var(--pw-p));box-shadow:0 calc(26px * var(--pw-p)) calc(64px * var(--pw-p)) rgba(15,20,40,calc(0.30 * var(--pw-p)));will-change:width,height,border-radius;}
+    .pw-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+    .pw-overlay{position:absolute;inset:0;background:rgba(10,12,20,0.34);pointer-events:none;}
+    .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:700;font-size:clamp(40px,8.6vw,108px);line-height:1.02;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
 
     /* Feature cards */
     .fr-card{display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #ECECEC;border-radius:20px;padding:20px;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
@@ -433,6 +440,9 @@
       .reveal,.fr-forWord,.fr-forLine{transition:opacity 0.3s ease !important;transform:none !important;}
       .fr-forItem .fr-forWord{opacity:0;} .fr-forItem.in .fr-forWord{opacity:1;}
       .fr-forLine{transform:scaleX(1) !important;}
+      /* No scroll-scrub: show the image as a tidy inset rounded card. */
+      #pwSection{height:auto;--pw-p:1;}
+      .pw-sticky{position:relative;height:auto;min-height:74dvh;}
     }
   </style>
 </head>
@@ -489,11 +499,15 @@
       </div>
     </section>
 
-    <!-- 2. Platform preview (media placeholder) ------------------------------ -->
-    <section style="padding:0 16px 8px;">
-      <figure class="fr-media reveal" style="margin:0;aspect-ratio:16/10;">
-        <div class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#9BA2B8" stroke-width="1.5"/><path d="M10 8.5l5 3.5-5 3.5v-7z" fill="#9BA2B8"/></svg><span>Platform preview &mdash; visual coming soon</span></div>
-      </figure>
+    <!-- 2. Partner with us — scroll-scrubbed full-bleed image that insets to a rounded card -->
+    <section id="pwSection" aria-label="Partner with us">
+      <div class="pw-sticky">
+        <figure class="pw-media">
+          <img src="assets/img/partner-with-us.jpg" alt="A creative marketing team collaborating around a table covered with magazines, laptops and coffee." decoding="async">
+          <div class="pw-overlay"></div>
+          <h2 class="pw-title">Partner with us.</h2>
+        </figure>
+      </div>
     </section>
 
     <!-- 3. Big statement ----------------------------------------------------- -->
@@ -752,6 +766,24 @@
       } else { item.classList.add('in'); }
     });
 
+    // "Partner with us" — scrub the image from full-bleed to a rounded inset card on scroll.
+    var pw = document.getElementById('pwSection');
+    if(pw && !reduce){
+      var pwTick = false;
+      var pwUpdate = function(){
+        pwTick = false;
+        var dist = pw.offsetHeight - window.innerHeight;
+        if(dist <= 0){ pw.style.setProperty('--pw-p', 1); return; }
+        var p = -pw.getBoundingClientRect().top / dist;
+        p = p < 0 ? 0 : (p > 1 ? 1 : p);
+        pw.style.setProperty('--pw-p', p.toFixed(4));
+      };
+      var pwOnScroll = function(){ if(!pwTick){ pwTick = true; requestAnimationFrame(pwUpdate); } };
+      window.addEventListener('scroll', pwOnScroll, { passive: true });
+      window.addEventListener('resize', pwOnScroll);
+      pwUpdate();
+    }
+
     // Interest form -> compose a prefilled email (no backend needed).
     var form = document.getElementById('frForm'), ok = document.getElementById('frOk');
     if(form){
@@ -809,8 +841,7 @@
 
   /* Section rhythm */
   section[id], section { }
-  #heroBlock + section { padding-left: var(--edge) !important; padding-right: var(--edge) !important; }
-  #heroBlock + section .fr-media { max-width: 1024px; margin: 0 auto !important; aspect-ratio: 16/9 !important; }
+  /* #pwSection (the "Partner with us" image) stays full-bleed and self-manages its own inset. */
 
   /* Statement + human-part big lines */
   section > p.reveal[style*="max-width:19ch"] { max-width: 26ch !important; font-size: clamp(30px,3.6vw,44px) !important; }
