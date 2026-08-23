@@ -83,6 +83,44 @@
   }
   .ra-submit:hover { background: #2b4dff; }
   .ra-submit:active { transform: scale(0.98); }
+  .ra-submit:disabled { background: #AEB4CC; box-shadow: none; cursor: not-allowed; transform: none; }
+  .ra-submit:disabled:hover { background: #AEB4CC; }
+
+  .ra-input.invalid { box-shadow: 0 0 0 2px rgba(240,40,30,0.55); }
+
+  /* ---- Submitted overlay ---- */
+  .ra-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background: rgba(10,10,10,0.55);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
+    opacity: 0; transition: opacity 0.28s ease;
+  }
+  .ra-overlay[hidden] { display: none; }
+  .ra-overlay.show { opacity: 1; }
+  .ra-modal {
+    width: 100%; max-width: 440px;
+    background: #F2F2F3; border-radius: 28px;
+    padding: 44px 36px 34px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+    transform: translateY(10px) scale(0.98); transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ra-overlay.show .ra-modal { transform: none; }
+  .ra-check { line-height: 0; }
+  .ra-check svg { display: block; }
+  .ra-modal__msg { margin: 22px 0 26px; font-weight: 500; font-size: 20px; line-height: 1.35; color: #111111; }
+  .ra-modal__btn {
+    display: block; width: 100%;
+    background: #141414; color: #FFFFFF;
+    font-weight: 600; font-size: 18px; line-height: 1;
+    border-radius: 100px; padding: 19px 24px;
+    transition: transform 0.16s ease-out, background 0.16s ease-out;
+  }
+  .ra-modal__btn:hover { background: #2a2a2a; }
+  .ra-modal__btn:active { transform: scale(0.98); }
 
   /* ---- Priority list ---- */
   .ra-priority { width: 100%; margin-top: 20px; }
@@ -146,12 +184,13 @@
       <!-- Form -->
       <form class="ra-form" novalidate>
         <input class="ra-input" type="text" name="name" placeholder="Enter your name" autocomplete="name" maxlength="80">
-        <input class="ra-input" type="email" name="email" placeholder="Your email address" autocomplete="email" maxlength="120">
-        <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" maxlength="40">
+        <input class="ra-input" type="email" name="email" placeholder="Your email address" autocomplete="email" inputmode="email" maxlength="120">
+        <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" inputmode="tel" maxlength="20">
         <textarea class="ra-input" name="social" placeholder="Your Fb / Instagram / YouTube / Tiktok page link" maxlength="300"></textarea>
         <p class="ra-note">*Share a link to one of your social media profiles. We won&rsquo;t connect to or access your social media account.</p>
-        <button class="ra-submit" type="submit">Request</button>
+        <button class="ra-submit" type="submit" disabled>Request</button>
       </form>
+
 
       <!-- Priority list -->
       <section class="ra-priority">
@@ -176,5 +215,95 @@
 
     </div>
   </main>
+
+  <!-- Submitted confirmation overlay -->
+  <div class="ra-overlay" id="raOverlay" role="dialog" aria-modal="true" aria-labelledby="raMsg" hidden>
+    <div class="ra-modal">
+      <div class="ra-check" aria-hidden="true">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="32.5" stroke="#35B22E" stroke-width="3"></circle>
+          <path d="M23.5 37.5L32 46L49 27.5" stroke="#35B22E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <p class="ra-modal__msg" id="raMsg">Your request has been submitted.<br>We&rsquo;ll get in touch soon.</p>
+      <a class="ra-modal__btn" href="index.html">Back to home</a>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var form  = document.querySelector('.ra-form');
+    if (!form) return;
+    var btn   = form.querySelector('.ra-submit');
+    var email = form.querySelector('input[name="email"]');
+    var phone = form.querySelector('input[name="phone"]');
+    var fields = form.querySelectorAll('.ra-input');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Contact number: keep digits and common phone characters only.
+    phone.addEventListener('input', function () {
+      var cleaned = phone.value.replace(/[^0-9+()\s-]/g, '');
+      if (cleaned !== phone.value) {
+        var pos = phone.selectionStart - (phone.value.length - cleaned.length);
+        phone.value = cleaned;
+        try { phone.setSelectionRange(pos, pos); } catch (e) {}
+      }
+    });
+
+    function anyFilled() {
+      for (var i = 0; i < fields.length; i++) {
+        if (fields[i].value.trim() !== '') return true;
+      }
+      return false;
+    }
+    function emailValid() {
+      var v = email.value.trim();
+      return v === '' || emailRe.test(v);
+    }
+    function update() {
+      var ok = emailValid();
+      email.classList.toggle('invalid', !ok);
+      btn.disabled = !(anyFilled() && ok);
+    }
+    for (var i = 0; i < fields.length; i++) {
+      fields[i].addEventListener('input', update);
+      fields[i].addEventListener('blur', update);
+    }
+    update();
+
+    var name  = form.querySelector('input[name="name"]');
+    var social = form.querySelector('textarea[name="social"]');
+    var overlay = document.getElementById('raOverlay');
+    var RECIPIENT = 'polysocialeconomy@gmail.com';
+
+    function showOverlay() {
+      if (!overlay) return;
+      overlay.hidden = false;
+      // next frame so the transition runs
+      requestAnimationFrame(function () { overlay.classList.add('show'); });
+      document.body.style.overflow = 'hidden';
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!anyFilled()) { update(); return; }
+      if (!emailValid()) { email.classList.add('invalid'); email.focus(); return; }
+
+      var n = name.value.trim(), em = email.value.trim(),
+          ph = phone.value.trim(), so = social.value.trim();
+      var subject = 'Early access request — ' + (n || em || ph || 'creator');
+      var body =
+        'Name: ' + (n || '-') +
+        '\nEmail: ' + (em || '-') +
+        '\nContact number: ' + (ph || '-') +
+        '\nSocial link: ' + (so || '-');
+      window.location.href = 'mailto:' + RECIPIENT +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+
+      showOverlay();
+    });
+  })();
+  </script>
 
 </body></html>
