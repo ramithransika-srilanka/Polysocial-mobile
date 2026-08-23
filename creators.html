@@ -1458,9 +1458,10 @@ a:hover { color: var(--brand-primary-hover); }
 
   /* ---- Do not worry about your follower count (scroll-scrubbed dark box) ---- */
   #fcSection { --fc-ar: 1.3333 !important; --fc-radius: 44px !important; --fc-pad: 64px !important;
-    --fc-title-h: 176px !important; --fc-cap-h: 184px !important; --fc-side: 40px !important; }
+    --fc-title-h: 210px !important; --fc-cap-h: 150px !important; --fc-gap: 48px !important; --fc-side: 40px !important; }
   #fcSection .fc-title h2 { font-size: 44px !important; }
   #fcSection .fc-cap p { font-size: 17px !important; max-width: 480px !important; }
+  #fcSection .fc-phone { height: 157% !important; }
 
   /* ---- Turn your audience into your customers (full-bleed photo) ---- */
   #audienceSection { height: 960px !important; }
@@ -1712,16 +1713,17 @@ a:hover { color: var(--brand-primary-hover); }
           --fc-radius: 30px;
           --fc-ar: 0.8;      /* final box aspect ratio (w/h): 1080:1350 = 4:5 */
           --fc-pad: 68px;    /* top padding above the phone (initial + card) */
-          --fc-title-h: 150px;  /* title zone height */
-          --fc-cap-h: 156px;    /* caption zone height */
-          --fc-side: 16px; }    /* min horizontal gutter for the card */
+          --fc-title-h: 180px;  /* reserve above the box (nav + title + gap) */
+          --fc-cap-h: 140px;    /* reserve below the box (gap + caption) */
+          --fc-gap: 40px;       /* even gap between title / box / caption */
+          --fc-side: 12px; }    /* min horizontal gutter for the card */
         .fc-sticky { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
         /* Copy sits behind the box: title near the top, caption near the bottom;
            both fade + rise in once the card has opened up room for them. */
         .fc-copy { position: absolute; left: 0; right: 0; display: flex; justify-content: center;
           padding: 0 24px; box-sizing: border-box; text-align: center; pointer-events: none; }
-        .fc-copy.fc-title { top: 0; height: var(--fc-title-h); align-items: center; padding-top: 40px; box-sizing: border-box; }
-        .fc-copy.fc-cap   { bottom: 0; height: var(--fc-cap-h); align-items: flex-start; padding-top: 26px; box-sizing: border-box; }
+        .fc-copy.fc-title { align-items: flex-end; }   /* JS sets bottom: an even gap above the box */
+        .fc-copy.fc-cap   { align-items: flex-start; } /* JS sets top: an even gap below the box */
         .fc-title h2 { margin: 0; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; }
         .fc-title .mute { color: #ADADAD; }
         .fc-title .ink  { color: #121212; }
@@ -1737,7 +1739,7 @@ a:hover { color: var(--brand-primary-hover); }
         /* Phone screenshot — pinned below the top padding, a touch taller than
            the card so it crops slightly at the bottom; shrinks with the box for
            a zoom-out feel. */
-        .fc-phone { height: 112%; width: auto; max-width: none; display: block; transform-origin: top center; }
+        .fc-phone { height: 134%; width: auto; max-width: none; display: block; transform-origin: top center; }
         @media (prefers-reduced-motion: reduce) {
           #fcSection { height: auto; --fc-p: 1; --fc-c: 1; }
           .fc-sticky { position: relative; height: auto; padding: 12px 0 24px; }
@@ -2337,8 +2339,9 @@ a:hover { color: var(--brand-primary-hover); }
         var cs = getComputedStyle(sec);
         var ar = parseFloat(cs.getPropertyValue('--fc-ar')) || 0.8;
         var side = parseFloat(cs.getPropertyValue('--fc-side')) || 16;
-        var topRoom = title ? title.offsetHeight : 150;
-        var botRoom = cap ? cap.offsetHeight : 156;
+        var gap = parseFloat(cs.getPropertyValue('--fc-gap')) || 40;
+        var topRoom = parseFloat(cs.getPropertyValue('--fc-title-h')) || 180;
+        var botRoom = parseFloat(cs.getPropertyValue('--fc-cap-h')) || 140;
         // Final card: fit the aspect ratio inside the space left by the copy.
         var availH = Math.max(80, vh - topRoom - botRoom);
         var availW = Math.max(80, vw - 2 * side);
@@ -2352,10 +2355,16 @@ a:hover { color: var(--brand-primary-hover); }
         var boxP = easeOut(span(0.05, 0.82, raw));
         var copyP = span(0.62, 1.00, raw);
 
-        box.style.width = (vw + (W1 - vw) * boxP).toFixed(1) + 'px';
-        box.style.height = (vh + (H1 - vh) * boxP).toFixed(1) + 'px';
+        var curW = vw + (W1 - vw) * boxP;
+        var curH = vh + (H1 - vh) * boxP;
+        var curTop = Y1 * boxP;
+        box.style.width = curW.toFixed(1) + 'px';
+        box.style.height = curH.toFixed(1) + 'px';
         box.style.left = (X1 * boxP).toFixed(1) + 'px';
-        box.style.top = (Y1 * boxP).toFixed(1) + 'px';
+        box.style.top = curTop.toFixed(1) + 'px';
+        // Title sits an even gap above the box; caption an even gap below it.
+        if (title) title.style.bottom = (vh - curTop + gap).toFixed(1) + 'px';
+        if (cap) cap.style.top = (curTop + curH + gap).toFixed(1) + 'px';
         sec.style.setProperty('--fc-p', boxP.toFixed(4));
         sec.style.setProperty('--fc-c', copyP.toFixed(4));
       };
