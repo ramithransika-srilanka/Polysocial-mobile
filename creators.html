@@ -2363,6 +2363,41 @@ a:hover { color: var(--brand-primary-hover); }
       update();
     })();
 
+    // ---- Fan arrangements: shuffle the three cards every 2s ----
+    //      Each card cycles through the three slot positions (back-left ->
+    //      front-centre -> back-right), animated by the cards' existing 720ms
+    //      transform transition. Paused while the tab is hidden; skipped for
+    //      reduced-motion.
+    (function () {
+      if (reduce) return;
+      var fans = Array.prototype.slice.call(document.querySelectorAll('#creatorPage [data-fanswap]'));
+      if (!fans.length) return;
+      // Slot geometry, in cycle order: left (back) -> center (front) -> right (back).
+      var SLOTS = [
+        { t: 'translate(0px,30.74px) rotate(-2.78deg) scale(1)', z: 1 },
+        { t: 'translate(81.22px,25.92px) rotate(0deg) scale(1.241)', z: 2 },
+        { t: 'translate(165.58px,28.51px) rotate(4.01deg) scale(1)', z: 1 }
+      ];
+      var slotByName = { left: 0, center: 1, right: 2 };
+      var ticks = [];
+      fans.forEach(function (fan) {
+        var cards = Array.prototype.slice.call(fan.querySelectorAll('[data-slot]'));
+        if (cards.length !== 3) return;
+        var cur = cards.map(function (c) { var n = slotByName[c.getAttribute('data-slot')]; return n == null ? 0 : n; });
+        var apply = function () {
+          cards.forEach(function (c, i) { var s = SLOTS[cur[i]]; c.style.transform = s.t; c.style.zIndex = s.z; });
+        };
+        apply();
+        ticks.push(function () { cur = cur.map(function (s) { return (s + 1) % 3; }); apply(); });
+      });
+      if (!ticks.length) return;
+      var iv = null;
+      var start = function () { if (!iv) iv = setInterval(function () { if (!document.hidden) ticks.forEach(function (t) { t(); }); }, 2000); };
+      var stop = function () { if (iv) { clearInterval(iv); iv = null; } };
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+      start();
+    })();
+
     // ---- "We are calling for" focus lens ----
     (function () {
       if (reduce || !panel) return;
