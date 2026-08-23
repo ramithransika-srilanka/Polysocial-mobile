@@ -368,7 +368,7 @@
 
     .fr-h1{margin:0;font-weight:600;font-size:34px;line-height:1.1;letter-spacing:-0.02em;color:#000000;text-align:center;text-wrap:balance;}
     .fr-h2{margin:0;font-weight:600;font-size:30px;line-height:1.14;letter-spacing:-0.02em;color:#121212;text-align:center;text-wrap:balance;}
-    .fr-lead{margin:0;font-weight:500;font-size:15px;line-height:1.55;color:#717171;text-align:center;text-wrap:pretty;}
+    .fr-lead{margin:0;font-weight:500;font-size:clamp(15px,1.7vw,18px);line-height:1.42;color:#717171;text-align:center;text-wrap:pretty;}
     .fr-mute{color:#ADADAD;}
     .fr-mute2{color:#717171;}
 
@@ -392,12 +392,18 @@
     .pw-overlay{position:absolute;inset:0;background:rgba(10,12,20,0.34);pointer-events:none;}
     .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:600;font-size:clamp(40px,8.6vw,108px);line-height:1.04;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
 
-    /* Feature cards */
-    .fr-card{display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #ECECEC;border-radius:20px;padding:20px;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
-    @media (hover:hover){.fr-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(18,31,96,0.08);}}
-    .fr-card .ic{width:44px;height:44px;border-radius:12px;background:#EEF2FE;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
-    .fr-card h3{margin:0 0 6px;font-weight:600;font-size:17px;line-height:1.25;color:#121212;}
-    .fr-card p{margin:0;font-weight:500;font-size:13.5px;line-height:1.5;color:#717171;}
+    /* Feature cards — image tiles with dark scrim + white text */
+    .fr-card{position:relative;display:flex;align-items:flex-end;min-height:360px;border-radius:20px;overflow:hidden;background:#C7CAD2 center/cover no-repeat;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
+    /* Placeholder texture until real images are supplied */
+    .fr-card .fr-card-img{position:absolute;inset:0;background:linear-gradient(135deg,#C7CAD2 0%,#AEB2BD 100%);}
+    @media (hover:hover){.fr-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,0.28);}}
+    /* Dark overlay only where the text sits */
+    .fr-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(180deg,rgba(10,10,12,0) 0%,rgba(10,10,12,0.55) 45%,rgba(10,10,12,0.86) 100%);pointer-events:none;}
+    .fr-card .fr-card-body{position:relative;z-index:1;padding:24px;}
+    .fr-card h3{margin:0 0 6px;font-weight:600;font-size:19px;line-height:1.25;color:#FFFFFF;}
+    .fr-card p{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.82);}
+    /* Mobile: equal-size tiles, stacked vertically */
+    #frCards{display:grid;grid-template-columns:1fr;gap:14px;max-width:360px;margin:0 auto;}
 
     /* Split "you / us" rows */
     .fr-split-col{display:flex;flex-direction:column;gap:14px;}
@@ -550,47 +556,57 @@
     </section>
 
     <!-- 4. What you can do (feature cards) ----------------------------------- -->
-    <section id="how" style="background:#F6F6F6;padding:var(--sp-panel) 20px;">
-      <h2 class="fr-h2 reveal" style="margin-bottom:8px;">Everything your clients<br>need from creators</h2>
-      <p class="fr-lead reveal" style="max-width:34ch;margin:0 auto 32px;">One network, one workflow, one dashboard &mdash; across every social platform and every market.</p>
-      <div id="frCards" style="display:flex;flex-direction:column;gap:14px;max-width:340px;margin:0 auto;">
+    <section id="how" style="background:#0A0A0C;padding:var(--sp-panel) 20px;">
+      <h2 class="fr-h2 reveal" style="margin-bottom:32px;color:#FFFFFF;">Everything your clients<br>need from creators</h2>
+      <div id="frCards">
         <div class="fr-card reveal">
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="8" r="3.2" stroke="#1548EB" stroke-width="1.7"/><circle cx="17" cy="9" r="2.6" stroke="#1548EB" stroke-width="1.7"/><path d="M3 19c0-2.8 2.2-5 5-5s5 2.2 5 5M15 19c0-2 .9-3.8 2.4-4.6" stroke="#1548EB" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-          <h3>A vast creator network</h3>
-          <p>Tap content creators across every niche and market, matched to each client's brand — one relationship instead of a hundred.</p>
+          <div class="fr-card-img"></div>
+          <div class="fr-card-body">
+            <h3>A vast creator network</h3>
+            <p>Tap content creators across every niche and market, matched to each client's brand — one relationship instead of a hundred.</p>
+          </div>
         </div>
         <div class="fr-card reveal">
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2.5" stroke="#1548EB" stroke-width="1.7"/><circle cx="12" cy="12" r="2.4" stroke="#1548EB" stroke-width="1.7"/><path d="M6 9v6M18 9v6" stroke="#1548EB" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-          <h3>Automated payouts</h3>
-          <p>We pay creators on time, at scale, and reward performance — no invoices, no chasing, no manual transfers.</p>
+          <div class="fr-card-img"></div>
+          <div class="fr-card-body">
+            <h3>Automated payouts</h3>
+            <p>We pay creators on time, at scale, and reward performance — no invoices, no chasing, no manual transfers.</p>
+          </div>
         </div>
         <div class="fr-card reveal">
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V5M20 19H4M8 15l3-4 3 2 4-6" stroke="#1548EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>One analytics view</h3>
-          <p>Track every campaign across all social platforms in a single dashboard — for every client you run.</p>
+          <div class="fr-card-img"></div>
+          <div class="fr-card-body">
+            <h3>One analytics view</h3>
+            <p>Track every campaign across all social platforms in a single dashboard — for every client you run.</p>
+          </div>
         </div>
         <div class="fr-card reveal">
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 21l-4.9 2.6M12 3l-2.5 5L4 8.8l4 3.9-1 5.5" stroke="#1548EB" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-          <h3>UGC & brand ambassadors</h3>
-          <p>Commission UGC, build long-term ambassadors, and keep clients posting consistently — all from one place.</p>
+          <div class="fr-card-img"></div>
+          <div class="fr-card-body">
+            <h3>UGC &amp; brand ambassadors</h3>
+            <p>Commission UGC, build long-term ambassadors, and keep clients posting consistently — all from one place.</p>
+          </div>
         </div>
         <div class="fr-card reveal">
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1548EB" stroke-width="1.7"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3z" stroke="#1548EB" stroke-width="1.5"/></svg></div>
-          <h3>Enter new markets</h3>
-          <p>Launch products and reach new audiences through creators who already live in the market you're entering.</p>
+          <div class="fr-card-img"></div>
+          <div class="fr-card-body">
+            <h3>Enter new markets</h3>
+            <p>Launch products and reach new audiences through creators who already live in the market you're entering.</p>
+          </div>
         </div>
         <div class="fr-card reveal">
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 7h14l-1 11a2 2 0 0 1-2 1.8H8A2 2 0 0 1 6 18L5 7z" stroke="#1548EB" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 7a3 3 0 0 1 6 0" stroke="#1548EB" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-          <h3>Sell through creators</h3>
-          <p>When the brief calls for it, let creators drive real sales for your client's products, not just reach.</p>
+          <div class="fr-card-img"></div>
+          <div class="fr-card-body">
+            <h3>Sell through creators</h3>
+            <p>When the brief calls for it, let creators drive real sales for your client's products, not just reach.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- 6. The human part ---------------------------------------------------- -->
     <section style="padding:var(--sp-panel) 28px;">
-      <p class="fr-eyebrow reveal" style="display:inline-flex;margin:0 auto 22px;border-color:#C9C9C9;color:#717171;"><span class="dot" style="background:#717171;"></span>The human part</p>
-      <h2 class="reveal" style="margin:0 auto;max-width:16ch;text-align:center;font-weight:600;font-size:30px;line-height:1.16;letter-spacing:-0.02em;">AI will automate the work. <span class="fr-mute">It will never automate the taste.</span></h2>
+      <h2 class="fr-h2 reveal" style="margin:0 auto;max-width:16ch;line-height:1.16;">AI will automate the work. <span class="fr-mute">It will never automate the taste.</span></h2>
       <p class="fr-lead reveal" style="max-width:34ch;margin:24px auto 0;">Creativity and judgment will never leave the art of marketing &mdash; that part is yours. We carry your message to the world with the creator community that fits your client&rsquo;s brand best.</p>
     </section>
 
@@ -875,11 +891,14 @@
   /* Statement + human-part big lines */
   section > p.reveal[style*="max-width:19ch"] { max-width: 26ch !important; font-size: clamp(30px,3.6vw,44px) !important; }
 
-  /* Feature cards -> 3-up grid */
-  #frCards { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 20px !important; max-width: 1024px !important; }
-  #frCards .fr-card { padding: 26px !important; }
-  #frCards .fr-card h3 { font-size: 19px !important; }
-  #frCards .fr-card p { font-size: 14.5px !important; }
+  /* Feature cards -> bento grid: wide row, pair, wide row, pair */
+  #frCards { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; max-width: 1024px !important; }
+  #frCards .fr-card { min-height: 360px !important; }
+  #frCards .fr-card:nth-child(1),
+  #frCards .fr-card:nth-child(4) { grid-column: 1 / -1 !important; min-height: 420px !important; }
+  #frCards .fr-card .fr-card-body { padding: 30px !important; }
+  #frCards .fr-card h3 { font-size: 22px !important; }
+  #frCards .fr-card p { font-size: 15px !important; max-width: 46ch; }
 
   /* You/We split -> two columns */
   #frSplit { flex-direction: row !important; gap: 64px !important; max-width: 900px !important; align-items: flex-start !important; }
@@ -888,7 +907,6 @@
 
   /* Section headings scale */
   .fr-h2 { font-size: clamp(30px, 3.4vw, 44px) !important; }
-  .fr-lead { font-size: 16px; }
 
   /* This is for */
   #frFor { max-width: 620px !important; }
