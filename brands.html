@@ -1415,11 +1415,8 @@
         var textHalf=tHalfStart+(tHalfEnd-tHalfStart)*eb;
         var tStartCY=cssH*0.36, tEndCY=cssH*0.5;
         var textCenterY=tStartCY+(tEndCY-tStartCY)*eb;        // moves DOWN
-        // WORDS opacity — fade 0% -> 100% quickly, reaching full opacity well before the settle
-        // (at ~50% of progress). Monotonic smoothstep over the compressed range (no overshoot) so
-        // the words materialise fast as they start descending, then hold at 100% as they lock in.
-        var ap = Math.min(1, p/0.5);
-        var textAlpha = reduce ? 1 : (ap*ap*(3-2*ap));
+        // WORDS opacity — held at 100% for the whole animation (no fade-in).
+        var textAlpha = 1;
 
         gl.useProgram(prog);
         gl.uniform2f(U.uRes,W,H);
