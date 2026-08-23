@@ -1448,11 +1448,12 @@ a:hover { color: var(--brand-primary-hover); }
   #callingSection .callWord { font-size: clamp(26px, 3.4vw, 36px) !important; }
 
   /* ---- Do not worry about your follower count (scroll-scrubbed dark box) ---- */
-  #fcSection { --fc-side: max(28px, calc((100% - 1000px) / 2)) !important; --fc-top: 236px !important; --fc-bottom: 224px !important; --fc-radius: 40px !important; }
+  #fcSection { --fc-side: max(28px, calc((100% - 560px) / 2)) !important; --fc-top: 208px !important; --fc-bottom: 196px !important; --fc-radius: 40px !important;
+    --fc-pw: 320px !important; --fc-topgap: 56px !important; --fc-zk: 0.5 !important; }
   #fcSection .fc-title h2 { font-size: 44px !important; }
   #fcSection .fc-cap p { font-size: 18px !important; max-width: 440px !important; }
   #fcSection .fc-cap { padding-top: 40px !important; }
-  #fcSection .fc-phone { height: 84% !important; max-width: 440px !important; }
+  #fcSection .fc-phone { max-width: 92% !important; }
 
   /* ---- Turn your audience into your customers (full-bleed photo) ---- */
   #audienceSection { height: 960px !important; }
@@ -1667,7 +1668,10 @@ a:hover { color: var(--brand-primary-hover); }
           --fc-side: 16px;   /* final horizontal inset */
           --fc-top: 182px;   /* room reserved above for the title */
           --fc-bottom: 176px;/* room reserved below for the caption */
-          --fc-radius: 30px; }
+          --fc-radius: 30px;
+          --fc-pw: 66%;      /* settled phone width (of the card) */
+          --fc-topgap: 46px; /* settled gap from card top to phone top */
+          --fc-zk: 0.58; }   /* extra zoom at the start (fills the frame) */
         .fc-sticky { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
         /* Copy sits behind the box: title near the top, caption near the bottom;
            both fade + rise in only once the card has opened up room for them. */
@@ -1689,13 +1693,16 @@ a:hover { color: var(--brand-primary-hover); }
           right: calc(var(--fc-side) * var(--fc-p));
           border-radius: calc(var(--fc-radius) * var(--fc-p));
           box-shadow: 0 calc(28px * var(--fc-p)) calc(70px * var(--fc-p)) rgba(10,12,22, calc(0.34 * var(--fc-p)));
-          display: flex; align-items: center; justify-content: center;
+          display: flex; align-items: flex-start; justify-content: center;
           will-change: top, bottom, left, right, border-radius; }
-        /* Phone screenshot — height tracks the shrinking box, plus an extra
-           eased scale for the deliberate "zoom out" read. */
-        .fc-phone { height: 88%; width: auto; max-width: 92%; display: block;
-          transform: scale(calc(1 + 0.16 * (1 - var(--fc-z))));
-          transform-origin: center; filter: blur(var(--fc-blur));
+        /* Phone screenshot — pinned to the top of the card and sized by width so
+           it overflows the bottom (cropped, like the reference). It starts
+           zoomed in to fill the frame and eases down to its settled size; the
+           top gap opens up as it settles. */
+        .fc-phone { width: var(--fc-pw); height: auto; max-width: 96%; display: block;
+          margin-top: calc(var(--fc-topgap) * var(--fc-z));
+          transform: scale(calc(1 + var(--fc-zk) * (1 - var(--fc-z))));
+          transform-origin: top center; filter: blur(var(--fc-blur));
           will-change: transform, filter; }
         @media (prefers-reduced-motion: reduce) {
           #fcSection { height: auto; --fc-p: 1; --fc-z: 1; --fc-c: 1; --fc-blur: 0px; }
