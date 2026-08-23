@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request early access — Polysocial</title>
+<meta name="description" content="Request early access for the Polysocial mobile app for content creators. Fill out your details and we will contact you based on the priority list.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #111111;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100svh;
+  }
+  a { text-decoration: none; }
+
+  /* ---- Top-left home logo (icon) ---- */
+  .ra-home {
+    position: fixed; top: 22px; left: 24px; z-index: 20;
+    display: block; line-height: 0;
+    transition: opacity 0.15s ease;
+  }
+  .ra-home:hover { opacity: 0.7; }
+  .ra-home svg { display: block; width: 30px; height: 20.5px; }
+
+  /* ---- Page shell (viewport only, no scroll) ---- */
+  .ra-page {
+    min-height: 100svh;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 56px 22px 40px;
+  }
+  .ra-shell {
+    width: 100%; max-width: 460px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* ---- Brand wordmark ---- */
+  .ra-brand { margin-bottom: 11px; }
+  .ra-brand img { display: block; height: 24px; width: auto; filter: brightness(0); }
+
+  /* ---- Intro copy ---- */
+  .ra-intro { text-align: center; max-width: 420px; margin-bottom: 15px; }
+  .ra-intro h1 {
+    margin: 0 0 12px; font-weight: 600;
+    font-size: clamp(18px, 5.2vw, 21px); line-height: 1.22; letter-spacing: -0.01em;
+    color: #111111;
+  }
+  .ra-intro p {
+    margin: 0; font-weight: 500;
+    font-size: 14px; line-height: 1.35; letter-spacing: -0.01em;
+    color: #111111;
+  }
+
+  /* ---- Form ---- */
+  .ra-form { width: 100%; display: flex; flex-direction: column; gap: 9px; }
+  .ra-input {
+    width: 100%; border: none; outline: none;
+    background: #E4E4E4; color: #111111;
+    font-family: inherit; font-weight: 500; font-size: 14px; line-height: 1.3;
+    border-radius: 14px; padding: 15px 20px;
+    transition: box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .ra-input::placeholder { color: #8A8A8A; }
+  .ra-input:focus { background: #DCDCDC; box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
+  textarea.ra-input { resize: none; height: 70px; }
+
+  .ra-note {
+    margin: 5px 4px 0; font-style: italic; font-weight: 400;
+    font-size: 12px; line-height: 1.32; color: #9A9A9A; max-width: 440px;
+  }
+
+  .ra-submit {
+    margin-top: 10px; width: 100%; border: none; cursor: pointer;
+    background: #1B3EF5; color: #FFFFFF;
+    font-family: inherit; font-weight: 600; font-size: 16px; line-height: 1;
+    border-radius: 100px; padding: 16px 24px;
+    transition: transform 0.16s ease-out, background 0.16s ease-out;
+  }
+  .ra-submit:hover { background: #2b4dff; }
+  .ra-submit:active { transform: scale(0.98); }
+
+  /* ---- Priority list ---- */
+  .ra-priority { width: 100%; margin-top: 20px; }
+  .ra-priority h2 { margin: 0 0 12px; font-weight: 700; font-size: 14px; line-height: 1.3; color: #111111; }
+  .ra-tier { margin-bottom: 10px; }
+  .ra-tier:last-child { margin-bottom: 0; }
+  .ra-tier .t { margin: 0 0 1px; font-weight: 700; font-size: 10px; line-height: 1.4; color: #111111; }
+  .ra-tier .d { margin: 0; font-weight: 400; font-size: 10px; line-height: 1.4; color: #222222; }
+
+  /* ---- Desktop: two-column, sizes scaled up ---- */
+  @media (min-width: 860px) {
+    .ra-home { top: 28px; left: 40px; }
+    .ra-home svg { width: 34px; height: 23px; }
+    .ra-page { padding: 56px 40px; align-items: center; }
+    .ra-shell {
+      max-width: 960px;
+      display: grid; grid-template-columns: 1.05fr 0.95fr;
+      column-gap: 80px; align-items: start; justify-items: center;
+    }
+    .ra-brand { grid-column: 1 / -1; grid-row: 1; margin-bottom: 12px; }
+    .ra-brand img { height: 30px; }
+    .ra-intro { grid-column: 1 / -1; grid-row: 2; max-width: 640px; margin-bottom: 36px; }
+    .ra-intro h1 { font-size: 26px; margin-bottom: 14px; line-height: 1.2; }
+    .ra-intro p { font-size: 18px; line-height: 1.35; }
+
+    .ra-form { grid-column: 1; grid-row: 3; gap: 14px; width: 100%; max-width: 470px; }
+    .ra-input { font-size: 16px; padding: 17px 22px; border-radius: 16px; }
+    textarea.ra-input { height: 88px; }
+    .ra-note { font-size: 13px; }
+    .ra-submit { font-size: 18px; padding: 19px 24px; }
+
+    .ra-priority { grid-column: 2; grid-row: 3; margin-top: 8px; width: 100%; max-width: 380px; align-self: center; }
+    .ra-priority h2 { font-size: 18px; margin-bottom: 16px; }
+    .ra-priority .t { font-size: 14px; margin-bottom: 2px; }
+    .ra-priority .d { font-size: 14px; }
+    .ra-tier { margin-bottom: 16px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top-left home logo -->
+  <a class="ra-home" href="index.html" aria-label="Polysocial home">
+    <svg viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#0A0A0A"></path>
+      <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#0A0A0A"></path>
+    </svg>
+  </a>
+
+  <main class="ra-page">
+    <div class="ra-shell">
+
+      <!-- Brand wordmark -->
+      <div class="ra-brand">
+        <img src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" decoding="async">
+      </div>
+
+      <!-- Intro copy -->
+      <div class="ra-intro">
+        <h1>Request early access for the Polysocial mobile app for content creators.</h1>
+        <p>Fill out your details and we will contact you based on the priority list.</p>
+      </div>
+
+      <!-- Form -->
+      <form class="ra-form" novalidate>
+        <input class="ra-input" type="text" name="name" placeholder="Enter your name" autocomplete="name" maxlength="80">
+        <input class="ra-input" type="email" name="email" placeholder="Your email address" autocomplete="email" maxlength="120">
+        <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" maxlength="40">
+        <textarea class="ra-input" name="social" placeholder="Your Fb / Instagram / YouTube / Tiktok page link" maxlength="300"></textarea>
+        <p class="ra-note">*Share a link to one of your social media profiles. We won&rsquo;t connect to or access your social media account.</p>
+        <button class="ra-submit" type="submit">Request</button>
+      </form>
+
+      <!-- Priority list -->
+      <section class="ra-priority">
+        <h2>This is how we prioritize your request.</h2>
+        <div class="ra-tier">
+          <p class="t">Top priority</p>
+          <p class="d">First come, first served for people who submit all details with care.</p>
+        </div>
+        <div class="ra-tier">
+          <p class="t">Second priority</p>
+          <p class="d">First come, first served for people who submit name and contact details with care.</p>
+        </div>
+        <div class="ra-tier">
+          <p class="t">Third priority</p>
+          <p class="d">First come, first served for people who submit name only.</p>
+        </div>
+        <div class="ra-tier">
+          <p class="t">At last</p>
+          <p class="d">Other submissions.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</body></html>
