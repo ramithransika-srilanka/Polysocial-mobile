@@ -603,8 +603,8 @@
         </div>
 
         <!-- Horizontal card slider -->
-        <div id="htsTrack" class="noScrollbar ov-reveal" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 28px 8px; scroll-padding-left: 28px; transition-delay: 0.16s;">
-          <div class="htsCard" data-card="0" style="scroll-snap-align: start; flex: none; width: 300px; max-width: 82%;">
+        <div id="htsTrack" class="noScrollbar ov-reveal" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 28px 8px; transition-delay: 0.16s;">
+          <div class="htsCard" data-card="0" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
             <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
               <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#ECECEC;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="display:block;opacity:0.32;"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#8A8A8A" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.8" stroke="#8A8A8A" stroke-width="1.6"/><path d="M4 17l4.5-4.5a2 2 0 0 1 2.8 0L16 17M14 15l1.8-1.8a2 2 0 0 1 2.8 0L21 16" stroke="#8A8A8A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </div>
@@ -613,7 +613,7 @@
               <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Tell us the goal, the budget and who you want to reach. Ten minutes and you are live.</p>
             </div>
           </div>
-          <div class="htsCard" data-card="1" style="scroll-snap-align: start; flex: none; width: 300px; max-width: 82%;">
+          <div class="htsCard" data-card="1" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
             <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
               <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#ECECEC;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="display:block;opacity:0.32;"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#8A8A8A" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.8" stroke="#8A8A8A" stroke-width="1.6"/><path d="M4 17l4.5-4.5a2 2 0 0 1 2.8 0L16 17M14 15l1.8-1.8a2 2 0 0 1 2.8 0L21 16" stroke="#8A8A8A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </div>
@@ -622,7 +622,7 @@
               <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">People who already live in your niche raise their hand to make the content.</p>
             </div>
           </div>
-          <div class="htsCard" data-card="2" style="scroll-snap-align: start; flex: none; width: 300px; max-width: 82%;">
+          <div class="htsCard" data-card="2" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
             <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
               <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#ECECEC;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="display:block;opacity:0.32;"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#8A8A8A" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.8" stroke="#8A8A8A" stroke-width="1.6"/><path d="M4 17l4.5-4.5a2 2 0 0 1 2.8 0L16 17M14 15l1.8-1.8a2 2 0 0 1 2.8 0L21 16" stroke="#8A8A8A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </div>
@@ -631,7 +631,7 @@
               <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Nothing goes live without your sign-off. Review, ask for tweaks, then greenlight.</p>
             </div>
           </div>
-          <div class="htsCard" data-card="3" style="scroll-snap-align: start; flex: none; width: 300px; max-width: 82%;">
+          <div class="htsCard" data-card="3" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
             <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
               <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#ECECEC;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="display:block;opacity:0.32;"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#8A8A8A" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.8" stroke="#8A8A8A" stroke-width="1.6"/><path d="M4 17l4.5-4.5a2 2 0 0 1 2.8 0L16 17M14 15l1.8-1.8a2 2 0 0 1 2.8 0L21 16" stroke="#8A8A8A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             </div>
@@ -1076,6 +1076,22 @@
       var cards=[].slice.call(track.querySelectorAll('.htsCard'));
       if(!steps.length||!cards.length) return;
       var active=0;
+      // Symmetric side padding so the FIRST and LAST cards can actually reach
+      // the centre of the track (scroll-snap-align: center needs room on both
+      // ends). Recomputed on resize since card + track widths change between
+      // the mobile and desktop layouts.
+      function pad(){
+        var cw=cards[0].offsetWidth;
+        var side=Math.max(0,(track.clientWidth-cw)/2);
+        track.style.paddingLeft=side+'px';
+        track.style.paddingRight=side+'px';
+      }
+      // Scroll so card i sits centred in the track.
+      function centerOn(i,smooth){
+        var card=cards[i];
+        var left=card.offsetLeft-track.offsetLeft-(track.clientWidth-card.offsetWidth)/2;
+        track.scrollTo({ left: left, behavior: smooth?'smooth':'auto' });
+      }
       function paint(i){
         steps.forEach(function(btn,idx){
           var on=idx===i, num=btn.querySelector('.htsNum'), word=btn.querySelector('.htsWord');
@@ -1088,9 +1104,7 @@
         });
       }
       steps.forEach(function(btn,idx){ btn.addEventListener('click',function(){
-        active=idx; paint(active);
-        var card=cards[idx];
-        track.scrollTo({ left: card.offsetLeft-track.offsetLeft, behavior:'smooth' });
+        active=idx; paint(active); centerOn(active,true);
       }); });
       var raf=null;
       track.addEventListener('scroll',function(){
@@ -1102,7 +1116,8 @@
           if(best!==active){ active=best; paint(active); }
         });
       },{ passive:true });
-      paint(0);
+      window.addEventListener('resize',function(){ pad(); centerOn(active,false); });
+      pad(); paint(0); centerOn(0,false);
     };
 
     api._armCommunityMorph = function(tries){
@@ -1648,7 +1663,7 @@
   /* How to start */
   #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
   #htsStepper { margin: 0 var(--edge) 40px !important; }
-  #htsTrack { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; }
+  #htsTrack { gap: 22px !important; padding-top: 4px !important; padding-bottom: 8px !important; }
   #htsTrack .htsCard { width: 340px !important; max-width: 340px !important; }
 
   /* Who it's for */
