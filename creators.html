@@ -1458,9 +1458,9 @@ a:hover { color: var(--brand-primary-hover); }
 
   /* ---- Do not worry about your follower count (scroll-scrubbed dark box) ---- */
   #fcSection { --fc-ar: 1.3333 !important; --fc-radius: 44px !important; --fc-pad: 64px !important;
-    --fc-title-h: 210px !important; --fc-cap-h: 150px !important; --fc-gap: 48px !important; --fc-side: 40px !important; }
+    --fc-title-h: 200px !important; --fc-cap-h: 32px !important; --fc-gap: 40px !important; --fc-side: 40px !important; }
   #fcSection .fc-title h2 { font-size: 44px !important; }
-  #fcSection .fc-cap p { font-size: 17px !important; max-width: 480px !important; }
+  #fcSection .fc-cap-block p { font-size: 17px !important; max-width: 520px !important; }
   #fcSection .fc-phone { height: 157% !important; }
 
   /* ---- Turn your audience into your customers (full-bleed photo) ---- */
@@ -1707,28 +1707,29 @@ a:hover { color: var(--brand-primary-hover); }
            transform/opacity/inset only; reduced-motion renders the settled
            card. Driven by #creatorPanel scroll. ================================ -->
       <style>
-        #fcSection { position: relative; height: 260vh; background: #FFFFFF;
+        #fcSection { position: relative; height: 150vh; background: #FFFFFF;
           --fc-p: 0;         /* box collapse   0 = full bleed, 1 = card */
           --fc-c: 0;         /* copy reveal */
           --fc-radius: 30px;
           --fc-ar: 0.8;      /* final box aspect ratio (w/h): 1080:1350 = 4:5 */
           --fc-pad: 68px;    /* top padding above the phone (initial + card) */
-          --fc-title-h: 180px;  /* reserve above the box (nav + title + gap) */
-          --fc-cap-h: 140px;    /* reserve below the box (gap + caption) */
-          --fc-gap: 40px;       /* even gap between title / box / caption */
-          --fc-side: 12px; }    /* min horizontal gutter for the card */
+          --fc-title-h: 170px;  /* reserve above the box (nav + title + gap) */
+          --fc-cap-h: 28px;     /* small bottom breathing under the box */
+          --fc-gap: 28px;       /* gap between title and box */
+          --fc-side: 12px; }    /* horizontal gutter for the card */
         .fc-sticky { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
-        /* Copy sits behind the box: title near the top, caption near the bottom;
-           both fade + rise in once the card has opened up room for them. */
+        /* Title sits behind the box, an even gap above it. */
         .fc-copy { position: absolute; left: 0; right: 0; display: flex; justify-content: center;
           padding: 0 24px; box-sizing: border-box; text-align: center; pointer-events: none; }
         .fc-copy.fc-title { align-items: flex-end; }   /* JS sets bottom: an even gap above the box */
-        .fc-copy.fc-cap   { align-items: flex-start; } /* JS sets top: an even gap below the box */
         .fc-title h2 { margin: 0; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; }
         .fc-title .mute { color: #ADADAD; }
         .fc-title .ink  { color: #121212; }
-        .fc-cap p { margin: 0; max-width: 320px; font-weight: 500; font-size: 15px; line-height: 1.5; color: #121212; }
         .fc-copy > * { opacity: var(--fc-c); transform: translateY(calc(10px * (1 - var(--fc-c)))); will-change: transform, opacity; }
+        /* Caption flows normally below the pinned stage, so the box can use
+           almost the whole height (and thus width). Reveals on scroll. */
+        .fc-cap-block { padding: clamp(28px, 6vw, 44px) 24px clamp(40px, 8vw, 64px); text-align: center; }
+        .fc-cap-block p { margin: 0 auto; max-width: 340px; font-weight: 500; font-size: 15px; line-height: 1.5; color: #121212; }
         /* Dark stage — JS sets left/top/width/height each frame to interpolate
            from full-bleed (p=0) to a fixed-ratio card (p=1). No shadow. */
         .fc-box { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background: #0A0A0A;
@@ -1742,13 +1743,11 @@ a:hover { color: var(--brand-primary-hover); }
         .fc-phone { height: 134%; width: auto; max-width: none; display: block; transform-origin: top center; }
         @media (prefers-reduced-motion: reduce) {
           #fcSection { height: auto; --fc-p: 1; --fc-c: 1; }
-          .fc-sticky { position: relative; height: auto; padding: 12px 0 24px; }
+          .fc-sticky { position: relative; height: auto; padding: 12px 0 0; }
           .fc-copy { position: static; height: auto !important; padding: 0 24px; }
           .fc-copy.fc-title { margin-bottom: 20px; padding-top: 0; }
-          .fc-copy.fc-cap { margin-top: 20px; padding-top: 0; }
           .fc-box { position: relative; left: auto; top: auto; height: auto;
-            width: min(calc(100% - 2 * var(--fc-side)), calc((100dvh - 340px) * var(--fc-ar)));
-            aspect-ratio: var(--fc-ar); margin: 0 auto; border-radius: var(--fc-radius); }
+            width: calc(100% - 2 * var(--fc-side)); aspect-ratio: var(--fc-ar); margin: 0 auto; border-radius: var(--fc-radius); }
           .fc-copy > * { transform: none; }
         }
       </style>
@@ -1760,11 +1759,12 @@ a:hover { color: var(--brand-primary-hover); }
           <div class="fc-box">
             <img class="fc-phone" src="assets/img/follower-count-phone.svg" alt="An Instagram profile whose follower count is labelled &ldquo;Irrelevant&rdquo;." loading="lazy" decoding="async" width="450" height="920">
           </div>
-          <div class="fc-copy fc-cap">
-            <p>Follower count is no longer the biggest factor. The algorithm is favouring reach and engagement more and more.</p>
-          </div>
         </div>
       </section>
+      <!-- Caption flows below the pinned stage so the box can fill the frame. -->
+      <div class="fc-cap-block">
+        <p class="cReveal">Follower count is no longer the biggest factor. The algorithm is favouring reach and engagement more and more.</p>
+      </div>
 
       <!-- ===== Section: Turn your audience into your customers =====
            Fixed 393×820 mobile canvas (Figma root frame). A single full-bleed
@@ -2328,7 +2328,6 @@ a:hover { color: var(--brand-primary-hover); }
       var box = sec.querySelector('.fc-box');
       var sticky = sec.querySelector('.fc-sticky');
       var title = sec.querySelector('.fc-title');
-      var cap = sec.querySelector('.fc-cap');
       if (!box || !sticky) return;
       var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
       var span = function (a, b, t) { t = (t - a) / (b - a); t = t < 0 ? 0 : (t > 1 ? 1 : t); return t * t * (3 - 2 * t); };
@@ -2342,11 +2341,13 @@ a:hover { color: var(--brand-primary-hover); }
         var gap = parseFloat(cs.getPropertyValue('--fc-gap')) || 40;
         var topRoom = parseFloat(cs.getPropertyValue('--fc-title-h')) || 180;
         var botRoom = parseFloat(cs.getPropertyValue('--fc-cap-h')) || 140;
-        // Final card: fit the aspect ratio inside the space left by the copy.
+        // Final card: fill the available WIDTH first (small side gutter), only
+        // shrinking to fit the height if the ratio would overflow the space
+        // left by the copy — so the box stays as large/wide as possible.
         var availH = Math.max(80, vh - topRoom - botRoom);
         var availW = Math.max(80, vw - 2 * side);
-        var H1 = availH, W1 = H1 * ar;
-        if (W1 > availW) { W1 = availW; H1 = W1 / ar; }
+        var W1 = availW, H1 = W1 / ar;
+        if (H1 > availH) { H1 = availH; W1 = H1 * ar; }
         var X1 = (vw - W1) / 2, Y1 = topRoom + (availH - H1) / 2;
 
         var dist = sec.offsetHeight - vh;
@@ -2355,16 +2356,14 @@ a:hover { color: var(--brand-primary-hover); }
         var boxP = easeOut(span(0.05, 0.82, raw));
         var copyP = span(0.62, 1.00, raw);
 
-        var curW = vw + (W1 - vw) * boxP;
         var curH = vh + (H1 - vh) * boxP;
         var curTop = Y1 * boxP;
-        box.style.width = curW.toFixed(1) + 'px';
+        box.style.width = (vw + (W1 - vw) * boxP).toFixed(1) + 'px';
         box.style.height = curH.toFixed(1) + 'px';
         box.style.left = (X1 * boxP).toFixed(1) + 'px';
         box.style.top = curTop.toFixed(1) + 'px';
-        // Title sits an even gap above the box; caption an even gap below it.
+        // Title sits an even gap above the box (caption flows below the stage).
         if (title) title.style.bottom = (vh - curTop + gap).toFixed(1) + 'px';
-        if (cap) cap.style.top = (curTop + curH + gap).toFixed(1) + 'px';
         sec.style.setProperty('--fc-p', boxP.toFixed(4));
         sec.style.setProperty('--fc-c', copyP.toFixed(4));
       };
