@@ -19,14 +19,15 @@
   }
   a { text-decoration: none; }
 
-  /* ---- Top-left home logo (icon) ---- */
+  /* ---- Top-left "Back to site" link (scrolls with the page) ---- */
   .ra-home {
-    position: fixed; top: 26px; left: 24px; z-index: 20;
-    display: block; line-height: 0;
+    position: absolute; top: 26px; left: 24px; z-index: 20;
+    display: inline-flex; align-items: center; gap: 7px;
+    color: #111111; font-weight: 600; font-size: 14px; line-height: 1; letter-spacing: -0.01em;
     transition: opacity 0.15s ease;
   }
-  .ra-home:hover { opacity: 0.7; }
-  .ra-home svg { display: block; width: 30px; height: 20.5px; }
+  .ra-home:hover { opacity: 0.6; }
+  .ra-home svg { display: block; width: 16px; height: 16px; flex: none; }
 
   /* ---- Page shell (viewport only, no scroll) ---- */
   .ra-page {
@@ -127,13 +128,13 @@
   .ra-priority h2 { margin: 0 0 12px; font-weight: 700; font-size: 14px; line-height: 1.3; color: #111111; }
   .ra-tier { margin-bottom: 10px; }
   .ra-tier:last-child { margin-bottom: 0; }
-  .ra-tier .t { margin: 0 0 1px; font-weight: 700; font-size: 10px; line-height: 1.4; color: #111111; }
-  .ra-tier .d { margin: 0; font-weight: 400; font-size: 10px; line-height: 1.4; color: #222222; }
+  .ra-tier .t { margin: 0 0 1px; font-weight: 700; font-size: 12px; line-height: 1.4; color: #111111; }
+  .ra-tier .d { margin: 0; font-weight: 400; font-size: 12px; line-height: 1.4; color: #222222; }
 
   /* ---- Desktop: single stacked column, sizes scaled up ---- */
   @media (min-width: 860px) {
-    .ra-home { top: 28px; left: 40px; }
-    .ra-home svg { width: 34px; height: 23px; }
+    .ra-home { top: 30px; left: 40px; font-size: 15px; }
+    .ra-home svg { width: 17px; height: 17px; }
     .ra-page { padding: 104px 40px 56px; align-items: flex-start; }
     .ra-shell { max-width: 560px; }
 
@@ -159,12 +160,12 @@
 </head>
 <body>
 
-  <!-- Top-left home logo -->
-  <a class="ra-home" href="index.html" aria-label="Polysocial home">
-    <svg viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#0A0A0A"></path>
-      <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#0A0A0A"></path>
+  <!-- Top-left "Back to site" link -->
+  <a class="ra-home" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M15 5l-7 7 7 7" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
+    <span>Back to site</span>
   </a>
 
   <main class="ra-page">
