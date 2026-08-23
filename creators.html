@@ -1457,12 +1457,10 @@ a:hover { color: var(--brand-primary-hover); }
   #vipSection .vipCap { font-size: 18px !important; max-width: 460px !important; }
 
   /* ---- Do not worry about your follower count (scroll-scrubbed dark box) ---- */
-  #fcSection { --fc-side: max(28px, calc((100% - 560px) / 2)) !important; --fc-top: 208px !important; --fc-bottom: 196px !important; --fc-radius: 40px !important;
-    --fc-pw: 320px !important; --fc-topgap: 56px !important; --fc-zk: 0.5 !important; }
+  #fcSection { --fc-ar: 1.3333 !important; --fc-radius: 44px !important; --fc-pad: 64px !important;
+    --fc-title-h: 176px !important; --fc-cap-h: 184px !important; --fc-side: 40px !important; }
   #fcSection .fc-title h2 { font-size: 44px !important; }
-  #fcSection .fc-cap p { font-size: 18px !important; max-width: 440px !important; }
-  #fcSection .fc-cap { padding-top: 40px !important; }
-  #fcSection .fc-phone { max-width: 92% !important; }
+  #fcSection .fc-cap p { font-size: 17px !important; max-width: 480px !important; }
 
   /* ---- Turn your audience into your customers (full-bleed photo) ---- */
   #audienceSection { height: 960px !important; }
@@ -1709,57 +1707,46 @@ a:hover { color: var(--brand-primary-hover); }
            card. Driven by #creatorPanel scroll. ================================ -->
       <style>
         #fcSection { position: relative; height: 260vh; background: #FFFFFF;
-          --fc-p: 0;       /* box collapse   0 = full bleed, 1 = card   */
-          --fc-z: 0;       /* phone zoom     0 = zoomed in, 1 = settled  */
-          --fc-c: 0;       /* copy reveal                                */
-          --fc-blur: 0px;  /* crossover blur                            */
-          --fc-side: 16px;   /* final horizontal inset */
-          --fc-top: 182px;   /* room reserved above for the title */
-          --fc-bottom: 176px;/* room reserved below for the caption */
+          --fc-p: 0;         /* box collapse   0 = full bleed, 1 = card */
+          --fc-c: 0;         /* copy reveal */
           --fc-radius: 30px;
-          --fc-pw: 66%;      /* settled phone width (of the card) */
-          --fc-topgap: 46px; /* settled gap from card top to phone top */
-          --fc-zk: 0.58; }   /* extra zoom at the start (fills the frame) */
+          --fc-ar: 0.8;      /* final box aspect ratio (w/h): 1080:1350 = 4:5 */
+          --fc-pad: 68px;    /* top padding above the phone (initial + card) */
+          --fc-title-h: 150px;  /* title zone height */
+          --fc-cap-h: 156px;    /* caption zone height */
+          --fc-side: 16px; }    /* min horizontal gutter for the card */
         .fc-sticky { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
         /* Copy sits behind the box: title near the top, caption near the bottom;
-           both fade + rise in only once the card has opened up room for them. */
+           both fade + rise in once the card has opened up room for them. */
         .fc-copy { position: absolute; left: 0; right: 0; display: flex; justify-content: center;
           padding: 0 24px; box-sizing: border-box; text-align: center; pointer-events: none; }
-        .fc-copy.fc-title { top: 0; height: var(--fc-top); align-items: center; padding-top: 40px; }
-        .fc-copy.fc-cap   { bottom: 0; height: var(--fc-bottom); align-items: flex-start; padding-top: 28px; }
+        .fc-copy.fc-title { top: 0; height: var(--fc-title-h); align-items: center; padding-top: 40px; box-sizing: border-box; }
+        .fc-copy.fc-cap   { bottom: 0; height: var(--fc-cap-h); align-items: flex-start; padding-top: 26px; box-sizing: border-box; }
         .fc-title h2 { margin: 0; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; }
         .fc-title .mute { color: #ADADAD; }
         .fc-title .ink  { color: #121212; }
-        .fc-cap p { margin: 0; max-width: 300px; font-weight: 400; font-size: 15px; line-height: 1.42; color: #121212; }
+        .fc-cap p { margin: 0; max-width: 320px; font-weight: 500; font-size: 15px; line-height: 1.5; color: #121212; }
         .fc-copy > * { opacity: var(--fc-c); transform: translateY(calc(10px * (1 - var(--fc-c)))); will-change: transform, opacity; }
-        /* Dark stage — absolute so it bleeds full-screen at p=0 and insets to a
-           centred card at p=1. */
-        .fc-box { position: absolute; overflow: hidden; background: #0A0A0A;
-          top: calc(var(--fc-top) * var(--fc-p));
-          bottom: calc(var(--fc-bottom) * var(--fc-p));
-          left: calc(var(--fc-side) * var(--fc-p));
-          right: calc(var(--fc-side) * var(--fc-p));
+        /* Dark stage — JS sets left/top/width/height each frame to interpolate
+           from full-bleed (p=0) to a fixed-ratio card (p=1). No shadow. */
+        .fc-box { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background: #0A0A0A;
           border-radius: calc(var(--fc-radius) * var(--fc-p));
-          box-shadow: 0 calc(28px * var(--fc-p)) calc(70px * var(--fc-p)) rgba(10,12,22, calc(0.34 * var(--fc-p)));
+          box-sizing: border-box; padding-top: var(--fc-pad);
           display: flex; align-items: flex-start; justify-content: center;
-          will-change: top, bottom, left, right, border-radius; }
-        /* Phone screenshot — pinned to the top of the card and sized by width so
-           it overflows the bottom (cropped, like the reference). It starts
-           zoomed in to fill the frame and eases down to its settled size; the
-           top gap opens up as it settles. */
-        .fc-phone { width: var(--fc-pw); height: auto; max-width: 96%; display: block;
-          margin-top: calc(var(--fc-topgap) * var(--fc-z));
-          transform: scale(calc(1 + var(--fc-zk) * (1 - var(--fc-z))));
-          transform-origin: top center; filter: blur(var(--fc-blur));
-          will-change: transform, filter; }
+          will-change: left, top, width, height, border-radius; }
+        /* Phone screenshot — pinned below the top padding, a touch taller than
+           the card so it crops slightly at the bottom; shrinks with the box for
+           a zoom-out feel. */
+        .fc-phone { height: 112%; width: auto; max-width: none; display: block; transform-origin: top center; }
         @media (prefers-reduced-motion: reduce) {
-          #fcSection { height: auto; --fc-p: 1; --fc-z: 1; --fc-c: 1; --fc-blur: 0px; }
-          .fc-sticky { position: relative; height: auto; padding: 12px 0 20px; }
+          #fcSection { height: auto; --fc-p: 1; --fc-c: 1; }
+          .fc-sticky { position: relative; height: auto; padding: 12px 0 24px; }
           .fc-copy { position: static; height: auto !important; padding: 0 24px; }
-          .fc-copy.fc-title { margin-bottom: 24px; align-items: center; }
-          .fc-copy.fc-cap { margin-top: 24px; padding-top: 0; }
-          .fc-box { position: relative; top: 0; bottom: 0; left: auto; right: auto;
-            width: calc(100% - 2 * var(--fc-side)); height: 62vh; margin: 0 auto; }
+          .fc-copy.fc-title { margin-bottom: 20px; padding-top: 0; }
+          .fc-copy.fc-cap { margin-top: 20px; padding-top: 0; }
+          .fc-box { position: relative; left: auto; top: auto; height: auto;
+            width: min(calc(100% - 2 * var(--fc-side)), calc((100dvh - 340px) * var(--fc-ar)));
+            aspect-ratio: var(--fc-ar); margin: 0 auto; border-radius: var(--fc-radius); }
           .fc-copy > * { transform: none; }
         }
       </style>
@@ -2328,34 +2315,49 @@ a:hover { color: var(--brand-primary-hover); }
       Array.prototype.slice.call(document.querySelectorAll('#creatorPage .cReveal, #creatorPage .callItem, #creatorPage .reveal')).forEach(function (el) { el.classList.add('in'); });
     }
 
-    // ---- "Do not worry about your follower count" — scroll-scrubbed dark box
-    //      that insets to a card while the phone screenshot zooms out. One
-    //      progress drives both: the box collapse leads (ease-out arrival), the
-    //      phone zoom trails a touch, and a hair of blur bridges the crossover
-    //      so the two motions blend into one. Copy fades in last.
+    // ---- "Do not worry about your follower count" — scroll-scrubbed dark box.
+    //      The box interpolates from full-bleed (p=0) to a fixed-ratio card
+    //      (p=1): 4:5 on mobile, a larger tablet 4:3 on desktop. The phone
+    //      screenshot shrinks with the box (zoom-out). Copy fades in as it
+    //      settles.
     (function () {
       var sec = document.getElementById('fcSection');
-      if (!sec || !panel || reduce) return; // reduced-motion: CSS shows settled card
+      if (!sec || !panel || reduce) return; // reduced-motion: CSS shows a static card
+      var box = sec.querySelector('.fc-box');
+      var sticky = sec.querySelector('.fc-sticky');
+      var title = sec.querySelector('.fc-title');
+      var cap = sec.querySelector('.fc-cap');
+      if (!box || !sticky) return;
       var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
       var span = function (a, b, t) { t = (t - a) / (b - a); t = t < 0 ? 0 : (t > 1 ? 1 : t); return t * t * (3 - 2 * t); };
       var ticking = false;
       var update = function () {
         ticking = false;
-        var dist = sec.offsetHeight - window.innerHeight;
-        if (dist <= 0) { sec.style.setProperty('--fc-p', 1); sec.style.setProperty('--fc-z', 1); sec.style.setProperty('--fc-c', 1); sec.style.setProperty('--fc-blur', '0px'); return; }
-        var raw = -sec.getBoundingClientRect().top / dist;
+        var vw = sticky.clientWidth, vh = sticky.clientHeight;
+        var cs = getComputedStyle(sec);
+        var ar = parseFloat(cs.getPropertyValue('--fc-ar')) || 0.8;
+        var side = parseFloat(cs.getPropertyValue('--fc-side')) || 16;
+        var topRoom = title ? title.offsetHeight : 150;
+        var botRoom = cap ? cap.offsetHeight : 156;
+        // Final card: fit the aspect ratio inside the space left by the copy.
+        var availH = Math.max(80, vh - topRoom - botRoom);
+        var availW = Math.max(80, vw - 2 * side);
+        var H1 = availH, W1 = H1 * ar;
+        if (W1 > availW) { W1 = availW; H1 = W1 / ar; }
+        var X1 = (vw - W1) / 2, Y1 = topRoom + (availH - H1) / 2;
+
+        var dist = sec.offsetHeight - vh;
+        var raw = dist <= 0 ? 1 : -sec.getBoundingClientRect().top / dist;
         raw = raw < 0 ? 0 : (raw > 1 ? 1 : raw);
-        // Box and phone share almost the same window (both "arriving", both
-        // ease-out) so they travel together; the phone starts a hair later so
-        // the box leads by a touch — the two motions blend into one.
-        var boxP = easeOut(span(0.05, 0.80, raw));
-        var zoomP = easeOut(span(0.13, 0.88, raw));
-        var copyP = span(0.66, 1.00, raw);            // labels arrive as it settles
-        var blur = 4.4 * Math.sin(Math.PI * zoomP);   // lives only through the phone's motion
+        var boxP = easeOut(span(0.05, 0.82, raw));
+        var copyP = span(0.62, 1.00, raw);
+
+        box.style.width = (vw + (W1 - vw) * boxP).toFixed(1) + 'px';
+        box.style.height = (vh + (H1 - vh) * boxP).toFixed(1) + 'px';
+        box.style.left = (X1 * boxP).toFixed(1) + 'px';
+        box.style.top = (Y1 * boxP).toFixed(1) + 'px';
         sec.style.setProperty('--fc-p', boxP.toFixed(4));
-        sec.style.setProperty('--fc-z', zoomP.toFixed(4));
         sec.style.setProperty('--fc-c', copyP.toFixed(4));
-        sec.style.setProperty('--fc-blur', (blur < 0.03 ? 0 : blur).toFixed(2) + 'px');
       };
       var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
       panel.addEventListener('scroll', onScroll, { passive: true });
