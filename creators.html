@@ -1458,9 +1458,10 @@ a:hover { color: var(--brand-primary-hover); }
 
   /* ---- Do not worry about your follower count (scroll-scrubbed dark box) ---- */
   #fcSection { --fc-ar: 1.3333 !important; --fc-radius: 44px !important; --fc-pad: 64px !important;
-    --fc-title-h: 176px !important; --fc-cap-h: 184px !important; --fc-side: 40px !important; }
+    --fc-title-h: 150px !important; --fc-cap-h: 156px !important; --fc-side: 40px !important; }
   #fcSection .fc-title h2 { font-size: 44px !important; }
   #fcSection .fc-cap p { font-size: 17px !important; max-width: 480px !important; }
+  #fcSection .fc-phone { height: 157% !important; }
 
   /* ---- Turn your audience into your customers (full-bleed photo) ---- */
   #audienceSection { height: 960px !important; }
@@ -1714,7 +1715,7 @@ a:hover { color: var(--brand-primary-hover); }
           --fc-pad: 68px;    /* top padding above the phone (initial + card) */
           --fc-title-h: 150px;  /* title zone height */
           --fc-cap-h: 156px;    /* caption zone height */
-          --fc-side: 16px; }    /* min horizontal gutter for the card */
+          --fc-side: 12px; }    /* min horizontal gutter for the card */
         .fc-sticky { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
         /* Copy sits behind the box: title near the top, caption near the bottom;
            both fade + rise in once the card has opened up room for them. */
@@ -1737,7 +1738,7 @@ a:hover { color: var(--brand-primary-hover); }
         /* Phone screenshot — pinned below the top padding, a touch taller than
            the card so it crops slightly at the bottom; shrinks with the box for
            a zoom-out feel. */
-        .fc-phone { height: 112%; width: auto; max-width: none; display: block; transform-origin: top center; }
+        .fc-phone { height: 134%; width: auto; max-width: none; display: block; transform-origin: top center; }
         @media (prefers-reduced-motion: reduce) {
           #fcSection { height: auto; --fc-p: 1; --fc-c: 1; }
           .fc-sticky { position: relative; height: auto; padding: 12px 0 24px; }
