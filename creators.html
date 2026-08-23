@@ -1450,9 +1450,10 @@ a:hover { color: var(--brand-primary-hover); }
   /* ---- Creators are about to become VIP (dark, faded-edge photo) ---- */
   #vipSection { padding-left: var(--edge) !important; padding-right: var(--edge) !important; }
   #vipSection .vipHead { font-size: 44px !important; }
-  /* Full-bleed photo: cancel the --edge gutter so it spans the whole width;
-     the top/bottom mask fades it into the section's dark colour at the edges. */
-  #vipSection .vip-media { width: calc(100% + 2 * var(--edge)) !important; margin-left: calc(-1 * var(--edge)) !important; margin-right: calc(-1 * var(--edge)) !important; height: clamp(520px, 80vh, 780px) !important; }
+  /* Full-bleed photo: span the whole viewport width regardless of the --edge
+     gutter (classic 100vw break-out); the top/bottom mask fades it into the
+     section's dark colour at the edges. */
+  #vipSection .vip-media { width: 100vw !important; margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important; height: clamp(520px, 80vh, 780px) !important; }
   #vipSection .vipCap { font-size: 18px !important; max-width: 460px !important; }
 
   /* ---- Do not worry about your follower count (scroll-scrubbed dark box) ---- */
