@@ -1147,7 +1147,7 @@
         // 55ms per tile stagger — with ~15 tiles this gives a ~800ms cascade,
         // long enough to read as an entrance animation rather than a flash.
         byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*55); });
-        // 2s after the cascade finishes, a fresh 40px pebble emerges from an
+        // 2s after the cascade finishes, a fresh 100px pebble emerges from an
         // intersection near the middle of the cluster and pushes its
         // neighbours out of the way. Time-based physics, not stop-motion —
         // the emergence and the neighbour displacements run in the same rAF
@@ -1191,7 +1191,7 @@
         // good — that reads as "emerging from an intersection") and penalise
         // sitting deep inside any single circle (which would just shove one
         // neighbour instead of parting several).
-        var TARGET_R=20; // 40px pebble
+        var TARGET_R=50; // 100px pebble
         var best={x:W*0.5,y:H*0.6,score:-Infinity};
         for(var sx=W*0.25; sx<=W*0.75; sx+=W*0.03){
           for(var sy=H*0.30; sy<=H*0.75; sy+=H*0.04){
