@@ -1147,6 +1147,143 @@
         // 55ms per tile stagger — with ~15 tiles this gives a ~800ms cascade,
         // long enough to read as an entrance animation rather than a flash.
         byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*55); });
+        // 2s after the cascade finishes, a fresh 40px pebble emerges from an
+        // intersection near the middle of the cluster and pushes its
+        // neighbours out of the way. Time-based physics, not stop-motion —
+        // the emergence and the neighbour displacements run in the same rAF
+        // loop with continuous separation, so the movement reads as one
+        // smooth, elastic ripple through the pack.
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(reduce) return;
+        var cascadeMs = byTop.length*55 + 680; // last tile + one full transition
+        setTimeout(function(){ pebbleEmerge(); }, cascadeMs + 2000);
+      }
+
+      // Pool of image sources authored on existing tiles — the emerging pebble
+      // reuses one so it matches the rest of the pack visually.
+      function pickImageHTML(){
+        var used=[].slice.call(grid.querySelectorAll('.cl-tile picture'));
+        if(!used.length) return '';
+        return used[Math.floor(Math.random()*used.length)].outerHTML;
+      }
+
+      function pebbleEmerge(){
+        // Only the currently-visible layout participates in the physics; the
+        // other (display:none) breakpoint's tiles have zero box dimensions.
+        var tiles=[].slice.call(grid.querySelectorAll('.cl-tile')).filter(function(el){
+          return el.offsetWidth > 0;
+        });
+        if(!tiles.length) return;
+        var gr=grid.getBoundingClientRect();
+        var W=gr.width, H=gr.height;
+        if(W<10||H<10) return;
+
+        var bodies=tiles.map(function(el){
+          var r=el.getBoundingClientRect();
+          var cx=r.left+r.width/2-gr.left, cy=r.top+r.height/2-gr.top;
+          return { el:el, x0:cx, y0:cy, x:cx, y:cy, r:r.width/2, spawn:false };
+        });
+
+        // Find a spawn point near the vertical middle that sits at a natural
+        // crevice — the point where the K nearest circles are closest to
+        // being tangent to a small disk placed there. We score candidates by
+        // how many existing circles would be lightly displaced (many is
+        // good — that reads as "emerging from an intersection") and penalise
+        // sitting deep inside any single circle (which would just shove one
+        // neighbour instead of parting several).
+        var TARGET_R=20; // 40px pebble
+        var best={x:W*0.5,y:H*0.6,score:-Infinity};
+        for(var sx=W*0.25; sx<=W*0.75; sx+=W*0.03){
+          for(var sy=H*0.30; sy<=H*0.75; sy+=H*0.04){
+            var deepest=-Infinity, contacts=0, sumOv=0;
+            for(var i=0;i<bodies.length;i++){
+              var b=bodies[i];
+              var d=Math.hypot(sx-b.x,sy-b.y);
+              var into=b.r - d;                    // >0 means inside body i
+              if(into>deepest) deepest=into;
+              var overlap=(b.r+TARGET_R)-d;        // overlap when spawn is inserted
+              if(overlap>0){ contacts++; sumOv+=overlap; }
+            }
+            var score = contacts*8 - sumOv*0.25 - Math.max(0,deepest)*4;
+            if(score>best.score) best={x:sx,y:sy,score:score};
+          }
+        }
+
+        // Insert the pebble as a real DOM tile so it participates in the
+        // wobble animation once physics settles.
+        var pebble=document.createElement('div');
+        pebble.className='cl-tile cl-pebble pop';
+        pebble.innerHTML=pickImageHTML();
+        pebble.style.cssText='position:absolute; left:0; top:0; width:'+(TARGET_R*2)+'px; height:'+(TARGET_R*2)+'px; border-radius:999px; overflow:hidden; z-index:120; opacity:0; transition:none; transform: translate('+(best.x-TARGET_R)+'px, '+(best.y-TARGET_R)+'px) scale(0); transform-origin: center center;';
+        grid.appendChild(pebble);
+        // Force reflow so the transition below is honored on the opacity fade.
+        void pebble.offsetWidth;
+        pebble.style.transition='opacity 0.24s ease-out';
+        pebble.style.opacity='1';
+
+        var spawnBody={ el:pebble, x0:best.x, y0:best.y, x:best.x, y:best.y, r:0.0001, spawn:true, target:TARGET_R };
+        bodies.push(spawnBody);
+
+        // Clear any leftover CSS transition on displaced tiles — this loop
+        // drives their transforms directly every frame, and a CSS transition
+        // would fight rAF for who owns the value.
+        bodies.forEach(function(b){ if(!b.spawn){ b.el.style.transition='transform 0s'; } });
+
+        var t0=performance.now();
+        var GROW_MS=680;   // 0 -> 40px over ~0.7s
+        var SETTLE_MS=1200;// physics keeps easing beyond growth to remove residual overlap
+        function easeOut(t){ return 1 - Math.pow(1-t, 3); }
+
+        function frame(now){
+          var t=now-t0;
+          // Grow the spawn (ease-out for a natural "pop" feel).
+          var g=Math.min(1,t/GROW_MS);
+          spawnBody.r = easeOut(g) * spawnBody.target;
+
+          // Separation: several passes per frame so the ripple propagates
+          // quickly enough to keep up with the pebble's growth rate.
+          for(var pass=0; pass<4; pass++){
+            for(var i=0;i<bodies.length;i++){
+              for(var j=i+1;j<bodies.length;j++){
+                var a=bodies[i], b=bodies[j];
+                var dx=b.x-a.x, dy=b.y-a.y;
+                var d=Math.hypot(dx,dy)||0.0001;
+                var minD=a.r+b.r;
+                if(d<minD){
+                  var push=(minD-d), nx=dx/d, ny=dy/d;
+                  // The spawn stays put — its whole point is to emerge from
+                  // its chosen crevice, so displaced neighbours take the
+                  // whole push (any drift away from centre would look wrong).
+                  if(a.spawn){ b.x+=nx*push; b.y+=ny*push; }
+                  else if(b.spawn){ a.x-=nx*push; a.y-=ny*push; }
+                  else { a.x-=nx*push*0.5; a.y-=ny*push*0.5; b.x+=nx*push*0.5; b.y+=ny*push*0.5; }
+                }
+              }
+            }
+            // Keep every displaced circle inside the vertical bounds; sides
+            // are open (they can crop on the box edge just like the pack).
+            for(var k=0;k<bodies.length;k++){
+              var c=bodies[k]; if(c.spawn) continue;
+              if(c.y+c.r>H) c.y = H-c.r;
+              if(c.y-c.r<0) c.y =   c.r;
+            }
+          }
+
+          // Commit transforms.
+          for(var m=0;m<bodies.length;m++){
+            var bd=bodies[m];
+            if(bd.spawn){
+              var sc = bd.r / bd.target;
+              bd.el.style.transform='translate('+(bd.x-bd.target)+'px, '+(bd.y-bd.target)+'px) scale('+sc.toFixed(3)+')';
+            } else {
+              var ddx = bd.x - bd.x0, ddy = bd.y - bd.y0;
+              bd.el.style.transform='translate('+ddx.toFixed(2)+'px, '+ddy.toFixed(2)+'px)';
+            }
+          }
+
+          if(t < GROW_MS + SETTLE_MS){ requestAnimationFrame(frame); }
+        }
+        requestAnimationFrame(frame);
       }
       var popIO=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
