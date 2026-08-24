@@ -393,8 +393,11 @@
        — which rewrites each tile's inline `transition` — can never wipe the
        stagger. Enter from a real scale (never scale(0)) with a strong,
        lightly-sprung ease-out. */
-    .cl-tile { --elastic: cubic-bezier(0.34,1.56,0.44,1); opacity: 0; transform: scale(0.5); transition: opacity 260ms ease-out, transform 560ms var(--elastic); will-change: transform, opacity; }
-    .cl-tile.pop { opacity: 1; transform: scale(1); }
+    .cl-tile { --elastic: cubic-bezier(0.34,1.56,0.44,1); opacity: 0; transform: scale(0.3) translateY(-12px); transition: opacity 380ms ease-out, transform 680ms var(--elastic); will-change: transform, opacity; }
+    .cl-tile.pop { opacity: 1; transform: scale(1) translateY(0); }
+    /* Two hand-packed bubble sets share #clGrid; the 768px breakpoint below
+       swaps which one renders (see the "Community" desktop rules). */
+    .clDesk { display: none; }
     /* Baseline scale keeps the rotated/translated image covering the circular
        mask at all times so the idle wobble never exposes a sliver at the rim. */
     .cl-tile img { transform: scale(1.08); transform-origin: center center; animation: clWobble 6s ease-in-out infinite; will-change: transform; backface-visibility: hidden; }
@@ -543,28 +546,49 @@
       </div>
 
       <!-- 2. Community -->
-      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 20px; background: #F6F6F6; overflow: hidden;">
-        <h2 class="ov-reveal" style="margin: 0 0 6px; font-weight: 600; font-size: 30px; line-height: 1.14; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; max-width: 15ch;">Build a community <span style="color: #717171;">around your brand</span></h2>
-        <div id="clGrid" class="ov-reveal" style="position: relative; width: 345px; max-width: 100%; height: 429px; margin: 14px auto 0; transition-delay: 0.1s;">
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:63px; top:31px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.000s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:12px; top:276px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.018s;"><picture><source type="image/avif" srcset="assets/img/brand-community-2.220w.d06534397f.avif"><source type="image/webp" srcset="assets/img/brand-community-2.220w.2ab04efbc3.webp"><img src="assets/img/brand-community-2.fallback.f34a2a3d6d.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:180px; top:14px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.036s;"><picture><source type="image/avif" srcset="assets/img/brand-community-3.220w.23daba42d3.avif"><source type="image/webp" srcset="assets/img/brand-community-3.220w.27a0ca0b9a.webp"><img src="assets/img/brand-community-3.fallback.5aa61063f3.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:220px; top:328px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.054s;"><picture><source type="image/avif" srcset="assets/img/brand-community-5.220w.e9afc8550d.avif"><source type="image/webp" srcset="assets/img/brand-community-5.220w.82cafff13e.webp"><img src="assets/img/brand-community-5.fallback.15b99682c0.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:229px; top:133px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.072s;"><picture><source type="image/avif" srcset="assets/img/brand-community-6.220w.214277e5f0.avif"><source type="image/webp" srcset="assets/img/brand-community-6.220w.0b3ee1002d.webp"><img src="assets/img/brand-community-6.fallback.fd85d055ad.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:116px; top:265px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.090s;"><picture><source type="image/avif" srcset="assets/img/brand-community-7.220w.54df43f733.avif"><source type="image/webp" srcset="assets/img/brand-community-7.220w.8c2c02c5d9.webp"><img src="assets/img/brand-community-7.fallback.a0d444e988.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:45px; top:159px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.108s;"><picture><source type="image/avif" srcset="assets/img/brand-community-8.220w.bd23769c93.avif"><source type="image/webp" srcset="assets/img/brand-community-8.220w.21ffe87c06.webp"><img src="assets/img/brand-community-8.fallback.71e513f6af.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:246px; top:230px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.126s;"><picture><source type="image/avif" srcset="assets/img/brand-community-9.220w.ea5bc29197.avif"><source type="image/webp" srcset="assets/img/brand-community-9.220w.0a6998c788.webp"><img src="assets/img/brand-community-9.fallback.6c5d2f0b65.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:130px; top:104px; width:90px; height:90px; z-index:90; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.144s;"><picture><source type="image/avif" srcset="assets/img/brand-community-10.220w.e8de7dabec.avif"><source type="image/webp" srcset="assets/img/brand-community-10.220w.383899d33b.webp"><img src="assets/img/brand-community-10.fallback.3d8b9f984c.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:80px; top:354px; width:74px; height:74px; z-index:74; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.162s;"><picture><source type="image/avif" srcset="assets/img/brand-community-11.220w.cc2f64bd17.avif"><source type="image/webp" srcset="assets/img/brand-community-11.220w.ecec2f9f6f.webp"><img src="assets/img/brand-community-11.fallback.493083bde9.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:278px; top:61px; width:66px; height:66px; z-index:66; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.180s;"><picture><source type="image/avif" srcset="assets/img/brand-community-12.220w.1bc8a5a137.avif"><source type="image/webp" srcset="assets/img/brand-community-12.220w.125fcf13a8.webp"><img src="assets/img/brand-community-12.fallback.f10343079e.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:169px; top:201px; width:66px; height:66px; z-index:66; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.198s;"><picture><source type="image/avif" srcset="assets/img/brand-community-13.220w.e81e088293.avif"><source type="image/webp" srcset="assets/img/brand-community-13.220w.1ca3d24bea.webp"><img src="assets/img/brand-community-13.fallback.4822259dc5.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:1px; top:93px; width:66px; height:66px; z-index:66; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-14.220w.d2b16c38bf.avif"><source type="image/webp" srcset="assets/img/brand-community-14.220w.473959323a.webp"><img src="assets/img/brand-community-14.fallback.0825fa9992.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:2px; top:1px; width:58px; height:58px; z-index:58; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.234s;"><picture><source type="image/avif" srcset="assets/img/brand-community-15.220w.eff011dfeb.avif"><source type="image/webp" srcset="assets/img/brand-community-15.220w.1bed651a6b.webp"><img src="assets/img/brand-community-15.fallback.e1dde984cc.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:163px; top:371px; width:52px; height:52px; z-index:52; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.252s;"><picture><source type="image/avif" srcset="assets/img/brand-community-16.220w.fe04b40456.avif"><source type="image/webp" srcset="assets/img/brand-community-16.220w.814eb8cb3b.webp"><img src="assets/img/brand-community-16.fallback.f5ada54d77.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:11px; top:375px; width:52px; height:52px; z-index:52; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.270s;"><picture><source type="image/avif" srcset="assets/img/brand-community-17.220w.235be80e14.avif"><source type="image/webp" srcset="assets/img/brand-community-17.220w.d629bdbc9d.webp"><img src="assets/img/brand-community-17.fallback.7c738f3d9a.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:290px; top:0px; width:52px; height:52px; z-index:52; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.288s;"><picture><source type="image/avif" srcset="assets/img/brand-community-18.220w.e2bf69142b.avif"><source type="image/webp" srcset="assets/img/brand-community-18.220w.78f9aeeea4.webp"><img src="assets/img/brand-community-18.fallback.268477603a.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:1px; top:223px; width:46px; height:46px; z-index:46; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.306s;"><picture><source type="image/avif" srcset="assets/img/brand-community-19.220w.c40d36191a.avif"><source type="image/webp" srcset="assets/img/brand-community-19.220w.5f2a735e6b.webp"><img src="assets/img/brand-community-19.fallback.3b531ff86a.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-          <div class="cl-tile" data-cl="c" style="position:absolute; left:141px; top:2px; width:40px; height:40px; z-index:40; border-radius:999px; overflow:hidden; filter:none; transition-delay:0.324s;"><picture><source type="image/avif" srcset="assets/img/brand-community-20.220w.4c61354fc9.avif"><source type="image/webp" srcset="assets/img/brand-community-20.220w.d4c27c5975.webp"><img src="assets/img/brand-community-20.fallback.f79128d8d8.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 12px; background: #F6F6F6; overflow: hidden;">
+        <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
+             see the 768px block below); the title sits in a reserved top band
+             and #clGrid fills the lower part right down to the card's bottom
+             edge. The two bubble sets (.clMob / .clDesk) are real gravity-jammed
+             circle packings: every circle rests tangent to a neighbour (no
+             overlaps), the bottom row touches the card's bottom edge, and a few
+             circles bleed past the left/right edges to crop on the rounded
+             corner (overflow:hidden). Coordinates are % of #clGrid's box, so the
+             pack scales cleanly with the card. -->
+        <div id="clBox" class="ov-reveal" style="position: relative; width: 100%; aspect-ratio: 1000 / 1513; border-radius: clamp(24px, 6vw, 40px); background: #141414; overflow: hidden;">
+          <div id="clTitle" style="position: absolute; top: 0; left: 0; right: 0; height: 26%; display: flex; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; z-index: 200; pointer-events: none;">
+            <h2 style="margin: 0; font-weight: 600; font-size: clamp(26px, 5.4vw, 34px); line-height: 1.16; letter-spacing: -0.02em; color: #FFFFFF; text-align: center; text-wrap: balance;">Your community<br>is your <span class="clBrandWord" style="display: none;">brand&rsquo;s </span>vibe</h2>
+          </div>
+          <div id="clGrid" style="position: absolute; top: 26%; left: 0; right: 0; bottom: 0;">
+            <div class="cl-tile clMob" style="position:absolute; left:-7.000%; top:14.909%; width:34.000%; aspect-ratio:1/1; z-index:1; border-radius:999px; overflow:hidden; transition-delay:0.000s;"><picture><source type="image/avif" srcset="assets/img/brand-community-6.220w.214277e5f0.avif"><source type="image/webp" srcset="assets/img/brand-community-6.220w.0b3ee1002d.webp"><img src="assets/img/brand-community-6.fallback.fd85d055ad.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:73.000%; top:15.775%; width:34.000%; aspect-ratio:1/1; z-index:2; border-radius:999px; overflow:hidden; transition-delay:0.018s;"><picture><source type="image/avif" srcset="assets/img/brand-community-14.220w.d2b16c38bf.avif"><source type="image/webp" srcset="assets/img/brand-community-14.220w.473959323a.webp"><img src="assets/img/brand-community-14.fallback.0825fa9992.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:26.915%; top:21.364%; width:15.434%; aspect-ratio:1/1; z-index:3; border-radius:999px; overflow:hidden; transition-delay:0.036s;"><picture><source type="image/avif" srcset="assets/img/brand-community-2.220w.d06534397f.avif"><source type="image/webp" srcset="assets/img/brand-community-2.220w.2ab04efbc3.webp"><img src="assets/img/brand-community-2.fallback.f34a2a3d6d.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:39.889%; top:22.673%; width:34.000%; aspect-ratio:1/1; z-index:4; border-radius:999px; overflow:hidden; transition-delay:0.054s;"><picture><source type="image/avif" srcset="assets/img/brand-community-5.220w.e9afc8550d.avif"><source type="image/webp" srcset="assets/img/brand-community-5.220w.82cafff13e.webp"><img src="assets/img/brand-community-5.fallback.15b99682c0.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:19.296%; top:39.255%; width:15.238%; aspect-ratio:1/1; z-index:5; border-radius:999px; overflow:hidden; transition-delay:0.072s;"><picture><source type="image/avif" srcset="assets/img/brand-community-19.220w.c40d36191a.avif"><source type="image/webp" srcset="assets/img/brand-community-19.220w.5f2a735e6b.webp"><img src="assets/img/brand-community-19.fallback.3b531ff86a.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:79.966%; top:47.857%; width:27.034%; aspect-ratio:1/1; z-index:6; border-radius:999px; overflow:hidden; transition-delay:0.090s;"><picture><source type="image/avif" srcset="assets/img/brand-community-12.220w.1bc8a5a137.avif"><source type="image/webp" srcset="assets/img/brand-community-12.220w.125fcf13a8.webp"><img src="assets/img/brand-community-12.fallback.f10343079e.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:26.407%; top:48.700%; width:27.743%; aspect-ratio:1/1; z-index:7; border-radius:999px; overflow:hidden; transition-delay:0.108s;"><picture><source type="image/avif" srcset="assets/img/brand-community-16.220w.fe04b40456.avif"><source type="image/webp" srcset="assets/img/brand-community-16.220w.814eb8cb3b.webp"><img src="assets/img/brand-community-16.fallback.f5ada54d77.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:60.682%; top:50.464%; width:19.304%; aspect-ratio:1/1; z-index:8; border-radius:999px; overflow:hidden; transition-delay:0.126s;"><picture><source type="image/avif" srcset="assets/img/brand-community-18.220w.e2bf69142b.avif"><source type="image/webp" srcset="assets/img/brand-community-18.220w.78f9aeeea4.webp"><img src="assets/img/brand-community-18.fallback.268477603a.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:-4.653%; top:50.622%; width:31.325%; aspect-ratio:1/1; z-index:9; border-radius:999px; overflow:hidden; transition-delay:0.144s;"><picture><source type="image/avif" srcset="assets/img/brand-community-8.220w.bd23769c93.avif"><source type="image/webp" srcset="assets/img/brand-community-8.220w.21ffe87c06.webp"><img src="assets/img/brand-community-8.fallback.71e513f6af.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:45.031%; top:66.070%; width:31.664%; aspect-ratio:1/1; z-index:10; border-radius:999px; overflow:hidden; transition-delay:0.162s;"><picture><source type="image/avif" srcset="assets/img/brand-community-4.220w.1f1da68f17.avif"><source type="image/webp" srcset="assets/img/brand-community-4.220w.8147c11c0d.webp"><img src="assets/img/brand-community-4.fallback.4babed9137.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:16.788%; top:72.137%; width:28.716%; aspect-ratio:1/1; z-index:11; border-radius:999px; overflow:hidden; transition-delay:0.180s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:75.980%; top:72.303%; width:31.020%; aspect-ratio:1/1; z-index:12; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><picture><source type="image/avif" srcset="assets/img/brand-community-20.220w.4c61354fc9.avif"><source type="image/webp" srcset="assets/img/brand-community-20.220w.d4c27c5975.webp"><img src="assets/img/brand-community-20.fallback.f79128d8d8.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:-7.000%; top:78.379%; width:24.216%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-13.220w.e81e088293.avif"><source type="image/webp" srcset="assets/img/brand-community-13.220w.1ca3d24bea.webp"><img src="assets/img/brand-community-13.fallback.4822259dc5.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+
+            <div class="cl-tile clDesk" style="position:absolute; left:38.775%; top:2.525%; width:20.816%; aspect-ratio:1/1; z-index:1; border-radius:999px; overflow:hidden; transition-delay:0.000s;"><picture><source type="image/avif" srcset="assets/img/brand-community-16.220w.fe04b40456.avif"><source type="image/webp" srcset="assets/img/brand-community-16.220w.814eb8cb3b.webp"><img src="assets/img/brand-community-16.fallback.f5ada54d77.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:-5.000%; top:5.045%; width:16.567%; aspect-ratio:1/1; z-index:2; border-radius:999px; overflow:hidden; transition-delay:0.018s;"><picture><source type="image/avif" srcset="assets/img/brand-community-12.220w.1bc8a5a137.avif"><source type="image/webp" srcset="assets/img/brand-community-12.220w.125fcf13a8.webp"><img src="assets/img/brand-community-12.fallback.f10343079e.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:89.495%; top:9.335%; width:15.505%; aspect-ratio:1/1; z-index:3; border-radius:999px; overflow:hidden; transition-delay:0.036s;"><picture><source type="image/avif" srcset="assets/img/brand-community-17.220w.235be80e14.avif"><source type="image/webp" srcset="assets/img/brand-community-17.220w.d629bdbc9d.webp"><img src="assets/img/brand-community-17.fallback.7c738f3d9a.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:10.489%; top:20.744%; width:15.823%; aspect-ratio:1/1; z-index:4; border-radius:999px; overflow:hidden; transition-delay:0.054s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:67.184%; top:23.418%; width:20.069%; aspect-ratio:1/1; z-index:5; border-radius:999px; overflow:hidden; transition-delay:0.072s;"><picture><source type="image/avif" srcset="assets/img/brand-community-20.220w.4c61354fc9.avif"><source type="image/webp" srcset="assets/img/brand-community-20.220w.d4c27c5975.webp"><img src="assets/img/brand-community-20.fallback.f79128d8d8.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:26.310%; top:23.553%; width:13.046%; aspect-ratio:1/1; z-index:6; border-radius:999px; overflow:hidden; transition-delay:0.090s;"><picture><source type="image/avif" srcset="assets/img/brand-community-10.220w.e8de7dabec.avif"><source type="image/webp" srcset="assets/img/brand-community-10.220w.383899d33b.webp"><img src="assets/img/brand-community-10.fallback.3d8b9f984c.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:58.945%; top:28.906%; width:8.680%; aspect-ratio:1/1; z-index:7; border-radius:999px; overflow:hidden; transition-delay:0.108s;"><picture><source type="image/avif" srcset="assets/img/brand-community-8.220w.bd23769c93.avif"><source type="image/webp" srcset="assets/img/brand-community-8.220w.21ffe87c06.webp"><img src="assets/img/brand-community-8.fallback.71e513f6af.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:-5.000%; top:47.174%; width:20.800%; aspect-ratio:1/1; z-index:8; border-radius:999px; overflow:hidden; transition-delay:0.126s;"><picture><source type="image/avif" srcset="assets/img/brand-community-13.220w.e81e088293.avif"><source type="image/webp" srcset="assets/img/brand-community-13.220w.1ca3d24bea.webp"><img src="assets/img/brand-community-13.fallback.4822259dc5.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:84.641%; top:48.294%; width:20.359%; aspect-ratio:1/1; z-index:9; border-radius:999px; overflow:hidden; transition-delay:0.144s;"><picture><source type="image/avif" srcset="assets/img/brand-community-14.220w.d2b16c38bf.avif"><source type="image/webp" srcset="assets/img/brand-community-14.220w.473959323a.webp"><img src="assets/img/brand-community-14.fallback.0825fa9992.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:50.330%; top:50.066%; width:19.662%; aspect-ratio:1/1; z-index:10; border-radius:999px; overflow:hidden; transition-delay:0.162s;"><picture><source type="image/avif" srcset="assets/img/brand-community-11.220w.cc2f64bd17.avif"><source type="image/webp" srcset="assets/img/brand-community-11.220w.ecec2f9f6f.webp"><img src="assets/img/brand-community-11.fallback.493083bde9.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:31.188%; top:51.383%; width:19.143%; aspect-ratio:1/1; z-index:11; border-radius:999px; overflow:hidden; transition-delay:0.180s;"><picture><source type="image/avif" srcset="assets/img/brand-community-2.220w.d06534397f.avif"><source type="image/webp" srcset="assets/img/brand-community-2.220w.2ab04efbc3.webp"><img src="assets/img/brand-community-2.fallback.f34a2a3d6d.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:15.617%; top:60.266%; width:15.645%; aspect-ratio:1/1; z-index:12; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><picture><source type="image/avif" srcset="assets/img/brand-community-18.220w.e2bf69142b.avif"><source type="image/webp" srcset="assets/img/brand-community-18.220w.78f9aeeea4.webp"><img src="assets/img/brand-community-18.fallback.268477603a.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:70.019%; top:76.097%; width:9.412%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-15.220w.eff011dfeb.avif"><source type="image/webp" srcset="assets/img/brand-community-15.220w.1bed651a6b.webp"><img src="assets/img/brand-community-15.fallback.e1dde984cc.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+          </div>
         </div>
         <p class="ov-reveal" style="margin: 20px auto 0; max-width: 30ch; font-size: 14px; font-weight: 500; line-height: 1.55; color: #717171; text-align: center; text-wrap: pretty; transition-delay: 0.5s;">Turn the people who already love you into the ones who tell everyone else. Real faces, real feeds, real reach.</p>
       </section>
@@ -1120,11 +1144,150 @@
       var popped=false;
       function popCascade(){
         if(popped) return; popped=true;
-        byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*22); });
+        // 55ms per tile stagger — with ~15 tiles this gives a ~800ms cascade,
+        // long enough to read as an entrance animation rather than a flash.
+        byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*55); });
+        // 2s after the cascade finishes, a fresh 40px pebble emerges from an
+        // intersection near the middle of the cluster and pushes its
+        // neighbours out of the way. Time-based physics, not stop-motion —
+        // the emergence and the neighbour displacements run in the same rAF
+        // loop with continuous separation, so the movement reads as one
+        // smooth, elastic ripple through the pack.
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(reduce) return;
+        var cascadeMs = byTop.length*55 + 680; // last tile + one full transition
+        setTimeout(function(){ pebbleEmerge(); }, cascadeMs + 2000);
+      }
+
+      // Pool of image sources authored on existing tiles — the emerging pebble
+      // reuses one so it matches the rest of the pack visually.
+      function pickImageHTML(){
+        var used=[].slice.call(grid.querySelectorAll('.cl-tile picture'));
+        if(!used.length) return '';
+        return used[Math.floor(Math.random()*used.length)].outerHTML;
+      }
+
+      function pebbleEmerge(){
+        // Only the currently-visible layout participates in the physics; the
+        // other (display:none) breakpoint's tiles have zero box dimensions.
+        var tiles=[].slice.call(grid.querySelectorAll('.cl-tile')).filter(function(el){
+          return el.offsetWidth > 0;
+        });
+        if(!tiles.length) return;
+        var gr=grid.getBoundingClientRect();
+        var W=gr.width, H=gr.height;
+        if(W<10||H<10) return;
+
+        var bodies=tiles.map(function(el){
+          var r=el.getBoundingClientRect();
+          var cx=r.left+r.width/2-gr.left, cy=r.top+r.height/2-gr.top;
+          return { el:el, x0:cx, y0:cy, x:cx, y:cy, r:r.width/2, spawn:false };
+        });
+
+        // Find a spawn point near the vertical middle that sits at a natural
+        // crevice — the point where the K nearest circles are closest to
+        // being tangent to a small disk placed there. We score candidates by
+        // how many existing circles would be lightly displaced (many is
+        // good — that reads as "emerging from an intersection") and penalise
+        // sitting deep inside any single circle (which would just shove one
+        // neighbour instead of parting several).
+        var TARGET_R=20; // 40px pebble
+        var best={x:W*0.5,y:H*0.6,score:-Infinity};
+        for(var sx=W*0.25; sx<=W*0.75; sx+=W*0.03){
+          for(var sy=H*0.30; sy<=H*0.75; sy+=H*0.04){
+            var deepest=-Infinity, contacts=0, sumOv=0;
+            for(var i=0;i<bodies.length;i++){
+              var b=bodies[i];
+              var d=Math.hypot(sx-b.x,sy-b.y);
+              var into=b.r - d;                    // >0 means inside body i
+              if(into>deepest) deepest=into;
+              var overlap=(b.r+TARGET_R)-d;        // overlap when spawn is inserted
+              if(overlap>0){ contacts++; sumOv+=overlap; }
+            }
+            var score = contacts*8 - sumOv*0.25 - Math.max(0,deepest)*4;
+            if(score>best.score) best={x:sx,y:sy,score:score};
+          }
+        }
+
+        // Insert the pebble as a real DOM tile so it participates in the
+        // wobble animation once physics settles.
+        var pebble=document.createElement('div');
+        pebble.className='cl-tile cl-pebble pop';
+        pebble.innerHTML=pickImageHTML();
+        pebble.style.cssText='position:absolute; left:0; top:0; width:'+(TARGET_R*2)+'px; height:'+(TARGET_R*2)+'px; border-radius:999px; overflow:hidden; z-index:120; opacity:0; transition:none; transform: translate('+(best.x-TARGET_R)+'px, '+(best.y-TARGET_R)+'px) scale(0); transform-origin: center center;';
+        grid.appendChild(pebble);
+        // Force reflow so the transition below is honored on the opacity fade.
+        void pebble.offsetWidth;
+        pebble.style.transition='opacity 0.24s ease-out';
+        pebble.style.opacity='1';
+
+        var spawnBody={ el:pebble, x0:best.x, y0:best.y, x:best.x, y:best.y, r:0.0001, spawn:true, target:TARGET_R };
+        bodies.push(spawnBody);
+
+        // Clear any leftover CSS transition on displaced tiles — this loop
+        // drives their transforms directly every frame, and a CSS transition
+        // would fight rAF for who owns the value.
+        bodies.forEach(function(b){ if(!b.spawn){ b.el.style.transition='transform 0s'; } });
+
+        var t0=performance.now();
+        var GROW_MS=680;   // 0 -> 40px over ~0.7s
+        var SETTLE_MS=1200;// physics keeps easing beyond growth to remove residual overlap
+        function easeOut(t){ return 1 - Math.pow(1-t, 3); }
+
+        function frame(now){
+          var t=now-t0;
+          // Grow the spawn (ease-out for a natural "pop" feel).
+          var g=Math.min(1,t/GROW_MS);
+          spawnBody.r = easeOut(g) * spawnBody.target;
+
+          // Separation: several passes per frame so the ripple propagates
+          // quickly enough to keep up with the pebble's growth rate.
+          for(var pass=0; pass<4; pass++){
+            for(var i=0;i<bodies.length;i++){
+              for(var j=i+1;j<bodies.length;j++){
+                var a=bodies[i], b=bodies[j];
+                var dx=b.x-a.x, dy=b.y-a.y;
+                var d=Math.hypot(dx,dy)||0.0001;
+                var minD=a.r+b.r;
+                if(d<minD){
+                  var push=(minD-d), nx=dx/d, ny=dy/d;
+                  // The spawn stays put — its whole point is to emerge from
+                  // its chosen crevice, so displaced neighbours take the
+                  // whole push (any drift away from centre would look wrong).
+                  if(a.spawn){ b.x+=nx*push; b.y+=ny*push; }
+                  else if(b.spawn){ a.x-=nx*push; a.y-=ny*push; }
+                  else { a.x-=nx*push*0.5; a.y-=ny*push*0.5; b.x+=nx*push*0.5; b.y+=ny*push*0.5; }
+                }
+              }
+            }
+            // Keep every displaced circle inside the vertical bounds; sides
+            // are open (they can crop on the box edge just like the pack).
+            for(var k=0;k<bodies.length;k++){
+              var c=bodies[k]; if(c.spawn) continue;
+              if(c.y+c.r>H) c.y = H-c.r;
+              if(c.y-c.r<0) c.y =   c.r;
+            }
+          }
+
+          // Commit transforms.
+          for(var m=0;m<bodies.length;m++){
+            var bd=bodies[m];
+            if(bd.spawn){
+              var sc = bd.r / bd.target;
+              bd.el.style.transform='translate('+(bd.x-bd.target)+'px, '+(bd.y-bd.target)+'px) scale('+sc.toFixed(3)+')';
+            } else {
+              var ddx = bd.x - bd.x0, ddy = bd.y - bd.y0;
+              bd.el.style.transform='translate('+ddx.toFixed(2)+'px, '+ddy.toFixed(2)+'px)';
+            }
+          }
+
+          if(t < GROW_MS + SETTLE_MS){ requestAnimationFrame(frame); }
+        }
+        requestAnimationFrame(frame);
       }
       var popIO=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
-      },{ root: overlay, threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+      },{ root: overlay, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
       popIO.observe(grid);
     };
 
@@ -1580,12 +1743,18 @@
   #agreeScreen section[data-screen-label="Community"] { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
   #agreeScreen section[data-screen-label="Community"] h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 22ch !important; }
   #agreeScreen section[data-screen-label="Community"] > p.ov-reveal { max-width: 46ch !important; font-size: 17px !important; margin-top: 34px !important; }
-  /* Blow the photo cluster up to make real use of the desktop width. `zoom`
-     scales the whole grid uniformly — circles, positions AND the JS morph
-     offsets (which are authored in px against the 345px layout) — so the
-     rearrange/wobble/pop animations are preserved exactly, just larger. It
-     also reserves layout space (unlike transform), so nothing overlaps. */
-  #clGrid { zoom: 2; }
+  /* Full headline reads "...is your brand's vibe" once there's room for it;
+     the mobile card keeps the shorter "...is your vibe". */
+  .clBrandWord { display: inline !important; }
+  /* Desktop card is a true 16:9; the title band takes the top 30% and #clGrid
+     fills the lower 70% (so its box is exactly the 1000:394 ratio the desktop
+     pack was generated for). Swap the tall mobile set for the wide desktop one. */
+  #clBox { aspect-ratio: 16 / 9 !important; border-radius: clamp(32px, 3vw, 48px) !important; }
+  #clTitle { height: 30% !important; }
+  #clTitle h2 { font-size: clamp(34px, 3.6vw, 46px) !important; }
+  #clGrid { top: 30% !important; }
+  .clMob { display: none !important; }
+  .clDesk { display: block !important; }
 
   /* How to start */
   #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
@@ -1618,11 +1787,6 @@
   #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
 }
 
-/* On wide monitors the section content caps at 1024px, so push the community
-   cluster a little larger to fill that fixed width (keeps ~side breathing room). */
-@media (min-width: 1200px) {
-  #clGrid { zoom: 2.4; }
-}
 </style>
 
 </body></html>
