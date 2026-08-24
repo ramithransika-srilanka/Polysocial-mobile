@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get early access — Polysocial</title>
+<meta name="description" content="Get early access to the Polysocial platform and create curated creator campaigns. Fill out your brand details and we will contact you based on the priority list.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #111111;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100svh;
+  }
+  a { text-decoration: none; }
+
+  /* ---- Top-left "Back to site" link (scrolls with the page) ---- */
+  .ra-home {
+    position: absolute; top: 26px; left: 24px; z-index: 20;
+    display: inline-flex; align-items: center; gap: 7px;
+    color: #111111; font-weight: 600; font-size: 14px; line-height: 1; letter-spacing: -0.01em;
+    transition: opacity 0.15s ease;
+  }
+  .ra-home:hover { opacity: 0.6; }
+  .ra-home svg { display: block; width: 16px; height: 16px; flex: none; }
+
+  /* ---- Page shell (viewport only, no scroll) ---- */
+  .ra-page {
+    min-height: 100svh;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 98px 22px 40px;
+  }
+  .ra-shell {
+    width: 100%; max-width: 460px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* ---- Brand wordmark ---- */
+  .ra-brand { margin-bottom: 11px; }
+  .ra-brand img { display: block; height: 24px; width: auto; filter: brightness(0); }
+
+  /* ---- Intro copy ---- */
+  .ra-intro { text-align: center; max-width: 420px; margin-bottom: 15px; }
+  .ra-intro h1 {
+    margin: 0 0 10px; font-weight: 700;
+    font-size: 14px; line-height: 1.35; letter-spacing: -0.01em;
+    color: #111111;
+  }
+  .ra-intro p {
+    margin: 0; font-weight: 500;
+    font-size: 14px; line-height: 1.35; letter-spacing: -0.01em;
+    color: #111111;
+  }
+
+  /* ---- Form ---- */
+  .ra-form { width: 100%; display: flex; flex-direction: column; gap: 9px; }
+  .ra-input {
+    width: 100%; border: none; outline: none;
+    background: #E4E4E4; color: #111111;
+    font-family: inherit; font-weight: 500; font-size: 14px; line-height: 1.3;
+    border-radius: 14px; padding: 15px 20px;
+    transition: box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .ra-input::placeholder { color: #8A8A8A; }
+  .ra-input:focus { background: #DCDCDC; box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
+  textarea.ra-input { resize: none; height: 70px; }
+
+  .ra-note {
+    margin: 5px 4px 0; font-style: italic; font-weight: 400;
+    font-size: 12px; line-height: 1.32; color: #9A9A9A; max-width: 440px;
+  }
+
+  .ra-submit {
+    margin-top: 10px; width: 100%; border: none; cursor: pointer;
+    background: #1B3EF5; color: #FFFFFF;
+    font-family: inherit; font-weight: 600; font-size: 16px; line-height: 1;
+    border-radius: 100px; padding: 16px 24px;
+    transition: transform 0.16s ease-out, background 0.16s ease-out;
+  }
+  .ra-submit:hover { background: #2b4dff; }
+  .ra-submit:active { transform: scale(0.98); }
+  .ra-submit:disabled { background: #AEB4CC; box-shadow: none; cursor: not-allowed; transform: none; }
+  .ra-submit:disabled:hover { background: #AEB4CC; }
+
+  .ra-input.invalid { box-shadow: 0 0 0 2px rgba(240,40,30,0.55); }
+
+  /* ---- Submitted overlay ---- */
+  .ra-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background: rgba(10,10,10,0.55);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
+    opacity: 0; transition: opacity 0.28s ease;
+  }
+  .ra-overlay[hidden] { display: none; }
+  .ra-overlay.show { opacity: 1; }
+  .ra-modal {
+    width: 100%; max-width: 440px;
+    background: #F2F2F3; border-radius: 28px;
+    padding: 44px 36px 34px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+    transform: translateY(10px) scale(0.98); transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ra-overlay.show .ra-modal { transform: none; }
+  .ra-check { line-height: 0; }
+  .ra-check svg { display: block; }
+  .ra-modal__msg { margin: 22px 0 26px; font-weight: 500; font-size: 20px; line-height: 1.35; color: #111111; }
+  .ra-modal__btn {
+    display: block; width: 100%;
+    background: #141414; color: #FFFFFF;
+    font-weight: 600; font-size: 18px; line-height: 1;
+    border-radius: 100px; padding: 19px 24px;
+    transition: transform 0.16s ease-out, background 0.16s ease-out;
+  }
+  .ra-modal__btn:hover { background: #2a2a2a; }
+  .ra-modal__btn:active { transform: scale(0.98); }
+
+  /* ---- Priority list ---- */
+  .ra-priority { width: 100%; margin-top: 20px; }
+  .ra-priority h2 { margin: 0 0 12px; font-weight: 700; font-size: 14px; line-height: 1.3; color: #111111; }
+  .ra-tier { margin-bottom: 10px; }
+  .ra-tier:last-child { margin-bottom: 0; }
+  .ra-tier .t { margin: 0 0 1px; font-weight: 700; font-size: 12px; line-height: 1.4; color: #111111; }
+  .ra-tier .d { margin: 0; font-weight: 400; font-size: 12px; line-height: 1.4; color: #222222; }
+
+  /* ---- Desktop: single stacked column, sizes scaled up ---- */
+  @media (min-width: 860px) {
+    .ra-home { top: 30px; left: 40px; font-size: 15px; }
+    .ra-home svg { width: 17px; height: 17px; }
+    .ra-page { padding: 104px 40px 56px; align-items: flex-start; }
+    .ra-shell { max-width: 560px; }
+
+    .ra-brand { margin-bottom: 14px; }
+    .ra-brand img { height: 30px; }
+    .ra-intro { max-width: 520px; margin-bottom: 26px; }
+    .ra-intro h1 { font-size: 18px; margin-bottom: 12px; line-height: 1.3; }
+    .ra-intro p { font-size: 16px; line-height: 1.35; }
+
+    .ra-form { gap: 14px; }
+    .ra-input { font-size: 16px; padding: 17px 22px; border-radius: 16px; }
+    textarea.ra-input { height: 88px; }
+    .ra-note { font-size: 13px; }
+    .ra-submit { font-size: 18px; padding: 19px 24px; }
+
+    .ra-priority { margin-top: 28px; }
+    .ra-priority h2 { font-size: 18px; margin-bottom: 16px; }
+    .ra-priority .t { font-size: 14px; margin-bottom: 2px; }
+    .ra-priority .d { font-size: 14px; }
+    .ra-tier { margin-bottom: 16px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top-left "Back to site" link -->
+  <a class="ra-home" href="brands.html">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M15 5l-7 7 7 7" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span>Back to site</span>
+  </a>
+
+  <main class="ra-page">
+    <div class="ra-shell">
+
+      <!-- Brand wordmark -->
+      <div class="ra-brand">
+        <img src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" decoding="async">
+      </div>
+
+      <!-- Intro copy -->
+      <div class="ra-intro">
+        <h1>Get early access to the Polysocial platform and create curated creator campaigns.</h1>
+        <p>Fill out your details and we will contact you based on the priority list.</p>
+      </div>
+
+      <!-- Form -->
+      <form class="ra-form" novalidate>
+        <input class="ra-input" type="text" name="contact" placeholder="Contact person name" autocomplete="name" maxlength="80">
+        <input class="ra-input" type="email" name="email" placeholder="Your business email address" autocomplete="email" inputmode="email" maxlength="120">
+        <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" inputmode="tel" maxlength="20">
+        <input class="ra-input" type="url" name="website" placeholder="Brand website" autocomplete="url" inputmode="url" maxlength="200">
+        <button class="ra-submit" type="submit" disabled>Request</button>
+      </form>
+
+
+      <!-- Priority list -->
+      <section class="ra-priority">
+        <h2>This is how we prioritize your request.</h2>
+        <div class="ra-tier">
+          <p class="t">Top priority</p>
+          <p class="d">First come, first served for brands who submit all details with care.</p>
+        </div>
+        <div class="ra-tier">
+          <p class="t">Second priority</p>
+          <p class="d">First come, first served for brands who submit contact person and contact details with care.</p>
+        </div>
+        <div class="ra-tier">
+          <p class="t">Third priority</p>
+          <p class="d">First come, first served for brands who submit contact person only.</p>
+        </div>
+        <div class="ra-tier">
+          <p class="t">At last</p>
+          <p class="d">Other submissions.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Submitted confirmation overlay -->
+  <div class="ra-overlay" id="raOverlay" role="dialog" aria-modal="true" aria-labelledby="raMsg" hidden>
+    <div class="ra-modal">
+      <div class="ra-check" aria-hidden="true">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="32.5" stroke="#35B22E" stroke-width="3"></circle>
+          <path d="M23.5 37.5L32 46L49 27.5" stroke="#35B22E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <p class="ra-modal__msg" id="raMsg">Your request has been submitted.<br>We&rsquo;ll get in touch soon.</p>
+      <a class="ra-modal__btn" href="brands.html">Back to home</a>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var form  = document.querySelector('.ra-form');
+    if (!form) return;
+    var btn   = form.querySelector('.ra-submit');
+    var email = form.querySelector('input[name="email"]');
+    var phone = form.querySelector('input[name="phone"]');
+    var fields = form.querySelectorAll('.ra-input');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Contact number: keep digits and common phone characters only.
+    phone.addEventListener('input', function () {
+      var cleaned = phone.value.replace(/[^0-9+()\s-]/g, '');
+      if (cleaned !== phone.value) {
+        var pos = phone.selectionStart - (phone.value.length - cleaned.length);
+        phone.value = cleaned;
+        try { phone.setSelectionRange(pos, pos); } catch (e) {}
+      }
+    });
+
+    function anyFilled() {
+      for (var i = 0; i < fields.length; i++) {
+        if (fields[i].value.trim() !== '') return true;
+      }
+      return false;
+    }
+    function emailValid() {
+      var v = email.value.trim();
+      return v === '' || emailRe.test(v);
+    }
+    function update() {
+      var ok = emailValid();
+      email.classList.toggle('invalid', !ok);
+      btn.disabled = !(anyFilled() && ok);
+    }
+    for (var i = 0; i < fields.length; i++) {
+      fields[i].addEventListener('input', update);
+      fields[i].addEventListener('blur', update);
+    }
+    update();
+
+    var contact = form.querySelector('input[name="contact"]');
+    var website = form.querySelector('input[name="website"]');
+    var overlay = document.getElementById('raOverlay');
+    var RECIPIENT = 'polysocialeconomy@gmail.com';
+
+    function showOverlay() {
+      if (!overlay) return;
+      overlay.hidden = false;
+      // next frame so the transition runs
+      requestAnimationFrame(function () { overlay.classList.add('show'); });
+      document.body.style.overflow = 'hidden';
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!anyFilled()) { update(); return; }
+      if (!emailValid()) { email.classList.add('invalid'); email.focus(); return; }
+
+      var c = contact.value.trim(), em = email.value.trim(),
+          ph = phone.value.trim(), we = website.value.trim();
+      var subject = 'Brand early access request — ' + (c || em || ph || 'brand');
+      var body =
+        'Contact person name: ' + (c || '-') +
+        '\nBusiness email: ' + (em || '-') +
+        '\nContact number: ' + (ph || '-') +
+        '\nBrand website: ' + (we || '-');
+      window.location.href = 'mailto:' + RECIPIENT +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+
+      showOverlay();
+    });
+  })();
+  </script>
+
+</body></html>
