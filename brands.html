@@ -547,48 +547,57 @@
 
       <!-- 2. Community -->
       <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 12px; background: #F6F6F6; overflow: hidden;">
-        <div id="clBox" class="ov-reveal" style="position: relative; width: 100%; border-radius: clamp(24px, 6vw, 40px); background: #141414; overflow: hidden; padding: clamp(36px, 9vw, 56px) 0 clamp(24px, 6vw, 36px);">
-          <h2 style="margin: 0 auto; padding: 0 28px; box-sizing: border-box; max-width: 100%; font-weight: 600; font-size: clamp(26px, 5vw, 30px); line-height: 1.18; letter-spacing: -0.02em; color: #FFFFFF; text-align: center; text-wrap: balance;">Your community<br>is your <span class="clBrandWord" style="display: none;">brand&rsquo;s </span>vibe</h2>
-          <!-- Bubble cluster: two hand-packed layouts share #clGrid — .clMob
-               (tall 345:400 card, matches the 12px-inset mobile mock) and
-               .clDesk (wide 1000:620 card, matches the desktop mock), swapped
-               by the existing 768px breakpoint below. Every offset is a
-               percentage of its own set's canvas, so each scales cleanly with
-               its card. Circles touch, and the two portrait tiles overlap
-               (hardhat over the yellow tile); a few dots bleed past 0%/100%
-               left/right to crop on #clBox's rounded edge (overflow:hidden).
-               The margin-top gap under the title and #clBox's bottom padding
-               keep every circle clear of the heading and the bottom edge. -->
-          <div id="clGrid" class="ov-reveal" style="position: relative; width: 100%; aspect-ratio: 345 / 400; margin-top: clamp(20px, 6vw, 32px); transition-delay: 0.1s;">
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:4.35%; top:2.5%; width:31.88%; aspect-ratio:1/1; z-index:1; border-radius:999px; background:#D9D9D9; transition-delay:0.000s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:46.38%; top:1.25%; width:28.99%; aspect-ratio:1/1; z-index:2; border-radius:999px; background:#D9D9D9; transition-delay:0.018s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:85.51%; top:6.25%; width:26.09%; aspect-ratio:1/1; z-index:3; border-radius:999px; background:#D9D9D9; transition-delay:0.036s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:-11.59%; top:35%; width:23.19%; aspect-ratio:1/1; z-index:4; border-radius:999px; background:#D9D9D9; transition-delay:0.054s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:31.88%; top:27.5%; width:17.39%; aspect-ratio:1/1; z-index:5; border-radius:999px; background:#D9D9D9; transition-delay:0.072s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:72%; top:32.5%; width:34.78%; aspect-ratio:1/1; z-index:6; border-radius:999px; background:#D9D9D9; transition-delay:0.090s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:53.62%; top:46.25%; width:14.49%; aspect-ratio:1/1; z-index:7; border-radius:999px; background:#D9D9D9; transition-delay:0.108s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:7.25%; top:56.25%; width:20.29%; aspect-ratio:1/1; z-index:8; border-radius:999px; background:#D9D9D9; transition-delay:0.126s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:37.10%; top:57%; width:12.75%; aspect-ratio:1/1; z-index:9; border-radius:999px; background:#D9D9D9; transition-delay:0.144s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:71.59%; top:66.75%; width:13.33%; aspect-ratio:1/1; z-index:10; border-radius:999px; background:#D9D9D9; transition-delay:0.162s;"></div>
-            <div class="cl-tile cl-dot clMob" style="position:absolute; left:-6%; top:74%; width:13.91%; aspect-ratio:1/1; z-index:11; border-radius:999px; background:#D9D9D9; transition-delay:0.180s;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:17.39%; top:68%; width:28.99%; aspect-ratio:1/1; z-index:12; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-            <div class="cl-tile clMob" style="position:absolute; left:81.16%; top:73.75%; width:23.19%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-9.220w.ea5bc29197.avif"><source type="image/webp" srcset="assets/img/brand-community-9.220w.0a6998c788.webp"><img src="assets/img/brand-community-9.fallback.6c5d2f0b65.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-            <div class="cl-tile clMob" style="position:absolute; left:37.68%; top:64%; width:35.94%; aspect-ratio:1/1; z-index:14; border-radius:999px; overflow:hidden; transition-delay:0.234s;"><picture><source type="image/avif" srcset="assets/img/brand-community-6.220w.214277e5f0.avif"><source type="image/webp" srcset="assets/img/brand-community-6.220w.0b3ee1002d.webp"><img src="assets/img/brand-community-6.fallback.fd85d055ad.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+        <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
+             see the 768px block below); the title sits in a reserved top band
+             and #clGrid fills the lower part right down to the card's bottom
+             edge. The two bubble sets (.clMob / .clDesk) are real gravity-jammed
+             circle packings: every circle rests tangent to a neighbour (no
+             overlaps), the bottom row touches the card's bottom edge, and a few
+             circles bleed past the left/right edges to crop on the rounded
+             corner (overflow:hidden). Coordinates are % of #clGrid's box, so the
+             pack scales cleanly with the card. -->
+        <div id="clBox" class="ov-reveal" style="position: relative; width: 100%; aspect-ratio: 1000 / 1513; border-radius: clamp(24px, 6vw, 40px); background: #141414; overflow: hidden;">
+          <div id="clTitle" style="position: absolute; top: 0; left: 0; right: 0; height: 26%; display: flex; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; z-index: 200; pointer-events: none;">
+            <h2 style="margin: 0; font-weight: 600; font-size: clamp(26px, 5.4vw, 34px); line-height: 1.16; letter-spacing: -0.02em; color: #FFFFFF; text-align: center; text-wrap: balance;">Your community<br>is your <span class="clBrandWord" style="display: none;">brand&rsquo;s </span>vibe</h2>
+          </div>
+          <div id="clGrid" class="ov-reveal" style="position: absolute; top: 26%; left: 0; right: 0; bottom: 0; transition-delay: 0.1s;">
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:41.823%; top:0.000%; width:21.147%; aspect-ratio:1/1; z-index:1; border-radius:999px; background:#D9D9D9; transition-delay:0.000s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:62.260%; top:3.117%; width:25.607%; aspect-ratio:1/1; z-index:2; border-radius:999px; background:#D9D9D9; transition-delay:0.018s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:24.891%; top:10.481%; width:20.293%; aspect-ratio:1/1; z-index:3; border-radius:999px; background:#D9D9D9; transition-delay:0.036s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:-2.508%; top:12.654%; width:28.262%; aspect-ratio:1/1; z-index:4; border-radius:999px; background:#D9D9D9; transition-delay:0.054s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:41.173%; top:18.699%; width:28.834%; aspect-ratio:1/1; z-index:5; border-radius:999px; background:#D9D9D9; transition-delay:0.072s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:69.582%; top:27.688%; width:17.694%; aspect-ratio:1/1; z-index:6; border-radius:999px; background:#D9D9D9; transition-delay:0.090s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:21.524%; top:28.371%; width:20.576%; aspect-ratio:1/1; z-index:7; border-radius:999px; background:#D9D9D9; transition-delay:0.108s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:6.555%; top:37.697%; width:17.102%; aspect-ratio:1/1; z-index:8; border-radius:999px; background:#D9D9D9; transition-delay:0.126s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:78.417%; top:40.954%; width:23.021%; aspect-ratio:1/1; z-index:9; border-radius:999px; background:#D9D9D9; transition-delay:0.144s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:58.852%; top:41.024%; width:19.627%; aspect-ratio:1/1; z-index:10; border-radius:999px; background:#D9D9D9; transition-delay:0.162s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:34.085%; top:42.508%; width:22.384%; aspect-ratio:1/1; z-index:11; border-radius:999px; background:#D9D9D9; transition-delay:0.180s;"></div>
+            <div class="cl-tile clMob" style="position:absolute; left:11.559%; top:51.138%; width:25.276%; aspect-ratio:1/1; z-index:62; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clMob" style="position:absolute; left:48.716%; top:57.222%; width:24.069%; aspect-ratio:1/1; z-index:63; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-9.220w.ea5bc29197.avif"><source type="image/webp" srcset="assets/img/brand-community-9.220w.0a6998c788.webp"><img src="assets/img/brand-community-9.fallback.6c5d2f0b65.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:72.321%; top:61.033%; width:25.040%; aspect-ratio:1/1; z-index:14; border-radius:999px; background:#D9D9D9; transition-delay:0.234s;"></div>
+            <div class="cl-tile clMob" style="position:absolute; left:22.410%; top:70.045%; width:33.549%; aspect-ratio:1/1; z-index:65; border-radius:999px; overflow:hidden; transition-delay:0.252s;"><picture><source type="image/avif" srcset="assets/img/brand-community-6.220w.214277e5f0.avif"><source type="image/webp" srcset="assets/img/brand-community-6.220w.0b3ee1002d.webp"><img src="assets/img/brand-community-6.fallback.fd85d055ad.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:-7.000%; top:73.682%; width:29.476%; aspect-ratio:1/1; z-index:16; border-radius:999px; background:#D9D9D9; transition-delay:0.270s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:55.658%; top:77.691%; width:24.986%; aspect-ratio:1/1; z-index:17; border-radius:999px; background:#D9D9D9; transition-delay:0.288s;"></div>
+            <div class="cl-tile cl-dot clMob" style="position:absolute; left:80.440%; top:83.030%; width:19.006%; aspect-ratio:1/1; z-index:18; border-radius:999px; background:#D9D9D9; transition-delay:0.306s;"></div>
 
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:4%; top:1.613%; width:20%; aspect-ratio:1/1; z-index:1; border-radius:999px; background:#D9D9D9; transition-delay:0.000s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:33.5%; top:0%; width:19%; aspect-ratio:1/1; z-index:2; border-radius:999px; background:#D9D9D9; transition-delay:0.018s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:89.5%; top:5.645%; width:17%; aspect-ratio:1/1; z-index:3; border-radius:999px; background:#D9D9D9; transition-delay:0.036s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:-9.5%; top:41.129%; width:15%; aspect-ratio:1/1; z-index:4; border-radius:999px; background:#D9D9D9; transition-delay:0.054s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:24.5%; top:28.226%; width:11%; aspect-ratio:1/1; z-index:5; border-radius:999px; background:#D9D9D9; transition-delay:0.072s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:76.5%; top:34.677%; width:23%; aspect-ratio:1/1; z-index:6; border-radius:999px; background:#D9D9D9; transition-delay:0.090s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:38.5%; top:39.516%; width:9%; aspect-ratio:1/1; z-index:7; border-radius:999px; background:#D9D9D9; transition-delay:0.108s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:5.5%; top:57.258%; width:13%; aspect-ratio:1/1; z-index:8; border-radius:999px; background:#D9D9D9; transition-delay:0.126s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:25.5%; top:56.452%; width:9%; aspect-ratio:1/1; z-index:9; border-radius:999px; background:#D9D9D9; transition-delay:0.144s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:51.2%; top:61.613%; width:9.5%; aspect-ratio:1/1; z-index:10; border-radius:999px; background:#D9D9D9; transition-delay:0.162s;"></div>
-            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:-6%; top:67.742%; width:10%; aspect-ratio:1/1; z-index:11; border-radius:999px; background:#D9D9D9; transition-delay:0.180s;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:21%; top:62.903%; width:21%; aspect-ratio:1/1; z-index:12; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:83%; top:66.129%; width:19%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-9.220w.ea5bc29197.avif"><source type="image/webp" srcset="assets/img/brand-community-9.220w.0a6998c788.webp"><img src="assets/img/brand-community-9.fallback.6c5d2f0b65.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:39%; top:54.839%; width:26%; aspect-ratio:1/1; z-index:14; border-radius:999px; overflow:hidden; transition-delay:0.234s;"><picture><source type="image/avif" srcset="assets/img/brand-community-6.220w.214277e5f0.avif"><source type="image/webp" srcset="assets/img/brand-community-6.220w.0b3ee1002d.webp"><img src="assets/img/brand-community-6.fallback.fd85d055ad.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:69.580%; top:0.000%; width:16.358%; aspect-ratio:1/1; z-index:1; border-radius:999px; background:#D9D9D9; transition-delay:0.000s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:85.918%; top:0.000%; width:14.798%; aspect-ratio:1/1; z-index:2; border-radius:999px; background:#D9D9D9; transition-delay:0.018s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:12.205%; top:0.000%; width:14.778%; aspect-ratio:1/1; z-index:3; border-radius:999px; background:#D9D9D9; transition-delay:0.036s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:47.281%; top:0.000%; width:13.158%; aspect-ratio:1/1; z-index:4; border-radius:999px; background:#D9D9D9; transition-delay:0.054s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:26.749%; top:0.000%; width:9.985%; aspect-ratio:1/1; z-index:5; border-radius:999px; background:#D9D9D9; transition-delay:0.072s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:60.308%; top:0.000%; width:9.704%; aspect-ratio:1/1; z-index:6; border-radius:999px; background:#D9D9D9; transition-delay:0.090s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:33.608%; top:14.332%; width:15.371%; aspect-ratio:1/1; z-index:7; border-radius:999px; background:#D9D9D9; transition-delay:0.108s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:-2.993%; top:18.322%; width:17.712%; aspect-ratio:1/1; z-index:8; border-radius:999px; background:#D9D9D9; transition-delay:0.126s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:22.063%; top:29.790%; width:12.317%; aspect-ratio:1/1; z-index:9; border-radius:999px; background:#D9D9D9; transition-delay:0.144s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:48.078%; top:33.332%; width:9.804%; aspect-ratio:1/1; z-index:10; border-radius:999px; background:#D9D9D9; transition-delay:0.162s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:79.981%; top:34.706%; width:12.266%; aspect-ratio:1/1; z-index:11; border-radius:999px; background:#D9D9D9; transition-delay:0.180s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:13.388%; top:43.725%; width:9.459%; aspect-ratio:1/1; z-index:12; border-radius:999px; background:#D9D9D9; transition-delay:0.198s;"></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:53.282%; top:47.134%; width:20.815%; aspect-ratio:1/1; z-index:63; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><picture><source type="image/avif" srcset="assets/img/brand-community-6.220w.214277e5f0.avif"><source type="image/webp" srcset="assets/img/brand-community-6.220w.0b3ee1002d.webp"><img src="assets/img/brand-community-6.fallback.fd85d055ad.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:34.732%; top:52.809%; width:18.582%; aspect-ratio:1/1; z-index:64; border-radius:999px; overflow:hidden; transition-delay:0.234s;"><picture><source type="image/avif" srcset="assets/img/brand-community-1.220w.422494ed64.avif"><source type="image/webp" srcset="assets/img/brand-community-1.220w.9312008340.webp"><img src="assets/img/brand-community-1.fallback.3f8d3c2234.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile clDesk" style="position:absolute; left:19.424%; top:60.958%; width:15.373%; aspect-ratio:1/1; z-index:65; border-radius:999px; overflow:hidden; transition-delay:0.252s;"><picture><source type="image/avif" srcset="assets/img/brand-community-9.220w.ea5bc29197.avif"><source type="image/webp" srcset="assets/img/brand-community-9.220w.0a6998c788.webp"><img src="assets/img/brand-community-9.fallback.6c5d2f0b65.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:73.807%; top:63.306%; width:14.448%; aspect-ratio:1/1; z-index:16; border-radius:999px; background:#D9D9D9; transition-delay:0.270s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:5.129%; top:63.808%; width:14.251%; aspect-ratio:1/1; z-index:17; border-radius:999px; background:#D9D9D9; transition-delay:0.288s;"></div>
+            <div class="cl-tile cl-dot clDesk" style="position:absolute; left:88.252%; top:64.898%; width:13.821%; aspect-ratio:1/1; z-index:18; border-radius:999px; background:#D9D9D9; transition-delay:0.306s;"></div>
           </div>
         </div>
         <p class="ov-reveal" style="margin: 20px auto 0; max-width: 30ch; font-size: 14px; font-weight: 500; line-height: 1.55; color: #717171; text-align: center; text-wrap: pretty; transition-delay: 0.5s;">Turn the people who already love you into the ones who tell everyone else. Real faces, real feeds, real reach.</p>
@@ -1608,12 +1617,15 @@
   /* Full headline reads "...is your brand's vibe" once there's room for it;
      the mobile card keeps the shorter "...is your vibe". */
   .clBrandWord { display: inline !important; }
-  #clBox { border-radius: clamp(32px, 3vw, 48px) !important; }
-  /* Swap the tall mobile bubble set for the wide desktop one, and widen the
-     card's aspect ratio + title gap to match. */
+  /* Desktop card is a true 16:9; the title band takes the top 30% and #clGrid
+     fills the lower 70% (so its box is exactly the 1000:394 ratio the desktop
+     pack was generated for). Swap the tall mobile set for the wide desktop one. */
+  #clBox { aspect-ratio: 16 / 9 !important; border-radius: clamp(32px, 3vw, 48px) !important; }
+  #clTitle { height: 30% !important; }
+  #clTitle h2 { font-size: clamp(34px, 3.6vw, 46px) !important; }
+  #clGrid { top: 30% !important; }
   .clMob { display: none !important; }
   .clDesk { display: block !important; }
-  #clGrid { aspect-ratio: 1000 / 620 !important; margin-top: clamp(28px, 4vw, 48px) !important; }
 
   /* How to start */
   #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
