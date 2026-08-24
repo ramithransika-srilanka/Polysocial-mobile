@@ -367,6 +367,41 @@
     .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
     @media (max-width:360px){.hero-title{font-size:92px;}}
 
+    /* ===== Hero first-load entrance =====
+       Rare view (first paint), so a little delight is earned. The two words
+       rise in one after another; the "free" sticker stamps on last as the
+       punctuation. Strong ease-out curves, blur to mask the crossfade, and it
+       plays once on load via animation-fill-mode:both (no JS, no flash). */
+    .hero-title span{opacity:0;animation:heroWordIn 0.62s cubic-bezier(0.23,1,0.32,1) both;}
+    .hero-title span:nth-child(1){animation-delay:0.08s;}
+    .hero-title span:nth-child(2){animation-delay:0.20s;}
+    .hero-badge{opacity:0;transform-origin:center;animation:heroStamp 0.60s cubic-bezier(0.34,1.36,0.5,1) 0.56s both;}
+    #heroBlock > p{opacity:0;animation:heroSubIn 0.60s cubic-bezier(0.23,1,0.32,1) 0.46s both;}
+    @keyframes heroWordIn{
+      from{opacity:0;transform:translateY(0.26em);filter:blur(6px);}
+      to{opacity:1;transform:translateY(0);filter:blur(0);}
+    }
+    @keyframes heroSubIn{
+      from{opacity:0;transform:translateY(10px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    /* Stamp: drops in slightly oversized + rotated flatter, overshoots a touch
+       smaller/steeper, then settles on the resting rotate(9deg) scale(1). */
+    @keyframes heroStamp{
+      0%{opacity:0;transform:translate(-50%,-50%) rotate(3deg) scale(1.22);filter:blur(4px) drop-shadow(2px 4px 4px rgba(0,0,0,0.25));}
+      55%{opacity:1;filter:blur(0) drop-shadow(2px 4px 4px rgba(0,0,0,0.25));}
+      70%{transform:translate(-50%,-50%) rotate(11deg) scale(0.965);}
+      100%{opacity:1;transform:translate(-50%,-50%) rotate(9deg) scale(1);filter:blur(0) drop-shadow(2px 4px 4px rgba(0,0,0,0.25));}
+    }
+    /* Reduced motion: keep a gentle fade, drop all movement + the stamp bounce. */
+    @media (prefers-reduced-motion: reduce){
+      .hero-title span,.hero-badge,#heroBlock > p{animation:heroFade 0.4s ease both;}
+      .hero-title span:nth-child(2){animation-delay:0.08s;}
+      .hero-badge{animation-delay:0.16s;transform:translate(-50%,-50%) rotate(9deg);}
+      #heroBlock > p{animation-delay:0.12s;}
+      @keyframes heroFade{from{opacity:0;}to{opacity:1;}}
+    }
+
     /* ===== Pricing section circle placeholders =====
        A cluster of 5 overlapping placeholder circles; the centre (lead) one
        sits on top and slightly larger, neighbours fade out toward the edges. */
