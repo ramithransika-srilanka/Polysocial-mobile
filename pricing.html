@@ -367,6 +367,41 @@
     .hero-badge{position:absolute;left:50%;top:50%;width:111%;transform:translate(-50%,-50%) rotate(9deg);filter:drop-shadow(2px 4px 4px rgba(0,0,0,0.25));pointer-events:none;}
     @media (max-width:360px){.hero-title{font-size:92px;}}
 
+    /* ===== Hero first-load entrance =====
+       Rare view (first paint), so a little delight is earned. The two words
+       rise in one after another; the "free" sticker stamps on last as the
+       punctuation. Strong ease-out curves, blur to mask the crossfade, and it
+       plays once on load via animation-fill-mode:both (no JS, no flash). */
+    .hero-title span{opacity:0;animation:heroWordIn 0.62s cubic-bezier(0.23,1,0.32,1) both;}
+    .hero-title span:nth-child(1){animation-delay:0.08s;}
+    .hero-title span:nth-child(2){animation-delay:0.20s;}
+    .hero-badge{opacity:0;transform-origin:center;animation:heroStamp 0.60s cubic-bezier(0.34,1.36,0.5,1) 0.56s both;}
+    #heroBlock > p{opacity:0;animation:heroSubIn 0.60s cubic-bezier(0.23,1,0.32,1) 0.46s both;}
+    @keyframes heroWordIn{
+      from{opacity:0;transform:translateY(0.26em);filter:blur(6px);}
+      to{opacity:1;transform:translateY(0);filter:blur(0);}
+    }
+    @keyframes heroSubIn{
+      from{opacity:0;transform:translateY(10px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    /* Stamp: drops in slightly oversized + rotated flatter, overshoots a touch
+       smaller/steeper, then settles on the resting rotate(9deg) scale(1). */
+    @keyframes heroStamp{
+      0%{opacity:0;transform:translate(-50%,-50%) rotate(3deg) scale(1.22);filter:blur(4px) drop-shadow(2px 4px 4px rgba(0,0,0,0.25));}
+      55%{opacity:1;filter:blur(0) drop-shadow(2px 4px 4px rgba(0,0,0,0.25));}
+      70%{transform:translate(-50%,-50%) rotate(11deg) scale(0.965);}
+      100%{opacity:1;transform:translate(-50%,-50%) rotate(9deg) scale(1);filter:blur(0) drop-shadow(2px 4px 4px rgba(0,0,0,0.25));}
+    }
+    /* Reduced motion: keep a gentle fade, drop all movement + the stamp bounce. */
+    @media (prefers-reduced-motion: reduce){
+      .hero-title span,.hero-badge,#heroBlock > p{animation:heroFade 0.4s ease both;}
+      .hero-title span:nth-child(2){animation-delay:0.08s;}
+      .hero-badge{animation-delay:0.16s;transform:translate(-50%,-50%) rotate(9deg);}
+      #heroBlock > p{animation-delay:0.12s;}
+      @keyframes heroFade{from{opacity:0;}to{opacity:1;}}
+    }
+
     /* ===== Pricing section circle placeholders =====
        A cluster of 5 overlapping placeholder circles; the centre (lead) one
        sits on top and slightly larger, neighbours fade out toward the edges. */
@@ -389,6 +424,9 @@
       background:no-repeat center/contain url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='3'/><circle cx='8.5' cy='8.5' r='1.8'/><path d='M21 15l-5-5L5 21'/></svg>");
       opacity:0.55;
     }
+    /* Circles that carry a real creator photo: fill with the image and drop the glyph. */
+    .circleCluster .circlePh.hasImg{background-size:cover;background-position:center;}
+    .circleCluster .circlePh.hasImg::after{display:none;}
     @media (max-width:360px){.circleCluster .circlePh{width:78px;height:78px;margin-left:-20px;}}
 
     /* ===== Phrase section: active phrase (nearest viewport centre) turns blue ===== */
@@ -496,11 +534,11 @@
       <!-- ===== For Brands ===== -->
       <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:26px;width:100%;max-width:520px;">
         <div class="circleCluster" style="display:flex;align-items:center;justify-content:center;">
-          <span class="circlePh" data-pos="2"></span>
-          <span class="circlePh" data-pos="1"></span>
-          <span class="circlePh circlePh--lead" data-pos="0"></span>
-          <span class="circlePh" data-pos="1"></span>
-          <span class="circlePh" data-pos="2"></span>
+          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/brandlogo-1.jpg');"></span>
+          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/brandlogo-2.jpg');"></span>
+          <span class="circlePh circlePh--lead hasImg" data-pos="0" style="background-image:url('assets/img/brandlogo-4.jpg');"></span>
+          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/brandlogo-3.jpg');"></span>
+          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/brandlogo-center.jpg');"></span>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;">
           <h2 style="margin:0;font-weight:600;font-size:34px;line-height:1;color:#FFFFFF;text-align:center;">For Brands</h2>
@@ -511,11 +549,11 @@
       <!-- ===== For Creators ===== -->
       <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:26px;width:100%;max-width:520px;">
         <div class="circleCluster" style="display:flex;align-items:center;justify-content:center;">
-          <span class="circlePh" data-pos="2"></span>
-          <span class="circlePh" data-pos="1"></span>
-          <span class="circlePh circlePh--lead" data-pos="0"></span>
-          <span class="circlePh" data-pos="1"></span>
-          <span class="circlePh" data-pos="2"></span>
+          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/creator-1.jpg');"></span>
+          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/creator-2.jpg');"></span>
+          <span class="circlePh circlePh--lead hasImg" data-pos="0" style="background-image:url('assets/img/creator-center.jpg');"></span>
+          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/creator-3.jpg');"></span>
+          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/creator-4.jpg');"></span>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;">
           <h2 style="margin:0;font-weight:600;font-size:34px;line-height:1;color:#FFFFFF;text-align:center;">For Creators</h2>
@@ -531,7 +569,6 @@
       <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Remaining budget will be returned to the brand.</p>
       <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Platform commission will be deducted from creator payouts every time the creator cash out from the digital wallet.</p>
       <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Incentives are arranged for creators depending on the engagement with the platform.</p>
-      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">There can be a foreign currency exchange fee for oversees campaigns.</p>
     </section>
 
 
