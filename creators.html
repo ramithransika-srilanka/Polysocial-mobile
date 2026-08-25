@@ -1737,6 +1737,11 @@ a:hover { color: var(--brand-primary-hover); }
            almost the whole height (and thus width). Reveals on scroll. */
         .fc-cap-block { padding: clamp(28px, 6vw, 44px) 24px clamp(40px, 8vw, 64px); text-align: center; }
         .fc-cap-block p { margin: 0 auto; max-width: 340px; font-weight: 500; font-size: 15px; line-height: 1.5; color: #121212; }
+        .fc-cap-block .fc-article-link { margin-top: 14px; }
+        .fc-cap-block .fc-article-link a { color: #1845E7; text-decoration: none; font-weight: 500; }
+        .fc-cap-block .fc-article-link a:hover { text-decoration: underline; }
+        .fc-cap-block .fc-article-link .fc-arrow { display: inline-block; transition: transform 0.2s ease; }
+        .fc-cap-block .fc-article-link a:hover .fc-arrow { transform: translateX(3px); }
         /* Dark stage — JS sets left/top/width/height each frame to interpolate
            from full-bleed (p=0) to a fixed-ratio card (p=1). No shadow. */
         .fc-box { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background: #0A0A0A;
@@ -1771,6 +1776,7 @@ a:hover { color: var(--brand-primary-hover); }
       <!-- Caption flows below the pinned stage so the box can fill the frame. -->
       <div class="fc-cap-block">
         <p class="cReveal">Follower count is no longer the biggest factor. The algorithm is favouring reach and engagement more and more.</p>
+        <p class="cReveal fc-article-link"><a href="reach-vs-followers.html">Read the article<span class="fc-arrow" aria-hidden="true">&nbsp;&rarr;</span></a></p>
       </div>
 
       <!-- ===== Section: Frequently asked questions (accordion) =====
