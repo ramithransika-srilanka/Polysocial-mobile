@@ -75,17 +75,17 @@
   "src-assets/img/6776e340.png": {
     "type": "raster",
     "width": 220,
-    "height": 298,
+    "height": 220,
     "widths": [
       220
     ],
     "avif": {
-      "220": "assets/img/6776e340.220w.b5d0e8b831.avif"
+      "220": "assets/img/6776e340.220w.90e3414892.avif"
     },
     "webp": {
-      "220": "assets/img/6776e340.220w.1fa0ecf82c.webp"
+      "220": "assets/img/6776e340.220w.1647ac5db4.webp"
     },
-    "fallback": "assets/img/6776e340.fallback.69c48050e2.png",
+    "fallback": "assets/img/6776e340.fallback.b9c0c160eb.png",
     "fallbackMime": "image/png"
   },
   "src-assets/img/72b4b917.gif": {
