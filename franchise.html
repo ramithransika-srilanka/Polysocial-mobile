@@ -393,7 +393,7 @@
     .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:600;font-size:clamp(40px,8.6vw,108px);line-height:1.04;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
 
     /* Feature cards — image tiles with dark scrim + white text */
-    .fr-card{position:relative;display:flex;align-items:flex-end;min-height:432px;border-radius:20px;overflow:hidden;background:#C7CAD2 center/cover no-repeat;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
+    .fr-card{position:relative;display:flex;align-items:flex-end;min-height:510px;border-radius:20px;overflow:hidden;background:#C7CAD2 center/cover no-repeat;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
     /* Placeholder texture until real images are supplied */
     .fr-card .fr-card-img{position:absolute;inset:0;background:linear-gradient(135deg,#C7CAD2 0%,#AEB2BD 100%);}
     @media (hover:hover){.fr-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,0.28);}}
@@ -989,8 +989,8 @@
 
   /* Feature cards -> bento grid: wide row, pair, wide row, pair */
   #frCards { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; max-width: 1024px !important; }
-  #frCards .fr-card { min-height: 432px !important; }
-  #frCards .fr-card:nth-child(1) { grid-column: 1 / -1 !important; min-height: 504px !important; }
+  #frCards .fr-card { min-height: 510px !important; }
+  #frCards .fr-card:nth-child(1) { grid-column: 1 / -1 !important; min-height: 590px !important; }
   #frCards .fr-card--hero .fr-circles-m { display: none !important; }
   #frCards .fr-card--hero .fr-circles-d { display: block !important; }
   #frCards .fr-card--hero .fr-card-circles { height: 62% !important; }
