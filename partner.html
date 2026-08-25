@@ -554,7 +554,6 @@
       <p class="fr-lead" data-anim style="max-width:33ch;animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.30s;">A Partner Program for digital marketing agencies to access Polysocial creator network.</p>
       <div data-anim style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;animation:riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;animation-delay:0.40s;">
         <a href="#interest" class="fr-cta">Register interest<span class="a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#1548EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-        <a href="#how" class="fr-cta ghost">See how it works</a>
       </div>
     </section>
 
@@ -658,14 +657,14 @@
     </section>
 
     <!-- 6. The human part ---------------------------------------------------- -->
-    <section style="padding:var(--sp-panel) 28px;">
-      <h2 class="fr-h2 reveal" style="margin:0 auto;max-width:16ch;line-height:1.16;">AI will automate the work. <span class="fr-mute">It will never automate the taste.</span></h2>
-      <p class="fr-lead reveal" style="max-width:34ch;margin:24px auto 0;">Creativity and judgment will never leave the art of marketing &mdash; that part is yours. We carry your message to the world with the creator community that fits your client&rsquo;s brand best.</p>
+    <section style="min-height:86dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px 22px;">
+      <h2 class="fr-h1 reveal" style="margin:0 auto;max-width:16ch;">AI will automate the work. <span class="fr-mute">It will never automate the taste.</span></h2>
+      <p class="fr-lead reveal" style="max-width:34ch;margin:0 auto;">Creativity and judgment will never leave the art of marketing &mdash; that part is yours. We carry your message to the world with the creator community that fits your client&rsquo;s brand best.</p>
     </section>
 
     <!-- 7. This is for ------------------------------------------------------- -->
     <section style="background:#F6F6F6;padding:var(--sp-panel) 24px;text-align:center;">
-      <h2 class="fr-h2 reveal" style="margin-bottom:var(--sp-heading);">This is for</h2>
+      <h2 class="fr-h2 reveal" style="margin-bottom:var(--sp-heading);">This call is for</h2>
       <div id="frFor" style="max-width:340px;width:100%;margin:0 auto;">
           <div class="fr-forItem reveal">
             <span class="fr-forLine"></span>
@@ -699,7 +698,7 @@
           <span class="lead">Drop us a &ldquo;Hi&rdquo;, and we&rsquo;ll call you back.</span>
         </h2>
 
-        <a class="fr-partner-cta reveal" href="mailto:support@polysocial.cc?subject=Partner%20with%20Polysocial">Partner with Polysocial</a>
+        <a class="fr-partner-cta reveal" href="partner-with-polysocial.html">Partner with Polysocial</a>
       </div>
     </section>
 
@@ -911,7 +910,8 @@
 
   /* ---- Hero ---- */
   #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; }
-  #heroBlock .fr-h1 { font-size: clamp(44px, 5.6vw, 72px) !important; line-height: 1.08 !important; max-width: 18ch !important; }
+  #heroBlock .fr-h1 { max-width: 18ch !important; }
+  .fr-h1 { font-size: clamp(44px, 5.6vw, 72px) !important; line-height: 1.08 !important; }
   #heroBlock .fr-lead { font-size: 18px !important; max-width: 44ch !important; }
 
   /* Section rhythm */
