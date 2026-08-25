@@ -393,7 +393,7 @@
     .pw-title{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0;padding:0 18px;text-align:center;color:#FFFFFF;font-weight:600;font-size:clamp(40px,8.6vw,108px);line-height:1.04;letter-spacing:-0.022em;text-shadow:0 2px 22px rgba(0,0,0,0.42),0 1px 4px rgba(0,0,0,0.34);}
 
     /* Feature cards — image tiles with dark scrim + white text */
-    .fr-card{position:relative;display:flex;align-items:flex-end;min-height:360px;border-radius:20px;overflow:hidden;background:#C7CAD2 center/cover no-repeat;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
+    .fr-card{position:relative;display:flex;align-items:flex-end;min-height:432px;border-radius:20px;overflow:hidden;background:#C7CAD2 center/cover no-repeat;transition:transform 0.22s cubic-bezier(0.23,1,0.32,1),box-shadow 0.22s ease;}
     /* Placeholder texture until real images are supplied */
     .fr-card .fr-card-img{position:absolute;inset:0;background:linear-gradient(135deg,#C7CAD2 0%,#AEB2BD 100%);}
     @media (hover:hover){.fr-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,0.28);}}
@@ -402,6 +402,25 @@
     .fr-card .fr-card-body{position:relative;z-index:1;padding:24px;}
     .fr-card h3{margin:0 0 6px;font-weight:600;font-size:19px;line-height:1.25;color:#FFFFFF;}
     .fr-card p{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.82);}
+    .fr-card--light{background:#FFFFFF;}
+    .fr-card--light .fr-card-img{display:none;}
+    .fr-card--light::after{display:none;}
+    .fr-card--light h3{color:#0A0A0C;}
+    .fr-card--light p{color:rgba(10,10,12,0.66);}
+    .fr-card-circles{position:absolute;left:0;right:0;top:0;width:100%;height:58%;pointer-events:none;display:block;}
+    .fr-circles-d{display:none;}
+    /* Payout-notification stack (card 2) */
+    .fr-notifs{position:absolute;left:16px;right:16px;top:18px;display:flex;flex-direction:column;gap:8px;z-index:0;pointer-events:none;}
+    .fr-notif{display:flex;align-items:center;gap:10px;padding:9px 12px 9px 9px;border-radius:16px;background:#0A0A0C;box-shadow:0 2px 10px rgba(10,10,12,0.06);}
+    .fr-notif-icon{width:40px;height:40px;border-radius:9px;background:#FF7A4A;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .fr-notif-icon svg{width:22px;height:15px;display:block;}
+    .fr-notif-body{min-width:0;flex:1;}
+    .fr-notif-title{font-weight:700;font-size:13px;color:#FFFFFF;line-height:1.2;letter-spacing:-0.01em;}
+    .fr-notif-text{font-size:12.5px;color:rgba(255,255,255,0.88);line-height:1.35;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    /* Social platform stack (card 3) */
+    .fr-socials{position:absolute;top:24px;left:24px;right:24px;bottom:180px;width:auto;height:auto;max-width:calc(100% - 48px);max-height:calc(100% - 204px);margin:0 auto;object-fit:contain;pointer-events:none;display:block;}
+    /* Photo tile (card 4) */
+    .fr-photo{position:absolute;top:18px;left:18px;right:18px;bottom:170px;width:calc(100% - 36px);height:calc(100% - 188px);object-fit:cover;border-radius:14px;pointer-events:none;display:block;}
     /* Mobile: equal-size tiles, stacked vertically */
     #frCards{display:grid;grid-template-columns:1fr;gap:14px;max-width:360px;margin:0 auto;}
 
@@ -438,6 +457,9 @@
     .fr-note{font-size:11.5px;font-weight:500;line-height:1.5;color:#7C849B;text-align:center;}
     .fr-ok{display:none;flex-direction:column;align-items:center;gap:14px;text-align:center;}
     .fr-ok.show{display:flex;}
+    .fr-partner-cta{display:inline-flex;align-items:center;justify-content:center;padding:15px 36px;background:#F0281E;color:#FFFFFF;font-weight:600;font-size:14px;line-height:1;border-radius:100px;box-shadow:0 10px 30px rgba(240,40,30,0.32);transition:transform 0.16s ease-out,background 0.16s ease-out;text-decoration:none;}
+    @media(hover:hover){.fr-partner-cta:hover{background:#ff372c;}}
+    .fr-partner-cta:active{transform:scale(0.97);}
     /* ---- "Interested?" contact form (PDF spec) --------------------------- */
     .pl-wrap{width:100%;max-width:620px;margin:0 auto;display:flex;flex-direction:column;align-items:center;}
     .pl-head{margin:0 0 clamp(30px,5vw,46px);text-align:center;font-weight:600;line-height:1.14;letter-spacing:-0.02em;font-size:clamp(30px,3.4vw,44px);text-wrap:balance;}
@@ -499,7 +521,7 @@
       <nav id="deskNav" aria-label="Primary" style="display:none;">
         <a href="creators.html">Creators</a>
         <a href="brands.html">Brands</a>
-        <a href="franchise.html" aria-current="page" style="color:#1845E7;">Partner</a>
+        <a href="partner.html" aria-current="page" style="color:#1845E7;">Partner</a>
         <a href="pricing.html">Pricing</a>
         <a href="about.html">Our Story</a>
       </nav>
@@ -516,11 +538,10 @@
       <nav style="display:flex;flex-direction:column;align-items:center;gap:26px;">
         <a class="menuLink" href="creators.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">For Creators</a>
         <a class="menuLink" href="brands.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">For Brands</a>
-        <a class="menuLink" href="franchise.html" style="color:#1845E7;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Partner</a>
+        <a class="menuLink" href="partner.html" style="color:#1845E7;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Partner</a>
         <a class="menuLink" href="pricing.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Pricing</a>
         <a class="menuLink" href="about.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Our Story</a>
       </nav>
-    </div>
     </div>
 
     <!-- 1. Hero -------------------------------------------------------------- -->
@@ -559,46 +580,78 @@
     <section id="how" style="background:#0A0A0C;padding:var(--sp-panel) 20px;">
       <h2 class="fr-h2 reveal" style="margin-bottom:32px;color:#FFFFFF;">Everything your clients<br>need from creators</h2>
       <div id="frCards">
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--light fr-card--hero reveal">
           <div class="fr-card-img"></div>
+          <svg class="fr-card-circles fr-circles-m" viewBox="0 0 400 290" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+            <defs><pattern id="mci0" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-1.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci1" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-2.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci2" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-1.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci3" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-3.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci4" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-4.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci5" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-5.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci6" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-2.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci7" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-3.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci8" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-4.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci9" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-6.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci10" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-7.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci11" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-8.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci12" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-5.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci13" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-9.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="mci14" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-10.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern></defs><circle cx="0" cy="48" r="48" fill="url(#mci0)"/><circle cx="96" cy="48" r="48" fill="url(#mci1)"/><circle cx="192" cy="48" r="48" fill="url(#mci2)"/><circle cx="288" cy="48" r="48" fill="url(#mci3)"/><circle cx="384" cy="48" r="48" fill="url(#mci4)"/><circle cx="48" cy="131.14" r="48" fill="url(#mci5)"/><circle cx="144" cy="131.14" r="48" fill="url(#mci6)"/><circle cx="240" cy="131.14" r="48" fill="url(#mci7)"/><circle cx="336" cy="131.14" r="48" fill="url(#mci8)"/><circle cx="432" cy="131.14" r="48" fill="url(#mci9)"/><circle cx="0" cy="214.28" r="48" fill="url(#mci10)"/><circle cx="96" cy="214.28" r="48" fill="url(#mci11)"/><circle cx="192" cy="214.28" r="48" fill="url(#mci12)"/><circle cx="288" cy="214.28" r="48" fill="url(#mci13)"/><circle cx="384" cy="214.28" r="48" fill="url(#mci14)"/>
+          </svg>
+          <svg class="fr-card-circles fr-circles-d" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+            <defs><pattern id="dci0" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-1.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci1" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-2.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci2" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-3.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci3" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-4.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci4" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-5.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci5" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-1.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci6" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-2.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci7" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-3.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci8" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-6.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci9" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-7.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci10" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-8.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci11" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-9.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci12" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-10.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci13" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-11.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci14" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-12.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci15" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-13.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci16" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/s-14.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci17" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-4.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci18" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-5.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci19" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-6.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci20" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-7.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci21" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-8.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci22" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-9.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern><pattern id="dci23" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="assets/img/creators/p-10.webp" preserveAspectRatio="xMidYMid slice" width="1" height="1"/></pattern></defs><circle cx="0" cy="60" r="60" fill="url(#dci0)"/><circle cx="120" cy="60" r="60" fill="url(#dci1)"/><circle cx="240" cy="60" r="60" fill="url(#dci2)"/><circle cx="360" cy="60" r="60" fill="url(#dci3)"/><circle cx="480" cy="60" r="60" fill="url(#dci4)"/><circle cx="600" cy="60" r="60" fill="url(#dci5)"/><circle cx="720" cy="60" r="60" fill="url(#dci6)"/><circle cx="840" cy="60" r="60" fill="url(#dci7)"/><circle cx="960" cy="60" r="60" fill="url(#dci8)"/><circle cx="1080" cy="60" r="60" fill="url(#dci9)"/><circle cx="1200" cy="60" r="60" fill="url(#dci10)"/><circle cx="1320" cy="60" r="60" fill="url(#dci11)"/><circle cx="1440" cy="60" r="60" fill="url(#dci12)"/><circle cx="60" cy="163.92" r="60" fill="url(#dci13)"/><circle cx="180" cy="163.92" r="60" fill="url(#dci14)"/><circle cx="300" cy="163.92" r="60" fill="url(#dci15)"/><circle cx="420" cy="163.92" r="60" fill="url(#dci16)"/><circle cx="540" cy="163.92" r="60" fill="url(#dci17)"/><circle cx="660" cy="163.92" r="60" fill="url(#dci18)"/><circle cx="780" cy="163.92" r="60" fill="url(#dci19)"/><circle cx="900" cy="163.92" r="60" fill="url(#dci20)"/><circle cx="1020" cy="163.92" r="60" fill="url(#dci0)"/><circle cx="1140" cy="163.92" r="60" fill="url(#dci1)"/><circle cx="1260" cy="163.92" r="60" fill="url(#dci2)"/><circle cx="1380" cy="163.92" r="60" fill="url(#dci3)"/><circle cx="0" cy="267.84" r="60" fill="url(#dci4)"/><circle cx="120" cy="267.84" r="60" fill="url(#dci8)"/><circle cx="240" cy="267.84" r="60" fill="url(#dci9)"/><circle cx="360" cy="267.84" r="60" fill="url(#dci10)"/><circle cx="480" cy="267.84" r="60" fill="url(#dci11)"/><circle cx="600" cy="267.84" r="60" fill="url(#dci21)"/><circle cx="720" cy="267.84" r="60" fill="url(#dci22)"/><circle cx="840" cy="267.84" r="60" fill="url(#dci23)"/><circle cx="960" cy="267.84" r="60" fill="url(#dci12)"/><circle cx="1080" cy="267.84" r="60" fill="url(#dci13)"/><circle cx="1200" cy="267.84" r="60" fill="url(#dci14)"/><circle cx="1320" cy="267.84" r="60" fill="url(#dci15)"/><circle cx="1440" cy="267.84" r="60" fill="url(#dci16)"/>
+          </svg>
           <div class="fr-card-body">
             <h3>A vast creator network</h3>
             <p>Tap content creators across every niche and market, matched to each client's brand — one relationship instead of a hundred.</p>
           </div>
         </div>
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--light fr-card--notif reveal">
           <div class="fr-card-img"></div>
+          <div class="fr-notifs" aria-hidden="true">
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 3,568 earned from the Brightloom campaign.</div>
+              </div>
+            </div>
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 12,450 earned from the Merilune campaign.</div>
+              </div>
+            </div>
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 2,890 earned from the Verdant Co. campaign.</div>
+              </div>
+            </div>
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 8,120 earned from the Nordwood campaign.</div>
+              </div>
+            </div>
+          </div>
           <div class="fr-card-body">
             <h3>Automated payouts</h3>
             <p>We pay creators on time, at scale, and reward performance — no invoices, no chasing, no manual transfers.</p>
           </div>
         </div>
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--light fr-card--socials reveal">
           <div class="fr-card-img"></div>
+          <img class="fr-socials" src="assets/img/social-platforms.png" alt="" aria-hidden="true"/>
           <div class="fr-card-body">
             <h3>One analytics view</h3>
             <p>Track every campaign across all social platforms in a single dashboard — for every client you run.</p>
           </div>
         </div>
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--light fr-card--photo reveal">
           <div class="fr-card-img"></div>
+          <img class="fr-photo" src="assets/img/ugc-ambassadors.png" alt="" aria-hidden="true"/>
           <div class="fr-card-body">
             <h3>UGC &amp; brand ambassadors</h3>
             <p>Commission UGC, build long-term ambassadors, and keep clients posting consistently — all from one place.</p>
           </div>
         </div>
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--light fr-card--photo reveal">
           <div class="fr-card-img"></div>
+          <img class="fr-photo" src="assets/img/enter-markets.png" alt="" aria-hidden="true"/>
           <div class="fr-card-body">
             <h3>Enter new markets</h3>
             <p>Launch products and reach new audiences through creators who already live in the market you're entering.</p>
-          </div>
-        </div>
-        <div class="fr-card reveal">
-          <div class="fr-card-img"></div>
-          <div class="fr-card-body">
-            <h3>Sell through creators</h3>
-            <p>When the brief calls for it, let creators drive real sales for your client's products, not just reach.</p>
           </div>
         </div>
       </div>
@@ -646,41 +699,20 @@
           <span class="lead">Drop us a &ldquo;Hi&rdquo;, and we&rsquo;ll call you back.</span>
         </h2>
 
-        <form id="frForm" class="pl-card reveal" novalidate>
-          <label class="pl-label" for="frName">Who is the contact person?</label>
-          <input class="pl-input" id="frName" name="name" type="text" placeholder="Enter your name" autocomplete="name" maxlength="60" required>
-
-          <label class="pl-label pl-gap" for="frAgency">What is your agency name?</label>
-          <input class="pl-input" id="frAgency" name="agency" type="text" placeholder="Agency name" autocomplete="organization" maxlength="80" required>
-
-          <div class="pl-group">
-            <input class="pl-input" id="frEmail" name="email" type="email" placeholder="Agency email address" autocomplete="email" maxlength="120" required>
-            <div class="pl-divider"></div>
-            <input class="pl-input" id="frPhone" name="phone" type="number" inputmode="numeric" placeholder="Agency contact number" autocomplete="tel" maxlength="20" required>
-          </div>
-
-          <textarea class="pl-input pl-gap" id="frMsg" name="message" placeholder="What do you want our relationship to be like?" maxlength="600"></textarea>
-
-          <button type="submit" class="pl-submit" disabled>Submit</button>
-        </form>
-
-        <div id="frOk" class="fr-ok" style="margin-top:22px;">
-          <span style="width:56px;height:56px;border-radius:999px;background:rgba(36,211,102,0.16);display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#24D366" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <h3 style="margin:0;color:#FFFFFF;font-weight:600;font-size:20px;">Your email is ready to send</h3>
-          <p style="margin:0;color:#9A9FB2;font-weight:500;font-size:14px;line-height:1.5;max-width:30ch;">We&rsquo;ve opened your mail app with the details filled in. Hit send and we&rsquo;ll call you back.</p>
-        </div>
-
-        <div class="pl-prio reveal">
-          <h3>This is how we prioritize your request.</h3>
-          <div class="pl-tier"><p class="t">Top priority</p><p class="d">Agencies submitted every field with care.</p></div>
-          <div class="pl-tier"><p class="t">Second priority</p><p class="d">Agencies submit their agency name and contact details with care.</p></div>
-          <div class="pl-tier"><p class="t">After that</p><p class="d">Agencies submit their agency name with care.</p></div>
-          <div class="pl-tier"><p class="t">At last</p><p class="d">Other submissions</p></div>
-        </div>
+        <a class="fr-partner-cta reveal" href="mailto:support@polysocial.cc?subject=Partner%20with%20Polysocial">Partner with Polysocial</a>
       </div>
     </section>
 
-    <footer id="siteFooter" style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
+    <style>
+      #siteFooter{background:#0A0F1C !important;}
+      #siteFooter, #siteFooter *{color:#B4B9CC !important;}
+      #siteFooter a[href^="tel"], #siteFooter a[href^="mailto"]{color:#7BA0FF !important;}
+      #siteFooter a[aria-current="page"]{color:#9FBBFF !important;}
+      #siteFooter div[style*="background:#A0A0A0"]{background:#232842 !important;}
+      #siteFooter img[alt="polysocial"]{filter:brightness(0) invert(0.9);}
+      #siteFooter svg path[stroke="#717171"]{stroke:#B4B9CC !important;}
+    </style>
+    <footer id="siteFooter" style="position:relative;background:#0A0F1C;padding:60px 17px 40px;">
       <div style="display:flex;flex-direction:column;gap:13px;">
         <div style="height:1px;min-height:1px;flex:none;background:#A0A0A0;"></div>
         <div style="display:flex;flex-direction:column;gap:15px;">
@@ -696,7 +728,7 @@
         <nav style="display:flex;flex-direction:column;">
           <a href="creators.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">For content creators<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="brands.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">For brands<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-          <a href="franchise.html" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#1548EB;font-weight:500;font-size:12px;">Partner business<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          <a href="partner.html" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#1548EB;font-weight:500;font-size:12px;">Partner business<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="pricing.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">Pricing<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="about.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">Our Story<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
         </nav>
@@ -893,9 +925,19 @@
 
   /* Feature cards -> bento grid: wide row, pair, wide row, pair */
   #frCards { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; max-width: 1024px !important; }
-  #frCards .fr-card { min-height: 360px !important; }
-  #frCards .fr-card:nth-child(1),
-  #frCards .fr-card:nth-child(4) { grid-column: 1 / -1 !important; min-height: 420px !important; }
+  #frCards .fr-card { min-height: 510px !important; }
+  #frCards .fr-card:nth-child(1) { grid-column: 1 / -1 !important; min-height: 590px !important; }
+  #frCards .fr-card--socials .fr-socials { top: 30px !important; left: 30px !important; right: 30px !important; bottom: 190px !important; max-width: calc(100% - 60px) !important; max-height: calc(100% - 220px) !important; }
+  #frCards .fr-card--photo .fr-photo { top: 22px !important; left: 22px !important; right: 22px !important; bottom: 190px !important; width: calc(100% - 44px) !important; height: calc(100% - 212px) !important; border-radius: 16px !important; }
+  #frCards .fr-card--hero .fr-circles-m { display: none !important; }
+  #frCards .fr-card--hero .fr-circles-d { display: block !important; }
+  #frCards .fr-card--hero .fr-card-circles { height: 62% !important; }
+  #frCards .fr-card--notif .fr-notifs { left: 22px !important; right: 22px !important; top: 24px !important; gap: 10px !important; }
+  #frCards .fr-card--notif .fr-notif { padding: 11px 16px 11px 11px !important; border-radius: 18px !important; }
+  #frCards .fr-card--notif .fr-notif-icon { width: 46px !important; height: 46px !important; border-radius: 11px !important; }
+  #frCards .fr-card--notif .fr-notif-icon svg { width: 24px !important; height: 17px !important; }
+  #frCards .fr-card--notif .fr-notif-title { font-size: 14px !important; }
+  #frCards .fr-card--notif .fr-notif-text { font-size: 13.5px !important; }
   #frCards .fr-card .fr-card-body { padding: 30px !important; }
   #frCards .fr-card h3 { font-size: 22px !important; }
   #frCards .fr-card p { font-size: 15px !important; max-width: 46ch; }
