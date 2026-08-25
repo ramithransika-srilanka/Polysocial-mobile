@@ -402,6 +402,14 @@
     .fr-card .fr-card-body{position:relative;z-index:1;padding:24px;}
     .fr-card h3{margin:0 0 6px;font-weight:600;font-size:19px;line-height:1.25;color:#FFFFFF;}
     .fr-card p{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.82);}
+    .fr-card--hero{background:#FFFFFF;}
+    .fr-card--hero .fr-card-img{display:none;}
+    .fr-card--hero::after{background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.92) 55%,#FFFFFF 100%);}
+    .fr-card--hero h3{color:#0A0A0C;}
+    .fr-card--hero p{color:rgba(10,10,12,0.66);}
+    .fr-card-circles{position:absolute;left:0;right:0;top:0;width:100%;height:60%;pointer-events:none;display:block;overflow:visible;}
+    .fr-card-circles circle{fill:#DFE1E6;}
+    .fr-circles-d{display:none;}
     /* Mobile: equal-size tiles, stacked vertically */
     #frCards{display:grid;grid-template-columns:1fr;gap:14px;max-width:360px;margin:0 auto;}
 
@@ -559,8 +567,37 @@
     <section id="how" style="background:#0A0A0C;padding:var(--sp-panel) 20px;">
       <h2 class="fr-h2 reveal" style="margin-bottom:32px;color:#FFFFFF;">Everything your clients<br>need from creators</h2>
       <div id="frCards">
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--hero reveal">
           <div class="fr-card-img"></div>
+          <svg class="fr-card-circles fr-circles-m" viewBox="0 0 400 500" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+            <circle cx="90" cy="55" r="55"/>
+            <circle cx="230" cy="30" r="72"/>
+            <circle cx="360" cy="80" r="58"/>
+            <circle cx="180" cy="150" r="45"/>
+            <circle cx="300" cy="180" r="80"/>
+            <circle cx="50" cy="180" r="40"/>
+            <circle cx="390" cy="220" r="52"/>
+            <circle cx="140" cy="260" r="55"/>
+            <circle cx="25" cy="320" r="35"/>
+            <circle cx="240" cy="320" r="65"/>
+          </svg>
+          <svg class="fr-card-circles fr-circles-d" viewBox="0 0 1400 380" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+            <circle cx="40" cy="180" r="65"/>
+            <circle cx="190" cy="80" r="88"/>
+            <circle cx="360" cy="180" r="110"/>
+            <circle cx="520" cy="90" r="72"/>
+            <circle cx="640" cy="200" r="94"/>
+            <circle cx="800" cy="80" r="86"/>
+            <circle cx="920" cy="190" r="78"/>
+            <circle cx="1060" cy="90" r="98"/>
+            <circle cx="1210" cy="180" r="66"/>
+            <circle cx="1340" cy="80" r="82"/>
+            <circle cx="1400" cy="220" r="70"/>
+            <circle cx="240" cy="260" r="46"/>
+            <circle cx="470" cy="280" r="56"/>
+            <circle cx="900" cy="40" r="40"/>
+            <circle cx="1140" cy="270" r="52"/>
+          </svg>
           <div class="fr-card-body">
             <h3>A vast creator network</h3>
             <p>Tap content creators across every niche and market, matched to each client's brand — one relationship instead of a hundred.</p>
@@ -888,6 +925,9 @@
   #frCards { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; max-width: 1024px !important; }
   #frCards .fr-card { min-height: 432px !important; }
   #frCards .fr-card:nth-child(1) { grid-column: 1 / -1 !important; min-height: 504px !important; }
+  #frCards .fr-card--hero .fr-circles-m { display: none !important; }
+  #frCards .fr-card--hero .fr-circles-d { display: block !important; }
+  #frCards .fr-card--hero .fr-card-circles { height: 62% !important; }
   #frCards .fr-card .fr-card-body { padding: 30px !important; }
   #frCards .fr-card h3 { font-size: 22px !important; }
   #frCards .fr-card p { font-size: 15px !important; max-width: 46ch; }
