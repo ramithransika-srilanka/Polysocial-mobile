@@ -536,6 +536,20 @@
       </div>
     </section>
 
+    <!-- Disagree modal (shown when user picks Strongly disagree / Disagree) -->
+    <div id="disagreeModal" role="dialog" aria-modal="true" aria-labelledby="disagreeModalTitle" style="position: fixed; inset: 0; z-index: 400; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(10,10,10,0.55); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); opacity: 0; transition: opacity 0.28s cubic-bezier(0.23,1,0.32,1);">
+      <div id="disagreeModalCard" style="position: relative; width: 100%; max-width: 380px; padding: 40px 32px 28px; background: #F1F1F1; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); text-align: center; transform: scale(0.9); opacity: 0; transition: transform 0.36s cubic-bezier(0.22,1.2,0.36,1), opacity 0.28s cubic-bezier(0.23,1,0.32,1);">
+        <svg width="76" height="76" viewBox="0 0 76 76" fill="none" aria-hidden="true" style="display: block; margin: 0 auto 22px;">
+          <path d="M35.1 7.2 L4.1 61.2 C2.7 63.7 4.5 66.8 7.4 66.8 H68.6 C71.5 66.8 73.3 63.7 71.9 61.2 L40.9 7.2 C39.6 4.9 36.4 4.9 35.1 7.2 Z" fill="#E63946"/>
+          <rect x="35" y="24" width="6" height="22" rx="3" fill="#FFFFFF"/>
+          <rect x="35" y="51" width="6" height="6" rx="3" fill="#FFFFFF"/>
+        </svg>
+        <h3 id="disagreeModalTitle" style="margin: 0 0 12px; font-weight: 700; font-size: 18px; line-height: 1.35; color: #121212;">Uh oh! Something went wrong.</h3>
+        <p style="margin: 0 0 26px; font-weight: 400; font-size: 16px; line-height: 1.45; color: #2A2A2A; text-wrap: pretty;">We strongly believe that every brand should have its own organic marketing mechanism to connect with its customers.</p>
+        <button id="disagreeRetry" type="button" style="appearance: none; width: 100%; height: 52px; border: none; border-radius: 999px; background: #7A7A7A; color: #FFFFFF; font-family: inherit; font-weight: 500; font-size: 16px; cursor: pointer; transition: background 0.16s ease, transform 0.12s ease-out;">Retry</button>
+      </div>
+    </div>
+
     <!-- Agreement payoff screen (overlay above the video: slides up partially, then scrolls to its end) -->
     <div id="agreeScreen" data-screen-label="Agreement" style="position: fixed; top: 0; bottom: 0; left: 50%; width: 393px; max-width: 100%; z-index: 200; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; transform: translate(-50%, 100%); transition: transform 0.82s cubic-bezier(0.32,0.72,0,1); pointer-events: none;">
       <div style="height: 40dvh;"></div>
@@ -590,7 +604,10 @@
             <div class="cl-tile clDesk" style="position:absolute; left:70.019%; top:76.097%; width:9.412%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><img src="assets/img/community-secondary/s6.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
           </div>
         </div>
-        <p class="ov-reveal" style="margin: 20px auto 0; max-width: 30ch; font-size: 14px; line-height: 1.55; color: #121212; text-align: center; text-wrap: pretty; transition-delay: 0.5s;"><span style="display: block; font-weight: 600;">Build a community<br>around your brand</span><span style="display: block; margin-top: 8px; font-weight: 500; color: #717171;">Turn the people who already love you into the ones who tell everyone else. Real faces, real feeds, real reach.</span></p>
+        <div class="ov-reveal" style="margin: 20px auto 0; max-width: 44ch; padding: 0 24px; text-align: center; transition-delay: 0.5s;">
+          <h3 style="margin: 0; font-weight: 600; font-size: clamp(20px, 4.4vw, 24px); line-height: 1.2; letter-spacing: -0.02em; color: #121212; text-wrap: balance;">Build a community<br>around your brand</h3>
+          <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.55; font-weight: 500; color: #717171; text-wrap: pretty;">In a crowded market, customers have endless brands to choose from. Build a creator community that helps your brand stand out, build trust, and connect with customers on a deeper level.</p>
+        </div>
       </section>
 
       <!-- 3. How to start -->
@@ -1670,12 +1687,39 @@
         window.addEventListener('touchstart',function(e){ wy=e.touches[0].clientY; },{ passive:true });
         window.addEventListener('touchmove',function(e){ if(hasAnswered&&!agreeShown&&wy!=null&&wy-e.touches[0].clientY>24&&window.scrollY>=lockTarget()-2) showAgree(); },{ passive:true });
       }
+      function resetPollOpts(){
+        opts.forEach(function(o){ o.style.background='rgba(0,0,0,0.42)'; o.style.color='#FFFFFF'; o.style.boxShadow='none'; });
+      }
+      var dModal=document.getElementById('disagreeModal');
+      var dCard=document.getElementById('disagreeModalCard');
+      var dRetry=document.getElementById('disagreeRetry');
+      function showDisagree(){
+        if(!dModal) return;
+        dModal.style.display='flex';
+        // Force layout so the transition runs from the initial state.
+        void dModal.offsetWidth;
+        dModal.style.opacity='1';
+        dCard.style.transform='scale(1)';
+        dCard.style.opacity='1';
+      }
+      function hideDisagree(){
+        if(!dModal) return;
+        dModal.style.opacity='0';
+        dCard.style.transform='scale(0.9)';
+        dCard.style.opacity='0';
+        setTimeout(function(){ dModal.style.display='none'; },300);
+      }
+      if(dRetry){ dRetry.addEventListener('click',function(){ hideDisagree(); resetPollOpts(); }); }
+      if(dModal){
+        dModal.addEventListener('click',function(e){ if(e.target===dModal) hideDisagree(); });
+        document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&dModal.style.display==='flex') hideDisagree(); });
+      }
       opts.forEach(function(b){ b.addEventListener('click',function(){
         if(agreeShown) return;
         var idx=parseInt(b.getAttribute('data-idx'),10);
-        opts.forEach(function(o){ o.style.background='rgba(0,0,0,0.42)'; o.style.color='#FFFFFF'; o.style.boxShadow='none'; });
+        resetPollOpts();
         b.style.background='#FFFFFF'; b.style.color='#1548EB'; b.style.boxShadow='0 6px 18px rgba(0,0,0,0.28)';
-        if(idx<2) return;
+        if(idx<2){ showDisagree(); return; }
         hasAnswered=true; showAgree();
       }); });
       window.addEventListener('scroll',onScroll,{ passive:true });
@@ -1828,7 +1872,7 @@
 
   /* Supplementary services */
   #agreeScreen section[data-screen-label="Supplementary services"] > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] > div { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; }
+  #agreeScreen section[data-screen-label="Supplementary services"] > div { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; justify-content: center !important; }
   #agreeScreen section[data-screen-label="Supplementary services"] article { width: 320px !important; max-width: 320px !important; }
 
   /* Grow your brand (WebGL): full-bleed already; only the fallback type grows. */
@@ -1843,6 +1887,12 @@
   #agreeScreen footer > div { max-width: 1024px !important; margin: 0 auto !important; }
   #agreeScreen footer img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
   #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
+
+  /* Disagree modal — a touch larger and more spacious on desktop */
+  #disagreeModalCard { max-width: 440px !important; padding: 48px 44px 32px !important; border-radius: 28px !important; }
+  #disagreeModalCard h3 { font-size: 20px !important; }
+  #disagreeModalCard p { font-size: 16px !important; }
+  #disagreeModalCard button#disagreeRetry { height: 56px !important; font-size: 17px !important; }
 }
 
 </style>
