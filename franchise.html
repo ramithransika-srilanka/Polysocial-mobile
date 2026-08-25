@@ -402,14 +402,22 @@
     .fr-card .fr-card-body{position:relative;z-index:1;padding:24px;}
     .fr-card h3{margin:0 0 6px;font-weight:600;font-size:19px;line-height:1.25;color:#FFFFFF;}
     .fr-card p{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.82);}
-    .fr-card--hero{background:#FFFFFF;}
-    .fr-card--hero .fr-card-img{display:none;}
-    .fr-card--hero::after{display:none;}
-    .fr-card--hero h3{color:#0A0A0C;}
-    .fr-card--hero p{color:rgba(10,10,12,0.66);}
+    .fr-card--light{background:#FFFFFF;}
+    .fr-card--light .fr-card-img{display:none;}
+    .fr-card--light::after{display:none;}
+    .fr-card--light h3{color:#0A0A0C;}
+    .fr-card--light p{color:rgba(10,10,12,0.66);}
     .fr-card-circles{position:absolute;left:0;right:0;top:0;width:100%;height:58%;pointer-events:none;display:block;}
     .fr-card-circles circle{fill:#DFE1E6;}
     .fr-circles-d{display:none;}
+    /* Payout-notification stack (card 2) */
+    .fr-notifs{position:absolute;left:16px;right:16px;top:18px;display:flex;flex-direction:column;gap:8px;z-index:0;pointer-events:none;}
+    .fr-notif{display:flex;align-items:center;gap:10px;padding:9px 12px 9px 9px;border-radius:16px;background:#0A0A0C;box-shadow:0 2px 10px rgba(10,10,12,0.06);}
+    .fr-notif-icon{width:40px;height:40px;border-radius:9px;background:#FF7A4A;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .fr-notif-icon svg{width:22px;height:15px;display:block;}
+    .fr-notif-body{min-width:0;flex:1;}
+    .fr-notif-title{font-weight:700;font-size:13px;color:#FFFFFF;line-height:1.2;letter-spacing:-0.01em;}
+    .fr-notif-text{font-size:12.5px;color:rgba(255,255,255,0.88);line-height:1.35;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     /* Mobile: equal-size tiles, stacked vertically */
     #frCards{display:grid;grid-template-columns:1fr;gap:14px;max-width:360px;margin:0 auto;}
 
@@ -567,7 +575,7 @@
     <section id="how" style="background:#0A0A0C;padding:var(--sp-panel) 20px;">
       <h2 class="fr-h2 reveal" style="margin-bottom:32px;color:#FFFFFF;">Everything your clients<br>need from creators</h2>
       <div id="frCards">
-        <div class="fr-card fr-card--hero reveal">
+        <div class="fr-card fr-card--light fr-card--hero reveal">
           <div class="fr-card-img"></div>
           <svg class="fr-card-circles fr-circles-m" viewBox="0 0 400 290" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
             <circle cx="0"   cy="48"    r="48"/>
@@ -631,8 +639,38 @@
             <p>Tap content creators across every niche and market, matched to each client's brand — one relationship instead of a hundred.</p>
           </div>
         </div>
-        <div class="fr-card reveal">
+        <div class="fr-card fr-card--light fr-card--notif reveal">
           <div class="fr-card-img"></div>
+          <div class="fr-notifs" aria-hidden="true">
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 3,568 earned from the Brightloom campaign.</div>
+              </div>
+            </div>
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 12,450 earned from the Merilune campaign.</div>
+              </div>
+            </div>
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 2,890 earned from the Verdant Co. campaign.</div>
+              </div>
+            </div>
+            <div class="fr-notif">
+              <div class="fr-notif-icon"><svg viewBox="0 0 269 184" xmlns="http://www.w3.org/2000/svg"><path d="M121.556 4.064C141.556-7.483 166.556 6.951 166.556 30.045c0 1.048-.657 1.977-1.62 2.387-12.874 5.486-21.899 18.255-21.899 33.132v51c0 14.522 8.599 27.034 20.983 32.726 1.499.689 2.536 2.145 2.536 3.795-.001 23.093-25.001 37.527-45 25.98L15 117.545c-20-11.547-20-40.414 0-51.961L121.556 4.064z" fill="#fff"/><path d="M227.969.279c22.449 0 40.648 18.199 40.648 40.648v99.482c0 22.449-18.199 40.647-40.648 40.647-17.303 0-32.078-10.811-37.944-26.046-.792-2.055.48-4.241 2.521-5.068 13.188-5.342 22.491-18.273 22.491-33.378v-51c0-15.196-9.416-28.191-22.731-33.473-2.027-.804-3.312-2.95-2.569-5.001C195.397 11.453 210.378.279 227.969.279z" fill="#fff"/></svg></div>
+              <div class="fr-notif-body">
+                <div class="fr-notif-title">Polysocial</div>
+                <div class="fr-notif-text">Rs. + 8,120 earned from the Nordwood campaign.</div>
+              </div>
+            </div>
+          </div>
           <div class="fr-card-body">
             <h3>Automated payouts</h3>
             <p>We pay creators on time, at scale, and reward performance — no invoices, no chasing, no manual transfers.</p>
@@ -956,6 +994,12 @@
   #frCards .fr-card--hero .fr-circles-m { display: none !important; }
   #frCards .fr-card--hero .fr-circles-d { display: block !important; }
   #frCards .fr-card--hero .fr-card-circles { height: 62% !important; }
+  #frCards .fr-card--notif .fr-notifs { left: 22px !important; right: 22px !important; top: 24px !important; gap: 10px !important; }
+  #frCards .fr-card--notif .fr-notif { padding: 11px 16px 11px 11px !important; border-radius: 18px !important; }
+  #frCards .fr-card--notif .fr-notif-icon { width: 46px !important; height: 46px !important; border-radius: 11px !important; }
+  #frCards .fr-card--notif .fr-notif-icon svg { width: 24px !important; height: 17px !important; }
+  #frCards .fr-card--notif .fr-notif-title { font-size: 14px !important; }
+  #frCards .fr-card--notif .fr-notif-text { font-size: 13.5px !important; }
   #frCards .fr-card .fr-card-body { padding: 30px !important; }
   #frCards .fr-card h3 { font-size: 22px !important; }
   #frCards .fr-card p { font-size: 15px !important; max-width: 46ch; }
