@@ -421,6 +421,8 @@
     .fr-card--notif .fr-notif:nth-child(4){display:none;}
     /* Social platform stack (card 3) */
     .fr-socials{position:absolute;top:24px;left:24px;right:24px;bottom:180px;width:auto;height:auto;max-width:calc(100% - 48px);max-height:calc(100% - 204px);margin:0 auto;object-fit:contain;pointer-events:none;display:block;}
+    /* Photo tile (card 4) */
+    .fr-photo{position:absolute;top:18px;left:18px;right:18px;bottom:170px;width:calc(100% - 36px);height:calc(100% - 188px);object-fit:cover;border-radius:14px;pointer-events:none;display:block;}
     /* Mobile: equal-size tiles, stacked vertically */
     #frCards{display:grid;grid-template-columns:1fr;gap:14px;max-width:360px;margin:0 auto;}
 
@@ -687,8 +689,9 @@
             <p>Track every campaign across all social platforms in a single dashboard — for every client you run.</p>
           </div>
         </div>
-        <div class="fr-card fr-card--light reveal">
+        <div class="fr-card fr-card--light fr-card--photo reveal">
           <div class="fr-card-img"></div>
+          <img class="fr-photo" src="assets/img/ugc-ambassadors.png" alt="" aria-hidden="true"/>
           <div class="fr-card-body">
             <h3>UGC &amp; brand ambassadors</h3>
             <p>Commission UGC, build long-term ambassadors, and keep clients posting consistently — all from one place.</p>
@@ -997,6 +1000,7 @@
   #frCards .fr-card:nth-child(1) { grid-column: 1 / -1 !important; min-height: 590px !important; }
   #frCards .fr-card--notif .fr-notif:nth-child(4) { display: flex !important; }
   #frCards .fr-card--socials .fr-socials { top: 30px !important; left: 30px !important; right: 30px !important; bottom: 190px !important; max-width: calc(100% - 60px) !important; max-height: calc(100% - 220px) !important; }
+  #frCards .fr-card--photo .fr-photo { top: 22px !important; left: 22px !important; right: 22px !important; bottom: 190px !important; width: calc(100% - 44px) !important; height: calc(100% - 212px) !important; border-radius: 16px !important; }
   #frCards .fr-card--hero .fr-circles-m { display: none !important; }
   #frCards .fr-card--hero .fr-circles-d { display: block !important; }
   #frCards .fr-card--hero .fr-card-circles { height: 62% !important; }
