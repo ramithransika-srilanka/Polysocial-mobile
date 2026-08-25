@@ -404,10 +404,10 @@
     .fr-card p{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.82);}
     .fr-card--hero{background:#FFFFFF;}
     .fr-card--hero .fr-card-img{display:none;}
-    .fr-card--hero::after{background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.92) 55%,#FFFFFF 100%);}
+    .fr-card--hero::after{display:none;}
     .fr-card--hero h3{color:#0A0A0C;}
     .fr-card--hero p{color:rgba(10,10,12,0.66);}
-    .fr-card-circles{position:absolute;left:0;right:0;top:0;width:100%;height:60%;pointer-events:none;display:block;overflow:visible;}
+    .fr-card-circles{position:absolute;left:0;right:0;top:0;width:100%;height:58%;pointer-events:none;display:block;}
     .fr-card-circles circle{fill:#DFE1E6;}
     .fr-circles-d{display:none;}
     /* Mobile: equal-size tiles, stacked vertically */
@@ -569,34 +569,62 @@
       <div id="frCards">
         <div class="fr-card fr-card--hero reveal">
           <div class="fr-card-img"></div>
-          <svg class="fr-card-circles fr-circles-m" viewBox="0 0 400 500" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
-            <circle cx="90" cy="55" r="55"/>
-            <circle cx="230" cy="30" r="72"/>
-            <circle cx="360" cy="80" r="58"/>
-            <circle cx="180" cy="150" r="45"/>
-            <circle cx="300" cy="180" r="80"/>
-            <circle cx="50" cy="180" r="40"/>
-            <circle cx="390" cy="220" r="52"/>
-            <circle cx="140" cy="260" r="55"/>
-            <circle cx="25" cy="320" r="35"/>
-            <circle cx="240" cy="320" r="65"/>
+          <svg class="fr-card-circles fr-circles-m" viewBox="0 0 400 290" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+            <circle cx="0"   cy="48"    r="48"/>
+            <circle cx="96"  cy="48"    r="48"/>
+            <circle cx="192" cy="48"    r="48"/>
+            <circle cx="288" cy="48"    r="48"/>
+            <circle cx="384" cy="48"    r="48"/>
+            <circle cx="48"  cy="131.14" r="48"/>
+            <circle cx="144" cy="131.14" r="48"/>
+            <circle cx="240" cy="131.14" r="48"/>
+            <circle cx="336" cy="131.14" r="48"/>
+            <circle cx="432" cy="131.14" r="48"/>
+            <circle cx="0"   cy="214.28" r="48"/>
+            <circle cx="96"  cy="214.28" r="48"/>
+            <circle cx="192" cy="214.28" r="48"/>
+            <circle cx="288" cy="214.28" r="48"/>
+            <circle cx="384" cy="214.28" r="48"/>
           </svg>
-          <svg class="fr-card-circles fr-circles-d" viewBox="0 0 1400 380" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
-            <circle cx="40" cy="180" r="65"/>
-            <circle cx="190" cy="80" r="88"/>
-            <circle cx="360" cy="180" r="110"/>
-            <circle cx="520" cy="90" r="72"/>
-            <circle cx="640" cy="200" r="94"/>
-            <circle cx="800" cy="80" r="86"/>
-            <circle cx="920" cy="190" r="78"/>
-            <circle cx="1060" cy="90" r="98"/>
-            <circle cx="1210" cy="180" r="66"/>
-            <circle cx="1340" cy="80" r="82"/>
-            <circle cx="1400" cy="220" r="70"/>
-            <circle cx="240" cy="260" r="46"/>
-            <circle cx="470" cy="280" r="56"/>
-            <circle cx="900" cy="40" r="40"/>
-            <circle cx="1140" cy="270" r="52"/>
+          <svg class="fr-card-circles fr-circles-d" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+            <circle cx="0"    cy="60"     r="60"/>
+            <circle cx="120"  cy="60"     r="60"/>
+            <circle cx="240"  cy="60"     r="60"/>
+            <circle cx="360"  cy="60"     r="60"/>
+            <circle cx="480"  cy="60"     r="60"/>
+            <circle cx="600"  cy="60"     r="60"/>
+            <circle cx="720"  cy="60"     r="60"/>
+            <circle cx="840"  cy="60"     r="60"/>
+            <circle cx="960"  cy="60"     r="60"/>
+            <circle cx="1080" cy="60"     r="60"/>
+            <circle cx="1200" cy="60"     r="60"/>
+            <circle cx="1320" cy="60"     r="60"/>
+            <circle cx="1440" cy="60"     r="60"/>
+            <circle cx="60"   cy="163.92" r="60"/>
+            <circle cx="180"  cy="163.92" r="60"/>
+            <circle cx="300"  cy="163.92" r="60"/>
+            <circle cx="420"  cy="163.92" r="60"/>
+            <circle cx="540"  cy="163.92" r="60"/>
+            <circle cx="660"  cy="163.92" r="60"/>
+            <circle cx="780"  cy="163.92" r="60"/>
+            <circle cx="900"  cy="163.92" r="60"/>
+            <circle cx="1020" cy="163.92" r="60"/>
+            <circle cx="1140" cy="163.92" r="60"/>
+            <circle cx="1260" cy="163.92" r="60"/>
+            <circle cx="1380" cy="163.92" r="60"/>
+            <circle cx="0"    cy="267.84" r="60"/>
+            <circle cx="120"  cy="267.84" r="60"/>
+            <circle cx="240"  cy="267.84" r="60"/>
+            <circle cx="360"  cy="267.84" r="60"/>
+            <circle cx="480"  cy="267.84" r="60"/>
+            <circle cx="600"  cy="267.84" r="60"/>
+            <circle cx="720"  cy="267.84" r="60"/>
+            <circle cx="840"  cy="267.84" r="60"/>
+            <circle cx="960"  cy="267.84" r="60"/>
+            <circle cx="1080" cy="267.84" r="60"/>
+            <circle cx="1200" cy="267.84" r="60"/>
+            <circle cx="1320" cy="267.84" r="60"/>
+            <circle cx="1440" cy="267.84" r="60"/>
           </svg>
           <div class="fr-card-body">
             <h3>A vast creator network</h3>
