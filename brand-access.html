@@ -161,7 +161,7 @@
 <body>
 
   <!-- Top-left "Back to site" link -->
-  <a class="ra-home" href="brands.html">
+  <a class="ra-home" href="brands.html" onclick="if(history.length>1){event.preventDefault();history.back();}">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M15 5l-7 7 7 7" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
