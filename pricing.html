@@ -429,7 +429,9 @@
     .circleCluster .circlePh.hasImg::after{display:none;}
     @media (max-width:360px){.circleCluster .circlePh{width:78px;height:78px;margin-left:-20px;}}
 
-    /* ===== Phrase section: active phrase (nearest viewport centre) turns blue ===== */
+    /* ===== Phrase section: default ash; the phrase nearest viewport centre
+       turns blue and the one queued after it turns black. ===== */
+    .phraseItem.next{color:#121212 !important;}
     .phraseItem.active{color:#1548EB !important;}
 
     /* ===== Talk section (ported from creators page, on white) ===== */
@@ -529,46 +531,32 @@
     </div>
 
 
-    <section id="pricingSection" style="background:#000000;padding:80px 24px;display:flex;flex-direction:column;align-items:center;gap:120px;">
+    <section id="pricingSection" style="background:#F2F2F2;padding:72px 24px;display:flex;flex-direction:column;align-items:center;gap:72px;">
 
       <!-- ===== For Brands ===== -->
-      <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:26px;width:100%;max-width:520px;">
-        <div class="circleCluster" style="display:flex;align-items:center;justify-content:center;">
-          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/brandlogo-1.jpg');"></span>
-          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/brandlogo-2.jpg');"></span>
-          <span class="circlePh circlePh--lead hasImg" data-pos="0" style="background-image:url('assets/img/brandlogo-4.jpg');"></span>
-          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/brandlogo-3.jpg');"></span>
-          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/brandlogo-center.jpg');"></span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;">
-          <h2 style="margin:0;font-weight:600;font-size:34px;line-height:1;color:#FFFFFF;text-align:center;">For Brands</h2>
-          <p style="margin:0;font-weight:500;font-size:20px;line-height:1.4;color:#FFFFFF;text-align:center;">It&rsquo;s free to initiate any campaign within our platform. You have to only pay for the content you have approved. The total budget you have decided will be the max possible cost for you.</p>
-        </div>
+      <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:520px;">
+        <img class="pricingIcon" src="assets/img/pricing-brands-icon.png" alt="" width="72" height="72" style="display:block;width:72px;height:72px;">
+        <h2 class="pricingTitle" style="margin:0;font-weight:600;font-size:20px;line-height:1.2;color:#000000;text-align:center;">For Brands</h2>
+        <p class="pricingCopy" style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#000000;text-align:center;max-width:320px;">It&rsquo;s free to initiate any campaign within our platform. You have to only pay for the content you have approved. The total budget you have decided will be the max possible cost for you.</p>
+        <a class="pricingCta" href="brand-access.html" style="margin-top:8px;color:#1548EB;font-weight:500;font-size:16px;line-height:1;letter-spacing:-0.01em;">Join Polysocial</a>
       </div>
 
       <!-- ===== For Creators ===== -->
-      <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:26px;width:100%;max-width:520px;">
-        <div class="circleCluster" style="display:flex;align-items:center;justify-content:center;">
-          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/creator-1.jpg');"></span>
-          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/creator-2.jpg');"></span>
-          <span class="circlePh circlePh--lead hasImg" data-pos="0" style="background-image:url('assets/img/creator-center.jpg');"></span>
-          <span class="circlePh hasImg" data-pos="1" style="background-image:url('assets/img/creator-3.jpg');"></span>
-          <span class="circlePh hasImg" data-pos="2" style="background-image:url('assets/img/creator-4.jpg');"></span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;">
-          <h2 style="margin:0;font-weight:600;font-size:34px;line-height:1;color:#FFFFFF;text-align:center;">For Creators</h2>
-          <p style="margin:0;font-weight:500;font-size:20px;line-height:1.4;color:#FFFFFF;text-align:center;">It&rsquo;s free to join and submit your content to any campaign. All of your payouts are arranged through the Polysocial mobile app.</p>
-        </div>
+      <div class="pricingGroup" style="display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:520px;">
+        <img class="pricingIcon" src="assets/img/pricing-creators-icon.png" alt="" width="72" height="72" style="display:block;width:72px;height:72px;">
+        <h2 class="pricingTitle" style="margin:0;font-weight:600;font-size:20px;line-height:1.2;color:#000000;text-align:center;">For Creators</h2>
+        <p class="pricingCopy" style="margin:0;font-weight:400;font-size:14px;line-height:1.5;color:#000000;text-align:center;max-width:320px;">It&rsquo;s free to join and submit your content to any campaign. All of your payouts are arranged through the Polysocial mobile app.</p>
+        <a class="pricingCta" href="request-access.html" style="margin-top:8px;color:#1548EB;font-weight:500;font-size:16px;line-height:1;letter-spacing:-0.01em;">Download App</a>
       </div>
 
     </section>
 
 
     <section id="phraseSection" style="background:#FFFFFF;padding:96px 24px;display:flex;flex-direction:column;align-items:center;gap:40px;">
-      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Campaign budget needs to be held in escrow during the campaign window.</p>
-      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Remaining budget will be returned to the brand.</p>
-      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Platform commission will be deducted from creator payouts every time the creator cash out from the digital wallet.</p>
-      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#121212;text-align:center;max-width:640px;transition:color 0.3s ease;">Incentives are arranged for creators depending on the engagement with the platform.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#C8C8C8;text-align:center;max-width:640px;transition:color 0.3s ease;">Campaign budget needs to be held in escrow during the campaign window.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#C8C8C8;text-align:center;max-width:640px;transition:color 0.3s ease;">Remaining budget will be returned to the brand.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#C8C8C8;text-align:center;max-width:640px;transition:color 0.3s ease;">Platform commission will be deducted from creator payouts every time the creator cash out from the digital wallet.</p>
+      <p class="phraseItem" style="margin:0;font-weight:600;font-size:26px;line-height:1.12;letter-spacing:-0.015em;color:#C8C8C8;text-align:center;max-width:640px;transition:color 0.3s ease;">Incentives are arranged for creators depending on the engagement with the platform.</p>
     </section>
 
 
@@ -735,19 +723,25 @@
   (function(){
     var items=Array.prototype.slice.call(document.querySelectorAll('#phraseSection .phraseItem'));
     if(!items.length)return;
-    var ticking=false,current=null;
+    var ticking=false,current=null,currentNext=null;
     function update(){
       ticking=false;
-      var mid=window.innerHeight/2,best=null,bestDist=Infinity;
+      var mid=window.innerHeight/2,best=null,bestIdx=-1,bestDist=Infinity;
       for(var i=0;i<items.length;i++){
         var r=items[i].getBoundingClientRect();
         var d=Math.abs((r.top+r.bottom)/2-mid);
-        if(d<bestDist){bestDist=d;best=items[i];}
+        if(d<bestDist){bestDist=d;best=items[i];bestIdx=i;}
       }
+      var nextEl=bestIdx>=0 && bestIdx<items.length-1 ? items[bestIdx+1] : null;
       if(best!==current){
         if(current)current.classList.remove('active');
         if(best)best.classList.add('active');
         current=best;
+      }
+      if(nextEl!==currentNext){
+        if(currentNext)currentNext.classList.remove('next');
+        if(nextEl)nextEl.classList.add('next');
+        currentNext=nextEl;
       }
     }
     function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
@@ -810,16 +804,14 @@
   #heroBlock > p { margin-top: 18px !important; font-size: clamp(24px, 2.6vw, 32px) !important; max-width: none !important; }
 
   /* ================= PRICING SECTION =================
-     Full-bleed dark band. The two groups (For Brands, For Creators) stay
-     stacked one above the other — same as mobile — just with more breathing
-     room and larger type + placeholder circles. */
-  #pricingSection { padding: 120px var(--edge) !important; gap: 160px !important; }
-  #pricingSection .pricingGroup { max-width: 720px !important; gap: 34px !important; }
-  #pricingSection .pricingGroup h2 { font-size: 48px !important; }
-  #pricingSection .pricingGroup p { font-size: 24px !important; line-height: 1.45 !important; max-width: 640px !important; }
-  #pricingSection .circleCluster .circlePh { width: 128px !important; height: 128px !important; margin-left: -32px !important; }
-  #pricingSection .circleCluster .circlePh:first-child { margin-left: 0 !important; }
-  #pricingSection .circleCluster .circlePh::after { width: 44px !important; height: 44px !important; }
+     Full-bleed light band. The two groups sit side-by-side on desktop with
+     generous gutter; icon → title → copy → CTA stacked and centred. */
+  #pricingSection { padding: 120px var(--edge) !important; flex-direction: row !important; align-items: flex-start !important; justify-content: center !important; gap: 96px !important; flex-wrap: wrap; }
+  #pricingSection .pricingGroup { max-width: 420px !important; gap: 24px !important; flex: 1 1 340px; }
+  #pricingSection .pricingIcon { width: 96px !important; height: 96px !important; }
+  #pricingSection .pricingTitle { font-size: 32px !important; line-height: 1.15 !important; }
+  #pricingSection .pricingCopy { font-size: 16px !important; line-height: 1.55 !important; max-width: 400px !important; }
+  #pricingSection .pricingCta { font-size: 18px !important; margin-top: 12px !important; }
 
   /* ================= PHRASE SECTION ================= */
   #phraseSection { padding: 140px var(--edge) !important; gap: 56px !important; }
