@@ -1155,13 +1155,20 @@
         // one smooth, elastic ripple through the pack.
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if(reduce) return;
+        // Warm the two pebble images now, at cascade start, so they are decoded
+        // and cached well before each pebble is inserted 2s/4s later — otherwise
+        // the lazily-fetched image only appears after the grow animation.
+        ['assets/img/community-primary/p1.png','assets/img/community-primary/p2.png']
+          .forEach(function(src){ var im=new Image(); im.src=src; });
         var cascadeMs = byTop.length*55 + 680; // last tile + one full transition
         setTimeout(function(){ pebbleEmerge(50, 'assets/img/community-primary/p1.png'); }, cascadeMs + 2000); // 100px
         setTimeout(function(){ pebbleEmerge(40, 'assets/img/community-primary/p2.png'); }, cascadeMs + 4000); // 80px
       }
 
+      // Pebble images load eagerly (not lazy): the pebble is inserted at a
+      // precise, scripted moment, so its image must already be ready to paint.
       function pebbleImageHTML(src){
-        return '<img src="'+src+'" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;">';
+        return '<img src="'+src+'" alt="" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;">';
       }
       // Extract the translate() already baked into a tile from a prior
       // emergence, so the next one continues from wherever the previous
