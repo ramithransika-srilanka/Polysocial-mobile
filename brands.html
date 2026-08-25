@@ -1141,6 +1141,30 @@
         var bt=(parseFloat(b.style.top)||0)+(parseFloat(b.style.height)||0)/2;
         return at-bt;
       });
+
+      // Warm every community image (all static tiles in both breakpoints, plus
+      // the two emerging pebbles) ahead of the cascade. The tile <img>s are
+      // loading="lazy", so on their own the browser wouldn't fetch them until
+      // the grid is nearly on-screen — the same moment the pop-cascade runs,
+      // which made the faces fade in a beat after their circles popped. A
+      // preload observer with a generous bottom margin starts the fetch while
+      // the section is still ~1.5 screens away, so the images are decoded and
+      // cached by the time each circle animates in.
+      var warmed=false;
+      function warmImages(){
+        if(warmed) return; warmed=true;
+        var srcs={};
+        allTiles.forEach(function(el){
+          var img=el.querySelector('img'); if(img && img.getAttribute('src')) srcs[img.getAttribute('src')]=1;
+        });
+        srcs['assets/img/community-primary/p1.png']=1;
+        srcs['assets/img/community-primary/p2.png']=1;
+        Object.keys(srcs).forEach(function(src){ var im=new Image(); im.src=src; });
+      }
+      var warmIO=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ warmImages(); warmIO.disconnect(); } });
+      },{ root: overlay, threshold: 0, rootMargin: '0px 0px 150% 0px' });
+      warmIO.observe(grid);
       var popped=false;
       function popCascade(){
         if(popped) return; popped=true;
