@@ -457,6 +457,9 @@
     .fr-note{font-size:11.5px;font-weight:500;line-height:1.5;color:#7C849B;text-align:center;}
     .fr-ok{display:none;flex-direction:column;align-items:center;gap:14px;text-align:center;}
     .fr-ok.show{display:flex;}
+    .fr-partner-cta{display:inline-flex;align-items:center;justify-content:center;padding:15px 36px;background:#F0281E;color:#FFFFFF;font-weight:600;font-size:14px;line-height:1;border-radius:100px;box-shadow:0 10px 30px rgba(240,40,30,0.32);transition:transform 0.16s ease-out,background 0.16s ease-out;text-decoration:none;}
+    @media(hover:hover){.fr-partner-cta:hover{background:#ff372c;}}
+    .fr-partner-cta:active{transform:scale(0.97);}
     /* ---- "Interested?" contact form (PDF spec) --------------------------- */
     .pl-wrap{width:100%;max-width:620px;margin:0 auto;display:flex;flex-direction:column;align-items:center;}
     .pl-head{margin:0 0 clamp(30px,5vw,46px);text-align:center;font-weight:600;line-height:1.14;letter-spacing:-0.02em;font-size:clamp(30px,3.4vw,44px);text-wrap:balance;}
@@ -697,37 +700,7 @@
           <span class="lead">Drop us a &ldquo;Hi&rdquo;, and we&rsquo;ll call you back.</span>
         </h2>
 
-        <form id="frForm" class="pl-card reveal" novalidate>
-          <label class="pl-label" for="frName">Who is the contact person?</label>
-          <input class="pl-input" id="frName" name="name" type="text" placeholder="Enter your name" autocomplete="name" maxlength="60" required>
-
-          <label class="pl-label pl-gap" for="frAgency">What is your agency name?</label>
-          <input class="pl-input" id="frAgency" name="agency" type="text" placeholder="Agency name" autocomplete="organization" maxlength="80" required>
-
-          <div class="pl-group">
-            <input class="pl-input" id="frEmail" name="email" type="email" placeholder="Agency email address" autocomplete="email" maxlength="120" required>
-            <div class="pl-divider"></div>
-            <input class="pl-input" id="frPhone" name="phone" type="number" inputmode="numeric" placeholder="Agency contact number" autocomplete="tel" maxlength="20" required>
-          </div>
-
-          <textarea class="pl-input pl-gap" id="frMsg" name="message" placeholder="What do you want our relationship to be like?" maxlength="600"></textarea>
-
-          <button type="submit" class="pl-submit" disabled>Submit</button>
-        </form>
-
-        <div id="frOk" class="fr-ok" style="margin-top:22px;">
-          <span style="width:56px;height:56px;border-radius:999px;background:rgba(36,211,102,0.16);display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#24D366" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <h3 style="margin:0;color:#FFFFFF;font-weight:600;font-size:20px;">Your email is ready to send</h3>
-          <p style="margin:0;color:#9A9FB2;font-weight:500;font-size:14px;line-height:1.5;max-width:30ch;">We&rsquo;ve opened your mail app with the details filled in. Hit send and we&rsquo;ll call you back.</p>
-        </div>
-
-        <div class="pl-prio reveal">
-          <h3>This is how we prioritize your request.</h3>
-          <div class="pl-tier"><p class="t">Top priority</p><p class="d">Agencies submitted every field with care.</p></div>
-          <div class="pl-tier"><p class="t">Second priority</p><p class="d">Agencies submit their agency name and contact details with care.</p></div>
-          <div class="pl-tier"><p class="t">After that</p><p class="d">Agencies submit their agency name with care.</p></div>
-          <div class="pl-tier"><p class="t">At last</p><p class="d">Other submissions</p></div>
-        </div>
+        <a class="fr-partner-cta reveal" href="mailto:support@polysocial.cc?subject=Partner%20with%20Polysocial">Partner with Polysocial</a>
       </div>
     </section>
 
