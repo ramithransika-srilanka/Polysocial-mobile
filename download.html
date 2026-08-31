@@ -66,6 +66,24 @@
     width: 100%; height: auto; display: block;
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.35) 84%, transparent 100%);
     mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.35) 84%, transparent 100%);
+    opacity: 0; transition: opacity 0.4s ease-out;
+  }
+  .ea-hero__bg img.loaded { opacity: 1; }
+  .ea-hero__spinner {
+    position: absolute; left: 50%; top: 50%;
+    width: 34px; height: 34px; margin: -17px 0 0 -17px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.14);
+    border-top-color: rgba(255,255,255,0.55);
+    animation: eaSpin 0.9s linear infinite;
+    opacity: 1; transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .ea-hero__bg.loaded .ea-hero__spinner { opacity: 0; }
+  @keyframes eaSpin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ea-hero__spinner { animation: none; }
+    .ea-hero__bg img { transition: none; }
   }
   .ea-hero__veil {
     position: absolute; inset: 0; z-index: 1;
@@ -156,7 +174,8 @@
   <!-- Hero: faded phone mockup + early-access copy -->
   <section class="ea-hero">
     <div class="ea-hero__bg" aria-hidden="true">
-      <img src="assets/svg/early-access-phone.svg" alt="" loading="eager" decoding="async">
+      <span class="ea-hero__spinner" role="presentation"></span>
+      <img src="assets/svg/early-access-phone.svg" alt="" loading="eager" decoding="async" fetchpriority="high" onload="this.classList.add('loaded');this.parentNode.classList.add('loaded');" onerror="this.parentNode.classList.add('loaded');">
     </div>
     <div class="ea-hero__veil" aria-hidden="true"></div>
     <div class="ea-hero__inner">
