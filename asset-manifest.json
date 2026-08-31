@@ -112,50 +112,6 @@
     "fallback": "assets/img/a14a7902.fallback.33b48a6bb4.png",
     "fallbackMime": "image/png"
   },
-  "src-assets/img/about-phone.jpg": {
-    "type": "raster",
-    "width": 1014,
-    "height": 1650,
-    "widths": [
-      480,
-      960,
-      1014
-    ],
-    "avif": {
-      "480": "assets/img/about-phone.480w.351c3aade8.avif",
-      "960": "assets/img/about-phone.960w.f373f4d643.avif",
-      "1014": "assets/img/about-phone.1014w.ae46f4bb64.avif"
-    },
-    "webp": {
-      "480": "assets/img/about-phone.480w.e290e92dea.webp",
-      "960": "assets/img/about-phone.960w.154c4b5d49.webp",
-      "1014": "assets/img/about-phone.1014w.c5c53f506a.webp"
-    },
-    "fallback": "assets/img/about-phone.fallback.cc872a20c9.jpg",
-    "fallbackMime": "image/jpeg"
-  },
-  "src-assets/img/about-visual.jpg": {
-    "type": "raster",
-    "width": 1179,
-    "height": 1695,
-    "widths": [
-      480,
-      960,
-      1179
-    ],
-    "avif": {
-      "480": "assets/img/about-visual.480w.1c71084512.avif",
-      "960": "assets/img/about-visual.960w.c922cb1ee3.avif",
-      "1179": "assets/img/about-visual.1179w.49c3694785.avif"
-    },
-    "webp": {
-      "480": "assets/img/about-visual.480w.a23e3f498c.webp",
-      "960": "assets/img/about-visual.960w.acedc1d181.webp",
-      "1179": "assets/img/about-visual.1179w.383286ee09.webp"
-    },
-    "fallback": "assets/img/about-visual.fallback.d67520bb8c.jpg",
-    "fallbackMime": "image/jpeg"
-  },
   "src-assets/img/article-rothko.jpg": {
     "type": "raster",
     "width": 620,
@@ -194,301 +150,6 @@
     "fallback": "assets/img/article-social.fallback.404beecf4b.jpg",
     "fallbackMime": "image/jpeg"
   },
-  "src-assets/img/brand-briksy.webp": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-briksy.480w.bcd9afacd8.avif",
-      "960": "assets/img/brand-briksy.960w.bf57bd2790.avif",
-      "1254": "assets/img/brand-briksy.1254w.1d1a06814d.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-briksy.480w.f9002b6c50.webp",
-      "960": "assets/img/brand-briksy.960w.a882358e8f.webp",
-      "1254": "assets/img/brand-briksy.1254w.12efbc7c92.webp"
-    },
-    "fallback": "assets/img/brand-briksy.fallback.f68d9192c8.jpg",
-    "fallbackMime": "image/jpeg"
-  },
-  "src-assets/img/brand-community-1.png": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-community-1.480w.e8b43b6fad.avif",
-      "960": "assets/img/brand-community-1.960w.f28ce6ab59.avif",
-      "1254": "assets/img/brand-community-1.1254w.ebd0137af2.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-community-1.480w.df2eb0fb9b.webp",
-      "960": "assets/img/brand-community-1.960w.58aa26a012.webp",
-      "1254": "assets/img/brand-community-1.1254w.5f0685134d.webp"
-    },
-    "fallback": "assets/img/brand-community-1.fallback.d5ddcaf567.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-community-2.png": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-community-2.480w.a8b5afb302.avif",
-      "960": "assets/img/brand-community-2.960w.22eae99981.avif",
-      "1254": "assets/img/brand-community-2.1254w.0629b82c45.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-community-2.480w.8e7d7ff68e.webp",
-      "960": "assets/img/brand-community-2.960w.c35e4e4eb5.webp",
-      "1254": "assets/img/brand-community-2.1254w.63a2f001d4.webp"
-    },
-    "fallback": "assets/img/brand-community-2.fallback.bc434119d3.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-community-3.png": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-community-3.480w.b67478b0f8.avif",
-      "960": "assets/img/brand-community-3.960w.95aabfbddb.avif",
-      "1254": "assets/img/brand-community-3.1254w.1ce43e7965.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-community-3.480w.0dee154e5b.webp",
-      "960": "assets/img/brand-community-3.960w.b1d1c72ac7.webp",
-      "1254": "assets/img/brand-community-3.1254w.e43d5b35e4.webp"
-    },
-    "fallback": "assets/img/brand-community-3.fallback.85ad9a2227.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-community-4.png": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-community-4.480w.8ac509bb28.avif",
-      "960": "assets/img/brand-community-4.960w.c5165a1bfc.avif",
-      "1254": "assets/img/brand-community-4.1254w.b0f06562ec.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-community-4.480w.809e97f681.webp",
-      "960": "assets/img/brand-community-4.960w.98ba771b16.webp",
-      "1254": "assets/img/brand-community-4.1254w.e4452d9464.webp"
-    },
-    "fallback": "assets/img/brand-community-4.fallback.6a1e82ac6c.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-community-5.png": {
-    "type": "raster",
-    "width": 2731,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440,
-      1920,
-      2731
-    ],
-    "avif": {
-      "480": "assets/img/brand-community-5.480w.760794b8ba.avif",
-      "960": "assets/img/brand-community-5.960w.ebbb9edbf9.avif",
-      "1440": "assets/img/brand-community-5.1440w.9865f5db99.avif",
-      "1920": "assets/img/brand-community-5.1920w.bc654dd9d0.avif",
-      "2731": "assets/img/brand-community-5.2731w.4ec5f8854b.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-community-5.480w.0e764fae8e.webp",
-      "960": "assets/img/brand-community-5.960w.b11f85b6de.webp",
-      "1440": "assets/img/brand-community-5.1440w.65e8fee37e.webp",
-      "1920": "assets/img/brand-community-5.1920w.92c195fd62.webp",
-      "2731": "assets/img/brand-community-5.2731w.1d78d16aba.webp"
-    },
-    "fallback": "assets/img/brand-community-5.fallback.f3c25b86dd.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-cta-gradient.jpg": {
-    "type": "raster",
-    "width": 1512,
-    "height": 1000,
-    "widths": [
-      480,
-      960,
-      1440,
-      1512
-    ],
-    "avif": {
-      "480": "assets/img/brand-cta-gradient.480w.7d495fdbde.avif",
-      "960": "assets/img/brand-cta-gradient.960w.aa5cc666cb.avif",
-      "1440": "assets/img/brand-cta-gradient.1440w.cea7cb689f.avif",
-      "1512": "assets/img/brand-cta-gradient.1512w.cb3d8a76aa.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-cta-gradient.480w.79d246847b.webp",
-      "960": "assets/img/brand-cta-gradient.960w.bd8cbcadeb.webp",
-      "1440": "assets/img/brand-cta-gradient.1440w.6a6e170ac9.webp",
-      "1512": "assets/img/brand-cta-gradient.1512w.9e004a79b3.webp"
-    },
-    "fallback": "assets/img/brand-cta-gradient.fallback.73f1b6f4ea.jpg",
-    "fallbackMime": "image/jpeg"
-  },
-  "src-assets/img/brand-lunavo.webp": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-lunavo.480w.56f19e9f62.avif",
-      "960": "assets/img/brand-lunavo.960w.6492544d20.avif",
-      "1254": "assets/img/brand-lunavo.1254w.7deaf979ba.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-lunavo.480w.16dfea4c7c.webp",
-      "960": "assets/img/brand-lunavo.960w.946f804aa2.webp",
-      "1254": "assets/img/brand-lunavo.1254w.6a8f6fe0d4.webp"
-    },
-    "fallback": "assets/img/brand-lunavo.fallback.dfdb2c5e3b.jpg",
-    "fallbackMime": "image/jpeg"
-  },
-  "src-assets/img/brand-polysocial-p.webp": {
-    "type": "raster",
-    "width": 1254,
-    "height": 1254,
-    "widths": [
-      480,
-      960,
-      1254
-    ],
-    "avif": {
-      "480": "assets/img/brand-polysocial-p.480w.05af23d26d.avif",
-      "960": "assets/img/brand-polysocial-p.960w.6207254e32.avif",
-      "1254": "assets/img/brand-polysocial-p.1254w.18bee2f5c5.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-polysocial-p.480w.075af53fd6.webp",
-      "960": "assets/img/brand-polysocial-p.960w.4f2011aeec.webp",
-      "1254": "assets/img/brand-polysocial-p.1254w.be70bfa024.webp"
-    },
-    "fallback": "assets/img/brand-polysocial-p.fallback.c968ee7322.jpg",
-    "fallbackMime": "image/jpeg"
-  },
-  "src-assets/img/brand-start-1.png": {
-    "type": "raster",
-    "width": 1080,
-    "height": 1350,
-    "widths": [
-      480,
-      960,
-      1080
-    ],
-    "avif": {
-      "480": "assets/img/brand-start-1.480w.7fdefee1fe.avif",
-      "960": "assets/img/brand-start-1.960w.9c82db35b6.avif",
-      "1080": "assets/img/brand-start-1.1080w.67ced42403.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-start-1.480w.44aa760b8c.webp",
-      "960": "assets/img/brand-start-1.960w.f38d2b3c79.webp",
-      "1080": "assets/img/brand-start-1.1080w.0dc1d80a76.webp"
-    },
-    "fallback": "assets/img/brand-start-1.fallback.095739487e.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-start-2.png": {
-    "type": "raster",
-    "width": 1080,
-    "height": 1350,
-    "widths": [
-      480,
-      960,
-      1080
-    ],
-    "avif": {
-      "480": "assets/img/brand-start-2.480w.e8f7544ef6.avif",
-      "960": "assets/img/brand-start-2.960w.7b68eeb143.avif",
-      "1080": "assets/img/brand-start-2.1080w.57e894b74b.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-start-2.480w.83664ae315.webp",
-      "960": "assets/img/brand-start-2.960w.5ddd1f2538.webp",
-      "1080": "assets/img/brand-start-2.1080w.d8d6f22679.webp"
-    },
-    "fallback": "assets/img/brand-start-2.fallback.73dfcc13b3.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-start-3.png": {
-    "type": "raster",
-    "width": 1080,
-    "height": 1350,
-    "widths": [
-      480,
-      960,
-      1080
-    ],
-    "avif": {
-      "480": "assets/img/brand-start-3.480w.467298d700.avif",
-      "960": "assets/img/brand-start-3.960w.f37437597b.avif",
-      "1080": "assets/img/brand-start-3.1080w.c269c9be06.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-start-3.480w.78b49d980f.webp",
-      "960": "assets/img/brand-start-3.960w.2492e4c1be.webp",
-      "1080": "assets/img/brand-start-3.1080w.e3c05f1224.webp"
-    },
-    "fallback": "assets/img/brand-start-3.fallback.a9253a1b74.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/brand-start-4.png": {
-    "type": "raster",
-    "width": 1080,
-    "height": 1350,
-    "widths": [
-      480,
-      960,
-      1080
-    ],
-    "avif": {
-      "480": "assets/img/brand-start-4.480w.2e4b8ae29f.avif",
-      "960": "assets/img/brand-start-4.960w.136d184a45.avif",
-      "1080": "assets/img/brand-start-4.1080w.dfa429192b.avif"
-    },
-    "webp": {
-      "480": "assets/img/brand-start-4.480w.2dad8b5246.webp",
-      "960": "assets/img/brand-start-4.960w.f7fb555b1e.webp",
-      "1080": "assets/img/brand-start-4.1080w.e94bcfc62d.webp"
-    },
-    "fallback": "assets/img/brand-start-4.fallback.ad693e01b6.png",
-    "fallbackMime": "image/png"
-  },
   "src-assets/img/campaign-moto.jpg": {
     "type": "raster",
     "width": 760,
@@ -507,91 +168,6 @@
     },
     "fallback": "assets/img/campaign-moto.fallback.ac44aa6776.jpg",
     "fallbackMime": "image/jpeg"
-  },
-  "src-assets/img/comm-luna.png": {
-    "type": "raster",
-    "width": 941,
-    "height": 1672,
-    "widths": [
-      480,
-      941
-    ],
-    "avif": {
-      "480": "assets/img/comm-luna.480w.7b4d52c790.avif",
-      "941": "assets/img/comm-luna.941w.723b9a7dfb.avif"
-    },
-    "webp": {
-      "480": "assets/img/comm-luna.480w.88c9a2f087.webp",
-      "941": "assets/img/comm-luna.941w.2e13bd68fa.webp"
-    },
-    "fallback": "assets/img/comm-luna.fallback.1fce1024e0.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/comm-mic.png": {
-    "type": "raster",
-    "width": 941,
-    "height": 1672,
-    "widths": [
-      480,
-      941
-    ],
-    "avif": {
-      "480": "assets/img/comm-mic.480w.74f2b0a2e9.avif",
-      "941": "assets/img/comm-mic.941w.a8f3a19f82.avif"
-    },
-    "webp": {
-      "480": "assets/img/comm-mic.480w.61b9233d15.webp",
-      "941": "assets/img/comm-mic.941w.a70ccee968.webp"
-    },
-    "fallback": "assets/img/comm-mic.fallback.9996ff2501.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/comm-phones.png": {
-    "type": "raster",
-    "width": 941,
-    "height": 1672,
-    "widths": [
-      480,
-      941
-    ],
-    "avif": {
-      "480": "assets/img/comm-phones.480w.2a13b375bd.avif",
-      "941": "assets/img/comm-phones.941w.ba1cffe27d.avif"
-    },
-    "webp": {
-      "480": "assets/img/comm-phones.480w.764c4dde10.webp",
-      "941": "assets/img/comm-phones.941w.6a76e5d69e.webp"
-    },
-    "fallback": "assets/img/comm-phones.fallback.ccdeabcf3c.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/creators-vip.png": {
-    "type": "raster",
-    "width": 2259,
-    "height": 941,
-    "widths": [
-      480,
-      960,
-      1440,
-      1920,
-      2259
-    ],
-    "avif": {
-      "480": "assets/img/creators-vip.480w.4ae22f370f.avif",
-      "960": "assets/img/creators-vip.960w.441978b39a.avif",
-      "1440": "assets/img/creators-vip.1440w.31dcdb2c11.avif",
-      "1920": "assets/img/creators-vip.1920w.0501dd0a96.avif",
-      "2259": "assets/img/creators-vip.2259w.e8d717f2d9.avif"
-    },
-    "webp": {
-      "480": "assets/img/creators-vip.480w.0c5874752b.webp",
-      "960": "assets/img/creators-vip.960w.0e07f7822d.webp",
-      "1440": "assets/img/creators-vip.1440w.1567e823ce.webp",
-      "1920": "assets/img/creators-vip.1920w.c244dbba90.webp",
-      "2259": "assets/img/creators-vip.2259w.6b4f7dfa31.webp"
-    },
-    "fallback": "assets/img/creators-vip.fallback.8406367937.png",
-    "fallbackMime": "image/png"
   },
   "src-assets/img/d20322b3.gif": {
     "type": "animated",
@@ -648,11 +224,11 @@
       2000
     ],
     "avif": {
-      "480": "assets/img/fbd016fc.480w.fa7e854a80.avif",
-      "960": "assets/img/fbd016fc.960w.3662fdde41.avif",
-      "1440": "assets/img/fbd016fc.1440w.e7770992e7.avif",
-      "1920": "assets/img/fbd016fc.1920w.382df72579.avif",
-      "2000": "assets/img/fbd016fc.2000w.abf59dbeb1.avif"
+      "480": "assets/img/fbd016fc.480w.e6a37c8b4f.avif",
+      "960": "assets/img/fbd016fc.960w.d201c96db3.avif",
+      "1440": "assets/img/fbd016fc.1440w.48a42e46e1.avif",
+      "1920": "assets/img/fbd016fc.1920w.551306597d.avif",
+      "2000": "assets/img/fbd016fc.2000w.6613bb536d.avif"
     },
     "webp": {
       "480": "assets/img/fbd016fc.480w.a306b4c0bb.webp",
@@ -816,82 +392,6 @@
     "fallback": "assets/img/hero-8.fallback.f03f013a6f.png",
     "fallbackMime": "image/png"
   },
-  "src-assets/img/pricing-hero-reference.png": {
-    "type": "raster",
-    "width": 557,
-    "height": 472,
-    "widths": [
-      480,
-      557
-    ],
-    "avif": {
-      "480": "assets/img/pricing-hero-reference.480w.272d34a161.avif",
-      "557": "assets/img/pricing-hero-reference.557w.a2266edf99.avif"
-    },
-    "webp": {
-      "480": "assets/img/pricing-hero-reference.480w.b6d4adb4c0.webp",
-      "557": "assets/img/pricing-hero-reference.557w.ee478a4691.webp"
-    },
-    "fallback": "assets/img/pricing-hero-reference.fallback.101d4da1cb.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/reach-beach.png": {
-    "type": "raster",
-    "width": 941,
-    "height": 1672,
-    "widths": [
-      480,
-      941
-    ],
-    "avif": {
-      "480": "assets/img/reach-beach.480w.bb5f469673.avif",
-      "941": "assets/img/reach-beach.941w.49580eb641.avif"
-    },
-    "webp": {
-      "480": "assets/img/reach-beach.480w.2e2be5635c.webp",
-      "941": "assets/img/reach-beach.941w.1c435f0994.webp"
-    },
-    "fallback": "assets/img/reach-beach.fallback.2b65dc1b88.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/reach-dance.png": {
-    "type": "raster",
-    "width": 941,
-    "height": 1672,
-    "widths": [
-      480,
-      941
-    ],
-    "avif": {
-      "480": "assets/img/reach-dance.480w.72ab45955d.avif",
-      "941": "assets/img/reach-dance.941w.843ae6c568.avif"
-    },
-    "webp": {
-      "480": "assets/img/reach-dance.480w.5e30dfd547.webp",
-      "941": "assets/img/reach-dance.941w.0ccf600e5d.webp"
-    },
-    "fallback": "assets/img/reach-dance.fallback.a5aa80a02d.png",
-    "fallbackMime": "image/png"
-  },
-  "src-assets/img/reach-lipstick.png": {
-    "type": "raster",
-    "width": 941,
-    "height": 1672,
-    "widths": [
-      480,
-      941
-    ],
-    "avif": {
-      "480": "assets/img/reach-lipstick.480w.ef370a9f57.avif",
-      "941": "assets/img/reach-lipstick.941w.b88345e136.avif"
-    },
-    "webp": {
-      "480": "assets/img/reach-lipstick.480w.883f034c9e.webp",
-      "941": "assets/img/reach-lipstick.941w.954f7641be.webp"
-    },
-    "fallback": "assets/img/reach-lipstick.fallback.04af13e85c.png",
-    "fallbackMime": "image/png"
-  },
   "src-assets/img/uber.png": {
     "type": "raster",
     "width": 900,
@@ -916,10 +416,10 @@
     "width": 720,
     "height": 1280,
     "targetWidth": 720,
-    "mp4": "assets/video/0e94d45a.h264.b6ace2fb9b.mp4",
-    "webm": "assets/video/0e94d45a.vp9.328645253d.webm",
-    "posterWebp": "assets/video/0e94d45a.poster.7805ab6e1d.webp",
-    "posterJpg": "assets/video/0e94d45a.poster.14dc92241f.jpg"
+    "mp4": "assets/video/0e94d45a.h264.8506de33d5.mp4",
+    "webm": "assets/video/0e94d45a.vp9.65dab27bac.webm",
+    "posterWebp": "assets/video/0e94d45a.poster.7ee1bdf59a.webp",
+    "posterJpg": "assets/video/0e94d45a.poster.127526f6fa.jpg"
   },
   "src-assets/video/b4631b25.mp4": {
     "type": "video",
@@ -927,29 +427,9 @@
     "height": 1280,
     "targetWidth": 360,
     "mp4": "assets/video/b4631b25.h264.75e8d644a9.mp4",
-    "webm": "assets/video/b4631b25.vp9.c90f736ec7.webm",
+    "webm": "assets/video/b4631b25.vp9.e0a7b09d6e.webm",
     "posterWebp": "assets/video/b4631b25.poster.631f7a5688.webp",
     "posterJpg": "assets/video/b4631b25.poster.e003ee1ea4.jpg"
-  },
-  "src-assets/video/brand-sponsored-ad-landscape.mp4": {
-    "type": "video",
-    "width": 720,
-    "height": 406,
-    "targetWidth": 720,
-    "mp4": "assets/video/brand-sponsored-ad-landscape.h264.92fd53304b.mp4",
-    "webm": "assets/video/brand-sponsored-ad-landscape.vp9.6abeed6926.webm",
-    "posterWebp": "assets/video/brand-sponsored-ad-landscape.poster.f4747f08e4.webp",
-    "posterJpg": "assets/video/brand-sponsored-ad-landscape.poster.9099189281.jpg"
-  },
-  "src-assets/video/brand-sponsored-ad.mp4": {
-    "type": "video",
-    "width": 720,
-    "height": 1280,
-    "targetWidth": 720,
-    "mp4": "assets/video/brand-sponsored-ad.h264.87f52e1988.mp4",
-    "webm": "assets/video/brand-sponsored-ad.vp9.f5c05aec47.webm",
-    "posterWebp": "assets/video/brand-sponsored-ad.poster.8d72ad1462.webp",
-    "posterJpg": "assets/video/brand-sponsored-ad.poster.738080847b.jpg"
   },
   "src-assets/video/fan-beach.mp4": {
     "type": "video",
@@ -957,7 +437,7 @@
     "height": 1280,
     "targetWidth": 360,
     "mp4": "assets/video/fan-beach.h264.36b5dd3d89.mp4",
-    "webm": "assets/video/fan-beach.vp9.8d80f29ac3.webm",
+    "webm": "assets/video/fan-beach.vp9.e3088ace35.webm",
     "posterWebp": "assets/video/fan-beach.poster.5ecc8dec2f.webp",
     "posterJpg": "assets/video/fan-beach.poster.ab09f2d368.jpg"
   },
@@ -967,7 +447,7 @@
     "height": 1280,
     "targetWidth": 360,
     "mp4": "assets/video/fan-dancing.h264.e49ec2c10f.mp4",
-    "webm": "assets/video/fan-dancing.vp9.846bdf2335.webm",
+    "webm": "assets/video/fan-dancing.vp9.4b4cf5fef9.webm",
     "posterWebp": "assets/video/fan-dancing.poster.01ba1c5f2c.webp",
     "posterJpg": "assets/video/fan-dancing.poster.653aade31a.jpg"
   },
@@ -977,7 +457,7 @@
     "height": 1280,
     "targetWidth": 360,
     "mp4": "assets/video/fan-launch.h264.2890b28c9e.mp4",
-    "webm": "assets/video/fan-launch.vp9.533aa36cc6.webm",
+    "webm": "assets/video/fan-launch.vp9.7194266e5d.webm",
     "posterWebp": "assets/video/fan-launch.poster.be42703a4c.webp",
     "posterJpg": "assets/video/fan-launch.poster.8da869ee41.jpg"
   },
@@ -992,14 +472,6 @@
   "src-assets/svg/eadccd63.svg": {
     "type": "passthrough",
     "path": "assets/svg/eadccd63.79a5c37308.svg"
-  },
-  "src-assets/svg/group17-badge.svg": {
-    "type": "passthrough",
-    "path": "assets/svg/group17-badge.eb7cc791f7.svg"
-  },
-  "src-assets/svg/organic-badge.svg": {
-    "type": "passthrough",
-    "path": "assets/svg/organic-badge.edce44419f.svg"
   },
   "src-assets/font/099879f2.woff2": {
     "type": "passthrough",
