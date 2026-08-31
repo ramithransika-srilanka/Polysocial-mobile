@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/svg/a9f0640a.21119f0406.svg" fetchpriority="high">
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #FFFFFF; }
@@ -41,8 +42,30 @@
   }
 
   /* ---- Brand wordmark ---- */
-  .ra-brand { margin-bottom: 11px; }
-  .ra-brand img { display: block; height: 24px; width: auto; filter: brightness(0); }
+  .ra-brand {
+    margin-bottom: 11px;
+    position: relative;
+    height: 24px; width: 130px;
+    border-radius: 6px; overflow: hidden;
+  }
+  .ra-brand img {
+    display: block; height: 24px; width: auto; filter: brightness(0);
+    opacity: 0; transition: opacity 0.25s ease;
+  }
+  .ra-brand img.loaded { opacity: 1; }
+  .ra-brand::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, #ECECEC 0%, #F6F6F6 50%, #ECECEC 100%);
+    background-size: 200% 100%;
+    animation: raShimmer 1.1s linear infinite;
+    border-radius: 6px;
+    opacity: 1; transition: opacity 0.25s ease;
+  }
+  .ra-brand.loaded::before { opacity: 0; }
+  @keyframes raShimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .ra-brand::before { animation: none; }
+  }
 
   /* ---- Intro copy ---- */
   .ra-intro { text-align: center; max-width: 420px; margin-bottom: 15px; }
@@ -139,7 +162,7 @@
     .ra-page { padding: 104px 40px 56px; align-items: flex-start; }
     .ra-shell { max-width: 560px; }
 
-    .ra-brand { margin-bottom: 14px; }
+    .ra-brand { margin-bottom: 14px; height: 30px; width: 163px; }
     .ra-brand img { height: 30px; }
     .ra-intro { max-width: 520px; margin-bottom: 26px; }
     .ra-intro h1 { font-size: 18px; margin-bottom: 12px; line-height: 1.3; }
@@ -174,8 +197,8 @@
     <div class="ra-shell">
 
       <!-- Brand wordmark -->
-      <div class="ra-brand">
-        <img src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" decoding="async">
+      <div class="ra-brand" id="raBrand">
+        <img src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" width="130" height="24" decoding="async" fetchpriority="high" onload="this.classList.add('loaded');this.parentNode.classList.add('loaded');" onerror="this.parentNode.classList.add('loaded');">
       </div>
 
       <!-- Intro copy -->
