@@ -416,10 +416,10 @@
     "width": 720,
     "height": 1280,
     "targetWidth": 720,
-    "mp4": "assets/video/0e94d45a.h264.8506de33d5.mp4",
-    "webm": "assets/video/0e94d45a.vp9.65dab27bac.webm",
-    "posterWebp": "assets/video/0e94d45a.poster.7ee1bdf59a.webp",
-    "posterJpg": "assets/video/0e94d45a.poster.127526f6fa.jpg"
+    "mp4": "assets/video/0e94d45a.h264.b7e1ad1ec8.mp4",
+    "webm": "assets/video/0e94d45a.vp9.85ff81e2e4.webm",
+    "posterWebp": "assets/video/0e94d45a.poster.4b6eca7c53.webp",
+    "posterJpg": "assets/video/0e94d45a.poster.7623c6a79f.jpg"
   },
   "src-assets/video/b4631b25.mp4": {
     "type": "video",
