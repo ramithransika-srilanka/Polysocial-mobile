@@ -164,6 +164,7 @@
 
       <!-- Form -->
       <form class="ra-form" novalidate>
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <input class="ra-input" type="text" name="contactName" placeholder="Contact person name" autocomplete="name" maxlength="80">
         <input class="ra-input" type="tel" name="contactNumber" placeholder="Contact number" autocomplete="tel" inputmode="tel" maxlength="20">
         <input class="ra-input" type="text" name="agencyName" placeholder="Agency name" autocomplete="organization" maxlength="120">
@@ -233,7 +234,7 @@
     var agencyName = form.querySelector('input[name="agencyName"]');
     var relationship = form.querySelector('textarea[name="relationship"]');
     var overlay = document.getElementById('raOverlay');
-    var RECIPIENT = 'polysocialeconomy@gmail.com';
+    var ACCESS_KEY = 'ffb840f2-12da-460f-8b24-e28cd51984f2';
 
     function showOverlay() {
       if (!overlay) return;
@@ -252,18 +253,44 @@
           an = agencyName.value.trim(),
           em = email.value.trim(),
           rl = relationship.value.trim();
-      var subject = 'Partner with Polysocial — ' + (an || cn || em || 'agency');
-      var body =
-        'Contact person name: ' + (cn || '-') +
-        '\nContact number: ' + (ph || '-') +
-        '\nAgency name: ' + (an || '-') +
-        '\nAgency email address: ' + (em || '-') +
-        '\n\nWhat do you want our relationship to be like?\n' + (rl || '-');
-      window.location.href = 'mailto:' + RECIPIENT +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
 
-      showOverlay();
+      var payload = {
+        access_key: ACCESS_KEY,
+        subject: 'Partner with Polysocial — ' + (an || cn || em || 'agency'),
+        from_name: 'Polysocial — Partner Request',
+        contactName: cn || '-',
+        contactNumber: ph || '-',
+        agencyName: an || '-',
+        agencyEmail: em || '-',
+        relationship: rl || '-',
+        botcheck: form.querySelector('input[name="botcheck"]') ? form.querySelector('input[name="botcheck"]').value : ''
+      };
+
+      var originalLabel = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (r) {
+          if (r.ok && r.data && r.data.success) {
+            form.reset();
+            showOverlay();
+          } else {
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+            alert((r.data && r.data.message) || 'Something went wrong. Please try again.');
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          alert('Network error. Please check your connection and try again.');
+        });
     });
   })();
   </script>

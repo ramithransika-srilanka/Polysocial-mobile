@@ -184,6 +184,7 @@
 
       <!-- Form -->
       <form class="ra-form" novalidate>
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <input class="ra-input" type="text" name="name" placeholder="Enter your name" autocomplete="name" maxlength="80">
         <input class="ra-input" type="email" name="email" placeholder="Your email address" autocomplete="email" inputmode="email" maxlength="120">
         <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" inputmode="tel" maxlength="20">
@@ -275,12 +276,11 @@
     var name  = form.querySelector('input[name="name"]');
     var social = form.querySelector('textarea[name="social"]');
     var overlay = document.getElementById('raOverlay');
-    var RECIPIENT = 'polysocialeconomy@gmail.com';
+    var ACCESS_KEY = '5e37f4ac-15d6-4422-8b78-f9a2e79ed549';
 
     function showOverlay() {
       if (!overlay) return;
       overlay.hidden = false;
-      // next frame so the transition runs
       requestAnimationFrame(function () { overlay.classList.add('show'); });
       document.body.style.overflow = 'hidden';
     }
@@ -292,17 +292,43 @@
 
       var n = name.value.trim(), em = email.value.trim(),
           ph = phone.value.trim(), so = social.value.trim();
-      var subject = 'Early access request — ' + (n || em || ph || 'creator');
-      var body =
-        'Name: ' + (n || '-') +
-        '\nEmail: ' + (em || '-') +
-        '\nContact number: ' + (ph || '-') +
-        '\nSocial link: ' + (so || '-');
-      window.location.href = 'mailto:' + RECIPIENT +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
 
-      showOverlay();
+      var payload = {
+        access_key: ACCESS_KEY,
+        subject: 'Early access request — ' + (n || em || ph || 'creator'),
+        from_name: 'Polysocial — Request Access',
+        name: n || '-',
+        email: em || '-',
+        phone: ph || '-',
+        social: so || '-',
+        botcheck: form.querySelector('input[name="botcheck"]') ? form.querySelector('input[name="botcheck"]').value : ''
+      };
+
+      var originalLabel = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (r) {
+          if (r.ok && r.data && r.data.success) {
+            form.reset();
+            showOverlay();
+          } else {
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+            alert((r.data && r.data.message) || 'Something went wrong. Please try again.');
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          alert('Network error. Please check your connection and try again.');
+        });
     });
   })();
   </script>
