@@ -2,9 +2,6 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 <title>Get early access — Polysocial</title>
 <meta name="description" content="Polysocial is curating the platform for the region. Access is limited to a select group of creators. Request early access.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,12 +64,9 @@
   }
   .ea-hero__bg img {
     width: 100%; height: auto; display: block;
-    aspect-ratio: 317 / 649;
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.35) 84%, transparent 100%);
     mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.35) 84%, transparent 100%);
-    opacity: 0; transition: opacity 0.5s ease;
   }
-  .ea-hero__bg img.loaded { opacity: 1; }
   .ea-hero__veil {
     position: absolute; inset: 0; z-index: 1;
     background: radial-gradient(120% 80% at 50% 45%, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.72) 60%, rgba(10,10,10,0.92) 100%);
@@ -161,10 +155,7 @@
   <!-- Hero: faded phone mockup + early-access copy -->
   <section class="ea-hero">
     <div class="ea-hero__bg" aria-hidden="true">
-      <picture>
-        <source type="image/webp" srcset="assets/img/early-access-phone.webp">
-        <img src="assets/img/early-access-phone.jpg" alt="" width="640" height="1310" loading="eager" decoding="async" fetchpriority="high" onload="this.classList.add('loaded')">
-      </picture>
+      <img src="assets/svg/early-access-phone.svg" alt="" loading="eager" decoding="async">
     </div>
     <div class="ea-hero__veil" aria-hidden="true"></div>
     <div class="ea-hero__inner">
