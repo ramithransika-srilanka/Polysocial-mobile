@@ -83,6 +83,7 @@
   .ra-submit:disabled:hover { background: #AEB4CC; }
 
   .ra-input.invalid { box-shadow: 0 0 0 2px rgba(240,40,30,0.55); }
+  .ra-error { margin: 5px 4px 0; font-weight: 500; font-size: 12px; line-height: 1.32; color: #E0261E; }
 
   /* ---- Submitted overlay ---- */
   .ra-overlay {
@@ -165,11 +166,16 @@
 
       <!-- Form -->
       <form class="ra-form" novalidate>
+        <input type="hidden" name="access_key" value="ffb840f2-12da-460f-8b24-e28cd51984f2">
+        <input type="hidden" name="from_name" value="Polysocial — Partner Request">
+        <input type="hidden" name="subject" value="Partner with Polysocial">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <input class="ra-input" type="text" name="contactName" placeholder="Contact person name" autocomplete="name" maxlength="80">
         <input class="ra-input" type="tel" name="contactNumber" placeholder="Contact number" autocomplete="tel" inputmode="tel" maxlength="20">
         <input class="ra-input" type="text" name="agencyName" placeholder="Agency name" autocomplete="organization" maxlength="120">
         <input class="ra-input" type="email" name="agencyEmail" placeholder="Agency email address" autocomplete="email" inputmode="email" maxlength="120">
         <textarea class="ra-input" name="relationship" placeholder="What do you want our relationship to be like?" maxlength="1000"></textarea>
+        <p class="ra-error" id="raError" hidden>Something went wrong. Please try again.</p>
         <button class="ra-submit" type="submit" disabled>Submit</button>
       </form>
 
@@ -232,9 +238,9 @@
 
     var contactName = form.querySelector('input[name="contactName"]');
     var agencyName = form.querySelector('input[name="agencyName"]');
-    var relationship = form.querySelector('textarea[name="relationship"]');
+    var subjectField = form.querySelector('input[name="subject"]');
     var overlay = document.getElementById('raOverlay');
-    var RECIPIENT = 'polysocialeconomy@gmail.com';
+    var errorEl = document.getElementById('raError');
 
     function showOverlay() {
       if (!overlay) return;
@@ -249,22 +255,38 @@
       if (!emailValid()) { email.classList.add('invalid'); email.focus(); return; }
 
       var cn = contactName.value.trim(),
-          ph = phone.value.trim(),
           an = agencyName.value.trim(),
-          em = email.value.trim(),
-          rl = relationship.value.trim();
-      var subject = 'Partner with Polysocial — ' + (an || cn || em || 'agency');
-      var body =
-        'Contact person name: ' + (cn || '-') +
-        '\nContact number: ' + (ph || '-') +
-        '\nAgency name: ' + (an || '-') +
-        '\nAgency email address: ' + (em || '-') +
-        '\n\nWhat do you want our relationship to be like?\n' + (rl || '-');
-      window.location.href = 'mailto:' + RECIPIENT +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
+          em = email.value.trim();
+      subjectField.value = 'Partner with Polysocial — ' + (an || cn || em || 'agency');
 
-      showOverlay();
+      errorEl.hidden = true;
+      var originalLabel = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (data) {
+          if (data && data.success) {
+            showOverlay();
+            form.reset();
+          } else {
+            errorEl.textContent = (data && data.message) || 'Something went wrong. Please try again.';
+            errorEl.hidden = false;
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+          }
+        })
+        .catch(function () {
+          errorEl.textContent = 'Network error. Please check your connection and try again.';
+          errorEl.hidden = false;
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+        });
     });
   })();
   </script>
