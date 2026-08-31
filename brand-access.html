@@ -88,6 +88,7 @@
   .ra-submit:disabled:hover { background: #AEB4CC; }
 
   .ra-input.invalid { box-shadow: 0 0 0 2px rgba(240,40,30,0.55); }
+  .ra-error { margin: 5px 4px 0; font-weight: 500; font-size: 12px; line-height: 1.32; color: #E0261E; }
 
   /* ---- Submitted overlay ---- */
   .ra-overlay {
@@ -185,10 +186,15 @@
 
       <!-- Form -->
       <form class="ra-form" novalidate>
+        <input type="hidden" name="access_key" value="8415737c-571b-4a3b-8e71-2f3e316fd4f7">
+        <input type="hidden" name="from_name" value="Polysocial — Brand Access">
+        <input type="hidden" name="subject" value="Brand early access request">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <input class="ra-input" type="text" name="contact" placeholder="Contact person name" autocomplete="name" maxlength="80">
         <input class="ra-input" type="email" name="email" placeholder="Your business email address" autocomplete="email" inputmode="email" maxlength="120">
         <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" inputmode="tel" maxlength="20">
         <input class="ra-input" type="url" name="website" placeholder="Brand website" autocomplete="url" inputmode="url" maxlength="200">
+        <p class="ra-error" id="raError" hidden>Something went wrong. Please try again.</p>
         <button class="ra-submit" type="submit" disabled>Request</button>
       </form>
 
@@ -273,14 +279,13 @@
     update();
 
     var contact = form.querySelector('input[name="contact"]');
-    var website = form.querySelector('input[name="website"]');
+    var subjectField = form.querySelector('input[name="subject"]');
     var overlay = document.getElementById('raOverlay');
-    var RECIPIENT = 'polysocialeconomy@gmail.com';
+    var errorEl = document.getElementById('raError');
 
     function showOverlay() {
       if (!overlay) return;
       overlay.hidden = false;
-      // next frame so the transition runs
       requestAnimationFrame(function () { overlay.classList.add('show'); });
       document.body.style.overflow = 'hidden';
     }
@@ -291,18 +296,37 @@
       if (!emailValid()) { email.classList.add('invalid'); email.focus(); return; }
 
       var c = contact.value.trim(), em = email.value.trim(),
-          ph = phone.value.trim(), we = website.value.trim();
-      var subject = 'Brand early access request — ' + (c || em || ph || 'brand');
-      var body =
-        'Contact person name: ' + (c || '-') +
-        '\nBusiness email: ' + (em || '-') +
-        '\nContact number: ' + (ph || '-') +
-        '\nBrand website: ' + (we || '-');
-      window.location.href = 'mailto:' + RECIPIENT +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
+          ph = phone.value.trim();
+      subjectField.value = 'Brand early access request — ' + (c || em || ph || 'brand');
 
-      showOverlay();
+      errorEl.hidden = true;
+      var originalLabel = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (data) {
+          if (data && data.success) {
+            showOverlay();
+            form.reset();
+          } else {
+            errorEl.textContent = (data && data.message) || 'Something went wrong. Please try again.';
+            errorEl.hidden = false;
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+          }
+        })
+        .catch(function () {
+          errorEl.textContent = 'Network error. Please check your connection and try again.';
+          errorEl.hidden = false;
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+        });
     });
   })();
   </script>

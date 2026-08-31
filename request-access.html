@@ -88,6 +88,7 @@
   .ra-submit:disabled:hover { background: #AEB4CC; }
 
   .ra-input.invalid { box-shadow: 0 0 0 2px rgba(240,40,30,0.55); }
+  .ra-error { margin: 5px 4px 0; font-weight: 500; font-size: 12px; line-height: 1.32; color: #E0261E; }
 
   /* ---- Submitted overlay ---- */
   .ra-overlay {
@@ -185,11 +186,16 @@
 
       <!-- Form -->
       <form class="ra-form" novalidate>
+        <input type="hidden" name="access_key" value="5e37f4ac-15d6-4422-8b78-f9a2e79ed549">
+        <input type="hidden" name="from_name" value="Polysocial — Request Access">
+        <input type="hidden" name="subject" value="Early access request">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <input class="ra-input" type="text" name="name" placeholder="Enter your name" autocomplete="name" maxlength="80">
         <input class="ra-input" type="email" name="email" placeholder="Your email address" autocomplete="email" inputmode="email" maxlength="120">
         <input class="ra-input" type="tel" name="phone" placeholder="Your contact number" autocomplete="tel" inputmode="tel" maxlength="20">
         <textarea class="ra-input" name="social" placeholder="Your Fb / Instagram / YouTube / Tiktok page link" maxlength="300"></textarea>
         <p class="ra-note">*Share a link to one of your social media profiles. We won&rsquo;t connect to or access your social media account.</p>
+        <p class="ra-error" id="raError" hidden>Something went wrong. Please try again.</p>
         <button class="ra-submit" type="submit" disabled>Request</button>
       </form>
 
@@ -275,13 +281,13 @@
 
     var name  = form.querySelector('input[name="name"]');
     var social = form.querySelector('textarea[name="social"]');
+    var subjectField = form.querySelector('input[name="subject"]');
     var overlay = document.getElementById('raOverlay');
-    var RECIPIENT = 'polysocialeconomy@gmail.com';
+    var errorEl = document.getElementById('raError');
 
     function showOverlay() {
       if (!overlay) return;
       overlay.hidden = false;
-      // next frame so the transition runs
       requestAnimationFrame(function () { overlay.classList.add('show'); });
       document.body.style.overflow = 'hidden';
     }
@@ -292,18 +298,37 @@
       if (!emailValid()) { email.classList.add('invalid'); email.focus(); return; }
 
       var n = name.value.trim(), em = email.value.trim(),
-          ph = phone.value.trim(), so = social.value.trim();
-      var subject = 'Early access request — ' + (n || em || ph || 'creator');
-      var body =
-        'Name: ' + (n || '-') +
-        '\nEmail: ' + (em || '-') +
-        '\nContact number: ' + (ph || '-') +
-        '\nSocial link: ' + (so || '-');
-      window.location.href = 'mailto:' + RECIPIENT +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
+          ph = phone.value.trim();
+      subjectField.value = 'Early access request — ' + (n || em || ph || 'creator');
 
-      showOverlay();
+      errorEl.hidden = true;
+      var originalLabel = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (data) {
+          if (data && data.success) {
+            showOverlay();
+            form.reset();
+          } else {
+            errorEl.textContent = (data && data.message) || 'Something went wrong. Please try again.';
+            errorEl.hidden = false;
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+          }
+        })
+        .catch(function () {
+          errorEl.textContent = 'Network error. Please check your connection and try again.';
+          errorEl.hidden = false;
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+        });
     });
   })();
   </script>
