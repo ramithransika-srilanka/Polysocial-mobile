@@ -2,8 +2,12 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About &middot; Polysocial</title>
-<meta name="description" content="In a world where information is abundant and attention is limited, every brand needs a community that believes in it. Meet the team building Polysocial.">
+<title>Data Deletion &amp; Retention Policy &middot; Polysocial</title>
+<meta name="description" content="How to delete your Polysocial account and the data associated with it, and how long we retain data after deletion.">
+<meta property="og:title" content="Data Deletion & Retention Policy · Polysocial">
+<meta property="og:description" content="How to delete your Polysocial account and the data associated with it, and how long we retain data after deletion.">
+<meta property="og:image" content="assets/svg/a9f0640a.21119f0406.svg">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <style>/* cyrillic-ext */
@@ -339,8 +343,6 @@
   --font-icon-lib: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
   </style>
-
-
   <style>
     *{box-sizing:border-box;}
     html,body{margin:0;padding:0;}
@@ -359,22 +361,88 @@
     #menuOverlay.open .menuLink:nth-child(5){transition-delay:0.25s;}
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
-    /* About page ---------------------------------------------------------- */
-    .noScrollbar{scrollbar-width:none;-ms-overflow-style:none;}
-    .noScrollbar::-webkit-scrollbar{display:none;}
-    .ab-mute{color:#717171;}
-    .ab-hero{margin:0;font-weight:600;font-size:28px;line-height:1.22;letter-spacing:-0.01em;color:#000000;text-align:center;}
-    .ab-h2{margin:0;font-weight:600;font-size:28px;line-height:1.14;letter-spacing:-0.01em;color:#000000;text-align:center;}
-    .ab-body{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:#717171;text-align:center;}
-    .ab-pill{display:inline-flex;align-items:center;justify-content:center;padding:6px 16px;border-radius:100px;font-weight:500;font-size:12px;line-height:1;border:1px solid #C9C9C9;color:#717171;background:#FFFFFF;}
-    .ab-pill.now{border-color:#1548EB;color:#1548EB;}
-    .ab-step-title{margin:0;font-weight:600;font-size:14px;line-height:1.3;color:#000000;text-align:center;}
-    .ab-step-title.now{color:#1548EB;}
-    .ab-mission-pill{display:inline-flex;align-items:center;justify-content:center;padding:9px 22px;border-radius:100px;font-weight:600;font-size:14px;line-height:1;color:#FFFFFF;background:#1548EB;}
-    .ab-mission{margin:0;font-weight:700;font-size:20px;line-height:1.2;letter-spacing:-0.01em;color:#000000;text-align:center;}
-    .ab-name{margin:0;font-weight:700;font-size:16px;line-height:1.2;color:#000000;text-align:center;}
-    .ab-social{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;color:#000000;transition:opacity 0.15s ease;}
-    .ab-social:active{opacity:0.6;}
+  </style>
+
+  <style>
+    /* ===== Ideas Worth Sharing — article page ===== */
+    .art-shell { padding: 8px 24px 4px; }
+    .art-kicker { display:flex; align-items:center; justify-content:space-between; margin:14px 0 22px; }
+    .art-back { display:inline-flex; align-items:center; gap:5px; color:#1548EB; font-weight:500; font-size:13px; line-height:1; }
+    .art-eyebrow { color:#717171; font-weight:600; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; }
+    .art-title { margin:0 0 14px; color:#000; font-weight:700; font-size:30px; line-height:1.16; letter-spacing:-0.02em; }
+    .art-standfirst { margin:0 0 8px; color:#555; font-weight:500; font-style:italic; font-size:17px; line-height:1.5; }
+    .art-fig { margin:24px 0; }
+    .art-fig img { display:block; width:100%; height:auto; border-radius:18px; }
+    .art-fig figcaption { margin:10px 4px 0; color:#8A8A8A; font-weight:500; font-size:13px; line-height:1.5; text-align:center; }
+    .art-body p { margin:0 0 20px; color:#242424; font-weight:400; font-size:16px; line-height:1.66; }
+    .art-body p b { font-weight:600; color:#141414; }
+    .art-h2 { margin:36px 0 16px; color:#000; font-weight:700; font-size:20px; line-height:1.25; letter-spacing:-0.01em; }
+    .art-quote { margin:26px 0; padding:4px 0 4px 18px; border-left:3px solid #1548EB; color:#111; font-weight:600; font-style:italic; font-size:19px; line-height:1.4; }
+    .art-quote cite { display:block; margin-top:10px; color:#717171; font-weight:500; font-style:normal; font-size:14px; }
+    .art-stats { margin:26px 0; padding:22px; border:1px solid #ECECEC; border-radius:18px; background:#FAFAFB; }
+    .art-stats-title { margin:0 0 16px; color:#000; font-weight:600; font-size:14px; line-height:1.4; }
+    .art-stats dl { margin:0; display:flex; flex-direction:column; gap:14px; }
+    .art-stat { display:flex; align-items:baseline; gap:14px; }
+    .art-stat dt { flex:none; min-width:74px; color:#1548EB; font-weight:700; font-size:22px; line-height:1; letter-spacing:-0.01em; }
+    .art-stat dd { margin:0; color:#3A3A3A; font-weight:500; font-size:14px; line-height:1.4; }
+    .art-stats-note { margin:16px 0 0; color:#8A8A8A; font-weight:400; font-size:12px; line-height:1.5; }
+    .art-credit { margin:-8px 0 20px; color:#8A8A8A; font-weight:500; font-size:13px; line-height:1.5; }
+    .art-note { margin:24px 0 0; color:#8A8A8A; font-weight:400; font-style:italic; font-size:13px; line-height:1.6; }
+    .art-byline { display:flex; align-items:center; gap:12px; margin:40px 0 8px; padding-top:26px; border-top:1px solid #ECECEC; }
+    .art-avatar { flex:none; width:42px; height:42px; border-radius:999px; background:#F1F1F3; display:flex; align-items:center; justify-content:center; }
+    .art-byline-text { display:flex; flex-direction:column; gap:3px; }
+    .art-by { color:#242424; font-weight:400; font-size:14px; line-height:1; }
+    .art-by b { font-weight:600; color:#000; }
+    .art-date { color:#8A8A8A; font-weight:500; font-size:13px; line-height:1; }
+    .art-more { margin:16px 0 4px; }
+
+    @media (min-width: 768px) {
+      :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
+      #appRoot { width:100% !important; max-width:none !important; }
+      #siteNav { padding:14px var(--edge) 12px var(--edge) !important; justify-content:center !important; gap:32px !important; }
+      #siteNav > a[aria-label="Polysocial home"] svg { width:24px !important; height:16.8px !important; }
+      #siteNav .getAppBtn { font-size:14px !important; padding:6px 8px 6px 12px !important; gap:6px !important; }
+      #siteNav .getAppBtn svg { width:18px !important; height:18px !important; }
+      #siteNav #menuBtn { display:none !important; }
+      #deskNav { display:flex !important; align-items:center; gap:32px; white-space:nowrap; }
+      #deskNav a { color:#121212; font-weight:500; font-size:14px; line-height:1; letter-spacing:-0.01em; transition:color 0.15s ease; }
+      #deskNav a:hover { color:#1845E7; }
+      #menuOverlay nav { gap:34px !important; }
+      #menuOverlay .menuLink { font-size:30px !important; }
+      /* Article: cap reading measure, scale type up */
+      .art-shell { padding:8px var(--edge) 4px !important; }
+      .art-inner { max-width:720px; margin:0 auto; }
+      .art-title { font-size:44px !important; }
+      .art-standfirst { font-size:20px !important; }
+      .art-body p { font-size:18px !important; line-height:1.7 !important; }
+      .art-h2 { font-size:26px !important; }
+      .art-quote { font-size:23px !important; }
+      .art-fig { margin:32px 0 !important; }
+      .art-fig img { border-radius:22px !important; }
+      #siteFooter { padding:72px var(--edge) 52px !important; }
+      #siteFooter > div { max-width:1024px !important; margin:0 auto !important; }
+      #siteFooter img[alt="polysocial"] { width:152px !important; height:28px !important; }
+      #siteFooter nav a { font-size:14px !important; }
+      #siteFooter div[style*="font-size:10px"] { font-size:12px !important; }
+    }
+  </style>
+
+
+  <style>
+    .art-h3 { margin:28px 0 10px; color:#000; font-weight:600; font-size:16px; line-height:1.3; letter-spacing:-0.005em; }
+    @media (min-width: 768px) {
+      .art-h3 { font-size:19px !important; }
+    }
+    .art-body ul { margin:0 0 20px; padding-left:22px; color:#242424; font-weight:400; font-size:16px; line-height:1.66; }
+    .art-body ul li { margin:0 0 8px; }
+    @media (min-width: 768px) {
+      .art-body ul { font-size:18px !important; line-height:1.7 !important; }
+    }
+    .art-lede { margin:0 0 18px; color:#3A3A3A; font-weight:500; font-size:17px; line-height:1.55; }
+    @media (min-width: 768px) {
+      .art-lede { font-size:19px !important; }
+    }
+    .art-meta { margin:-4px 0 26px; color:#8A8A8A; font-weight:500; font-size:13px; line-height:1.5; }
   </style>
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -396,7 +464,7 @@
         <a href="brands.html">Brands</a>
         <a href="partner.html">Partner</a>
         <a href="pricing.html">Pricing</a>
-        <a href="about.html" aria-current="page" style="color:#1845E7;">Our Story</a>
+        <a href="about.html">Our Story</a>
       </nav>
       <div style="display:flex;align-items:center;gap:12px;flex:none;">
         <a class="getAppBtn" href="download.html" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 5px 4px 8px;border:1px solid #1548EB;border-radius:100px;color:#1548EB;font-weight:500;font-size:12px;line-height:normal;white-space:nowrap;transition:transform 0.16s ease-out;">Get App<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:block;flex:none;"><circle cx="8" cy="8" r="8" fill="#1745E7"></circle><path d="M8 4.67V11.33M5.33 8.67L8 11.33L10.67 8.67" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
@@ -413,175 +481,68 @@
         <a class="menuLink" href="brands.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">For Brands</a>
         <a class="menuLink" href="partner.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Partner</a>
         <a class="menuLink" href="pricing.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Pricing</a>
-        <a class="menuLink" href="about.html" style="color:#1845E7;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Our Story</a>
+        <a class="menuLink" href="about.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Our Story</a>
       </nav>
     </div>
+    </div>
+    <main class="art-shell">
+      <div class="art-inner">
 
-
-    <!-- Hero ------------------------------------------------------------- -->
-    <section id="heroBlock" style="position:relative;z-index:1;min-height:88dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;">
-      <h1 class="ab-hero">
-        <span class="ab-mute">We live in a world where</span><br>
-        information is abundant<br>
-        <span class="ab-mute">and</span> attention is limited.<br>
-        <span class="ab-mute">So, the new</span><br>
-        edge is trust.
-      </h1>
-    </section>
-
-
-    <!-- Timeline ----------------------------------------------------------- -->
-    <section id="timelineSection" style="background:#F6F6F6;padding:56px 34px;display:flex;flex-direction:column;gap:44px;">
-      <div class="ab-step" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <span class="ab-pill">20 years ago</span>
-        <h3 class="ab-step-title">Information was enough</h3>
-        <p class="ab-body">Think about 20 years ago. Brands only had to pass on the information &mdash; a full-page newspaper ad with all the details. The customer learns about the product. Purchase happens.</p>
-      </div>
-      <div class="ab-step" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <span class="ab-pill">10 years ago</span>
-        <h3 class="ab-step-title">Then attention was the key</h3>
-        <p class="ab-body">Social media and search engines became prominent. Ads everywhere, endless product info. The brands that shined were the ones grabbing attention consistently &mdash; with good content.</p>
-      </div>
-      <div class="ab-step" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <span class="ab-pill now">Now</span>
-        <h3 class="ab-step-title now">Now, trust is the edge</h3>
-        <p class="ab-body">With AI, anybody can copy good content within minutes and grab the same attention. Good content is everywhere. So who shines? The brands that can induce trust &mdash; confidence to purchase.</p>
-      </div>
-    </section>
-
-
-    <!-- A new middle layer ------------------------------------------------- -->
-    <section id="layerSection" style="padding:64px 24px 0;">
-      <h2 class="ab-h2"><span class="ab-mute">A new</span> middle layer <span class="ab-mute">is growing</span></h2>
-    </section>
-    <figure id="layerFigure" style="margin:36px 0 0;">
-      <img class="lf-mobile" src="assets/img/about-visual.jpg" alt="A frosted-glass diagram of three concentric glowing rings — a warm coral core labelled &ldquo;Your brand,&rdquo; a blue-white middle ring labelled &ldquo;A community of content creators around your brand,&rdquo; and an outer peach halo labelled &ldquo;Your customers or audience.&rdquo;" style="display:block;width:100%;height:auto;">
-      <img class="lf-desktop" src="assets/svg/about-middle-layer.svg" alt="A frosted-glass diagram of three concentric glowing rings — a warm coral core labelled &ldquo;Your brand,&rdquo; a blue-white middle ring labelled &ldquo;A community of content creators around your brand,&rdquo; and an outer peach halo labelled &ldquo;Your customers or audience.&rdquo;" style="display:none;">
-    </figure>
-
-
-    <!-- Our mission -------------------------------------------------------- -->
-    <section id="missionSection" style="padding:80px 24px 96px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <span class="ab-mission-pill">Our mission</span>
-      <p class="ab-mission" style="max-width:300px;">We empower content creators to carry brand stories straight to their target audience.</p>
-    </section>
-
-
-    <!-- Our product -------------------------------------------------------- -->
-    <section id="productSection" style="padding:0 24px;">
-      <h2 class="ab-h2"><span class="ab-mute">Our product</span><br>is our platform</h2>
-    </section>
-    <figure id="productFigure" style="margin:44px 0 0;">
-      <img src="assets/img/about-phone.jpg" alt="The Polysocial mobile app showing the Campaigns screen with a Briksy toy-set review campaign." style="display:block;width:100%;height:auto;">
-    </figure>
-    <section id="productCopy" style="padding:8px 34px 0;">
-      <p class="ab-body">We have developed a digital marketplace platform to support the transaction between content creators and brands. Along with that there is the recommendation engine for the brands to build their suitable communities and creators to earn more from their preferred industry campaigns.</p>
-    </section>
-
-
-    <!-- Who are we --------------------------------------------------------- -->
-    <section id="teamSection" style="padding:88px 34px 96px;display:flex;flex-direction:column;align-items:center;gap:20px;">
-      <h2 class="ab-h2">Who are we?</h2>
-      <p class="ab-body" style="max-width:320px;">We are a team of engineers from Sri Lanka building a global platform to support commerce across country boarders using content creators.</p>
-
-      <div id="founderRow" style="display:flex;flex-direction:column;align-items:center;gap:56px;margin-top:40px;width:100%;">
-        <div class="ab-founder" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
-          <h3 class="ab-name">Ramith Hewavithana</h3>
-          <p class="ab-body">Co-founder<br>BSc (Hons) in Engineering,<br>University of Moratuwa</p>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
-            <a class="ab-social" href="https://www.linkedin.com/in/ramith-hewavithana/" target="_blank" rel="noopener noreferrer" aria-label="Ramith Hewavithana on LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
-            <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Ramith Hewavithana"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-          </div>
-        </div>
-        <div class="ab-founder" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
-          <h3 class="ab-name">Binal Weerasena</h3>
-          <p class="ab-body">Co-founder<br>BSc (Hons) in Engineering,<br>University of Moratuwa</p>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
-            <a class="ab-social" href="https://www.linkedin.com/in/binal-weerasena/" target="_blank" rel="noopener noreferrer" aria-label="Binal Weerasena on LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
-            <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Binal Weerasena"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-          </div>
-        </div>
-        <div class="ab-founder" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
-          <h3 class="ab-name">Chathura Weerasinghe</h3>
-          <p class="ab-body">Co-founder<br>BSc (Hons) in Engineering,<br>University of Moratuwa</p>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
-            <a class="ab-social" href="https://www.linkedin.com/in/chathura-weerasinghe/" target="_blank" rel="noopener noreferrer" aria-label="Chathura Weerasinghe on LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
-            <a class="ab-social" href="mailto:support@polysocial.cc" aria-label="Email Chathura Weerasinghe"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block;"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Ideas Worth Sharing (articles) ------------------------------------- -->
-    <section id="ideasSection" style="position: relative; background: #FFFFFF; padding: 38px 0 10px;">
-      <h2 style="margin: 0 35px 24px; text-align: center; color: #000000; font-weight: 600; font-size: 28px; line-height: 1.14; letter-spacing: -0.02em;">Ideas Worth<br>Sharing</h2>
-
-      <div id="ideasScroller" class="noScrollbar" style="display: flex; gap: 21px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 42px; padding: 10px 42px; -webkit-overflow-scrolling: touch;">
-          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
-            <a href="poverty-of-trust.html" aria-label="Poverty of Trust" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
-              <img src="assets/img/articles/poverty-of-trust-hero.png" alt="A viewer before a large dark Rothko-style painting in a gallery" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </a>
-            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Poverty of Trust.</span><span style="font-weight: 400;"> Sometimes I wonder about the purpose of these videos &mdash; both for the creator and for me as the viewer.</span></p>
-            <a href="poverty-of-trust.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
-              View article
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
-          </article>
-          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
-            <a href="the-kumar-method.html" aria-label="The Kumar Method" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
-              <img src="assets/img/articles/kumar-method-hero.png" alt="A stern retired man in rimless glasses and a black turtleneck" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </a>
-            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">The Kumar Method.</span><span style="font-weight: 400;"> A retired accountant walked onto Instagram with zero followers and one idea: be the last thing the feed expects.</span></p>
-            <a href="the-kumar-method.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
-              View article
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
-          </article>
-          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
-            <a href="reach-vs-followers.html" aria-label="Reach vs. Followers" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
-              <img src="assets/img/articles/reach-vs-followers-hero.png" alt="A red social engagement badge showing millions of comments, likes and followers" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </a>
-            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Reach vs. Followers.</span><span style="font-weight: 400;"> Follower count is no longer the game. The algorithm is favouring reach and engagement more and more.</span></p>
-            <a href="reach-vs-followers.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
-              View article
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
-          </article>
-          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
-            <a href="habibi-come-to-dubai.html" aria-label="Habibi Come to Dubai" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
-              <img src="assets/img/articles/habibi-come-to-dubai-hero.png" alt="Aerial view of Palm Jumeirah and the Dubai skyline at golden hour" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </a>
-            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">Habibi Come to Dubai.</span><span style="font-weight: 400;"> How a catchy TikTok line became an unofficial, UGC-driven tourism campaign for Dubai.</span></p>
-            <a href="habibi-come-to-dubai.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
-              View article
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
-          </article>
-          <article style="scroll-snap-align: start; flex: none; width: 200px; display: flex; flex-direction: column; gap: 14px;">
-            <a href="new-guy-in-town.html" aria-label="There is a new guy in town" style="display: block; width: 200px; height: 200px; border-radius: 20px; overflow: hidden;">
-              <img src="assets/img/articles/new-guy-in-town-hero.png" alt="A content creator speaking to a camera on a tripod on a beach at sunrise" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </a>
-            <p style="margin: 0; color: #000000; font-size: 14px; line-height: 1.42;"><span style="font-weight: 600;">There is a new guy in town.</span><span style="font-weight: 400;"> The spotlight has shifted to the content creator &mdash; the new layer between brands and their customers.</span></p>
-            <a href="new-guy-in-town.html" style="display: inline-flex; align-items: center; gap: 3px; color: #1548EB; font-weight: 400; font-size: 14px; line-height: 1;">
-              View article
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: block; flex: none;"><path d="M5 11L11 5M11 5H5.5M11 5V10.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
-          </article>
+      <div class="art-kicker">
+        <a class="art-back" href="index.html">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:block;flex:none;"><path d="M11 5L5 11M5 11H10.5M5 11V5.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Back to Polysocial
+        </a>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 22px; padding-right: 42px;">
-        <button id="ideasPrev" aria-label="Previous" style="width: 46px; height: 46px; border-radius: 999px; border: none; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s ease-out;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        </button>
-        <button id="ideasNext" aria-label="Next" style="width: 46px; height: 46px; border-radius: 999px; border: none; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s ease-out;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="#121212" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        </button>
+      <article>
+      <h1 class="art-title">Data Deletion &amp; Retention Policy</h1>
+
+      <p class="art-lede">Data Deletion. Hygge Industries (Pvt) Ltd, operating the user-generated content marketing platform.</p>
+      <p class="art-meta">Effective date: 01.09.2026 &nbsp;|&nbsp; Last updated: 01.09.2026</p>
+
+      <h2 class="art-h2">1. Overview</h2>
+      <div class="art-body"><p>This page explains how to permanently delete your PolySocial account and the personal data associated with it, including data obtained through social media accounts you have connected (Instagram, Facebook, TikTok, or YouTube). It should be read together with our <a href="privacy.html" style="color:#1548EB;">Privacy Policy</a> and <a href="terms.html" style="color:#1548EB;">Terms and Conditions</a>.</p></div>
+
+      <h2 class="art-h2">2. How to request deletion (in the app)</h2>
+      <div class="art-body"><p>Open the PolySocial app and go to Profile &rarr; Account settings &rarr; Delete account. Type &ldquo;delete me&rdquo; to confirm, then enter the 6&#8209;digit code sent to your registered email address. This starts the deletion process described in Section 4 below.</p></div>
+
+      <h2 class="art-h2">3. How to request deletion without the app</h2>
+      <div class="art-body"><p>If you no longer have access to the app or your account, email <a href="mailto:binalweerasena.k@gmail.com" style="color:#1548EB;">binalweerasena.k@gmail.com</a> from the address registered to your account and ask us to delete your data. We will verify you are the account holder before acting on the request.</p></div>
+
+      <h2 class="art-h2">4. What happens after you request deletion</h2>
+      <div class="art-body"><p>Your account is signed out immediately and cannot be signed back into. A 14&#8209;day grace period then begins, during which you may cancel the deletion using the link sent to your email. If you do not cancel within that window, your account and data are permanently deleted and cannot be recovered.</p></div>
+
+      <h2 class="art-h2">5. What gets permanently deleted</h2>
+      <div class="art-body">
+      <ul>
+        <li><b>Your profile and login</b> &mdash; name, email, password, and account records.</li>
+        <li><b>Connected social accounts</b> &mdash; the access tokens for any Instagram, Facebook, TikTok, or YouTube account you connected, and any post/engagement data we retrieved through those platforms&rsquo; APIs to measure Campaign performance.</li>
+        <li><b>Campaign activity</b> &mdash; your Campaign applications and content submissions.</li>
+        <li><b>Contracts</b> &mdash; any brand&ndash;creator agreements and their e&#8209;signatures.</li>
+        <li><b>Wallet and payment history</b> &mdash; your payout account details and full transaction/payout history. We do not keep a copy of this for our own records after deletion.</li>
+        <li><b>Uploaded content files</b> &mdash; raw video, image, or other files you uploaded to the Platform, unless Section 6 below applies to that specific file.</li>
+      </ul>
       </div>
-    </section>
 
+      <h2 class="art-h2">6. What is not deleted, and why</h2>
+      <div class="art-body"><p>Content you posted from your own social media account is not ours to delete &mdash; you control that directly on the relevant platform. Where you were paid for a piece of content and its copyright transferred to the Platform under our Terms and Conditions (Section 8) and Privacy Policy (Section 5), that content is not deleted, because it is no longer your personal data at that point &mdash; it belongs to the Platform, the same as it would if you had licensed it to any other company before closing your account.</p></div>
 
-    <footer id="siteFooter" style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
+      <h2 class="art-h2">7. Revoking access directly on a connected platform</h2>
+      <div class="art-body"><p>You can also remove PolySocial&rsquo;s access to your Instagram, Facebook, TikTok, or YouTube account at any time from that platform&rsquo;s own settings (for example, Instagram/Facebook: Settings &rarr; Apps and Websites), independently of deleting your PolySocial account. This revokes our ability to read further data from that account immediately; it does not by itself delete data we already retrieved &mdash; use Section 2 or 3 above for that.</p></div>
+
+      <h2 class="art-h2">8. Timeframe</h2>
+      <div class="art-body"><p>Deletion completes at the end of the 14&#8209;day grace period described in Section 4. Requests submitted by email under Section 3 are processed within 30 days of us verifying the request.</p></div>
+
+      <h2 class="art-h2">9. Contact us</h2>
+      <div class="art-body"><p>Questions about this page or a deletion request in progress: <a href="mailto:binalweerasena.k@gmail.com" style="color:#1548EB;">binalweerasena.k@gmail.com</a> or 57/2, Lower Dickson Road, Galle 80000, Sri Lanka.</p></div>
+
+      </article>
+
+      </div>
+    </main>
+
+        <footer id="siteFooter" style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
       <div style="display:flex;flex-direction:column;gap:13px;">
         <div style="height:1px;min-height:1px;flex:none;background:#A0A0A0;"></div>
         <div style="display:flex;flex-direction:column;gap:15px;">
@@ -669,114 +630,6 @@
     ov.addEventListener('click',function(e){if(e.target===ov||e.target.classList.contains('menuLink'))setOpen(false);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
   })();
-  (function(){
-    var isc=document.getElementById('ideasScroller'),
-        ip=document.getElementById('ideasPrev'),
-        inx=document.getElementById('ideasNext');
-    if(!isc||!ip||!inx)return;
-    var istep=function(){var c=isc.querySelector('article');return c?c.getBoundingClientRect().width+21:221;};
-    ip.addEventListener('click',function(){isc.scrollBy({left:-istep(),behavior:'smooth'});});
-    inx.addEventListener('click',function(){isc.scrollBy({left:istep(),behavior:'smooth'});});
-  })();
   </script>
-
-<style id="desktop-view">
-/* =====================================================================
-   DESKTOP / TABLET VIEW  (mirrors index.html's model)
-   Authored mobile-first against a 393px frame; everything below 768px is
-   left untouched. At >=768px the app frame goes full-width so section
-   backgrounds bleed edge-to-edge, while CONTENT is capped at 1024px and
-   centred via the --edge gutter. Type + spacing scale up; the nav keeps
-   its original vertical height.
-   ===================================================================== */
-@media (min-width: 768px) {
-
-  :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
-
-  /* ---- Frame: full-width so section backgrounds span the whole screen ---- */
-  #appRoot { width: 100% !important; max-width: none !important; }
-
-  /* ================= NAV BAR ================= */
-  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; justify-content: center !important; gap: 32px !important; }
-  #siteNav > a[aria-label="Polysocial home"] svg { width: 24px !important; height: 16.8px !important; }
-  #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
-  #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
-  #siteNav #menuBtn { display: none !important; }
-  #deskNav {
-    display: flex !important;
-    align-items: center; gap: 32px; white-space: nowrap;
-  }
-  #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
-  #deskNav a:hover { color: #1845E7; }
-  #menuOverlay nav { gap: 34px !important; }
-  #menuOverlay .menuLink { font-size: 30px !important; }
-
-  /* ================= HERO =================
-     Reclaim the sticky nav's height so the headline is centred in the
-     viewport at zero scroll. */
-  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; }
-  #heroBlock .ab-hero { font-size: clamp(40px, 5.2vw, 64px) !important; line-height: 1.18 !important; max-width: 1024px !important; }
-
-  /* ================= TIMELINE =================
-     Full-bleed grey band; the three eras sit side by side, capped at 1024px. */
-  #timelineSection { padding: 88px var(--edge) !important; flex-direction: row !important; align-items: flex-start !important; gap: 44px !important; }
-  #timelineSection .ab-step { flex: 1 1 0 !important; gap: 16px !important; }
-  #timelineSection .ab-pill { font-size: 14px !important; padding: 8px 20px !important; }
-  #timelineSection .ab-step-title { font-size: 20px !important; }
-  #timelineSection .ab-body { font-size: 16px !important; }
-
-  /* ================= A NEW MIDDLE LAYER ================= */
-  #layerSection { padding: 120px var(--edge) 0 !important; }
-  #layerSection .ab-h2 { font-size: 48px !important; }
-  /* Swap the mobile JPG for the vector diagram on desktop. The SVG fades to
-     transparent at its edges (no hard crop) and its divider sits at the
-     viewBox centre, so centring the graphic puts the centre line on the
-     screen's centre. */
-  #layerFigure { margin: 44px 0 0 !important; padding: 0 !important; }
-  #layerFigure .lf-mobile { display: none !important; }
-  #layerFigure .lf-desktop { display: block !important; width: 100% !important; max-width: 780px !important; height: auto !important; margin: 0 auto !important; }
-
-  /* ================= OUR MISSION ================= */
-  #missionSection { padding: 120px var(--edge) 128px !important; gap: 34px !important; }
-  #missionSection .ab-mission-pill { font-size: 16px !important; padding: 11px 26px !important; }
-  #missionSection .ab-mission { font-size: clamp(30px, 3.4vw, 42px) !important; max-width: 820px !important; }
-
-  /* ================= OUR PRODUCT ================= */
-  #productSection { padding: 0 var(--edge) !important; }
-  #productSection .ab-h2 { font-size: 48px !important; }
-  #productFigure { margin: 56px auto 0 !important; padding: 0 var(--edge) !important; }
-  #productFigure img { display: block; max-width: 460px !important; margin: 0 auto !important; border-radius: 20px; }
-  #productCopy { padding: 24px var(--edge) 0 !important; }
-  #productCopy .ab-body { font-size: 18px !important; max-width: 760px !important; margin: 0 auto !important; }
-
-  /* ================= WHO ARE WE =================
-     Founders laid out in a row across the 1024px content column. */
-  #teamSection { padding: 128px var(--edge) 120px !important; gap: 24px !important; }
-  #teamSection .ab-h2 { font-size: 48px !important; }
-  #teamSection > .ab-body { font-size: 18px !important; max-width: 640px !important; }
-  #founderRow { flex-direction: row !important; align-items: flex-start !important; justify-content: center !important; gap: 64px !important; margin-top: 56px !important; }
-  #founderRow .ab-founder { flex: 0 1 300px !important; }
-  #teamSection .ab-name { font-size: 20px !important; }
-  #teamSection .ab-founder .ab-body { font-size: 15px !important; }
-
-  /* ================= IDEAS WORTH SHARING ================= */
-  #ideasSection { padding: 96px 0 10px !important; }
-  #ideasSection h2 { font-size: 48px !important; }
-  #ideasSection #ideasScroller { gap: 28px !important; padding: 12px var(--edge) !important; scroll-padding-left: var(--edge) !important; }
-  #ideasSection #ideasScroller article { width: 264px !important; }
-  #ideasSection #ideasScroller article > a[aria-label] { width: 264px !important; height: 264px !important; }
-  #ideasSection #ideasScroller article p { font-size: 16px !important; }
-  #ideasSection #ideasScroller article a { font-size: 16px !important; }
-  #ideasSection > div:last-of-type { padding-right: var(--edge) !important; }
-  #ideasSection button#ideasPrev, #ideasSection button#ideasNext { width: 52px !important; height: 52px !important; }
-
-  /* ================= FOOTER ================= */
-  #siteFooter { padding: 72px var(--edge) 52px !important; }
-  #siteFooter > div { max-width: 1024px !important; margin: 0 auto !important; }
-  #siteFooter img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
-  #siteFooter nav a { font-size: 14px !important; }
-  #siteFooter div[style*="font-size:10px"] { font-size: 12px !important; }
-}
-</style>
 
 </body></html>
