@@ -105,18 +105,67 @@ async function processRaster(absPath, relKey) {
   const nativeW = meta.width, nativeH = meta.height;
   const isPng = meta.format === "png";
 
-  // ---- Animated GIF -> animated WebP (keep GIF as fallback) ----
+  // ---- Animated GIF -> animated WebP + muted-loop MP4/WebM (much smaller) ----
+  // We keep the animated WebP as a fallback for <picture>, but build_html.mjs
+  // prefers the mp4/webm pair as a <video> when present — that's typically 5-20x
+  // smaller than the source GIF and paints faster.
   if (meta.format === "gif" && (meta.pages || 1) > 1) {
     const webpBuf = await sharp(input, { animated: true })
       .webp(WEBP_ANIM).toBuffer();
     const webpRel = writeOut("img", outName(base, "anim", "webp", webpBuf), webpBuf);
     const gifRel = writeOut("img", outName(base, "orig", "gif", input), input);
+
+    // Encode a poster (first frame) and mp4/webm siblings using ffmpeg.
+    // Any of these steps failing is non-fatal — we still have the WebP/GIF.
+    let mp4Rel, webmRel, posterWebpRel, posterJpgRel;
+    try {
+      // GIFs need to be written to disk so ffmpeg can read them.
+      const tmpGif = path.join(OUT, `.tmp-${base}.gif`);
+      ensureDir(OUT);
+      fs.writeFileSync(tmpGif, input);
+
+      // Poster: first frame, capped at POSTER_MAXW.
+      const tmpPng = path.join(OUT, `.tmp-${base}.png`);
+      execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-i", tmpGif,
+        "-frames:v", "1", "-vf", `scale='min(${POSTER_MAXW},iw)':-2`, tmpPng]);
+      const posterWebp = await sharp(fs.readFileSync(tmpPng)).webp(POSTER_WEBP).toBuffer();
+      const posterJpg  = await sharp(fs.readFileSync(tmpPng)).jpeg({ quality: 78, mozjpeg: true }).toBuffer();
+      posterWebpRel = writeOut("img", outName(base, "poster", "webp", posterWebp), posterWebp);
+      posterJpgRel  = writeOut("img", outName(base, "poster", "jpg",  posterJpg),  posterJpg);
+      fs.unlinkSync(tmpPng);
+
+      // Right-size to the native width but never above 720px — these are
+      // decorative loops, not hero footage.
+      const targetW = Math.min(nativeW, 720);
+      const scale = `scale='min(${targetW},iw)':-2:flags=lanczos,pad=ceil(iw/2)*2:ceil(ih/2)*2`;
+      const tmpMp4 = path.join(OUT, `.tmp-${base}.mp4`);
+      execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-i", tmpGif,
+        "-vf", scale, ...H264(H264_CRF), tmpMp4]);
+      const mp4Buf = fs.readFileSync(tmpMp4); fs.unlinkSync(tmpMp4);
+      mp4Rel = writeOut("img", outName(base, "h264", "mp4", mp4Buf), mp4Buf);
+
+      const tmpWebm = path.join(OUT, `.tmp-${base}.webm`);
+      execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-i", tmpGif,
+        "-vf", scale, ...VP9(VP9_CRF), tmpWebm]);
+      const webmBuf = fs.readFileSync(tmpWebm); fs.unlinkSync(tmpWebm);
+      webmRel = writeOut("img", outName(base, "vp9", "webm", webmBuf), webmBuf);
+
+      fs.unlinkSync(tmpGif);
+    } catch (err) {
+      console.warn(`  [warn] GIF-to-video failed for ${relKey}: ${err.message}`);
+    }
+
     manifest[relKey] = {
       type: "animated", width: nativeW, height: nativeH,
       webp: webpRel, fallback: gifRel, fallbackMime: "image/gif",
+      ...(mp4Rel   ? { mp4: mp4Rel }   : {}),
+      ...(webmRel  ? { webm: webmRel } : {}),
+      ...(posterWebpRel ? { posterWebp: posterWebpRel } : {}),
+      ...(posterJpgRel  ? { posterJpg:  posterJpgRel }  : {}),
     };
     rows.push([relKey, kb(input.length), kb(webpBuf.length),
-      `${(100 - webpBuf.length / input.length * 100).toFixed(0)}%`, "gif→webp anim"]);
+      `${(100 - webpBuf.length / input.length * 100).toFixed(0)}%`,
+      mp4Rel ? "gif→webp+mp4+webm" : "gif→webp anim"]);
     return;
   }
 
