@@ -30,6 +30,49 @@ try { measure = JSON.parse(fs.readFileSync(path.join(ROOT, "build/measure-by-fil
 catch { console.warn("build/measure-by-file.json not found — using layout heuristics."); }
 let html = fs.readFileSync(path.join(ROOT, "build/page.raw.html"), "utf8");
 
+// ---------------------------------------------------------------------------
+// 0. Bake the campaign-recommendations carousel with real sample data so the
+//    served HTML never contains raw {{ c.xxx }} placeholders. The client-side
+//    runtime still owns re-rendering with live data at hydration time — this
+//    just ensures crawlers and first paint see real content.
+// ---------------------------------------------------------------------------
+const SAMPLE_CAMPAIGNS = [
+  { key: "moto-book",   img: "src-assets/img/campaign-moto.jpg", logo: "src-assets/img/uber.png",
+    logoBg: "#000000", rate: "Rs.2000/1K",
+    title: "Uber Moto UGC campaign in Colombo Book festival",
+    pct: "55%", raised: "Rs. 284,536", goal: "Rs. 500,000" },
+  { key: "moto-perahera", img: "src-assets/img/campaign-moto.jpg", logo: "src-assets/img/uber.png",
+    logoBg: "#000000", rate: "Rs.2000/1K",
+    title: "Uber Moto rides for Kandy Perahera season",
+    pct: "38%", raised: "Rs. 152,000", goal: "Rs. 400,000" },
+  { key: "eats-late",   img: "src-assets/img/campaign-moto.jpg", logo: "src-assets/img/uber.png",
+    logoBg: "#000000", rate: "Rs.2500/1K",
+    title: "Uber Eats late-night cravings in Colombo",
+    pct: "72%", raised: "Rs. 361,200", goal: "Rs. 500,000" },
+];
+const scForRe = /<sc-for\b[^>]*list="\{\{\s*campaigns\s*\}\}"[^>]*>([\s\S]*?)<\/sc-for>/;
+if (scForRe.test(html)) {
+  const [full, tpl] = html.match(scForRe);
+  const rendered = SAMPLE_CAMPAIGNS.map((c) =>
+    tpl
+      .replace(/\{\{\s*c\.key\s*\}\}/g,    c.key)
+      .replace(/\{\{\s*c\.img\s*\}\}/g,    c.img)
+      .replace(/\{\{\s*c\.logo\s*\}\}/g,   c.logo)
+      .replace(/\{\{\s*c\.logoBg\s*\}\}/g, c.logoBg)
+      .replace(/\{\{\s*c\.rate\s*\}\}/g,   c.rate)
+      .replace(/\{\{\s*c\.title\s*\}\}/g,  c.title)
+      .replace(/\{\{\s*c\.pct\s*\}\}/g,    c.pct)
+      .replace(/\{\{\s*c\.raised\s*\}\}/g, c.raised)
+      .replace(/\{\{\s*c\.goal\s*\}\}/g,   c.goal),
+  ).join("\n");
+  // Keep the outer sc-for tag so the runtime knows this is a repeat region and
+  // can re-render on hydration; its children are now real, rendered cards.
+  html = html.replace(full, `<sc-for list="{{ campaigns }}" as="c" data-baked="1">\n${rendered}\n</sc-for>`);
+  console.log(`Baked ${SAMPLE_CAMPAIGNS.length} campaign cards into the served HTML.`);
+} else {
+  console.warn("No {{ campaigns }} sc-for block found — template leak fix skipped.");
+}
+
 const hash = (b) => createHash("sha1").update(b).digest("hex").slice(0, 10);
 const rel = (p) => p; // manifest paths are already root-relative ("assets/..")
 const byBase = {}; // basename("src-assets/img/x.png") -> manifest entry
@@ -120,6 +163,24 @@ html = html.replace(/<img\b[^>]*>/g, (tag) => {
 
   let sources = "";
   if (entry.type === "animated") {
+    // Prefer a muted, looping <video> (mp4+webm) when the optimize pipeline
+    // produced them — orders of magnitude smaller than an animated GIF, and
+    // still autoplay-safe with muted+playsinline. Fall back to <picture> with
+    // animated WebP when only the image variants exist.
+    if (entry.mp4 && entry.webm) {
+      const poster = entry.posterWebp || entry.posterJpg || "";
+      const origAlt = (tag.match(/\balt="([^"]*)"/) || [])[1] || "";
+      const origStyle = (tag.match(/\bstyle="([^"]*)"/) || [])[1] || "";
+      const attrs = [
+        `width="${entry.width}"`, `height="${entry.height}"`,
+        poster ? `poster="${poster}"` : "",
+        `preload="metadata"`, `muted`, `loop`, `playsinline`, `autoplay`,
+        origAlt ? `aria-label="${origAlt}"` : `aria-hidden="true"`,
+        origStyle ? `style="${origStyle}"` : "",
+      ].filter(Boolean).join(" ");
+      gifs++;
+      return `<video ${attrs}><source src="${entry.webm}" type="video/webm"><source src="${entry.mp4}" type="video/mp4"></video>`;
+    }
     sources = `<source type="image/webp" srcset="${entry.webp}">`;
     gifs++;
   } else {

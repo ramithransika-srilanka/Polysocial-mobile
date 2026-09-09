@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "optimize": "node scripts/optimize.mjs",
-    "build": "node scripts/optimize.mjs && node scripts/build_html.mjs",
+    "build": "node scripts/optimize.mjs && node scripts/build_html.mjs && node scripts/build_seo.mjs",
+    "build:seo": "node scripts/build_seo.mjs",
     "serve": "python3 -m http.server 8099"
   },
   "repository": {

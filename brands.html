@@ -2,8 +2,21 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>For Brands &middot; Polysocial</title>
-<meta name="description" content="Run million creator campaigns at any given moment. Turn the people who already love your brand into the ones who tell everyone else.">
+<!-- SEO:START (managed by scripts/build_seo.mjs — do not edit by hand) -->
+  <title>For Brands — Launch Creator Campaigns | Polysocial</title>
+  <meta name="description" content="Grow brand awareness and sales with performance-based creator campaigns. Pay for real reach, not just follower counts. Launch your campaign on Polysocial.">
+  <link rel="canonical" href="https://polysocial.cc/brands">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Polysocial">
+  <meta property="og:title" content="For Brands — Launch Creator Campaigns | Polysocial">
+  <meta property="og:description" content="Grow brand awareness and sales with performance-based creator campaigns. Pay for real reach, not just follower counts. Launch your campaign on Polysocial.">
+  <meta property="og:url" content="https://polysocial.cc/brands">
+  <meta property="og:image" content="https://polysocial.cc/favicon.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="For Brands — Launch Creator Campaigns | Polysocial">
+  <meta name="twitter:description" content="Grow brand awareness and sales with performance-based creator campaigns. Pay for real reach, not just follower counts. Launch your campaign on Polysocial.">
+  <meta name="twitter:image" content="https://polysocial.cc/favicon.svg">
+<!-- SEO:END -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <style>/* cyrillic-ext */
@@ -948,7 +961,7 @@
         <div style="height:1px;min-height:1px;flex:none;background:rgba(255,255,255,0.12);"></div>
         <div style="display:flex;flex-direction:column;gap:15px;">
           <div style="display:flex;flex-direction:column;gap:4px;">
-            <img src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" style="width:131px;height:24px;display:block;filter:brightness(0) invert(1);opacity:0.92;">
+            <img decoding="async" loading="lazy" src="assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" style="width:131px;height:24px;display:block;filter:brightness(0) invert(1);opacity:0.92;">
             <span style="color:#B4B4B4;font-weight:500;font-size:14px;line-height:1.3;">Monetizing word-of-mouth</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:16px;">
@@ -1162,7 +1175,7 @@
       });
 
       // Warm every community image (all static tiles in both breakpoints, plus
-      // the two emerging pebbles) ahead of the cascade. The tile <img>s are
+      // the two emerging pebbles) ahead of the cascade. The tile <img decoding="async" loading="lazy">s are
       // loading="lazy", so on their own the browser wouldn't fetch them until
       // the grid is nearly on-screen — the same moment the pop-cascade runs,
       // which made the faces fade in a beat after their circles popped. A
@@ -1211,7 +1224,7 @@
       // Pebble images load eagerly (not lazy): the pebble is inserted at a
       // precise, scripted moment, so its image must already be ready to paint.
       function pebbleImageHTML(src){
-        return '<img src="'+src+'" alt="" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;">';
+        return '<img loading="lazy" src="'+src+'" alt="" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;">';
       }
       // Extract the translate() already baked into a tile from a prior
       // emergence, so the next one continues from wherever the previous
