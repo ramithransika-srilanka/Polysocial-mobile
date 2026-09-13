@@ -56,6 +56,11 @@ export const PAGES = [
     title: "Get the Polysocial App — Discover Campaigns",
     description: "Download the Polysocial app to browse open brand campaigns, submit content, and track your earnings. Start monetizing your reach today.",
   },
+  {
+    path: "/our-story", file: "our-story.html",
+    title: "Our Story | Polysocial",
+    description: "What's the role of a human in the world of AI? Our perspective on influencers, trust, and the future economy of word-of-mouth.",
+  },
   // Articles — title/description are auto-generated from <h1> / first <p> if
   // omitted here. Listing them explicitly ensures build_seo.mjs processes them.
   { path: "/poverty-of-trust",      file: "poverty-of-trust.html",      article: true },
