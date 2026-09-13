@@ -383,8 +383,12 @@
     .os-p b { color:#121212; font-weight:600; }
     .os-p + .os-p { margin-top:2px; }
     .os-bigq { margin:8px 0 4px; color:#000; font-weight:700; font-size:32px; line-height:1.15; letter-spacing:-0.02em; max-width:560px; }
-    .os-bigq .emoji { display:block; margin:14px auto 0; font-size:0.9em; vertical-align:-0.05em; }
+    /* Twemoji-injected <img class="twmj"> replaces the emoji glyph so every
+       platform sees the same Twitter-style SVG (CC-BY 4.0). Before it runs,
+       the fallback font stack renders the native OS emoji. */
     .emoji { font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif; font-style:normal; font-weight:400; display:inline-block; vertical-align:-0.12em; font-size:1.15em; line-height:1; margin:0 0.05em; }
+    img.twmj { height:1.1em; width:1.1em; vertical-align:-0.2em; margin:0 0.08em; }
+    .os-bigq img.twmj { display:block; width:1.15em; height:1.15em; margin:18px auto 0; vertical-align:baseline; }
 
     @media (min-width: 768px) {
       :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
@@ -592,6 +596,18 @@
     ov.addEventListener('click',function(e){if(e.target===ov||e.target.classList.contains('menuLink'))setOpen(false);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
   })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js" crossorigin="anonymous"></script>
+  <script>
+    (function(){
+      if (!window.twemoji) return;
+      twemoji.parse(document.body, {
+        folder: 'svg',
+        ext: '.svg',
+        className: 'twmj',
+        base: 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/'
+      });
+    })();
   </script>
 
 </body></html>
