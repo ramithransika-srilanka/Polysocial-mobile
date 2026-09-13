@@ -48,7 +48,7 @@ export const PAGES = [
   },
   {
     path: "/about", file: "about.html",
-    title: "Our Story — Monetizing Word-of-Mouth | Polysocial",
+    title: "About — Monetizing Word-of-Mouth | Polysocial",
     description: "Polysocial connects brands, events, and public figures with creators through performance-based campaigns. Learn the story behind the platform.",
   },
   {
