@@ -47,6 +47,11 @@ export const PAGES = [
     description: "Transparent Polysocial pricing: 10% creator commission and no platform fee for campaign owners. Pay for performance, nothing hidden.",
   },
   {
+    path: "/linkedin-ugc-campaigns", file: "linkedin-ugc-campaigns.html",
+    title: "LinkedIn UGC Campaigns — Reach Decision Makers | Polysocial",
+    description: "Run performance-based UGC campaigns on LinkedIn with Polysocial. Build a community of professionals around your brand and reach the decision makers who matter.",
+  },
+  {
     path: "/about", file: "about.html",
     title: "Our Story — Monetizing Word-of-Mouth | Polysocial",
     description: "Polysocial connects brands, events, and public figures with creators through performance-based campaigns. Learn the story behind the platform.",

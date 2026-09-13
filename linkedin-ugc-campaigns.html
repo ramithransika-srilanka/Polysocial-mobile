@@ -3,22 +3,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- SEO:START (managed by scripts/build_seo.mjs — do not edit by hand) -->
-  <title>Reach vs. Followers | Polysocial</title>
-  <meta name="description" content="Are you a content creator? Do you remember the early days? The day you created your Instagram/TikTok account, or the day you decided to make your existing…">
-  <link rel="canonical" href="https://polysocial.cc/reach-vs-followers">
-  <meta property="og:type" content="article">
+  <title>LinkedIn UGC Campaigns — Reach Decision Makers | Polysocial</title>
+  <meta name="description" content="Run performance-based UGC campaigns on LinkedIn with Polysocial. Build a community of professionals around your brand and reach the decision makers who matter.">
+  <link rel="canonical" href="https://polysocial.cc/linkedin-ugc-campaigns">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="Polysocial">
-  <meta property="og:title" content="Reach vs. Followers | Polysocial">
-  <meta property="og:description" content="Are you a content creator? Do you remember the early days? The day you created your Instagram/TikTok account, or the day you decided to make your existing…">
-  <meta property="og:url" content="https://polysocial.cc/reach-vs-followers">
+  <meta property="og:title" content="LinkedIn UGC Campaigns — Reach Decision Makers | Polysocial">
+  <meta property="og:description" content="Run performance-based UGC campaigns on LinkedIn with Polysocial. Build a community of professionals around your brand and reach the decision makers who matter.">
+  <meta property="og:url" content="https://polysocial.cc/linkedin-ugc-campaigns">
   <meta property="og:image" content="https://polysocial.cc/favicon.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Reach vs. Followers | Polysocial">
-  <meta name="twitter:description" content="Are you a content creator? Do you remember the early days? The day you created your Instagram/TikTok account, or the day you decided to make your existing…">
+  <meta name="twitter:title" content="LinkedIn UGC Campaigns — Reach Decision Makers | Polysocial">
+  <meta name="twitter:description" content="Run performance-based UGC campaigns on LinkedIn with Polysocial. Build a community of professionals around your brand and reach the decision makers who matter.">
   <meta name="twitter:image" content="https://polysocial.cc/favicon.svg">
 <!-- SEO:END -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;display=swap" rel="stylesheet">
   <style>/* cyrillic-ext */
 @font-face {
   font-family: 'Inter';
@@ -352,6 +353,8 @@
   --font-icon-lib: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
   </style>
+
+
   <style>
     *{box-sizing:border-box;}
     html,body{margin:0;padding:0;}
@@ -370,69 +373,92 @@
     #menuOverlay.open .menuLink:nth-child(5){transition-delay:0.25s;}
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
-  </style>
+    /* ===== Hero =====
+       Two-tone heading: ash lead-in, black keyword. LinkedIn logo sits above,
+       "LinkedIn" hand-lettering scribble curls around it. */
+    .li-hero-title{margin:0;font-weight:600;font-size:44px;line-height:1.08;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
+    .li-hero-title .accent{color:#121212;}
+    .li-hero-title .dot{color:#1548EB;}
+    @media (max-width:360px){.li-hero-title{font-size:38px;}}
 
-  <style>
-    /* ===== Ideas Worth Sharing — article page ===== */
-    .art-shell { padding: 8px 24px 4px; }
-    .art-kicker { display:flex; align-items:center; justify-content:space-between; margin:14px 0 22px; }
-    .art-back { display:inline-flex; align-items:center; gap:5px; color:#1548EB; font-weight:500; font-size:13px; line-height:1; }
-    .art-eyebrow { color:#717171; font-weight:600; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; }
-    .art-title { margin:0 0 14px; color:#000; font-weight:700; font-size:30px; line-height:1.16; letter-spacing:-0.02em; }
-    .art-standfirst { margin:0 0 8px; color:#555; font-weight:500; font-style:italic; font-size:17px; line-height:1.5; }
-    .art-fig { margin:24px 0; }
-    .art-fig img { display:block; width:100%; height:auto; border-radius:18px; }
-    .art-fig figcaption { margin:10px 4px 0; color:#8A8A8A; font-weight:500; font-size:13px; line-height:1.5; text-align:center; }
-    .art-body p { margin:0 0 20px; color:#242424; font-weight:400; font-size:16px; line-height:1.66; }
-    .art-body p b { font-weight:600; color:#141414; }
-    .art-h2 { margin:36px 0 16px; color:#000; font-weight:700; font-size:20px; line-height:1.25; letter-spacing:-0.01em; }
-    .art-quote { margin:26px 0; padding:4px 0 4px 18px; border-left:3px solid #1548EB; color:#111; font-weight:600; font-style:italic; font-size:19px; line-height:1.4; }
-    .art-quote cite { display:block; margin-top:10px; color:#717171; font-weight:500; font-style:normal; font-size:14px; }
-    .art-stats { margin:26px 0; padding:22px; border:1px solid #ECECEC; border-radius:18px; background:#FAFAFB; }
-    .art-stats-title { margin:0 0 16px; color:#000; font-weight:600; font-size:14px; line-height:1.4; }
-    .art-stats dl { margin:0; display:flex; flex-direction:column; gap:14px; }
-    .art-stat { display:flex; align-items:baseline; gap:14px; }
-    .art-stat dt { flex:none; min-width:74px; color:#1548EB; font-weight:700; font-size:22px; line-height:1; letter-spacing:-0.01em; }
-    .art-stat dd { margin:0; color:#3A3A3A; font-weight:500; font-size:14px; line-height:1.4; }
-    .art-stats-note { margin:16px 0 0; color:#8A8A8A; font-weight:400; font-size:12px; line-height:1.5; }
-    .art-credit { margin:-8px 0 20px; color:#8A8A8A; font-weight:500; font-size:13px; line-height:1.5; }
-    .art-note { margin:24px 0 0; color:#8A8A8A; font-weight:400; font-style:italic; font-size:13px; line-height:1.6; }
-    .art-byline { display:flex; align-items:center; gap:12px; margin:40px 0 8px; padding-top:26px; border-top:1px solid #ECECEC; }
-    .art-avatar { flex:none; width:42px; height:42px; border-radius:999px; background:#F1F1F3; display:flex; align-items:center; justify-content:center; }
-    .art-byline-text { display:flex; flex-direction:column; gap:3px; }
-    .art-by { color:#242424; font-weight:400; font-size:14px; line-height:1; }
-    .art-by b { font-weight:600; color:#000; }
-    .art-date { color:#8A8A8A; font-weight:500; font-size:13px; line-height:1; }
-    .art-more { margin:16px 0 4px; }
+    .li-mark{position:relative;display:inline-block;margin-bottom:8px;}
+    .li-mark img{width:76px;height:76px;display:block;}
+    .li-scribble{position:absolute;left:66px;top:-24px;font-family:'Caveat',cursive;font-weight:700;font-size:26px;color:#1E90FF;transform:rotate(-6deg);white-space:nowrap;}
+    .li-arrow{position:absolute;left:52px;top:6px;pointer-events:none;}
 
-    @media (min-width: 768px) {
-      :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
-      #appRoot { width:100% !important; max-width:none !important; }
-      #siteNav { padding:14px var(--edge) 12px var(--edge) !important; justify-content:center !important; gap:32px !important; }
-      #siteNav > a[aria-label="Polysocial home"] svg { width:24px !important; height:16.8px !important; }
-      #siteNav .getAppBtn { font-size:14px !important; padding:6px 8px 6px 12px !important; gap:6px !important; }
-      #siteNav .getAppBtn svg { width:18px !important; height:18px !important; }
-      #siteNav #menuBtn { display:none !important; }
-      #deskNav { display:flex !important; align-items:center; gap:32px; white-space:nowrap; }
-      #deskNav a { color:#121212; font-weight:500; font-size:14px; line-height:1; letter-spacing:-0.01em; transition:color 0.15s ease; }
-      #deskNav a:hover { color:#1845E7; }
-      #menuOverlay nav { gap:34px !important; }
-      #menuOverlay .menuLink { font-size:30px !important; }
-      /* Article: cap reading measure, scale type up */
-      .art-shell { padding:8px var(--edge) 4px !important; }
-      .art-inner { max-width:720px; margin:0 auto; }
-      .art-title { font-size:44px !important; }
-      .art-standfirst { font-size:20px !important; }
-      .art-body p { font-size:18px !important; line-height:1.7 !important; }
-      .art-h2 { font-size:26px !important; }
-      .art-quote { font-size:23px !important; }
-      .art-fig { margin:32px 0 !important; }
-      .art-fig img { border-radius:22px !important; }
-      #siteFooter { padding:72px var(--edge) 52px !important; }
-      #siteFooter > div { max-width:1024px !important; margin:0 auto !important; }
-      #siteFooter img[alt="polysocial"] { width:152px !important; height:28px !important; }
-      #siteFooter nav a { font-size:14px !important; }
-      #siteFooter div[style*="font-size:10px"] { font-size:12px !important; }
+    .li-cta{display:inline-flex;align-items:center;padding:12px 22px;border:1.5px solid #1548EB;border-radius:999px;color:#1548EB;font-weight:600;font-size:14px;line-height:1;letter-spacing:-0.01em;transition:background 0.16s ease,color 0.16s ease,transform 0.16s ease-out;}
+    .li-cta:hover{background:#E8EDFD;}
+    .li-cta:active{transform:scale(0.97);}
+    .li-cta--solid{background:#1548EB;color:#FFFFFF;border-color:#1548EB;box-shadow:2px 2px 12px rgba(0,0,0,0.08);}
+    .li-cta--solid:hover{background:#123BBD;color:#FFFFFF;}
+
+    /* Section-heading reused across the page. */
+    .li-h2{margin:0;font-weight:600;font-size:30px;line-height:1.14;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
+    .li-h2 .accent{color:#121212;}
+    .li-h2 .dot{color:#1548EB;}
+
+    /* ===== Testimonial pills row ===== */
+    .li-pill{display:inline-flex;align-items:center;gap:12px;background:#F6F6F6;border-radius:999px;padding:10px 22px 10px 10px;}
+    .li-pill .li-av{width:38px;height:38px;border-radius:50%;display:block;flex:none;}
+    .li-pill span{font-size:13px;font-weight:500;line-height:1.3;color:#414141;}
+
+    /* ===== "Ways to connect" list ===== */
+    .li-way{padding:32px 0;border-top:1px solid #ECECEC;text-align:center;}
+    .li-way:first-child{border-top:none;}
+    .li-way svg{margin:0 auto 14px;display:block;stroke:#1548EB;}
+    .li-way h3{margin:0 0 8px;font-weight:600;font-size:18px;line-height:1.2;letter-spacing:-0.01em;color:#121212;}
+    .li-way p{margin:0 auto;max-width:320px;font-size:13px;font-weight:400;line-height:1.55;color:#717171;}
+
+    /* ===== Flow strip ===== */
+    .li-flow{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;}
+    .li-step{display:flex;align-items:center;gap:14px;width:100%;max-width:360px;padding:14px 18px;background:#FFFFFF;border-radius:16px;box-shadow:0 2px 10px rgba(18,31,96,0.06);}
+    .li-step-n{flex:none;width:32px;height:32px;border-radius:50%;background:#1548EB;color:#FFFFFF;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.01em;}
+    .li-step-t{font-weight:600;font-size:15px;line-height:1.2;color:#121212;letter-spacing:-0.01em;}
+
+    /* ===== Talk section (ported from creators page, on white) ===== */
+    :root{--sp-section:clamp(40px,9vw,52px);--sp-heading:clamp(30px,7vw,40px);}
+    .cReveal{opacity:0;transform:translateY(26px);transition:opacity 0.62s cubic-bezier(0.23,1,0.32,1),transform 0.62s cubic-bezier(0.23,1,0.32,1);will-change:transform,opacity;}
+    .cReveal.in{opacity:1;transform:translateY(0);}
+    .cReveal[data-d="1"]{transition-delay:0.06s;}
+    @media (prefers-reduced-motion: reduce){.cReveal{transition:opacity 0.3s ease;transform:none;}.cReveal.in{transform:none;}}
+
+    /* Pill container morphs width on the iOS drawer curve; overflow clipped so
+       the incoming items are revealed as it grows. */
+    .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #161616; border-radius: 50px; width: 128px; overflow: hidden; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
+    .ctaPill.expanded { width: 316px; gap: 8px; }
+
+    .ctaCircle { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; margin: 0; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; -webkit-tap-highlight-color: transparent; transform: translateZ(0); backface-visibility: hidden; }
+    .ctaLogo   { background: #FF6B49; cursor: default; }
+    .ctaPill.expanded .ctaLogo { cursor: pointer; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
+    .ctaPill.expanded .ctaLogo:active { transform: scale(0.9); }
+    @media (hover: hover) and (pointer: fine) { .ctaPill.expanded .ctaLogo:hover { transform: scale(1.08); } }
+    .ctaPlus, .ctaMail, .ctaWa { cursor: pointer; transition: transform 0.2s cubic-bezier(0.23,1,0.32,1); }
+    .ctaPlus   { background: #1548EB; }
+    .ctaMail   { background: #FF8F20; }
+    .ctaWa     { background: #24D366; }
+    .ctaPlus:active, .ctaMail:active, .ctaWa:active { transform: scale(0.9); }
+    .ctaPlus:focus-visible, .ctaMail:focus-visible, .ctaWa:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+    @media (hover: hover) and (pointer: fine) { .ctaPlus:hover, .ctaMail:hover, .ctaWa:hover { transform: scale(1.08); } }
+    .ctaText { flex: 0 0 132px; width: 132px; color: #FFFFFF; font-family: var(--font-sans), Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.16; letter-spacing: -0.01em; text-align: left; }
+    .ctaPill .onExpanded { display: none; }
+    .ctaPill.expanded .onCollapsed { display: none; }
+    .ctaPill.expanded .onExpanded { display: inline-flex; }
+    .ctaPill.expanded .ctaText { display: block; }
+    .ctaPill.expanded .ctaMail, .ctaPill.expanded .ctaWa { animation: ctaItemIn 0.4s cubic-bezier(0.23,1,0.32,1) backwards; }
+    .ctaPill.expanded .ctaMail { animation-delay: 0.12s; }
+    .ctaPill.expanded .ctaWa   { animation-delay: 0.17s; }
+    @keyframes ctaItemIn { from { opacity: 0; transform: translateX(8px) scale(0.9); } to { opacity: 1; transform: translateX(0) scale(1); } }
+    .ctaPill.expanded .ctaText { animation: ctaTextIn 0.42s cubic-bezier(0.23,1,0.32,1) 0.1s backwards; }
+    @keyframes ctaTextIn { from { opacity: 0; filter: blur(3px); } to { opacity: 1; filter: blur(0); } }
+    .ctaPlus.leaving { animation: ctaPlusOut 0.16s cubic-bezier(0.23,1,0.32,1) forwards; }
+    .ctaPlus.leaving svg { animation: none; }
+    @keyframes ctaPlusOut { from { opacity: 1; transform: scale(1) rotate(0deg); } to { opacity: 0; transform: scale(0.4) rotate(90deg); } }
+    .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 2s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
+    @keyframes ctaPlusSpin { 0% { transform: rotate(0deg); } 25% { transform: rotate(360deg); } 100% { transform: rotate(360deg); } }
+    @media (hover: hover) and (pointer: fine) { .ctaPlus:hover svg { animation-play-state: paused; } }
+    @media (prefers-reduced-motion: reduce) {
+      .ctaPill, .ctaPlus, .ctaMail, .ctaWa, .ctaPill.expanded .ctaLogo { transition: none; }
+      .ctaPill .ctaText, .ctaPill .ctaMail, .ctaPill .ctaWa, .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
     }
   </style>
 
@@ -455,7 +481,7 @@
         <a href="brands.html">Brands</a>
         <a href="partner.html">Partner</a>
         <a href="pricing.html">Pricing</a>
-        <a href="about.html" aria-current="page" style="color:#1845E7;">Our Story</a>
+        <a href="about.html">Our Story</a>
       </nav>
       <div style="display:flex;align-items:center;gap:12px;flex:none;">
         <a class="getAppBtn" href="download.html" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 5px 4px 8px;border:1px solid #1548EB;border-radius:100px;color:#1548EB;font-weight:500;font-size:12px;line-height:normal;white-space:nowrap;transition:transform 0.16s ease-out;">Get App<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:block;flex:none;"><circle cx="8" cy="8" r="8" fill="#1745E7"></circle><path d="M8 4.67V11.33M5.33 8.67L8 11.33L10.67 8.67" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
@@ -472,75 +498,161 @@
         <a class="menuLink" href="brands.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">For Brands</a>
         <a class="menuLink" href="partner.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Partner</a>
         <a class="menuLink" href="pricing.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Pricing</a>
-        <a class="menuLink" href="about.html" style="color:#1845E7;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Our Story</a>
+        <a class="menuLink" href="about.html" style="color:#121212;font-weight:600;font-size:20px;line-height:1;letter-spacing:-0.01em;">Our Story</a>
       </nav>
     </div>
-    </div>
 
-    <main class="art-shell">
-      <div class="art-inner">
 
-      <div class="art-kicker">
-        <a class="art-back" href="index.html#ideasSection">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:block;flex:none;"><path d="M11 5L5 11M5 11H10.5M5 11V5.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          Ideas Worth Sharing
-        </a>
+    <!-- ===== Hero ===== -->
+    <section id="heroBlock" style="position:relative;z-index:1;min-height:80dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:40px 24px 60px;text-align:center;">
+      <span class="li-mark" aria-hidden="true">
+        <svg class="li-arrow" width="52" height="52" viewBox="0 0 70 70" fill="none"><path d="M8 6 C 42 2, 58 20, 40 50" stroke="#1E90FF" stroke-width="3.2" stroke-linecap="round" fill="none"></path><path d="M28 42 L 40 52 L 52 40" stroke="#1E90FF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+        <span class="li-scribble">LinkedIn</span>
+        <svg viewBox="0 0 24 24" width="76" height="76" role="img" aria-label="LinkedIn" style="display:block;"><rect width="24" height="24" rx="4" fill="#0A66C2"></rect><path d="M6.94 8.5a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM5.5 9.75h2.88V18.5H5.5V9.75zM10.25 9.75h2.76v1.19h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.42V18.5h-2.88v-3.98c0-.95-.02-2.17-1.32-2.17-1.32 0-1.52 1.03-1.52 2.1V18.5h-2.87V9.75z" fill="#fff"></path></svg>
+      </span>
+      <h1 class="li-hero-title">The best place to <span class="accent">brag about your business</span><span class="dot">.</span></h1>
+      <a class="li-cta" href="brand-access.html">Create a campaign</a>
+    </section>
+
+
+    <!-- ===== Community ===== -->
+    <section id="communitySection" style="background:#F2F2F2;padding:80px 24px;display:flex;flex-direction:column;align-items:center;gap:32px;">
+      <h2 class="li-h2" style="max-width:520px;">What if you could build a <span class="accent">community of professionals</span> around your brand?</h2>
+      <p style="margin:0;font-weight:500;font-size:14px;line-height:1.5;color:#414141;text-align:center;">In any industry and any economy</p>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;margin-top:16px;">
+        <div class="li-pill"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#c9b8a6,#8a6f57);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+        <div class="li-pill" style="align-self:flex-start;max-width:100%;"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#b0bcc7,#5f7484);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+        <div class="li-pill" style="align-self:flex-end;max-width:100%;"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#d1b7a4,#8f6a52);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
       </div>
+    </section>
 
-      <article>
-      <h1 class="art-title">Reach vs. Followers</h1>
 
-      <figure class="art-fig">
-        <img src="assets/img/articles/reach-vs-followers-hero.png" alt="A red social engagement badge on a black background showing 1.2M comments, 8.8M likes and 2M followers" decoding="async">
-      </figure>
+    <!-- ===== Connect in many ways ===== -->
+    <section id="waysSection" style="background:#FFFFFF;padding:88px 24px;display:flex;flex-direction:column;align-items:center;gap:32px;">
+      <h2 class="li-h2" style="max-width:520px;">Connect with your customers <span class="accent">in many ways</span></h2>
 
-      <div class="art-body">
-      <p>Are you a content creator? Do you remember the early days? The day you created your Instagram/TikTok account, or the day you decided to make your existing profile public by posting your first piece of public content. How many times did you open the app just to see your follower count grow? That was the dopamine hit &mdash; the number going up.</p>
-      <p>But the first few weeks don&rsquo;t count. Because those are &ldquo;pity followers&rdquo;: your schoolmates, university friends, and family, up to your third-cousin circle (if they don&rsquo;t already hate you). Then the real growth begins. Better content, better engagement, more followers.</p>
+      <div style="width:100%;max-width:520px;margin-top:8px;">
+        <div class="li-way">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7a2 2 0 0 1 2-2h6l2 3h6a2 2 0 0 1 2 2v11"></path><path d="M3 21h18"></path></svg>
+          <h3>Promote your enterprise solution</h3>
+          <p>Put your product in front of the buyers who actually make procurement decisions.</p>
+        </div>
+        <div class="li-way">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 9h8M8 13h8M8 17h5"></path></svg>
+          <h3>Customer case studies</h3>
+          <p>Let the customers who trust you tell that story in their own voice, on their own feed.</p>
+        </div>
+        <div class="li-way">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"></path></svg>
+          <h3>Employee testimonials</h3>
+          <p>Your team is your best brand. Turn their day-to-day pride into content prospects actually read.</p>
+        </div>
+        <div class="li-way">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"></path></svg>
+          <h3>Competitor comparisons</h3>
+          <p>Head-to-head breakdowns from independent voices earn more trust than any deck ever will.</p>
+        </div>
+        <div class="li-way">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 9h18M8 3v4M16 3v4"></path></svg>
+          <h3>Promote corporate events</h3>
+          <p>Fill the room before the doors open &mdash; creators drive registrations from the exact audience you want in it.</p>
+        </div>
       </div>
-      <figure class="art-fig">
-        <img src="assets/img/articles/reach-vs-followers-growth.png" alt="A follower growth curve — a flat friends-and-family plateau, then real audience growth climbing to 10,000 followers" loading="lazy" decoding="async">
-        <figcaption>&ldquo;More followers.&rdquo; That was the name of the game.</figcaption>
-      </figure>
-      <div class="art-body">
-      <p>Now the game is changing. Follower count is no longer the biggest factor. The algorithm is favoring reach and engagement more and more. &ldquo;The Kumar Method&rdquo; was the most recent example. If the early engagement is good, your content can reach millions of views within the first two days of creating a profile.</p>
-      </div>
-      <figure class="art-fig">
-        <img src="assets/img/articles/reach-vs-followers-proportion.png" alt="A comparison of how proportional reach is to follower count — YouTube 70–80%, Instagram 40–60%, TikTok 10–30%" loading="lazy" decoding="async">
-        <figcaption>How proportional is reach to follower count?</figcaption>
-      </figure>
-      <div class="art-body">
-      <p>The relationship between follower count and reach is becoming weaker and weaker. In fact, follower reach seems to shrink as you gain more followers. Follower reach is the percentage of your followers who actually see your content. This is an interesting stat.</p>
-      <p>This means TikTok couldn&rsquo;t care less about your follower count. YouTube still celebrates follower count, and on Instagram, anything can happen. But algorithms are increasingly shifting toward engagement to drive reach.</p>
-      <p>This is how it works now.</p>
-      <p>Followers are becoming the testing crowd for the new videos you post. If your post performs very well within your follower base during the first 48 hours, that early engagement can create strong reach, and the content can be opened up to your non-follower audience much more rapidly. This means more engagement and much more reach.</p>
-      <p>So, if you have a &ldquo;pity follower&rdquo; base that doesn&rsquo;t engage with your content, then there is little point in having those followers.</p>
-      <p>This is the best new thing for content creators.</p>
-      <p>Build a niche follower base around you. Build an audience that can resonate with your message, and be consistent with that message.</p>
-      <p>Just having a hook in the first three seconds isn&rsquo;t enough to get early engagement. (When everybody is using the same hook idea, it stops being a hook.)</p>
-      <p>So don&rsquo;t just dance for everybody. Dance for your audience.</p>
-      <p>That&rsquo;s when your followers will engage with you more, your posts will reach more non-followers, and more people who resonate with you will gather around you.</p>
-      <p>Welcome to the creator economy.</p>
-      </div>
+    </section>
 
-      <div class="art-byline">
-        <span class="art-avatar"><svg width="20" height="14" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;"><path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path><path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path></svg></span>
-        <span class="art-byline-text">
-          <span class="art-by">Written by <b>Polysocial</b></span>
-          <span class="art-date">August 8, 2026</span>
-        </span>
-      </div>
 
-      <div class="art-more">
-        <a class="art-back" href="index.html#ideasSection">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:block;flex:none;"><path d="M11 5L5 11M5 11H10.5M5 11V5.5" stroke="#1548EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          More Ideas Worth Sharing
-        </a>
+    <!-- ===== Flow ===== -->
+    <section id="flowSection" style="background:#F2F2F2;padding:88px 24px;display:flex;flex-direction:column;align-items:center;gap:36px;">
+      <h2 class="li-h2" style="max-width:560px;">You tell us the requirement, <span class="accent">we&rsquo;ll run the campaign.</span></h2>
+      <div class="li-flow">
+        <div class="li-step"><span class="li-step-n">1</span><span class="li-step-t">Define your campaign</span></div>
+        <div class="li-step"><span class="li-step-n">2</span><span class="li-step-t">Define campaign budget</span></div>
+        <div class="li-step"><span class="li-step-n">3</span><span class="li-step-t">Gather creators</span></div>
+        <div class="li-step"><span class="li-step-n">4</span><span class="li-step-t">Approve content</span></div>
+        <div class="li-step"><span class="li-step-n">5</span><span class="li-step-t">Pay for performance</span></div>
       </div>
-      </article>
+      <p style="margin:0;max-width:360px;font-size:13px;line-height:1.55;color:#717171;text-align:center;">You set the brief and the budget. We handle the creators, the review, and the payouts.</p>
+    </section>
 
+
+    <!-- ===== Closer ===== -->
+    <section id="closerSection" style="background:#FFFFFF;padding:96px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:32px;text-align:center;">
+      <h2 class="li-h2" style="max-width:560px;">Your brand needs to be <span class="accent">visible to the decision makers</span></h2>
+      <a class="li-cta li-cta--solid" href="brand-access.html">Create a campaign</a>
+    </section>
+
+
+    <!-- ===== Section: Interested? Let's talk (expandable contact pill) ===== -->
+    <section id="talkSection" style="position: relative; background: #FFFFFF; padding: calc(var(--sp-section) + 25px) 24px; text-align: center;">
+      <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
+        <span style="display: block; color: #ADADAD;">Interested?</span>
+        <span style="display: block; color: #121212;">Let&rsquo;s talk</span>
+      </h2>
+      <div class="cReveal" data-d="1" style="display: flex; justify-content: center;">
+        <div id="ctaPill" class="ctaPill">
+          <span id="ctaLogo" class="ctaCircle ctaLogo" aria-hidden="true">
+            <svg width="26" height="18" viewBox="0 0 269 184" fill="none" aria-hidden="true">
+              <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#FFFFFF"></path>
+              <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#FFFFFF"></path>
+            </svg>
+          </span>
+          <button type="button" id="ctaPlus" class="ctaCircle ctaPlus onCollapsed" aria-label="Get in touch" aria-expanded="false" aria-controls="ctaPill">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <span class="ctaText onExpanded">Just drop a message</span>
+          <a href="mailto:polysocialeconomy@gmail.com" class="ctaCircle ctaMail onExpanded" aria-label="Email polysocialeconomy@gmail.com">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 6L10.1076 10.6123L10.1097 10.614C10.7878 11.1113 11.1271 11.3601 11.4988 11.4562C11.8272 11.5412 12.1725 11.5412 12.501 11.4562C12.8729 11.36 13.2132 11.1105 13.8926 10.6123C13.8926 10.6123 17.8101 7.60594 20 6M3 15.8002V8.2002C3 7.08009 3 6.51962 3.21799 6.0918C3.40973 5.71547 3.71547 5.40973 4.0918 5.21799C4.51962 5 5.08009 5 6.2002 5H17.8002C18.9203 5 19.4796 5 19.9074 5.21799C20.2837 5.40973 20.5905 5.71547 20.7822 6.0918C21 6.5192 21 7.07899 21 8.19691V15.8036C21 16.9215 21 17.4805 20.7822 17.9079C20.5905 18.2842 20.2837 18.5905 19.9074 18.7822C19.48 19 18.921 19 17.8031 19H6.19691C5.07899 19 4.5192 19 4.0918 18.7822C3.71547 18.5905 3.40973 18.2842 3.21799 17.9079C3 17.4801 3 16.9203 3 15.8002Z" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+          <a href="https://wa.me/94772540134" target="_blank" rel="noopener" class="ctaCircle ctaWa onExpanded" aria-label="Message us on WhatsApp">
+            <svg width="25" height="25" viewBox="0 0 19 19" fill="none" aria-hidden="true">
+              <path d="M9.5 0C14.7466 1.11785e-05 19 4.25337 19 9.5C19 14.7466 14.7466 19 9.5 19C7.84546 19 6.29033 18.5766 4.93555 17.833L0 19L1.26465 14.2393C0.46024 12.8445 0 11.2259 0 9.5C5.63757e-08 4.25336 4.25337 0 9.5 0ZM9.5 1.70117C5.19308 1.70117 1.70117 5.19307 1.70117 9.5C1.70123 11.1606 2.2207 12.7001 3.10547 13.9648L2.28809 16.751L5.20312 16.0088C6.43522 16.8239 7.91218 17.2979 9.5 17.2979C13.8068 17.2978 17.2987 13.8068 17.2988 9.5C17.2988 5.19308 13.8069 1.70118 9.5 1.70117ZM6.88867 4.81152C7.00505 4.80202 7.1125 4.87003 7.16211 4.97559L8.24609 7.27344C8.29728 7.38214 8.27438 7.51171 8.18945 7.59668L7.38184 8.4043C7.20714 8.57899 7.15603 8.85152 7.27637 9.06738C7.57112 9.59588 7.96765 10.1049 8.42676 10.5732C8.89512 11.0323 9.40411 11.4292 9.93262 11.7236C10.1483 11.8438 10.4198 11.7926 10.5947 11.6182L11.4033 10.8105C11.4882 10.7257 11.6169 10.7026 11.7256 10.7539L14.0244 11.8379C14.1298 11.8875 14.197 11.9943 14.1875 12.1104C14.1627 12.4128 14.0414 13.0192 13.498 13.5625C11.9658 15.0942 9.21599 13.3643 9.09863 13.2939C8.42129 12.9301 7.77732 12.443 7.16699 11.833C6.55692 11.2229 6.06995 10.5787 5.70605 9.90137C5.63876 9.78948 3.90352 7.03496 5.4375 5.50098C5.98054 4.95813 6.5862 4.83639 6.88867 4.81152Z" fill="#FFFFFF"></path>
+            </svg>
+          </a>
+        </div>
       </div>
-    </main>
+      <script>
+        (function () {
+          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+          var tuckT = null;
+          function expand() {
+            var pill = document.getElementById('ctaPill');
+            if (!pill || pill.classList.contains('expanded')) return;
+            var plus = document.getElementById('ctaPlus');
+            clearTimeout(tuckT);
+            if (plus) plus.setAttribute('aria-expanded', 'true');
+            if (reduce.matches) { pill.classList.add('expanded'); return; }
+            if (plus) plus.classList.add('leaving');
+            tuckT = setTimeout(function () {
+              if (plus) plus.classList.remove('leaving');
+              pill.classList.add('expanded');
+            }, 150);
+          }
+          function collapse() {
+            var pill = document.getElementById('ctaPill');
+            if (!pill || !pill.classList.contains('expanded')) return;
+            clearTimeout(tuckT);
+            var plus = document.getElementById('ctaPlus');
+            if (plus) { plus.classList.remove('leaving'); plus.setAttribute('aria-expanded', 'false'); }
+            pill.classList.remove('expanded');
+          }
+          document.addEventListener('click', function (e) {
+            var t = e.target;
+            if (!t || !t.closest) return;
+            if (t.closest('#ctaPlus')) { e.preventDefault(); expand(); return; }
+            if (t.closest('#ctaLogo')) {
+              var pill = document.getElementById('ctaPill');
+              if (pill && pill.classList.contains('expanded')) { e.preventDefault(); collapse(); }
+            }
+          });
+        })();
+      </script>
+    </section>
+
 
     <footer id="siteFooter" style="position:relative;background:#FFFFFF;padding:60px 17px 40px;">
       <div style="display:flex;flex-direction:column;gap:13px;">
@@ -631,6 +743,100 @@
     ov.addEventListener('click',function(e){if(e.target===ov||e.target.classList.contains('menuLink'))setOpen(false);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
   })();
+  /* Scroll-triggered entrance reveals for the talk section (.cReveal). */
+  (function(){
+    var els=Array.prototype.slice.call(document.querySelectorAll('.cReveal'));
+    if(!els.length)return;
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce || !('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0.18,rootMargin:'0px 0px -12% 0px'});
+    els.forEach(function(el){io.observe(el);});
+  })();
   </script>
+
+<style id="desktop-view">
+/* =====================================================================
+   DESKTOP / TABLET VIEW  (mirrors index.html's model)
+   Authored mobile-first against a 393px frame; everything below 768px is
+   left untouched. At >=768px the app frame goes full-width so section
+   backgrounds bleed edge-to-edge, while CONTENT is capped at 1024px and
+   centred via the --edge gutter. Type + spacing scale up; the nav keeps
+   its original vertical height.
+   ===================================================================== */
+@media (min-width: 768px) {
+
+  :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
+
+  /* ---- Frame: full-width so section backgrounds span the whole screen ---- */
+  #appRoot { width: 100% !important; max-width: none !important; }
+
+  /* ================= NAV BAR =================
+     Logo, expanded menu and Get App centred as one group with even gaps.
+     Height matches mobile; only horizontal room + label size grow. */
+  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; justify-content: center !important; gap: 32px !important; }
+  #siteNav > a[aria-label="Polysocial home"] svg { width: 24px !important; height: 16.8px !important; }
+  #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
+  #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
+  #siteNav #menuBtn { display: none !important; }
+  #deskNav {
+    display: flex !important;
+    align-items: center; gap: 32px; white-space: nowrap;
+  }
+  #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
+  #deskNav a:hover { color: #1845E7; }
+  #deskNav a[aria-current="page"] { color: #1845E7; }
+  #menuOverlay nav { gap: 34px !important; }
+  #menuOverlay .menuLink { font-size: 30px !important; }
+
+  /* ================= HERO =================
+     Reclaim the sticky nav's height so the hero spans the full viewport and
+     its centred content lands at the true vertical middle at zero scroll. */
+  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; gap: 32px !important; }
+  #heroBlock .li-mark img, #heroBlock .li-mark svg { width: 108px !important; height: 108px !important; }
+  #heroBlock .li-scribble { font-size: 38px !important; left: 96px !important; top: -34px !important; }
+  #heroBlock .li-arrow { width: 66px !important; height: 66px !important; left: 72px !important; top: 8px !important; }
+  .li-hero-title { font-size: clamp(48px, 5.2vw, 64px) !important; }
+  .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
+
+  /* ================= COMMUNITY ================= */
+  #communitySection { padding: 128px var(--edge) !important; gap: 44px !important; }
+  #communitySection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
+  #communitySection > div:last-child { flex-direction: row !important; flex-wrap: wrap !important; justify-content: center !important; gap: 24px 40px !important; max-width: 980px !important; }
+  #communitySection .li-pill { align-self: auto !important; }
+
+  /* ================= WAYS ================= */
+  #waysSection { padding: 140px var(--edge) !important; gap: 48px !important; }
+  #waysSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
+  #waysSection > div { max-width: 620px !important; }
+  #waysSection .li-way { padding: 44px 0 !important; }
+  #waysSection .li-way h3 { font-size: 22px !important; }
+  #waysSection .li-way p { font-size: 15px !important; max-width: 400px !important; }
+
+  /* ================= FLOW ================= */
+  #flowSection { padding: 140px var(--edge) !important; gap: 48px !important; }
+  #flowSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
+  #flowSection .li-flow { max-width: 720px !important; gap: 16px !important; }
+  #flowSection .li-step { max-width: 720px !important; padding: 18px 24px !important; }
+  #flowSection .li-step-t { font-size: 17px !important; }
+
+  /* ================= CLOSER ================= */
+  #closerSection { padding: 140px var(--edge) 60px !important; gap: 40px !important; }
+  #closerSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
+  #closerSection .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
+
+  /* ================= TALK SECTION ================= */
+  #talkSection { padding: calc(var(--sp-section) + 40px) var(--edge) !important; }
+  #talkSection > h2 { font-size: 44px !important; }
+
+  /* ================= FOOTER ================= */
+  #siteFooter { padding: 72px var(--edge) 52px !important; }
+  #siteFooter > div { max-width: 1024px !important; margin: 0 auto !important; }
+  #siteFooter img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
+  #siteFooter span[style*="Monetizing"], #siteFooter p[style*="call us"], #siteFooter nav a { font-size: 14px !important; }
+  #siteFooter div[style*="font-size:10px"] { font-size: 12px !important; }
+}
+</style>
 
 </body></html>
