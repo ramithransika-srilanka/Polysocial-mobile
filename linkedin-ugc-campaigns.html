@@ -374,17 +374,55 @@
     .menuLink:hover{color:#1845E7;}
     .getAppBtn:active{transform:scale(0.96);}
     /* ===== Hero =====
-       Two-tone heading: ash lead-in, black keyword. LinkedIn logo sits above,
-       "LinkedIn" hand-lettering scribble curls around it. */
-    .li-hero-title{margin:0;font-weight:600;font-size:44px;line-height:1.08;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
-    .li-hero-title .accent{color:#121212;}
+       LinkedIn logo centred, "LinkedIn" hand-lettering (Caveat) sits above-
+       right with a curved arrow scribbled down onto the mark. The tagline
+       runs two lines: ash lead-in, black keyword line, blue full-stop. */
+    .li-hero{display:flex;flex-direction:column;align-items:center;gap:26px;padding:60px 24px 80px;text-align:center;}
+    .li-mark-wrap{position:relative;display:block;width:112px;height:112px;}
+    .li-mark-wrap svg.li-logo{width:112px;height:112px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.18));}
+    .li-scribble{position:absolute;left:82%;top:-30%;font-family:'Caveat',cursive;font-weight:700;font-size:34px;line-height:1;color:#1E90FF;transform:rotate(-6deg);white-space:nowrap;pointer-events:none;}
+    .li-arrow{position:absolute;left:60%;top:-4%;width:56px;height:56px;pointer-events:none;overflow:visible;}
+    .li-arrow path{stroke-dasharray:180;stroke-dashoffset:180;}
+    .li-hero-title{margin:0;font-weight:600;font-size:40px;line-height:1.1;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;max-width:520px;}
+    .li-hero-title .line-b{display:block;color:#121212;}
     .li-hero-title .dot{color:#1548EB;}
-    @media (max-width:360px){.li-hero-title{font-size:38px;}}
+    @media (max-width:360px){.li-hero-title{font-size:34px;}}
 
-    .li-mark{position:relative;display:inline-block;margin-bottom:8px;}
-    .li-mark img{width:76px;height:76px;display:block;}
-    .li-scribble{position:absolute;left:66px;top:-24px;font-family:'Caveat',cursive;font-weight:700;font-size:26px;color:#1E90FF;transform:rotate(-6deg);white-space:nowrap;}
-    .li-arrow{position:absolute;left:52px;top:6px;pointer-events:none;}
+    /* ===== Hero entrance (Apple News style) =====
+       Everything holds still for a beat, then rises together in a soft,
+       blurred-to-clear reveal. The logo scales in, the scribble draws its
+       curl and then the arrow, and each tagline line lifts with a blur
+       clearing. Runs once on load. */
+    .li-mark-wrap svg.li-logo{opacity:0;transform:translateY(14px) scale(0.94);animation:heroLogoIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.12s both;}
+    .li-scribble{opacity:0;transform:rotate(-6deg) translateY(8px);animation:heroWordIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.9s both;}
+    .li-arrow path{animation:heroDraw 0.7s cubic-bezier(0.5,0,0.2,1) 1.1s both;}
+    .li-hero-title .line{opacity:0;transform:translateY(18px);filter:blur(8px);animation:heroLineIn 0.75s cubic-bezier(0.22,1,0.36,1) both;display:block;}
+    .li-hero-title .line-a{animation-delay:0.32s;}
+    .li-hero-title .line-b{animation-delay:0.5s;}
+    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.78s both;}
+    @keyframes heroLogoIn{
+      from{opacity:0;transform:translateY(14px) scale(0.94);filter:blur(6px);}
+      to{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+    }
+    @keyframes heroLineIn{
+      from{opacity:0;transform:translateY(18px);filter:blur(8px);}
+      to{opacity:1;transform:translateY(0);filter:blur(0);}
+    }
+    @keyframes heroWordIn{
+      from{opacity:0;transform:rotate(-6deg) translateY(8px);filter:blur(4px);}
+      to{opacity:1;transform:rotate(-6deg) translateY(0);filter:blur(0);}
+    }
+    @keyframes heroDraw{
+      to{stroke-dashoffset:0;}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .li-mark-wrap svg.li-logo,.li-scribble,.li-hero-title .line,.li-hero .li-cta{
+        animation:heroFade 0.4s ease both;transform:none;filter:none;
+      }
+      .li-scribble{transform:rotate(-6deg);}
+      .li-arrow path{stroke-dashoffset:0;animation:none;}
+      @keyframes heroFade{from{opacity:0;}to{opacity:1;}}
+    }
 
     .li-cta{display:inline-flex;align-items:center;padding:12px 22px;border:1.5px solid #1548EB;border-radius:999px;color:#1548EB;font-weight:600;font-size:14px;line-height:1;letter-spacing:-0.01em;transition:background 0.16s ease,color 0.16s ease,transform 0.16s ease-out;}
     .li-cta:hover{background:#E8EDFD;}
@@ -504,13 +542,23 @@
 
 
     <!-- ===== Hero ===== -->
-    <section id="heroBlock" style="position:relative;z-index:1;min-height:80dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:40px 24px 60px;text-align:center;">
-      <span class="li-mark" aria-hidden="true">
-        <svg class="li-arrow" width="52" height="52" viewBox="0 0 70 70" fill="none"><path d="M8 6 C 42 2, 58 20, 40 50" stroke="#1E90FF" stroke-width="3.2" stroke-linecap="round" fill="none"></path><path d="M28 42 L 40 52 L 52 40" stroke="#1E90FF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+    <section id="heroBlock" class="li-hero" style="position:relative;z-index:1;min-height:80dvh;justify-content:center;">
+      <span class="li-mark-wrap" aria-hidden="true">
+        <svg class="li-logo" viewBox="0 0 161 161" role="img" aria-label="LinkedIn" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <rect x="18.6" y="14.6" width="123.485" height="123.485" rx="20" fill="#0077B5"></rect>
+            <path d="M64.8364 103.414H52.5708V66.5615H64.8364V103.414ZM94.9497 65.6963C103.021 65.6965 109.072 70.9642 109.072 82.2832L109.071 103.413H96.8062V83.6973C96.8061 78.7453 95.0311 75.3664 90.5913 75.3662C87.2028 75.3662 85.1838 77.6444 84.2974 79.8447C83.9732 80.6332 83.894 81.7318 83.894 82.833V103.414H71.6274C71.6281 103.287 71.7888 70.0154 71.6274 66.5625H83.894V71.7822C85.5219 69.273 88.4376 65.6963 94.9497 65.6963ZM58.7856 48.7959C62.9814 48.7959 65.5653 51.5479 65.645 55.1611C65.645 58.6995 62.9821 61.5311 58.7056 61.5312H58.6265C54.5089 61.5311 51.8472 58.6995 51.8472 55.1611C51.8473 51.548 54.59 48.7961 58.7856 48.7959Z" fill="#fff"></path>
+          </g>
+        </svg>
         <span class="li-scribble">LinkedIn</span>
-        <svg viewBox="0 0 24 24" width="76" height="76" role="img" aria-label="LinkedIn" style="display:block;"><rect width="24" height="24" rx="4" fill="#0A66C2"></rect><path d="M6.94 8.5a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM5.5 9.75h2.88V18.5H5.5V9.75zM10.25 9.75h2.76v1.19h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.92 3.45 4.42V18.5h-2.88v-3.98c0-.95-.02-2.17-1.32-2.17-1.32 0-1.52 1.03-1.52 2.1V18.5h-2.87V9.75z" fill="#fff"></path></svg>
+        <svg class="li-arrow" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+          <path d="M6 8 C 34 4, 48 18, 30 42 L 34 34 M 30 42 L 22 36" stroke="#1E90FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        </svg>
       </span>
-      <h1 class="li-hero-title">The best place to <span class="accent">brag about your business</span><span class="dot">.</span></h1>
+      <h1 class="li-hero-title">
+        <span class="line line-a">is the best place to</span>
+        <span class="line line-b">brag about your business<span class="dot">.</span></span>
+      </h1>
       <a class="li-cta" href="brand-access.html">Create a campaign</a>
     </section>
 
@@ -793,11 +841,11 @@
   /* ================= HERO =================
      Reclaim the sticky nav's height so the hero spans the full viewport and
      its centred content lands at the true vertical middle at zero scroll. */
-  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; gap: 32px !important; }
-  #heroBlock .li-mark img, #heroBlock .li-mark svg { width: 108px !important; height: 108px !important; }
-  #heroBlock .li-scribble { font-size: 38px !important; left: 96px !important; top: -34px !important; }
-  #heroBlock .li-arrow { width: 66px !important; height: 66px !important; left: 72px !important; top: 8px !important; }
-  .li-hero-title { font-size: clamp(48px, 5.2vw, 64px) !important; }
+  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; gap: 40px !important; }
+  #heroBlock .li-mark-wrap, #heroBlock .li-mark-wrap svg.li-logo { width: 160px !important; height: 160px !important; }
+  #heroBlock .li-scribble { font-size: 46px !important; }
+  #heroBlock .li-arrow { width: 76px !important; height: 76px !important; }
+  .li-hero-title { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
   .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
   /* ================= COMMUNITY ================= */
