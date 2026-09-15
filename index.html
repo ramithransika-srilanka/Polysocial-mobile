@@ -1384,7 +1384,7 @@ a:hover { color: var(--brand-primary-hover); }
     <!-- Hero sits at 88dvh (not full height) so the video card in the next section
          peeks ~85px at zero scroll; the following section is pulled up to meet it. -->
     <div id="heroBlock" style="position: relative; z-index: 1; width: 306px; min-height: 88dvh; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
-      <h1 style="width: 306px; margin: 0; font-weight: 600; font-size: 48px; line-height: 1.09; letter-spacing: -0.02em; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0px">
+      <h1 style="width: 306px; margin: 0; font-weight: 600; font-size: 48px; line-height: 1.06; letter-spacing: -0.02em; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0px">
         
         <span data-anim="" style="color: #121212; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.12s">Welcome</span><span data-anim="" style="color: #ADADAD; display: flex; align-items: center; justify-content: center; gap: 12px; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.19s;">
           to the
@@ -2989,11 +2989,13 @@ class Component extends DCLogic {
   #heroBlock > h1, #heroBlock > span { display: none !important; }
   #quoteTrack { margin-top: 0 !important; }
   #heroDesk { display: flex !important; align-items: center; justify-content: center; width: 100%; }
-  /* Headline scales with the viewport up to 96px at the widest layout;
-     avatars, inline gaps and the CTA button scale in step with it. */
-  #heroDesk h1 { font-size: clamp(62px, 8.4vw, 96px) !important; }
-  #heroDesk h1 > span:nth-child(2) { gap: clamp(18px, 2vw, 28px) !important; }
-  #heroDesk h1 > span:nth-child(3) { gap: clamp(20px, 2.4vw, 32px) !important; }
+  /* Headline scales with the viewport up to 88px at the widest layout, matching
+     the creators page hero; avatars, inline gaps and the CTA scale in step.
+     NB: the heading is a div[role="heading"] (SEO-demoted h1), so these rules
+     must target the role, not an h1 element. */
+  #heroDesk [role="heading"] { font-size: clamp(58px, 7.4vw, 88px) !important; }
+  #heroDesk [role="heading"] > span:nth-child(2) { gap: clamp(18px, 2vw, 28px) !important; }
+  #heroDesk [role="heading"] > span:nth-child(3) { gap: clamp(20px, 2.4vw, 32px) !important; }
   #heroDesk .avatarFloat { width: clamp(58px, 7.7vw, 88px) !important; height: clamp(58px, 7.7vw, 88px) !important; }
   #heroDesk .avatarFloat[style*="margin-left"] { margin-left: clamp(-16px, -1.35vw, -10px) !important; }
   /* CTA kept at a compact 14px on desktop (not scaled with the headline);
