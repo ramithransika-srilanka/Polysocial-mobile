@@ -473,6 +473,37 @@
     .li-step-n{flex:none;width:32px;height:32px;border-radius:50%;background:#1548EB;color:#FFFFFF;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.01em;}
     .li-step-t{font-weight:600;font-size:15px;line-height:1.2;color:#121212;letter-spacing:-0.01em;}
 
+    /* ===== Device lineup (Apple-News style) =====
+       A row of profile phones staggered on a gentle arc: the centre lifts and
+       scales up a touch, its neighbours dip, the outer pair sit between and
+       clip at the section edges. They rise + fade in together with a
+       centre-out stagger the first time the row scrolls into view. */
+    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:8px 0 36px;}
+    .li-phones{display:flex;justify-content:center;align-items:flex-start;gap:22px;min-width:1160px;margin:0 auto;padding:56px 0 0;}
+    .li-phone{flex:0 0 auto;}
+    .li-phone img{display:block;width:206px;height:auto;filter:drop-shadow(0 24px 40px rgba(18,31,96,0.14));}
+    .li-phone--a{transform:translateY(-6px);}
+    .li-phone--b{transform:translateY(46px);}
+    .li-phone--c{transform:translateY(-16px);}
+    .li-phone--c img{width:214px;}
+    /* Entrance: animate an inner wrapper so it composes with the resting arc. */
+    .li-phone-rise{opacity:0;transform:translateY(70px);transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);will-change:transform,opacity;}
+    .li-phones.in .li-phone-rise{opacity:1;transform:translateY(0);}
+    .li-phones .li-phone--c .li-phone-rise{transition-delay:0s;}
+    .li-phones .li-phone--b .li-phone-rise{transition-delay:0.09s;}
+    .li-phones .li-phone--a .li-phone-rise{transition-delay:0.18s;}
+    @media (prefers-reduced-motion: reduce){
+      .li-phone-rise{transition:opacity 0.4s ease;transform:none;}
+      .li-phones.in .li-phone-rise{transform:none;}
+    }
+    @media (max-width:640px){
+      .li-phones{min-width:840px;gap:14px;padding-top:36px;}
+      .li-phone img{width:150px;}
+      .li-phone--c img{width:156px;}
+      .li-phone--b{transform:translateY(34px);}
+      .li-phone--c{transform:translateY(-12px);}
+    }
+
     /* ===== Talk section (ported from creators page, on white) ===== */
     :root{--sp-section:clamp(40px,9vw,52px);--sp-heading:clamp(30px,7vw,40px);}
     .cReveal{opacity:0;transform:translateY(26px);transition:opacity 0.62s cubic-bezier(0.23,1,0.32,1),transform 0.62s cubic-bezier(0.23,1,0.32,1);will-change:transform,opacity;}
@@ -580,6 +611,18 @@
         <span class="line line-b">brag about your business<span class="dot">.</span></span>
       </h1>
       <a class="li-cta" href="brand-access.html">Create a campaign</a>
+    </section>
+
+
+    <!-- ===== Device lineup ===== -->
+    <section id="deviceSection" class="li-devices">
+      <div id="phoneRow" class="li-phones">
+        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="LinkedIn profile in the Polysocial app" width="206" height="421" loading="lazy" decoding="async"></span></div>
+        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
+        <div class="li-phone li-phone--c"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="214" height="437" loading="lazy" decoding="async"></span></div>
+        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
+        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
+      </div>
     </section>
 
 
@@ -822,6 +865,17 @@
     },{threshold:0.18,rootMargin:'0px 0px -12% 0px'});
     els.forEach(function(el){io.observe(el);});
   })();
+  /* Apple-News-style device row: rise + fade in (staggered) on first view. */
+  (function(){
+    var row=document.getElementById('phoneRow');
+    if(!row)return;
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce || !('IntersectionObserver' in window)){row.classList.add('in');return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0.25,rootMargin:'0px 0px -10% 0px'});
+    io.observe(row);
+  })();
   </script>
 
 <style id="desktop-view">
@@ -867,6 +921,12 @@
   #heroBlock .li-arrow { width: 82px !important; height: 90px !important; left: 72% !important; top: -30% !important; }
   .li-hero-title { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
   .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
+
+  /* ================= DEVICE LINEUP ================= */
+  #deviceSection { padding: 16px 0 64px !important; }
+  #deviceSection .li-phones { min-width: 1280px !important; gap: 28px !important; padding-top: 72px !important; }
+  #deviceSection .li-phone img { width: 232px !important; }
+  #deviceSection .li-phone--c img { width: 244px !important; }
 
   /* ================= COMMUNITY ================= */
   #communitySection { padding: 128px var(--edge) !important; gap: 44px !important; }
