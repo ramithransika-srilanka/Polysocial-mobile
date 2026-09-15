@@ -453,6 +453,140 @@
     }
   </style>
   <link rel="icon" type="image/png" href="favicon.png">
+<style id="desktop-view">
+/* =====================================================================
+   DESKTOP / TABLET VIEW  (For Brands)
+   Authored mobile-first against a 393px frame. Below 768px is untouched.
+   At >=768px the app frame goes full-width so section backgrounds bleed
+   edge-to-edge, while the CONTENT inside each section is capped at the
+   iPad-landscape width (1024px) and centred via the --edge gutter. Type +
+   spacing scale up; the scroll choreography (the sponsored-ad lock and the
+   agreement-screen slide-up) is preserved. The 9:16 vertical ad card
+   becomes a 16:9 landscape card here (a landscape clip, its own <video>).
+   ===================================================================== */
+@media (min-width: 768px) {
+
+  /* --edge = side gutter that centres content at a 1024px max width. */
+  :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
+
+  /* Frame: full-width so section backgrounds span the whole screen. */
+  #appRoot { width: 100% !important; max-width: none !important; }
+
+  /* ================= NAV BAR =================
+     Logo, expanded menu and Get App centred together as one group with even
+     32px gaps. Height unchanged; the hamburger is swapped for the menu. */
+  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; justify-content: center !important; gap: 32px !important; }
+  #siteNav > a[aria-label="Polysocial home"] svg { width: 24px !important; height: 16.8px !important; }
+  #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
+  #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
+  #siteNav #menuBtn { display: none !important; }
+  #deskNav { display: flex !important; align-items: center; gap: 32px; white-space: nowrap; }
+  #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
+  #deskNav a:hover { color: #1845E7; }
+
+  /* ================= HERO =================
+     Full-height stage; the sticky nav sits above it, so pull the hero up by
+     the nav height to land the centred content at the true vertical middle
+     at zero scroll, with the ad section flush at the bottom edge. Headline
+     scales up to the home-hero weight; the CTA scales to match. */
+  #top {
+    width: 100% !important; max-width: none !important;
+    padding: 0 var(--edge) !important; box-sizing: border-box;
+    min-height: 100dvh !important;
+    margin-top: calc(-1 * var(--nav-h)) !important;
+    gap: clamp(28px, 3.2vw, 44px) !important;
+  }
+  #top > h1 { font-size: clamp(56px, 7.2vw, 92px) !important; }
+  /* CTA kept at a compact 14px on desktop; the pill + arrow circle are sized to it. */
+  #top a[href="brand-access.html"] { height: 40px !important; padding: 0 6px 0 20px !important; font-size: 14px !important; letter-spacing: -0.01em !important; gap: 8px !important; }
+  #top a[href="brand-access.html"] > span { width: 28px !important; height: 28px !important; }
+
+  /* ============ SPONSORED AD → landscape card ============
+     The card becomes a 16:9 landscape block (max 1024px wide), centred and
+     vertically centred in the viewport. The JS lock reads this card's
+     resolved sticky `top`, so 576px here stays in sync automatically.
+     The vertical clip is hidden and the landscape clip shown. */
+  #start { padding: 0 var(--edge) !important; }
+  #start > div {
+    width: min(100%, 1024px) !important;
+    height: 576px !important;
+    margin: 0 auto !important;
+    top: max(16px, calc((100dvh - 576px) / 2)) !important;
+  }
+  #adVideo { display: none !important; }
+  #adVideoDesk { display: block !important; }
+  /* Poll takeover: hold heading + options in a centred column on the wide card. */
+  #start #adPoll { padding: 48px 24px !important; justify-content: center !important; }
+  #start #adPoll > #pollBackBtn { position: absolute !important; top: 20px !important; left: 20px !important; }
+  #start #adPoll > h3 { max-width: 720px !important; width: 100% !important; margin: 0 auto !important; font-size: 28px !important; text-align: center !important; }
+  #start #adPoll > div { max-width: 520px !important; width: 100% !important; margin: 0 auto !important; }
+
+  /* ============ AGREEMENT OVERLAY (full-bleed) ============
+     Fixed overlay (position:fixed, left:50%, translateX(-50%)) — widening it
+     to 100% makes it span the whole viewport while keeping the slide-up
+     transform intact. Its inner sections adopt the --edge content model. */
+  #agreeScreen { width: 100% !important; max-width: none !important; }
+
+  /* Agreement payoff panel */
+  #agreePanel { padding: clamp(72px, 10vw, 120px) var(--edge) !important; }
+  #agreePanel .ov-reveal { width: 100% !important; max-width: 900px !important; gap: 40px !important; }
+  #agreePanel p { width: 100% !important; max-width: 820px !important; font-size: clamp(30px, 3.4vw, 42px) !important; }
+
+  /* Community */
+  #agreeScreen section[data-screen-label="Community"] { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
+  #agreeScreen section[data-screen-label="Community"] h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 22ch !important; }
+  #agreeScreen section[data-screen-label="Community"] > p.ov-reveal { max-width: 46ch !important; font-size: 17px !important; margin-top: 34px !important; }
+  /* Full headline reads "...is your brand's vibe" once there's room for it;
+     the mobile card keeps the shorter "...is your vibe". */
+  .clBrandWord { display: inline !important; }
+  /* Desktop card is a true 16:9; the title band takes the top 30% and #clGrid
+     fills the lower 70% (so its box is exactly the 1000:394 ratio the desktop
+     pack was generated for). Swap the tall mobile set for the wide desktop one. */
+  #clBox { aspect-ratio: 16 / 9 !important; border-radius: clamp(32px, 3vw, 48px) !important; }
+  #clTitle { height: 30% !important; }
+  #clTitle h2 { font-size: clamp(34px, 3.6vw, 46px) !important; }
+  #clGrid { top: 30% !important; }
+  .clMob { display: none !important; }
+  .clDesk { display: block !important; }
+
+  /* How to start */
+  #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
+  #htsStepper { margin: 0 var(--edge) 40px !important; }
+  #htsTrack { gap: 22px !important; padding-top: 4px !important; padding-bottom: 8px !important; }
+  #htsTrack .htsCard { width: 340px !important; max-width: 340px !important; }
+
+  /* Who it's for */
+  #brandsForSection { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
+  #brandsForSection > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
+  #brandsForSection > div[style*="max-width: 340px"] { max-width: 640px !important; }
+  #brandsForSection .callWord { font-size: clamp(28px, 3.4vw, 40px) !important; }
+
+  /* Supplementary services */
+  #agreeScreen section[data-screen-label="Supplementary services"] > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
+  #agreeScreen section[data-screen-label="Supplementary services"] > div { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; justify-content: center !important; }
+  #agreeScreen section[data-screen-label="Supplementary services"] article { width: 320px !important; max-width: 320px !important; }
+
+  /* Grow your brand (WebGL): full-bleed already; only the fallback type grows. */
+  .growFallback { font-size: clamp(72px, 12vw, 140px) !important; }
+
+  /* Interested? Let's talk */
+  #talkSection { padding: clamp(40px, 6vw, 60px) var(--edge) calc(var(--sp-section) + 40px) !important; }
+  #talkSection > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
+
+  /* Footer */
+  #agreeScreen footer { padding: 72px var(--edge) 52px !important; }
+  #agreeScreen footer > div { max-width: 1024px !important; margin: 0 auto !important; }
+  #agreeScreen footer img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
+  #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
+
+  /* Disagree modal — a touch larger and more spacious on desktop */
+  #disagreeModalCard { max-width: 440px !important; padding: 48px 44px 32px !important; border-radius: 28px !important; }
+  #disagreeModalCard h3 { font-size: 20px !important; }
+  #disagreeModalCard p { font-size: 16px !important; }
+  #disagreeModalCard button#disagreeRetry { height: 56px !important; font-size: 17px !important; }
+}
+
+</style>
 </head>
 <body>
 <div style="min-height:100dvh;display:flex;justify-content:center;background:#EDEDED;">
@@ -974,6 +1108,7 @@
           <a href="brands.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#B4B4B4;font-weight:500;font-size:12px;">For brands<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#B4B4B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="partner.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#B4B4B4;font-weight:500;font-size:12px;">Partner business<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#B4B4B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="pricing.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#B4B4B4;font-weight:500;font-size:12px;">Pricing<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#B4B4B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          <a href="linkedin-ugc-campaigns.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#717171;font-weight:500;font-size:12px;">LinkedIn UGC campaigns<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#717171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
           <a href="about.html" style="display:flex;align-items:center;justify-content:space-between;height:24px;color:#B4B4B4;font-weight:500;font-size:12px;">Our Story<svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:block;flex:none;"><path d="M10 8l3 4-3 4" stroke="#B4B4B4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
         </nav>
         <div style="height:1px;min-height:1px;flex:none;background:rgba(255,255,255,0.12);"></div>
@@ -1777,139 +1912,5 @@
   })();
   </script>
 
-<style id="desktop-view">
-/* =====================================================================
-   DESKTOP / TABLET VIEW  (For Brands)
-   Authored mobile-first against a 393px frame. Below 768px is untouched.
-   At >=768px the app frame goes full-width so section backgrounds bleed
-   edge-to-edge, while the CONTENT inside each section is capped at the
-   iPad-landscape width (1024px) and centred via the --edge gutter. Type +
-   spacing scale up; the scroll choreography (the sponsored-ad lock and the
-   agreement-screen slide-up) is preserved. The 9:16 vertical ad card
-   becomes a 16:9 landscape card here (a landscape clip, its own <video>).
-   ===================================================================== */
-@media (min-width: 768px) {
-
-  /* --edge = side gutter that centres content at a 1024px max width. */
-  :root { --edge: max(40px, calc((100% - 1024px) / 2)); --nav-h: 58px; }
-
-  /* Frame: full-width so section backgrounds span the whole screen. */
-  #appRoot { width: 100% !important; max-width: none !important; }
-
-  /* ================= NAV BAR =================
-     Logo, expanded menu and Get App centred together as one group with even
-     32px gaps. Height unchanged; the hamburger is swapped for the menu. */
-  #siteNav { padding: 14px var(--edge) 12px var(--edge) !important; justify-content: center !important; gap: 32px !important; }
-  #siteNav > a[aria-label="Polysocial home"] svg { width: 24px !important; height: 16.8px !important; }
-  #siteNav .getAppBtn { font-size: 14px !important; padding: 6px 8px 6px 12px !important; gap: 6px !important; }
-  #siteNav .getAppBtn svg { width: 18px !important; height: 18px !important; }
-  #siteNav #menuBtn { display: none !important; }
-  #deskNav { display: flex !important; align-items: center; gap: 32px; white-space: nowrap; }
-  #deskNav a { color: #121212; font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
-  #deskNav a:hover { color: #1845E7; }
-
-  /* ================= HERO =================
-     Full-height stage; the sticky nav sits above it, so pull the hero up by
-     the nav height to land the centred content at the true vertical middle
-     at zero scroll, with the ad section flush at the bottom edge. Headline
-     scales up to the home-hero weight; the CTA scales to match. */
-  #top {
-    width: 100% !important; max-width: none !important;
-    padding: 0 var(--edge) !important; box-sizing: border-box;
-    min-height: 100dvh !important;
-    margin-top: calc(-1 * var(--nav-h)) !important;
-    gap: clamp(28px, 3.2vw, 44px) !important;
-  }
-  #top > h1 { font-size: clamp(56px, 7.2vw, 92px) !important; }
-  /* CTA kept at a compact 14px on desktop; the pill + arrow circle are sized to it. */
-  #top a[href="brand-access.html"] { height: 40px !important; padding: 0 6px 0 20px !important; font-size: 14px !important; letter-spacing: -0.01em !important; gap: 8px !important; }
-  #top a[href="brand-access.html"] > span { width: 28px !important; height: 28px !important; }
-
-  /* ============ SPONSORED AD → landscape card ============
-     The card becomes a 16:9 landscape block (max 1024px wide), centred and
-     vertically centred in the viewport. The JS lock reads this card's
-     resolved sticky `top`, so 576px here stays in sync automatically.
-     The vertical clip is hidden and the landscape clip shown. */
-  #start { padding: 0 var(--edge) !important; }
-  #start > div {
-    width: min(100%, 1024px) !important;
-    height: 576px !important;
-    margin: 0 auto !important;
-    top: max(16px, calc((100dvh - 576px) / 2)) !important;
-  }
-  #adVideo { display: none !important; }
-  #adVideoDesk { display: block !important; }
-  /* Poll takeover: hold heading + options in a centred column on the wide card. */
-  #start #adPoll { padding: 48px 24px !important; justify-content: center !important; }
-  #start #adPoll > #pollBackBtn { position: absolute !important; top: 20px !important; left: 20px !important; }
-  #start #adPoll > h3 { max-width: 720px !important; width: 100% !important; margin: 0 auto !important; font-size: 28px !important; text-align: center !important; }
-  #start #adPoll > div { max-width: 520px !important; width: 100% !important; margin: 0 auto !important; }
-
-  /* ============ AGREEMENT OVERLAY (full-bleed) ============
-     Fixed overlay (position:fixed, left:50%, translateX(-50%)) — widening it
-     to 100% makes it span the whole viewport while keeping the slide-up
-     transform intact. Its inner sections adopt the --edge content model. */
-  #agreeScreen { width: 100% !important; max-width: none !important; }
-
-  /* Agreement payoff panel */
-  #agreePanel { padding: clamp(72px, 10vw, 120px) var(--edge) !important; }
-  #agreePanel .ov-reveal { width: 100% !important; max-width: 900px !important; gap: 40px !important; }
-  #agreePanel p { width: 100% !important; max-width: 820px !important; font-size: clamp(30px, 3.4vw, 42px) !important; }
-
-  /* Community */
-  #agreeScreen section[data-screen-label="Community"] { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
-  #agreeScreen section[data-screen-label="Community"] h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 22ch !important; }
-  #agreeScreen section[data-screen-label="Community"] > p.ov-reveal { max-width: 46ch !important; font-size: 17px !important; margin-top: 34px !important; }
-  /* Full headline reads "...is your brand's vibe" once there's room for it;
-     the mobile card keeps the shorter "...is your vibe". */
-  .clBrandWord { display: inline !important; }
-  /* Desktop card is a true 16:9; the title band takes the top 30% and #clGrid
-     fills the lower 70% (so its box is exactly the 1000:394 ratio the desktop
-     pack was generated for). Swap the tall mobile set for the wide desktop one. */
-  #clBox { aspect-ratio: 16 / 9 !important; border-radius: clamp(32px, 3vw, 48px) !important; }
-  #clTitle { height: 30% !important; }
-  #clTitle h2 { font-size: clamp(34px, 3.6vw, 46px) !important; }
-  #clGrid { top: 30% !important; }
-  .clMob { display: none !important; }
-  .clDesk { display: block !important; }
-
-  /* How to start */
-  #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #htsStepper { margin: 0 var(--edge) 40px !important; }
-  #htsTrack { gap: 22px !important; padding-top: 4px !important; padding-bottom: 8px !important; }
-  #htsTrack .htsCard { width: 340px !important; max-width: 340px !important; }
-
-  /* Who it's for */
-  #brandsForSection { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
-  #brandsForSection > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #brandsForSection > div[style*="max-width: 340px"] { max-width: 640px !important; }
-  #brandsForSection .callWord { font-size: clamp(28px, 3.4vw, 40px) !important; }
-
-  /* Supplementary services */
-  #agreeScreen section[data-screen-label="Supplementary services"] > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] > div { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; justify-content: center !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] article { width: 320px !important; max-width: 320px !important; }
-
-  /* Grow your brand (WebGL): full-bleed already; only the fallback type grows. */
-  .growFallback { font-size: clamp(72px, 12vw, 140px) !important; }
-
-  /* Interested? Let's talk */
-  #talkSection { padding: clamp(40px, 6vw, 60px) var(--edge) calc(var(--sp-section) + 40px) !important; }
-  #talkSection > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
-
-  /* Footer */
-  #agreeScreen footer { padding: 72px var(--edge) 52px !important; }
-  #agreeScreen footer > div { max-width: 1024px !important; margin: 0 auto !important; }
-  #agreeScreen footer img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
-  #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
-
-  /* Disagree modal — a touch larger and more spacious on desktop */
-  #disagreeModalCard { max-width: 440px !important; padding: 48px 44px 32px !important; border-radius: 28px !important; }
-  #disagreeModalCard h3 { font-size: 20px !important; }
-  #disagreeModalCard p { font-size: 16px !important; }
-  #disagreeModalCard button#disagreeRetry { height: 56px !important; font-size: 17px !important; }
-}
-
-</style>
 
 </body></html>
