@@ -389,9 +389,11 @@
     .li-hero{display:flex;flex-direction:column;align-items:center;gap:26px;padding:60px 24px 80px;text-align:center;}
     .li-mark-wrap{position:relative;display:block;width:112px;height:112px;}
     .li-mark-wrap svg.li-logo{width:112px;height:112px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.18));}
-    .li-scribble{position:absolute;left:78%;top:-34%;font-family:'Caveat','Segoe Script','Bradley Hand',cursive;font-weight:700;font-size:38px;line-height:1;color:#1E90FF;transform:rotate(-4deg);white-space:nowrap;pointer-events:none;}
-    .li-arrow{position:absolute;left:56%;top:4%;width:64px;height:70px;pointer-events:none;overflow:visible;}
-    .li-arrow path{stroke-dasharray:240;stroke-dashoffset:240;}
+    .li-scribble{position:absolute;left:82%;top:-42%;font-family:'Caveat','Segoe Script','Bradley Hand',cursive;font-weight:700;font-size:38px;line-height:1;color:#1E90FF;transform:rotate(-4deg);white-space:nowrap;pointer-events:none;}
+    /* Long hooked arrow that bulges into the gap right of the mark and points
+       its tip just outside the logo's top-right corner (never onto the face). */
+    .li-arrow{position:absolute;left:72%;top:-16%;width:48px;height:54px;pointer-events:none;overflow:visible;}
+    .li-arrow path{stroke-dasharray:100;stroke-dashoffset:100;}
     .li-hero-title{margin:0;font-weight:600;font-size:40px;line-height:1.1;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;max-width:520px;}
     .li-hero-title .line-b{display:block;color:#121212;}
     .li-hero-title .dot{color:#1548EB;}
@@ -561,7 +563,7 @@
         </svg>
         <span class="li-scribble">LinkedIn</span>
         <svg class="li-arrow" viewBox="0 0 64 70" fill="none" aria-hidden="true">
-          <path d="M50 6 C 63 13, 60 34, 44 44 C 33 51, 22 52, 14 50 M14 50 L 26 47 M14 50 L 22 41" stroke="#1E90FF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+          <path pathLength="100" d="M50 4 C 64 12, 61 34, 42 44 C 32 49, 22 50, 14 48 M14 48 L 26 46 M14 48 L 21 39" stroke="#1E90FF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
         </svg>
       </span>
       <h1 class="li-hero-title">
@@ -853,7 +855,7 @@
   #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; gap: 40px !important; }
   #heroBlock .li-mark-wrap, #heroBlock .li-mark-wrap svg.li-logo { width: 160px !important; height: 160px !important; }
   #heroBlock .li-scribble { font-size: 46px !important; }
-  #heroBlock .li-arrow { width: 76px !important; height: 76px !important; }
+  #heroBlock .li-arrow { width: 82px !important; height: 90px !important; left: 72% !important; top: -30% !important; }
   .li-hero-title { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
   .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
