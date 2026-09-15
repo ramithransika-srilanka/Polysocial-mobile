@@ -403,11 +403,10 @@
        its tip just outside the logo's top-right corner (never onto the face). */
     .li-arrow{position:absolute;left:72%;top:-16%;width:48px;height:54px;pointer-events:none;overflow:visible;}
     .li-arrow path{stroke-dasharray:100;stroke-dashoffset:100;}
-    /* Matches the home-page hero scale: 48px mobile / 66px desktop, 600, -0.02em. */
-    .li-hero-title{margin:0;font-weight:600;font-size:48px;line-height:1.09;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;max-width:520px;}
+    .li-hero-title{margin:0;font-weight:600;font-size:40px;line-height:1.1;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;max-width:520px;}
     .li-hero-title .line-b{display:block;color:#121212;}
     .li-hero-title .dot{color:#1548EB;}
-    @media (max-width:360px){.li-hero-title{font-size:42px;}}
+    @media (max-width:360px){.li-hero-title{font-size:34px;}}
 
     /* ===== Hero entrance (Apple News style) =====
        Everything holds still for a beat, then rises together in a soft,
@@ -920,7 +919,7 @@
   #heroBlock .li-mark-wrap, #heroBlock .li-mark-wrap svg.li-logo { width: 160px !important; height: 160px !important; }
   #heroBlock .li-scribble { font-size: 46px !important; }
   #heroBlock .li-arrow { width: 82px !important; height: 90px !important; left: 72% !important; top: -30% !important; }
-  .li-hero-title { font-size: 66px !important; line-height: 1.04 !important; max-width: 900px !important; }
+  .li-hero-title { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
   .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
   /* ================= DEVICE LINEUP ================= */
