@@ -386,7 +386,16 @@
        LinkedIn logo centred, "LinkedIn" hand-lettering (Caveat) sits above-
        right with a curved arrow scribbled down onto the mark. The tagline
        runs two lines: ash lead-in, black keyword line, blue full-stop. */
-    .li-hero{display:flex;flex-direction:column;align-items:center;gap:26px;padding:60px 24px 80px;text-align:center;}
+    /* Deliberate vertical rhythm rather than one flat gap. The scribble reads
+       "LinkedIn" and the headline continues "is the best place to…", so the
+       mark sits close to the headline as one sentence; the CTA then takes the
+       larger, intentional separation as the distinct action. */
+    .li-hero{display:flex;flex-direction:column;align-items:center;gap:0;padding:56px 24px 76px;text-align:center;}
+    /* The mark's SVG carries ~13% transparent padding below the blue face, so
+       a smaller margin here lands the same optical gap as the CTA's larger
+       one — the two beats end up visually balanced. */
+    .li-hero .li-mark-wrap{margin-bottom:clamp(8px,1.4vw,16px);}
+    .li-hero .li-cta{margin-top:clamp(32px,4.2vw,42px);}
     .li-mark-wrap{position:relative;display:block;width:112px;height:112px;}
     .li-mark-wrap svg.li-logo{width:112px;height:112px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.18));}
     .li-scribble{position:absolute;left:82%;top:-42%;font-family:'Caveat','Segoe Script','Bradley Hand',cursive;font-weight:700;font-size:38px;line-height:1;color:#1E90FF;transform:rotate(-4deg);white-space:nowrap;pointer-events:none;}
@@ -852,7 +861,7 @@
   /* ================= HERO =================
      Reclaim the sticky nav's height so the hero spans the full viewport and
      its centred content lands at the true vertical middle at zero scroll. */
-  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; gap: 40px !important; }
+  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; }
   #heroBlock .li-mark-wrap, #heroBlock .li-mark-wrap svg.li-logo { width: 160px !important; height: 160px !important; }
   #heroBlock .li-scribble { font-size: 46px !important; }
   #heroBlock .li-arrow { width: 82px !important; height: 90px !important; left: 72% !important; top: -30% !important; }
