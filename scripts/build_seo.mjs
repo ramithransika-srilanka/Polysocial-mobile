@@ -34,7 +34,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  SITE_ORIGIN, DEFAULT_OG_IMAGE, PAGES, ORGANIZATION_JSONLD, IMG_ALT_FIXES,
+  SITE_ORIGIN, DEFAULT_OG_IMAGE, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, OG_IMAGE_ALT,
+  PAGES, ORGANIZATION_JSONLD, IMG_ALT_FIXES,
 } from "./seo-config.mjs";
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -85,10 +86,14 @@ function renderSeoBlock(page, absoluteUrl, effectiveTitle, effectiveDesc) {
     `  <meta property="og:description" content="${esc(effectiveDesc)}">`,
     `  <meta property="og:url" content="${esc(absoluteUrl)}">`,
     `  <meta property="og:image" content="${esc(og)}">`,
+    `  <meta property="og:image:width" content="${OG_IMAGE_WIDTH}">`,
+    `  <meta property="og:image:height" content="${OG_IMAGE_HEIGHT}">`,
+    `  <meta property="og:image:alt" content="${esc(OG_IMAGE_ALT)}">`,
     `  <meta name="twitter:card" content="summary_large_image">`,
     `  <meta name="twitter:title" content="${esc(effectiveTitle)}">`,
     `  <meta name="twitter:description" content="${esc(effectiveDesc)}">`,
     `  <meta name="twitter:image" content="${esc(og)}">`,
+    `  <meta name="twitter:image:alt" content="${esc(OG_IMAGE_ALT)}">`,
     jsonLd,
     END,
   ].join("\n").replace(/\n{2,}/g, "\n");

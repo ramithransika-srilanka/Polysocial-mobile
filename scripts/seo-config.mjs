@@ -16,6 +16,9 @@ export const SITE_ORIGIN = "https://polysocial.cc";
 
 // 1200×630 social share card (stable, root-level URL — not fingerprinted).
 export const DEFAULT_OG_IMAGE = "/og-share.png";
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+export const OG_IMAGE_ALT = "Welcome to the creator economy — Polysocial";
 
 const home = {
   path: "/",
