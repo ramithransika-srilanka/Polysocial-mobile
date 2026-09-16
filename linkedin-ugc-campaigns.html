@@ -413,16 +413,15 @@
        blurred-to-clear reveal. The logo scales in, the scribble draws its
        curl and then the arrow, and each tagline line lifts with a blur
        clearing. Runs once on load. */
-    .li-mark-wrap svg.li-logo{opacity:0;transform:translateY(14px) scale(0.94);animation:heroLogoIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.12s both;}
-    .li-scribble{opacity:0;transform:rotate(-6deg) translateY(8px);animation:heroWordIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.9s both;}
-    .li-arrow path{animation:heroDraw 0.7s cubic-bezier(0.5,0,0.2,1) 1.1s both;}
+    .li-mark-wrap svg.li-logo{transform-origin:center center;animation:heroLogoZoom 1.5s cubic-bezier(0.16,1,0.3,1) 0.05s both;}
     .li-hero-title .line{opacity:0;transform:translateY(18px);filter:blur(8px);animation:heroLineIn 0.75s cubic-bezier(0.22,1,0.36,1) both;display:block;}
-    .li-hero-title .line-a{animation-delay:0.32s;}
-    .li-hero-title .line-b{animation-delay:0.5s;}
-    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.78s both;}
-    @keyframes heroLogoIn{
-      from{opacity:0;transform:translateY(14px) scale(0.94);filter:blur(6px);}
-      to{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+    .li-hero-title .line-a{animation-delay:0.86s;}
+    .li-hero-title .line-b{animation-delay:1.0s;}
+    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 1.18s both;}
+    @keyframes heroLogoZoom{
+      0%{opacity:0;transform:scale(7);}
+      12%{opacity:1;}
+      100%{opacity:1;transform:scale(1);}
     }
     @keyframes heroLineIn{
       from{opacity:0;transform:translateY(18px);filter:blur(8px);}
