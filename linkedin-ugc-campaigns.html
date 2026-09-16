@@ -394,7 +394,7 @@
        "LinkedIn" and the headline continues "is the best place to…", so the
        mark sits close to the headline as one sentence; the CTA then takes the
        larger, intentional separation as the distinct action. */
-    .li-hero{display:flex;flex-direction:column;align-items:center;gap:0;padding:56px 24px 76px;text-align:center;}
+    .li-hero{display:flex;flex-direction:column;align-items:center;gap:0;padding:56px 24px 61px;text-align:center;}
     /* The mark's SVG carries ~13% transparent padding below the blue face, so
        a smaller margin here lands the same optical gap as the CTA's larger
        one — the two beats end up visually balanced. */
@@ -535,11 +535,11 @@
        peek into view first; as the section scrolls toward centre they all settle
        onto one horizontal line. They also rise + fade in together with a
        centre-out stagger the first time the row scrolls into view. */
-    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:18px 0 44px;display:flex;justify-content:center;}
-    .li-phones{display:flex;justify-content:center;align-items:flex-start;gap:22px;min-width:1160px;margin:0 auto;padding:48px 0 0;}
+    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:14px 0 31px;display:flex;justify-content:center;}
+    .li-phones{display:flex;justify-content:center;align-items:flex-start;gap:22px;min-width:1160px;margin:0 auto;padding:38px 0 0;}
     /* Resting arc (--arc) composes with scroll parallax (--px/--py set by JS). */
     .li-phone{flex:0 0 auto;transform:translate3d(var(--px,0px),calc(var(--arc,0px) + var(--py,0px)),0);will-change:transform;}
-    .li-phone img{display:block;width:206px;height:auto;filter:drop-shadow(0 24px 40px rgba(18,31,96,0.14));}
+    .li-phone img{display:block;width:206px;height:auto;filter:drop-shadow(0 12px 18px rgba(18,31,96,0.16));}
     .li-phone--a{--arc:0px;}
     .li-phone--b{--arc:-40px;}
     .li-phone--c{--arc:0px;}
@@ -554,7 +554,7 @@
       .li-phones.in .li-phone-rise{transform:none;}
     }
     @media (max-width:640px){
-      .li-phones{min-width:max-content;gap:16px;padding-top:16px;}
+      .li-phones{min-width:max-content;gap:16px;padding-top:13px;}
       .li-phone img{width:240px;}
       .li-phone--b{--arc:-44px;}
       .li-phone--c{--arc:0px;}
@@ -692,11 +692,11 @@
     <!-- ===== Device lineup ===== -->
     <section id="deviceSection" class="li-devices">
       <div id="phoneRow" class="li-phones">
-        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="LinkedIn profile in the Polysocial app" width="206" height="421" loading="lazy" decoding="async"></span></div>
-        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
-        <div class="li-phone li-phone--c"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
-        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
-        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="lazy" decoding="async"></span></div>
+        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="LinkedIn profile in the Polysocial app" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
+        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
+        <div class="li-phone li-phone--c"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
+        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
+        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
       </div>
     </section>
 
@@ -1100,8 +1100,8 @@
   .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
   /* ================= DEVICE LINEUP ================= */
-  #deviceSection { padding: 56px 0 72px !important; }
-  #deviceSection .li-phones { min-width: 1280px !important; gap: 28px !important; padding-top: 64px !important; }
+  #deviceSection { padding: 45px 0 50px !important; }
+  #deviceSection .li-phones { min-width: 1280px !important; gap: 28px !important; padding-top: 51px !important; }
   #deviceSection .li-phone img { width: 232px !important; }
   #deviceSection .li-phone--b { --arc: -48px !important; }
   #deviceSection .li-phone--c { --arc: 0px !important; }
