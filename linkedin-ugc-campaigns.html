@@ -11,11 +11,15 @@
   <meta property="og:title" content="LinkedIn UGC Campaigns — Reach Decision Makers | Polysocial">
   <meta property="og:description" content="Run performance-based UGC campaigns on LinkedIn with Polysocial. Build a community of professionals around your brand and reach the decision makers who matter.">
   <meta property="og:url" content="https://polysocial.cc/linkedin-ugc-campaigns">
-  <meta property="og:image" content="https://polysocial.cc/favicon.svg">
+  <meta property="og:image" content="https://polysocial.cc/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Welcome to the creator economy — Polysocial">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="LinkedIn UGC Campaigns — Reach Decision Makers | Polysocial">
   <meta name="twitter:description" content="Run performance-based UGC campaigns on LinkedIn with Polysocial. Build a community of professionals around your brand and reach the decision makers who matter.">
-  <meta name="twitter:image" content="https://polysocial.cc/favicon.svg">
+  <meta name="twitter:image" content="https://polysocial.cc/og-share.png">
+  <meta name="twitter:image:alt" content="Welcome to the creator economy — Polysocial">
 <!-- SEO:END -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -413,15 +417,18 @@
        blurred-to-clear reveal. The logo scales in, the scribble draws its
        curl and then the arrow, and each tagline line lifts with a blur
        clearing. Runs once on load. */
-    .li-mark-wrap svg.li-logo{transform-origin:center center;animation:heroLogoZoom 1.5s cubic-bezier(0.16,1,0.3,1) 0.05s both;}
+    /* The logo begins dead-centre in the viewport, large, then slowly zooms
+       out and travels up to its resting spot above the title. --li-logo-y is
+       the vertical offset (viewport centre minus rest position) set by JS. */
+    .li-mark-wrap svg.li-logo{transform-origin:center center;--li-logo-y:0px;animation:heroLogoZoom 2.6s cubic-bezier(0.16,1,0.3,1) 0.05s both;}
     .li-hero-title .line{opacity:0;transform:translateY(18px);filter:blur(8px);animation:heroLineIn 0.75s cubic-bezier(0.22,1,0.36,1) both;display:block;}
-    .li-hero-title .line-a{animation-delay:0.86s;}
-    .li-hero-title .line-b{animation-delay:1.0s;}
-    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 1.18s both;}
+    .li-hero-title .line-a{animation-delay:2.1s;}
+    .li-hero-title .line-b{animation-delay:2.28s;}
+    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 2.5s both;}
     @keyframes heroLogoZoom{
-      0%{opacity:0;transform:scale(7);}
-      12%{opacity:1;}
-      100%{opacity:1;transform:scale(1);}
+      0%{opacity:0;transform:translateY(var(--li-logo-y)) scale(6);}
+      10%{opacity:1;}
+      100%{opacity:1;transform:translateY(0) scale(1);}
     }
     @keyframes heroLineIn{
       from{opacity:0;transform:translateY(18px);filter:blur(8px);}
@@ -453,6 +460,11 @@
     .li-h2{margin:0;font-weight:600;font-size:30px;line-height:1.14;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
     .li-h2 .accent{color:#121212;}
     .li-h2 .dot{color:#1548EB;}
+    /* Community section: full-viewport, centred, heading in the hero's type. */
+    #communitySection{min-height:100dvh;justify-content:center;}
+    #communitySection .li-h2{font-size:40px;line-height:1.1;max-width:520px;}
+    #communitySection .li-sub{margin:0;font-weight:500;font-size:14px;line-height:1.5;color:#414141;text-align:center;}
+    @media (max-width:360px){#communitySection .li-h2{font-size:34px;}}
 
     /* ===== Testimonial pills row ===== */
     .li-pill{display:inline-flex;align-items:center;gap:12px;background:#F6F6F6;border-radius:999px;padding:10px 22px 10px 10px;}
@@ -575,7 +587,11 @@
     }
   </style>
 
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FF6B4A">
 </head>
 <body>
 <div style="min-height:100vh;display:flex;justify-content:center;background:#EDEDED;">
@@ -632,6 +648,25 @@
       </h1>
       <a class="li-cta" href="brand-access.html">Create a campaign</a>
     </section>
+    <script>
+      /* Seed the hero logo's start offset so it launches from the exact
+         centre of the viewport, then zooms out and settles into place. */
+      (function () {
+        var logo = document.querySelector('#heroBlock svg.li-logo');
+        var wrap = document.querySelector('#heroBlock .li-mark-wrap');
+        if (!logo || !wrap) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        function seed() {
+          /* The wrapper isn't animated, so its centre is the logo's rest
+             position even while the logo itself is mid-transform. */
+          var r = wrap.getBoundingClientRect();
+          var restCenter = r.top + r.height / 2;
+          var viewportCenter = (window.innerHeight || document.documentElement.clientHeight) / 2;
+          logo.style.setProperty('--li-logo-y', (viewportCenter - restCenter).toFixed(1) + 'px');
+        }
+        seed();
+      })();
+    </script>
 
 
     <!-- ===== Device lineup ===== -->
@@ -647,17 +682,9 @@
 
 
     <!-- ===== Community ===== -->
-    <section id="communitySection" style="background:#F2F2F2;padding:80px 24px;display:flex;flex-direction:column;align-items:center;gap:32px;">
-      <h2 class="li-h2" style="max-width:520px;">What if you could build a <span class="accent">community of professionals</span> around your brand?</h2>
-      <p style="margin:0;font-weight:500;font-size:14px;line-height:1.5;color:#414141;text-align:center;">In any industry and any economy</p>
-
-      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:440px;margin-top:16px;">
-        <div class="li-pill" style="align-self:flex-start;transform:rotate(-1.2deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#c9b8a6,#8a6f57);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-        <div class="li-pill" style="align-self:flex-end;transform:rotate(1.4deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#b0bcc7,#5f7484);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-        <div class="li-pill" style="align-self:center;transform:translateX(-8px) rotate(-0.6deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#d1b7a4,#8f6a52);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-        <div class="li-pill" style="align-self:flex-start;transform:translateX(10px) rotate(1.1deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#a7c0b4,#547063);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-        <div class="li-pill" style="align-self:flex-end;transform:rotate(-1.5deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#cdb0c4,#7a5470);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-      </div>
+    <section id="communitySection" style="background:#FFFFFF;padding:56px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
+      <h2 class="li-h2">What if you could build a <span class="accent">community of professionals</span> around your brand?</h2>
+      <p class="li-sub">In any industry and any economy</p>
     </section>
 
 
@@ -931,16 +958,17 @@
     },{threshold:0.25,rootMargin:'0px 0px -10% 0px'});
     io.observe(row);
   })();
-  /* Apple-News-style scroll parallax: as the device section travels through the
-     viewport, phones spread horizontally and the outer ones drift vertically,
-     converging to the resting arc when the section is centred. */
+  /* Scroll convergence: the phones start in their staggered resting arc and, as
+     the section travels toward the centre of the viewport, translate only on the
+     Y axis so they all settle onto one horizontal line. No horizontal movement,
+     no scaling — the offset (2nd/4th) phones simply rise/fall the most because
+     their resting arc is largest. Continuous with scroll, not stop-motion. */
   (function(){
     var sec=document.getElementById('deviceSection');
     var row=document.getElementById('phoneRow');
     if(!sec||!row)return;
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     var phones=Array.prototype.slice.call(row.children);
-    var mid=(phones.length-1)/2;
     var ticking=false;
     function update(){
       ticking=false;
@@ -949,13 +977,12 @@
       var center=r.top+r.height/2;
       var p=(vh/2-center)/(vh/2+r.height/2);   /* ~ -1 (below) .. 0 (centred) .. 1 (above) */
       if(p<-1)p=-1; if(p>1)p=1;
-      var scale=Math.min(1,Math.max(0.6,window.innerWidth/1280));
+      var prog=1-Math.min(1,Math.abs(p));       /* 0 at the edges, 1 when centred */
       for(var i=0;i<phones.length;i++){
-        var off=i-mid;                          /* -2 .. 2 */
-        var px=off*30*p*scale;                  /* horizontal spread */
-        var py=-Math.abs(off)*24*p*scale;       /* outer phones parallax up */
-        phones[i].style.setProperty('--px',px.toFixed(1)+'px');
-        phones[i].style.setProperty('--py',py.toFixed(1)+'px');
+        /* Read the resting arc live so it stays correct across breakpoints. */
+        var arc=parseFloat(getComputedStyle(phones[i]).getPropertyValue('--arc'))||0;
+        phones[i].style.setProperty('--px','0px');
+        phones[i].style.setProperty('--py',(-arc*prog).toFixed(1)+'px');  /* cancels the arc as it centres */
       }
     }
     function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
@@ -1016,10 +1043,8 @@
   #deviceSection .li-phone--c img { width: 244px !important; }
 
   /* ================= COMMUNITY ================= */
-  #communitySection { padding: 128px var(--edge) !important; gap: 44px !important; }
-  #communitySection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
-  #communitySection > div:last-child { flex-direction: row !important; flex-wrap: wrap !important; justify-content: center !important; gap: 24px 40px !important; max-width: 980px !important; }
-  #communitySection .li-pill { align-self: auto !important; }
+  #communitySection { min-height: 100dvh !important; justify-content: center !important; padding: 0 var(--edge) !important; gap: 24px !important; }
+  #communitySection .li-h2 { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
 
   /* ================= WAYS ================= */
   #waysSection { padding: 140px var(--edge) !important; gap: 48px !important; }

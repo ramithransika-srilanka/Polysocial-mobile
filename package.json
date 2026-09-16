@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "optimize": "node scripts/optimize.mjs",
-    "build": "node scripts/optimize.mjs && node scripts/build_html.mjs && node scripts/build_seo.mjs",
+    "build": "node scripts/optimize.mjs && node scripts/build_html.mjs && node scripts/build_seo.mjs && node scripts/build_sitemap.mjs",
     "build:seo": "node scripts/build_seo.mjs",
+    "build:sitemap": "node scripts/build_sitemap.mjs",
     "serve": "python3 -m http.server 8099"
   },
   "repository": {
@@ -21,7 +22,7 @@
   },
   "homepage": "https://github.com/ramithransika-srilanka/Polysocial-mobile#readme",
   "dependencies": {
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "ffmpeg-static": "^5.2.0",
