@@ -413,15 +413,18 @@
        blurred-to-clear reveal. The logo scales in, the scribble draws its
        curl and then the arrow, and each tagline line lifts with a blur
        clearing. Runs once on load. */
-    .li-mark-wrap svg.li-logo{transform-origin:center center;animation:heroLogoZoom 1.5s cubic-bezier(0.16,1,0.3,1) 0.05s both;}
+    /* The logo begins dead-centre in the viewport, large, then slowly zooms
+       out and travels up to its resting spot above the title. --li-logo-y is
+       the vertical offset (viewport centre minus rest position) set by JS. */
+    .li-mark-wrap svg.li-logo{transform-origin:center center;--li-logo-y:0px;animation:heroLogoZoom 2.6s cubic-bezier(0.16,1,0.3,1) 0.05s both;}
     .li-hero-title .line{opacity:0;transform:translateY(18px);filter:blur(8px);animation:heroLineIn 0.75s cubic-bezier(0.22,1,0.36,1) both;display:block;}
-    .li-hero-title .line-a{animation-delay:0.86s;}
-    .li-hero-title .line-b{animation-delay:1.0s;}
-    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 1.18s both;}
+    .li-hero-title .line-a{animation-delay:2.1s;}
+    .li-hero-title .line-b{animation-delay:2.28s;}
+    .li-hero .li-cta{opacity:0;transform:translateY(14px);animation:heroLineIn 0.7s cubic-bezier(0.22,1,0.36,1) 2.5s both;}
     @keyframes heroLogoZoom{
-      0%{opacity:0;transform:scale(7);}
-      12%{opacity:1;}
-      100%{opacity:1;transform:scale(1);}
+      0%{opacity:0;transform:translateY(var(--li-logo-y)) scale(6);}
+      10%{opacity:1;}
+      100%{opacity:1;transform:translateY(0) scale(1);}
     }
     @keyframes heroLineIn{
       from{opacity:0;transform:translateY(18px);filter:blur(8px);}
@@ -632,6 +635,25 @@
       </h1>
       <a class="li-cta" href="brand-access.html">Create a campaign</a>
     </section>
+    <script>
+      /* Seed the hero logo's start offset so it launches from the exact
+         centre of the viewport, then zooms out and settles into place. */
+      (function () {
+        var logo = document.querySelector('#heroBlock svg.li-logo');
+        var wrap = document.querySelector('#heroBlock .li-mark-wrap');
+        if (!logo || !wrap) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        function seed() {
+          /* The wrapper isn't animated, so its centre is the logo's rest
+             position even while the logo itself is mid-transform. */
+          var r = wrap.getBoundingClientRect();
+          var restCenter = r.top + r.height / 2;
+          var viewportCenter = (window.innerHeight || document.documentElement.clientHeight) / 2;
+          logo.style.setProperty('--li-logo-y', (viewportCenter - restCenter).toFixed(1) + 'px');
+        }
+        seed();
+      })();
+    </script>
 
 
     <!-- ===== Device lineup ===== -->
