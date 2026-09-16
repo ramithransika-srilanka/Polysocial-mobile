@@ -15,7 +15,7 @@
 export const SITE_ORIGIN = "https://polysocial.cc";
 
 // TODO: replace with a dedicated 1200×630 share card at assets/img/og-share.png
-export const DEFAULT_OG_IMAGE = "/favicon.svg";
+export const DEFAULT_OG_IMAGE = "/favicon.png";
 
 const home = {
   path: "/",
@@ -76,7 +76,7 @@ export const ORGANIZATION_JSONLD = {
   "@type": "Organization",
   "name": "Polysocial",
   "url": SITE_ORIGIN,
-  "logo": SITE_ORIGIN + "/favicon.svg",
+  "logo": SITE_ORIGIN + "/favicon.png",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+94-77-254-0134",
