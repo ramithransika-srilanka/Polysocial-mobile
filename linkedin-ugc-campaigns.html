@@ -473,6 +473,21 @@
     .li-step-n{flex:none;width:32px;height:32px;border-radius:50%;background:#1548EB;color:#FFFFFF;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.01em;}
     .li-step-t{font-weight:600;font-size:15px;line-height:1.2;color:#121212;letter-spacing:-0.01em;}
 
+    /* Flow: hand-drawn campaign diagram (phone + Caveat annotations) */
+    .li-flowdemo{position:relative;width:100%;max-width:340px;margin:8px auto 4px;aspect-ratio:340/560;}
+    .li-flow-phone{position:absolute;left:46%;top:130px;transform:translateX(-50%);width:146px;z-index:2;}
+    .li-flow-phone img{width:100%;height:auto;display:block;border-radius:20px;box-shadow:0 22px 44px rgba(18,31,96,0.18);}
+    .li-flow-ink{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:3;pointer-events:none;}
+    .li-flow-ink .ink{fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    .li-note{position:absolute;font-family:'Caveat','Segoe Script','Bradley Hand',cursive;font-weight:700;line-height:1.02;z-index:4;pointer-events:none;text-align:center;}
+    .li-note--id{left:38%;top:-6px;width:150px;font-size:19px;color:#E4572E;transform:rotate(-3deg);}
+    .li-note--loop{font-size:19px;white-space:nowrap;}
+    .li-note--p{right:2%;top:112px;color:#121212;transform:rotate(-4deg);}
+    .li-note--t{right:-2%;top:206px;color:#8A8F96;transform:rotate(3deg);}
+    .li-note--c{right:4%;top:300px;color:#8A8F96;transform:rotate(-2deg);}
+    .li-note--made{left:-4px;bottom:8px;width:132px;font-size:17px;color:#E4572E;transform:rotate(-2deg);}
+    .li-note--details{right:-6px;bottom:14px;width:140px;font-size:16px;color:#8A8F96;transform:rotate(2deg);text-align:right;}
+
     /* ===== Device lineup (Apple-News style) =====
        A row of profile phones staggered on a gentle arc: the centre lifts and
        scales up a touch, its neighbours dip, the outer pair sit between and
@@ -631,10 +646,12 @@
       <h2 class="li-h2" style="max-width:520px;">What if you could build a <span class="accent">community of professionals</span> around your brand?</h2>
       <p style="margin:0;font-weight:500;font-size:14px;line-height:1.5;color:#414141;text-align:center;">In any industry and any economy</p>
 
-      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;margin-top:16px;">
-        <div class="li-pill"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#c9b8a6,#8a6f57);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-        <div class="li-pill" style="align-self:flex-start;max-width:100%;"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#b0bcc7,#5f7484);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
-        <div class="li-pill" style="align-self:flex-end;max-width:100%;"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#d1b7a4,#8f6a52);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:440px;margin-top:16px;">
+        <div class="li-pill" style="align-self:flex-start;transform:rotate(-1.2deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#c9b8a6,#8a6f57);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+        <div class="li-pill" style="align-self:flex-end;transform:rotate(1.4deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#b0bcc7,#5f7484);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+        <div class="li-pill" style="align-self:center;transform:translateX(-8px) rotate(-0.6deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#d1b7a4,#8f6a52);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+        <div class="li-pill" style="align-self:flex-start;transform:translateX(10px) rotate(1.1deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#a7c0b4,#547063);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
+        <div class="li-pill" style="align-self:flex-end;transform:rotate(-1.5deg);"><span class="li-av" style="background:radial-gradient(circle at 40% 35%,#cdb0c4,#7a5470);"></span><span>&ldquo;Working with them was<br>a great experience&rdquo;</span></div>
       </div>
     </section>
 
@@ -676,13 +693,35 @@
     <!-- ===== Flow ===== -->
     <section id="flowSection" style="background:#F2F2F2;padding:88px 24px;display:flex;flex-direction:column;align-items:center;gap:36px;">
       <h2 class="li-h2" style="max-width:560px;">You tell us the requirement, <span class="accent">we&rsquo;ll run the campaign.</span></h2>
-      <div class="li-flow">
-        <div class="li-step"><span class="li-step-n">1</span><span class="li-step-t">Define your campaign</span></div>
-        <div class="li-step"><span class="li-step-n">2</span><span class="li-step-t">Define campaign budget</span></div>
-        <div class="li-step"><span class="li-step-n">3</span><span class="li-step-t">Gather creators</span></div>
-        <div class="li-step"><span class="li-step-n">4</span><span class="li-step-t">Approve content</span></div>
-        <div class="li-step"><span class="li-step-n">5</span><span class="li-step-t">Pay for performance</span></div>
+
+      <div class="li-flowdemo">
+        <div class="li-flow-phone">
+          <img src="assets/img/linkedin-profile-phone.png" alt="A ready-to-run campaign inside the Polysocial app" width="206" height="421" loading="lazy" decoding="async">
+        </div>
+
+        <svg class="li-flow-ink" viewBox="0 0 340 560" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+          <!-- top arrow: identification -> phone -->
+          <path class="ink ink--orange" d="M150 60 C 120 78, 104 92, 108 116" stroke="#E4572E" stroke-width="2.4"/>
+          <path class="ink ink--orange" d="M108 116 L 100 102 M108 116 L 118 105" stroke="#E4572E" stroke-width="2.4"/>
+          <!-- Purchase / Trigger / Create loop (double hand-drawn loop) -->
+          <path class="ink ink--blue" d="M236 196 C 300 188, 306 242, 250 244 C 206 246, 214 300, 268 300 C 322 300, 320 352, 262 352" stroke="#1548EB" stroke-width="2.4"/>
+          <path class="ink ink--blue" d="M262 352 L 252 342 M262 352 L 258 366" stroke="#1548EB" stroke-width="2.4"/>
+          <!-- bottom-left arrow: campaign -> phone -->
+          <path class="ink ink--orange" d="M92 470 C 104 448, 118 434, 128 424" stroke="#E4572E" stroke-width="2.4"/>
+          <path class="ink ink--orange" d="M128 424 L 116 428 M128 424 L 124 439" stroke="#E4572E" stroke-width="2.4"/>
+          <!-- bottom-right pointer: details -> phone -->
+          <path class="ink ink--grey" d="M236 486 C 224 462, 210 448, 196 438" stroke="#9AA0A6" stroke-width="2.2"/>
+          <path class="ink ink--grey" d="M196 438 L 208 438 M196 438 L 200 450" stroke="#9AA0A6" stroke-width="2.2"/>
+        </svg>
+
+        <span class="li-note li-note--id">Phone number is<br>the identification</span>
+        <span class="li-note li-note--loop li-note--p">Purchase</span>
+        <span class="li-note li-note--loop li-note--t">Trigger</span>
+        <span class="li-note li-note--loop li-note--c">Create</span>
+        <span class="li-note li-note--made">Whole campaign is<br>created for the<br>customer in the app</span>
+        <span class="li-note li-note--details">Campaign details are<br>mentioned in the app</span>
       </div>
+
       <p style="margin:0;max-width:360px;font-size:13px;line-height:1.55;color:#717171;text-align:center;">You set the brief and the budget. We handle the creators, the review, and the payouts.</p>
     </section>
 
@@ -945,9 +984,12 @@
   /* ================= FLOW ================= */
   #flowSection { padding: 140px var(--edge) !important; gap: 48px !important; }
   #flowSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
-  #flowSection .li-flow { max-width: 720px !important; gap: 16px !important; }
-  #flowSection .li-step { max-width: 720px !important; padding: 18px 24px !important; }
-  #flowSection .li-step-t { font-size: 17px !important; }
+  #flowSection .li-flowdemo { max-width: 460px !important; }
+  #flowSection .li-flow-phone { width: 208px !important; top: 176px !important; }
+  #flowSection .li-note--id { font-size: 25px !important; }
+  #flowSection .li-note--loop { font-size: 25px !important; }
+  #flowSection .li-note--made { font-size: 22px !important; width: 178px !important; }
+  #flowSection .li-note--details { font-size: 21px !important; width: 188px !important; }
 
   /* ================= CLOSER ================= */
   #closerSection { padding: 140px var(--edge) 60px !important; gap: 40px !important; }
