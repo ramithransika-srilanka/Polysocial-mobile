@@ -598,8 +598,8 @@
     .ctaPlus.leaving { animation: ctaPlusOut 0.16s cubic-bezier(0.23,1,0.32,1) forwards; }
     .ctaPlus.leaving svg { animation: none; }
     @keyframes ctaPlusOut { from { opacity: 1; transform: scale(1) rotate(0deg); } to { opacity: 0; transform: scale(0.4) rotate(90deg); } }
-    .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 2s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
-    @keyframes ctaPlusSpin { 0% { transform: rotate(0deg); } 25% { transform: rotate(360deg); } 100% { transform: rotate(360deg); } }
+    .ctaPlus svg { transform-origin: 50% 50%; animation: ctaPlusSpin 4s cubic-bezier(0.23,1,0.32,1) infinite; will-change: transform; }
+    @keyframes ctaPlusSpin { 0% { transform: rotate(0deg); } 35% { transform: rotate(360deg); } 100% { transform: rotate(360deg); } }
     @media (hover: hover) and (pointer: fine) { .ctaPlus:hover svg { animation-play-state: paused; } }
     @media (prefers-reduced-motion: reduce) {
       .ctaPill, .ctaPlus, .ctaMail, .ctaWa, .ctaPill.expanded .ctaLogo { transition: none; }
