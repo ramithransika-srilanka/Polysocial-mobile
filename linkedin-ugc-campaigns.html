@@ -535,7 +535,7 @@
        peek into view first; as the section scrolls toward centre they all settle
        onto one horizontal line. They also rise + fade in together with a
        centre-out stagger the first time the row scrolls into view. */
-    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:44px 0 44px;}
+    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:18px 0 44px;display:flex;justify-content:center;}
     .li-phones{display:flex;justify-content:center;align-items:flex-start;gap:22px;min-width:1160px;margin:0 auto;padding:48px 0 0;}
     /* Resting arc (--arc) composes with scroll parallax (--px/--py set by JS). */
     .li-phone{flex:0 0 auto;transform:translate3d(var(--px,0px),calc(var(--arc,0px) + var(--py,0px)),0);will-change:transform;}
@@ -554,9 +554,9 @@
       .li-phones.in .li-phone-rise{transform:none;}
     }
     @media (max-width:640px){
-      .li-phones{min-width:760px;gap:16px;padding-top:32px;}
-      .li-phone img{width:150px;}
-      .li-phone--b{--arc:-28px;}
+      .li-phones{min-width:max-content;gap:16px;padding-top:16px;}
+      .li-phone img{width:240px;}
+      .li-phone--b{--arc:-44px;}
       .li-phone--c{--arc:0px;}
     }
 
