@@ -463,7 +463,7 @@
     /* Community section: full-viewport, centred, heading in the hero's type. */
     #communitySection{min-height:100dvh;justify-content:center;}
     #communitySection .li-h2{font-size:40px;line-height:1.1;max-width:520px;}
-    #communitySection .li-sub{margin:0;font-weight:600;font-size:20px;line-height:1.14;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
+    #communitySection .li-sub{margin:0;font-weight:500;font-size:20px;line-height:1.14;letter-spacing:-0.02em;color:#000000;text-align:center;text-wrap:balance;}
     @media (max-width:360px){#communitySection .li-h2{font-size:34px;}}
 
     /* ===== Testimonial pills marquee =====
@@ -474,8 +474,8 @@
               mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);}
     .li-tm-row{overflow:hidden;}
     .li-tm-track{display:flex;align-items:center;gap:14px;width:max-content;will-change:transform;}
-    .li-tm-row--a .li-tm-track{animation:tmScrollL 42s linear infinite;}
-    .li-tm-row--b .li-tm-track{animation:tmScrollR 48s linear infinite;}
+    .li-tm-row--a .li-tm-track{animation:tmScrollL 78s linear infinite;}
+    .li-tm-row--b .li-tm-track{animation:tmScrollR 90s linear infinite;}
     .li-tm:hover .li-tm-track{animation-play-state:paused;}
     @keyframes tmScrollL{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
     @keyframes tmScrollR{from{transform:translate3d(-50%,0,0);}to{transform:translate3d(0,0,0);}}
@@ -535,7 +535,7 @@
        peek into view first; as the section scrolls toward centre they all settle
        onto one horizontal line. They also rise + fade in together with a
        centre-out stagger the first time the row scrolls into view. */
-    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:44px 0 44px;}
+    .li-devices{position:relative;overflow:hidden;background:#FFFFFF;padding:18px 0 44px;display:flex;justify-content:center;}
     .li-phones{display:flex;justify-content:center;align-items:flex-start;gap:22px;min-width:1160px;margin:0 auto;padding:48px 0 0;}
     /* Resting arc (--arc) composes with scroll parallax (--px/--py set by JS). */
     .li-phone{flex:0 0 auto;transform:translate3d(var(--px,0px),calc(var(--arc,0px) + var(--py,0px)),0);will-change:transform;}
@@ -554,9 +554,9 @@
       .li-phones.in .li-phone-rise{transform:none;}
     }
     @media (max-width:640px){
-      .li-phones{min-width:760px;gap:16px;padding-top:32px;}
-      .li-phone img{width:150px;}
-      .li-phone--b{--arc:-28px;}
+      .li-phones{min-width:max-content;gap:16px;padding-top:16px;}
+      .li-phone img{width:240px;}
+      .li-phone--b{--arc:-44px;}
       .li-phone--c{--arc:0px;}
     }
 
