@@ -14,8 +14,8 @@
 
 export const SITE_ORIGIN = "https://polysocial.cc";
 
-// TODO: replace with a dedicated 1200×630 share card at assets/img/og-share.png
-export const DEFAULT_OG_IMAGE = "/favicon.png";
+// 1200×630 social share card (stable, root-level URL — not fingerprinted).
+export const DEFAULT_OG_IMAGE = "/og-share.png";
 
 const home = {
   path: "/",
