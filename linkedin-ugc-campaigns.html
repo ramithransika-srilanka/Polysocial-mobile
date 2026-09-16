@@ -953,16 +953,17 @@
     },{threshold:0.25,rootMargin:'0px 0px -10% 0px'});
     io.observe(row);
   })();
-  /* Apple-News-style scroll parallax: as the device section travels through the
-     viewport, phones spread horizontally and the outer ones drift vertically,
-     converging to the resting arc when the section is centred. */
+  /* Scroll convergence: the phones start in their staggered resting arc and, as
+     the section travels toward the centre of the viewport, translate only on the
+     Y axis so they all settle onto one horizontal line. No horizontal movement,
+     no scaling — the offset (2nd/4th) phones simply rise/fall the most because
+     their resting arc is largest. Continuous with scroll, not stop-motion. */
   (function(){
     var sec=document.getElementById('deviceSection');
     var row=document.getElementById('phoneRow');
     if(!sec||!row)return;
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     var phones=Array.prototype.slice.call(row.children);
-    var mid=(phones.length-1)/2;
     var ticking=false;
     function update(){
       ticking=false;
@@ -971,13 +972,12 @@
       var center=r.top+r.height/2;
       var p=(vh/2-center)/(vh/2+r.height/2);   /* ~ -1 (below) .. 0 (centred) .. 1 (above) */
       if(p<-1)p=-1; if(p>1)p=1;
-      var scale=Math.min(1,Math.max(0.6,window.innerWidth/1280));
+      var prog=1-Math.min(1,Math.abs(p));       /* 0 at the edges, 1 when centred */
       for(var i=0;i<phones.length;i++){
-        var off=i-mid;                          /* -2 .. 2 */
-        var px=off*30*p*scale;                  /* horizontal spread */
-        var py=-Math.abs(off)*24*p*scale;       /* outer phones parallax up */
-        phones[i].style.setProperty('--px',px.toFixed(1)+'px');
-        phones[i].style.setProperty('--py',py.toFixed(1)+'px');
+        /* Read the resting arc live so it stays correct across breakpoints. */
+        var arc=parseFloat(getComputedStyle(phones[i]).getPropertyValue('--arc'))||0;
+        phones[i].style.setProperty('--px','0px');
+        phones[i].style.setProperty('--py',(-arc*prog).toFixed(1)+'px');  /* cancels the arc as it centres */
       }
     }
     function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
