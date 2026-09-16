@@ -488,6 +488,15 @@
     .li-note--made{left:-4px;bottom:8px;width:132px;font-size:17px;color:#E4572E;transform:rotate(-2deg);}
     .li-note--details{right:-6px;bottom:14px;width:140px;font-size:16px;color:#8A8F96;transform:rotate(2deg);text-align:right;}
 
+    /* Influencer CTA (full-bleed blue gradient) */
+    .li-inf{background:radial-gradient(135% 105% at 55% 42%,#1f74a4 0%,#0e547f 55%,#0a4063 100%);padding:96px 24px 104px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;}
+    .li-inf-kicker{margin:0;font-weight:500;font-size:20px;line-height:1.3;letter-spacing:-0.01em;color:#EAF3F9;}
+    .li-inf-title{margin:0;max-width:340px;font-weight:700;font-size:34px;line-height:1.14;letter-spacing:-0.02em;color:#FFFFFF;text-wrap:balance;}
+    .li-inf-cta{display:inline-flex;align-items:center;gap:10px;margin-top:10px;padding:14px 26px;background:#FFFFFF;border-radius:999px;color:#1548EB;font-weight:600;font-size:15px;line-height:1;letter-spacing:-0.01em;box-shadow:0 10px 30px rgba(6,40,64,0.28);transition:transform 0.16s ease-out,box-shadow 0.16s ease;}
+    .li-inf-cta svg{display:block;flex:none;}
+    .li-inf-cta:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(6,40,64,0.34);}
+    .li-inf-cta:active{transform:scale(0.98);}
+
     /* ===== Device lineup (Apple-News style) =====
        A row of profile phones staggered on a gentle arc: the centre lifts and
        scales up a touch, its neighbours dip, the outer pair sit between and
@@ -730,6 +739,17 @@
     <section id="closerSection" style="background:#FFFFFF;padding:96px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:32px;text-align:center;">
       <h2 class="li-h2" style="max-width:560px;">Your brand needs to be <span class="accent">visible to the decision makers</span></h2>
       <a class="li-cta li-cta--solid" href="brand-access.html">Create a campaign</a>
+    </section>
+
+
+    <!-- ===== Influencer CTA (blue gradient) ===== -->
+    <section id="influencerSection" class="li-inf">
+      <p class="li-inf-kicker">Are you an expert /<br>professional / employee ?</p>
+      <h2 class="li-inf-title">Do you have a community built around your LinkedIn profile?</h2>
+      <a class="li-inf-cta" href="creators.html">
+        <span>Become an LinkedIn influencer</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#1548EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
     </section>
 
 
@@ -995,6 +1015,12 @@
   #closerSection { padding: 140px var(--edge) 60px !important; gap: 40px !important; }
   #closerSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
   #closerSection .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
+
+  /* ================= INFLUENCER CTA ================= */
+  #influencerSection { padding: 128px var(--edge) 140px !important; gap: 30px !important; }
+  #influencerSection .li-inf-kicker { font-size: 24px !important; }
+  #influencerSection .li-inf-title { font-size: 52px !important; max-width: 760px !important; }
+  #influencerSection .li-inf-cta { font-size: 16px !important; padding: 15px 30px !important; }
 
   /* ================= TALK SECTION ================= */
   #talkSection { padding: calc(var(--sp-section) + 40px) var(--edge) !important; }
