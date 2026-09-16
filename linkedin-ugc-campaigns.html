@@ -460,8 +460,12 @@
     .li-h2{margin:0;font-weight:600;font-size:30px;line-height:1.14;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
     .li-h2 .accent{color:#121212;}
     .li-h2 .dot{color:#1548EB;}
-    /* Community section: full-viewport, centred, heading in the hero's type. */
-    #communitySection{min-height:100dvh;justify-content:center;}
+    /* Community section: full-viewport, centred, heading in the hero's type.
+       Negative top margins pull the device lineup and this block up, trimming
+       the merged hero's internal gaps (hero->phones and phones->"What if") by
+       ~20% without disturbing the centred content or the phone animations. */
+    #deviceSection{margin-top:-52px;}
+    #communitySection{min-height:100dvh;justify-content:center;margin-top:-65px;}
     #communitySection .li-h2{font-size:40px;line-height:1.1;max-width:520px;}
     #communitySection .li-sub{margin:0;font-weight:500;font-size:20px;line-height:1.14;letter-spacing:-0.02em;color:#000000;text-align:center;text-wrap:balance;}
     @media (max-width:360px){#communitySection .li-h2{font-size:34px;}}
@@ -1105,14 +1109,14 @@
   .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
   /* ================= DEVICE LINEUP ================= */
-  #deviceSection { padding: 45px 0 50px !important; }
+  #deviceSection { padding: 45px 0 50px !important; margin-top: -58px !important; }
   #deviceSection .li-phones { min-width: 1280px !important; gap: 28px !important; padding-top: 51px !important; }
   #deviceSection .li-phone img { width: 232px !important; }
   #deviceSection .li-phone--b { --arc: -48px !important; }
   #deviceSection .li-phone--c { --arc: 0px !important; }
 
   /* ================= COMMUNITY ================= */
-  #communitySection { min-height: 100dvh !important; justify-content: center !important; padding: 0 var(--edge) !important; gap: 24px !important; }
+  #communitySection { min-height: 100dvh !important; justify-content: center !important; padding: 0 var(--edge) !important; gap: 24px !important; margin-top: -72px !important; }
   #communitySection .li-h2 { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
   #communitySection .li-sub { font-size: clamp(20px, 2vw, 26px) !important; }
 
