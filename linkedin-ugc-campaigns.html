@@ -466,10 +466,31 @@
     #communitySection .li-sub{margin:0;font-weight:600;font-size:20px;line-height:1.14;letter-spacing:-0.02em;color:#A0A0A0;text-align:center;text-wrap:balance;}
     @media (max-width:360px){#communitySection .li-h2{font-size:34px;}}
 
-    /* ===== Testimonial pills row ===== */
-    .li-pill{display:inline-flex;align-items:center;gap:12px;background:#F6F6F6;border-radius:999px;padding:10px 22px 10px 10px;}
-    .li-pill .li-av{width:38px;height:38px;border-radius:50%;display:block;flex:none;}
-    .li-pill span{font-size:13px;font-weight:500;line-height:1.3;color:#414141;}
+    /* ===== Testimonial pills marquee =====
+       Two rows of quote pills that auto-scroll in opposite directions and bleed
+       off both edges; the 2nd row is offset so the wall reads as staggered. */
+    .li-tm{position:relative;overflow:hidden;background:#FFFFFF;padding:20px 0 40px;display:flex;flex-direction:column;gap:16px;
+      -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+              mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);}
+    .li-tm-row{overflow:hidden;}
+    .li-tm-track{display:flex;align-items:center;gap:14px;width:max-content;will-change:transform;}
+    .li-tm-row--a .li-tm-track{animation:tmScrollL 42s linear infinite;}
+    .li-tm-row--b .li-tm-track{animation:tmScrollR 48s linear infinite;}
+    .li-tm:hover .li-tm-track{animation-play-state:paused;}
+    @keyframes tmScrollL{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
+    @keyframes tmScrollR{from{transform:translate3d(-50%,0,0);}to{transform:translate3d(0,0,0);}}
+    .li-pill{display:inline-flex;align-items:center;gap:12px;flex:none;background:#F6F6F6;border:1px solid #EFEFEF;border-radius:999px;padding:10px 22px 10px 10px;}
+    .li-pill .li-av{width:44px;height:44px;border-radius:50%;display:block;flex:none;object-fit:cover;background:#E9E9E9;}
+    .li-pill span{font-size:13px;font-weight:500;line-height:1.3;color:#414141;max-width:210px;}
+    @media (prefers-reduced-motion: reduce){
+      .li-tm-row{overflow-x:auto;}
+      .li-tm-row--b{margin-left:0;}
+      .li-tm-track{animation:none;}
+    }
+    @media (max-width:640px){
+      .li-pill span{max-width:180px;font-size:12.5px;}
+      .li-pill .li-av{width:40px;height:40px;}
+    }
 
     /* ===== "Ways to connect" list ===== */
     .li-way{padding:32px 0;border-top:1px solid #ECECEC;text-align:center;}
@@ -684,6 +705,39 @@
     <section id="communitySection" style="background:#FFFFFF;padding:56px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
       <h2 class="li-h2">What if you could build a <span class="accent">community of professionals</span> around your brand?</h2>
       <p class="li-sub">In any industry and any economy</p>
+    </section>
+
+
+    <!-- ===== Testimonials (auto-scrolling pill marquee) ===== -->
+    <section id="testimonialsSection" class="li-tm" aria-label="What our customers say">
+      <div class="li-tm-row li-tm-row--a">
+        <div class="li-tm-track">
+          <!-- set A -->
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The campaign paid for itself within the first two weeks.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Our brand finally has a voice professionals actually trust.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;We reached the decision-makers we&rsquo;d chased for months.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-4.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Engagement doubled &mdash; and it came from the right people.&rdquo;</span></div>
+          <!-- set A duplicate for a seamless loop -->
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The campaign paid for itself within the first two weeks.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Our brand finally has a voice professionals actually trust.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;We reached the decision-makers we&rsquo;d chased for months.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-4.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Engagement doubled &mdash; and it came from the right people.&rdquo;</span></div>
+        </div>
+      </div>
+      <div class="li-tm-row li-tm-row--b">
+        <div class="li-tm-track">
+          <!-- set B -->
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-5.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;It felt less like running ads and more like real conversations.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-6.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Polysocial turned our followers into an actual community.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Qualified leads started landing in our inbox, not just likes.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The most authentic B2B content we&rsquo;ve ever put out.&rdquo;</span></div>
+          <!-- set B duplicate for a seamless loop -->
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-5.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;It felt less like running ads and more like real conversations.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-6.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Polysocial turned our followers into an actual community.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Qualified leads started landing in our inbox, not just likes.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The most authentic B2B content we&rsquo;ve ever put out.&rdquo;</span></div>
+        </div>
+      </div>
     </section>
 
 
