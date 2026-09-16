@@ -32,13 +32,27 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import {
   SITE_ORIGIN, DEFAULT_OG_IMAGE, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, OG_IMAGE_ALT,
-  PAGES, ORGANIZATION_JSONLD, IMG_ALT_FIXES,
+  PAGES, ORGANIZATION_JSONLD, WEBSITE_JSONLD, PUBLISHER_JSONLD, IMG_ALT_FIXES,
 } from "./seo-config.mjs";
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+
+// Last git commit date (YYYY-MM-DD) for a file, used as BlogPosting
+// dateModified. Falls back to "" when git or the file history is unavailable.
+function gitLastModified(file) {
+  try {
+    const out = execSync(`git log -1 --format=%cs -- "${file}"`, {
+      cwd: ROOT, stdio: ["ignore", "pipe", "ignore"],
+    }).toString().trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : "";
+  } catch {
+    return "";
+  }
+}
 
 const START = "<!-- SEO:START (managed by scripts/build_seo.mjs — do not edit by hand) -->";
 const END   = "<!-- SEO:END -->";
@@ -72,9 +86,28 @@ function autoTitleAndDesc(html) {
 
 function renderSeoBlock(page, absoluteUrl, effectiveTitle, effectiveDesc) {
   const og = SITE_ORIGIN + DEFAULT_OG_IMAGE;
-  const jsonLd = page.path === "/"
-    ? `\n  <script type="application/ld+json">${JSON.stringify(ORGANIZATION_JSONLD)}</script>`
-    : "";
+
+  // Structured data: Organization + WebSite on the homepage; BlogPosting on
+  // article pages. Emitted as one <script> per schema.
+  const schemas = [];
+  if (page.path === "/") schemas.push(ORGANIZATION_JSONLD, WEBSITE_JSONLD);
+  if (page.article) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": absoluteUrl },
+      "headline": effectiveTitle,
+      "description": effectiveDesc,
+      "image": og,
+      "datePublished": page.datePublished,
+      "dateModified": gitLastModified(page.file) || page.datePublished,
+      "author": { "@type": "Organization", "name": "Polysocial", "url": SITE_ORIGIN },
+      "publisher": PUBLISHER_JSONLD,
+    });
+  }
+  const jsonLd = schemas
+    .map((s) => `\n  <script type="application/ld+json">${JSON.stringify(s)}</script>`)
+    .join("");
   return [
     START,
     `  <title>${esc(effectiveTitle)}</title>`,
