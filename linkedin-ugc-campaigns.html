@@ -652,8 +652,11 @@
     </div>
 
 
-    <!-- ===== Hero ===== -->
-    <section id="heroBlock" class="li-hero" style="position:relative;z-index:1;min-height:100dvh;justify-content:center;margin-top:calc(-1 * var(--nav-h, 52px));">
+    <!-- ===== Hero (hero copy + device lineup + community, merged into one section) ===== -->
+    <section id="heroBlock" style="position:relative;z-index:1;margin-top:calc(-1 * var(--nav-h, 52px));">
+
+      <!-- Hero copy -->
+      <div class="li-hero li-hero-stage" style="min-height:100dvh;justify-content:center;">
       <span class="li-mark-wrap" aria-hidden="true">
         <svg class="li-logo" viewBox="0 0 161 161" role="img" aria-label="LinkedIn" xmlns="http://www.w3.org/2000/svg">
           <g>
@@ -667,7 +670,7 @@
         <span class="line line-b">brag about your business<span class="dot">.</span></span>
       </h1>
       <a class="li-cta" href="brand-access.html">Create a campaign</a>
-    </section>
+      </div>
     <script>
       /* Seed the hero logo's start offset so it launches from the exact
          centre of the viewport, then zooms out and settles into place. */
@@ -689,8 +692,8 @@
     </script>
 
 
-    <!-- ===== Device lineup ===== -->
-    <section id="deviceSection" class="li-devices">
+      <!-- Device lineup -->
+      <div id="deviceSection" class="li-devices">
       <div id="phoneRow" class="li-phones">
         <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="LinkedIn profile in the Polysocial app" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
         <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
@@ -698,13 +701,14 @@
         <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
         <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
       </div>
-    </section>
+      </div>
 
-
-    <!-- ===== Community ===== -->
-    <section id="communitySection" style="background:#FFFFFF;padding:56px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
+      <!-- Community -->
+      <div id="communitySection" style="background:#FFFFFF;padding:56px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
       <h2 class="li-h2">What if you could build a <span class="accent">community of professionals</span> around your brand?</h2>
       <p class="li-sub">In any industry and any economy</p>
+      </div>
+
     </section>
 
 
@@ -1092,7 +1096,8 @@
   /* ================= HERO =================
      Reclaim the sticky nav's height so the hero spans the full viewport and
      its centred content lands at the true vertical middle at zero scroll. */
-  #heroBlock { min-height: 100dvh !important; margin-top: calc(-1 * var(--nav-h)) !important; padding: 0 var(--edge) !important; }
+  #heroBlock { margin-top: calc(-1 * var(--nav-h)) !important; }
+  #heroBlock .li-hero-stage { min-height: 100dvh !important; padding: 0 var(--edge) !important; }
   #heroBlock .li-mark-wrap, #heroBlock .li-mark-wrap svg.li-logo { width: 160px !important; height: 160px !important; }
   #heroBlock .li-scribble { font-size: 46px !important; }
   #heroBlock .li-arrow { width: 82px !important; height: 90px !important; left: 72% !important; top: -30% !important; }
