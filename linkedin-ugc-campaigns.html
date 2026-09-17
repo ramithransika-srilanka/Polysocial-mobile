@@ -549,7 +549,12 @@
       .li-phones.in .li-phone-rise{transform:none;}
     }
     @media (max-width:640px){
-      .li-phones{min-width:max-content;gap:16px;padding-top:13px;}
+      /* The 2nd/4th phones lift by --arc:-44px at rest; the row needs enough
+         top padding to clear that lift, or their tops clip against the
+         section's overflow:hidden at zero scroll. Pull the section up by the
+         same amount so the phones (and everything below) stay put. */
+      .li-phones{min-width:max-content;gap:16px;padding-top:40px;}
+      #deviceSection{margin-top:-79px;}
       .li-phone img{width:240px;}
       .li-phone--b{--arc:-44px;}
       .li-phone--c{--arc:0px;}
