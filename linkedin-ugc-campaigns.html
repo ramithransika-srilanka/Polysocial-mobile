@@ -480,6 +480,9 @@
     .li-tm-track{display:flex;align-items:center;gap:14px;width:max-content;will-change:transform;}
     .li-tm-row--a .li-tm-track{animation:tmScrollL 78s linear infinite;}
     .li-tm-row--b .li-tm-track{animation:tmScrollR 90s linear infinite;}
+    /* Third row (mobile only) drifts left at its own pace so the wall reads as
+       three staggered lanes; hidden at >=768px (see desktop view). */
+    .li-tm-row--c .li-tm-track{animation:tmScrollL 84s linear infinite;}
     .li-tm:hover .li-tm-track{animation-play-state:paused;}
     @keyframes tmScrollL{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
     @keyframes tmScrollR{from{transform:translate3d(-50%,0,0);}to{transform:translate3d(0,0,0);}}
@@ -766,6 +769,25 @@
           <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The most authentic B2B content we&rsquo;ve ever put out.&rdquo;</span></div>
           <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Inbound requests tripled without us touching ad spend.&rdquo;</span></div>
           <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The comments section became our best focus group.&rdquo;</span></div>
+        </div>
+      </div>
+      <!-- Row C drifts left (mobile only) — adds a third lane to the wall. -->
+      <div class="li-tm-row li-tm-row--c">
+        <div class="li-tm-track">
+          <!-- set C -->
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Prospects came to us already knowing what we stand for.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-4.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;One post opened a door our sales team chased for a year.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-6.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Our founders finally sound like the experts they are.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The right people started tagging us in their own posts.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;It turned quiet expertise into an actual pipeline.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-5.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;We stopped chasing attention and started earning it.&rdquo;</span></div>
+          <!-- set C duplicate for a seamless loop -->
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Prospects came to us already knowing what we stand for.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-4.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;One post opened a door our sales team chased for a year.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-6.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Our founders finally sound like the experts they are.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The right people started tagging us in their own posts.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;It turned quiet expertise into an actual pipeline.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-5.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;We stopped chasing attention and started earning it.&rdquo;</span></div>
         </div>
       </div>
     </section>
@@ -1220,6 +1242,10 @@
   #waysSection .li-way svg { width: 68px !important; height: 68px !important; }
   #waysSection .li-way h3 { font-size: 22px !important; }
   #waysSection .li-way p { font-size: 15px !important; max-width: 400px !important; }
+
+  /* ================= TESTIMONIALS ================= */
+  /* Third marquee lane is mobile-only; keep the desktop wall at two rows. */
+  #testimonialsSection .li-tm-row--c { display: none !important; }
 
   /* ================= FLOW ================= */
   #flowSection { padding: 140px var(--edge) !important; gap: 48px !important; }
