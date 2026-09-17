@@ -616,6 +616,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#FF6B4A">
+  <!-- Preload the hero phone lineup (WebP) so it's ready to rise in with the
+       hero heading on load rather than streaming in afterwards. -->
+  <link rel="preload" as="image" href="assets/img/linkedin-phone-3.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/linkedin-phone-2.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/img/linkedin-phone-4.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/img/linkedin-phone-1.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/img/linkedin-phone-5.webp" type="image/webp">
 </head>
 <body>
 <div style="min-height:100vh;display:flex;justify-content:center;background:#EDEDED;">
@@ -699,11 +706,11 @@
       <!-- Device lineup -->
       <div id="deviceSection" class="li-devices">
       <div id="phoneRow" class="li-phones">
-        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="LinkedIn profile in the Polysocial app" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
-        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
-        <div class="li-phone li-phone--c"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
-        <div class="li-phone li-phone--b"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
-        <div class="li-phone li-phone--a"><span class="li-phone-rise"><img src="assets/img/linkedin-profile-phone.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></span></div>
+        <div class="li-phone li-phone--a"><span class="li-phone-rise"><picture><source srcset="assets/img/linkedin-phone-1.webp" type="image/webp"><img src="assets/img/linkedin-phone-1.png" alt="LinkedIn feed in the Polysocial app" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></picture></span></div>
+        <div class="li-phone li-phone--b"><span class="li-phone-rise"><picture><source srcset="assets/img/linkedin-phone-2.webp" type="image/webp"><img src="assets/img/linkedin-phone-2.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></picture></span></div>
+        <div class="li-phone li-phone--c"><span class="li-phone-rise"><picture><source srcset="assets/img/linkedin-phone-3.webp" type="image/webp"><img src="assets/img/linkedin-phone-3.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></picture></span></div>
+        <div class="li-phone li-phone--b"><span class="li-phone-rise"><picture><source srcset="assets/img/linkedin-phone-4.webp" type="image/webp"><img src="assets/img/linkedin-phone-4.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></picture></span></div>
+        <div class="li-phone li-phone--a"><span class="li-phone-rise"><picture><source srcset="assets/img/linkedin-phone-5.webp" type="image/webp"><img src="assets/img/linkedin-phone-5.png" alt="" width="206" height="421" loading="eager" fetchpriority="high" decoding="async"></picture></span></div>
       </div>
       </div>
 
