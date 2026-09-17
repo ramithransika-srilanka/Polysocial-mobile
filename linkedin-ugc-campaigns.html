@@ -539,9 +539,11 @@
     /* Entrance: animate an inner wrapper so it composes with the resting arc. */
     .li-phone-rise{opacity:0;transform:translateY(70px);transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);will-change:transform,opacity;}
     .li-phones.in .li-phone-rise{opacity:1;transform:translateY(0);}
-    .li-phones .li-phone--c .li-phone-rise{transition-delay:0s;}
-    .li-phones .li-phone--b .li-phone-rise{transition-delay:0.09s;}
-    .li-phones .li-phone--a .li-phone-rise{transition-delay:0.18s;}
+    /* Timed to rise together with the hero heading on load (its lines lift at
+       0.9s / 1.08s), keeping the centre-out stagger. */
+    .li-phones .li-phone--c .li-phone-rise{transition-delay:0.9s;}
+    .li-phones .li-phone--b .li-phone-rise{transition-delay:0.99s;}
+    .li-phones .li-phone--a .li-phone-rise{transition-delay:1.08s;}
     @media (prefers-reduced-motion: reduce){
       .li-phone-rise{transition:opacity 0.4s ease;transform:none;}
       .li-phones.in .li-phone-rise{transform:none;}
@@ -1098,16 +1100,14 @@
       ho.observe(head);
     }
   })();
-  /* Apple-News-style device row: rise + fade in (staggered) on first view. */
+  /* Apple-News-style device row: rise + fade in (staggered). The phones are
+     part of the hero, so reveal them on load — timed with the hero heading —
+     rather than waiting to scroll them into view. */
   (function(){
     var row=document.getElementById('phoneRow');
     if(!row)return;
-    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce || !('IntersectionObserver' in window)){row.classList.add('in');return;}
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-    },{threshold:0.25,rootMargin:'0px 0px -10% 0px'});
-    io.observe(row);
+    /* Add on the next frame so the transition runs from the hidden state. */
+    requestAnimationFrame(function(){row.classList.add('in');});
   })();
   /* Scroll convergence: the phones start in their staggered resting arc and, as
      the section travels toward the centre of the viewport, translate only on the
