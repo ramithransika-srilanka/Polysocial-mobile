@@ -468,7 +468,7 @@
     #communitySection{min-height:100dvh;justify-content:center;margin-top:-65px;}
     #communitySection .li-h2{font-size:40px;line-height:1.1;max-width:520px;}
     #communitySection .li-sub{margin:0;font-weight:500;font-size:20px;line-height:1.14;letter-spacing:-0.02em;color:#000000;text-align:center;text-wrap:balance;}
-    @media (max-width:360px){#communitySection .li-h2{font-size:34px;}}
+    @media (max-width:360px){#communitySection .li-h2,#closerSection .li-h2{font-size:34px;}}
 
     /* ===== Testimonial pills marquee =====
        Two rows of quote pills that auto-scroll in opposite directions and bleed
@@ -497,11 +497,12 @@
     }
 
     /* ===== "Ways to connect" list ===== */
-    .li-way{padding:32px 0;border-top:1px solid #ECECEC;text-align:center;}
-    .li-way:first-child{border-top:none;}
-    .li-way svg{margin:0 auto 14px;display:block;stroke:#1548EB;}
+    .li-way{position:relative;padding:32px 0;text-align:center;}
+    .li-way::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:1px;background:#D9D9D9;}
+    .li-way:first-child::before{display:none;}
+    .li-way svg{width:56px;height:56px;margin:0 auto 18px;display:block;stroke:#121212;}
     .li-way h3{margin:0 0 8px;font-weight:600;font-size:18px;line-height:1.2;letter-spacing:-0.01em;color:#121212;}
-    .li-way p{margin:0 auto;max-width:320px;font-size:13px;font-weight:400;line-height:1.55;color:#717171;}
+    .li-way p{margin:0 auto;max-width:320px;font-size:13px;font-weight:400;line-height:1.55;color:#121212;}
 
     /* ===== Flow strip ===== */
     .li-flow{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;}
@@ -830,8 +831,8 @@
 
 
     <!-- ===== Closer ===== -->
-    <section id="closerSection" style="background:#FFFFFF;padding:96px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:32px;text-align:center;">
-      <h2 class="li-h2" style="max-width:560px;">Your brand needs to be <span class="accent">visible to the decision makers</span></h2>
+    <section id="closerSection" style="background:#FFFFFF;min-height:100dvh;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;text-align:center;">
+      <h2 class="li-h2" style="max-width:560px;font-size:40px;line-height:1.1;">Your brand needs to be <span class="accent">visible to the decision makers</span></h2>
       <a class="li-cta li-cta--solid" href="brand-access.html">Create a campaign</a>
     </section>
 
@@ -1125,6 +1126,7 @@
   #waysSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
   #waysSection > div { max-width: 620px !important; }
   #waysSection .li-way { padding: 44px 0 !important; }
+  #waysSection .li-way svg { width: 68px !important; height: 68px !important; }
   #waysSection .li-way h3 { font-size: 22px !important; }
   #waysSection .li-way p { font-size: 15px !important; max-width: 400px !important; }
 
