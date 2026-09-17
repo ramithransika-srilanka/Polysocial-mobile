@@ -527,12 +527,12 @@
 
     /* Influencer CTA (full-bleed blue gradient) */
     .li-inf{background:radial-gradient(135% 105% at 55% 42%,#1f74a4 0%,#0e547f 55%,#0a4063 100%);padding:96px 24px 104px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;}
-    .li-inf-kicker{margin:0;font-weight:500;font-size:20px;line-height:1.3;letter-spacing:-0.01em;color:#EAF3F9;}
-    .li-inf-title{margin:0;max-width:340px;font-weight:700;font-size:34px;line-height:1.14;letter-spacing:-0.02em;color:#FFFFFF;text-wrap:balance;}
-    .li-inf-cta{display:inline-flex;align-items:center;gap:10px;margin-top:10px;padding:14px 26px;background:#FFFFFF;border-radius:999px;color:#1548EB;font-weight:600;font-size:15px;line-height:1;letter-spacing:-0.01em;box-shadow:0 10px 30px rgba(6,40,64,0.28);transition:transform 0.16s ease-out,box-shadow 0.16s ease;}
+    .li-inf-kicker{margin:0;font-weight:500;font-size:14px;line-height:1.28;letter-spacing:-0.01em;color:rgba(255,255,255,0.92);}
+    .li-inf-title{margin:0;max-width:340px;font-weight:600;font-size:28px;line-height:1.08;letter-spacing:-0.03em;color:#FFFFFF;text-wrap:balance;}
+    .li-inf-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;height:39px;padding:0 26px;background:#FFFFFF;border-radius:100px;color:#1845E7;font-weight:500;font-size:14px;line-height:1;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,0.14);transition:transform 0.16s ease-out,box-shadow 0.16s ease;}
     .li-inf-cta svg{display:block;flex:none;}
-    .li-inf-cta:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(6,40,64,0.34);}
-    .li-inf-cta:active{transform:scale(0.98);}
+    .li-inf-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.18);}
+    .li-inf-cta:active{transform:scale(0.96);}
 
     /* ===== Device lineup (Apple-News style) =====
        A row of identically sized profile phones. At rest (section entering /
@@ -832,7 +832,7 @@
 
     <!-- ===== Closer ===== -->
     <section id="closerSection" style="background:#FFFFFF;min-height:100dvh;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;text-align:center;">
-      <h2 class="li-h2" style="max-width:560px;font-size:40px;line-height:1.1;">Your brand needs to be <span class="accent">visible to the decision makers</span></h2>
+      <h2 class="li-h2" style="max-width:520px;font-size:40px;line-height:1.1;">Your brand needs to be <span class="accent">visible to the decision makers</span></h2>
       <a class="li-cta li-cta--solid" href="brand-access.html">Create a campaign</a>
     </section>
 
@@ -843,7 +843,7 @@
       <h2 class="li-inf-title">Do you have a community built around your LinkedIn profile?</h2>
       <a class="li-inf-cta" href="creators.html">
         <span>Become an LinkedIn influencer</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#1548EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#1845E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </a>
     </section>
 
@@ -1111,9 +1111,9 @@
 
   /* ================= DEVICE LINEUP ================= */
   #deviceSection { padding: 45px 0 50px !important; margin-top: -58px !important; }
-  #deviceSection .li-phones { min-width: 1280px !important; gap: 28px !important; padding-top: 51px !important; }
-  #deviceSection .li-phone img { width: 232px !important; }
-  #deviceSection .li-phone--b { --arc: -48px !important; }
+  #deviceSection .li-phones { min-width: 1536px !important; gap: 34px !important; padding-top: 51px !important; }
+  #deviceSection .li-phone img { width: 278px !important; }
+  #deviceSection .li-phone--b { --arc: -58px !important; }
   #deviceSection .li-phone--c { --arc: 0px !important; }
 
   /* ================= COMMUNITY ================= */
@@ -1142,14 +1142,14 @@
 
   /* ================= CLOSER ================= */
   #closerSection { padding: 140px var(--edge) 60px !important; gap: 40px !important; }
-  #closerSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
+  #closerSection .li-h2 { font-size: clamp(52px, 5.4vw, 68px) !important; max-width: 900px !important; }
   #closerSection .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
   /* ================= INFLUENCER CTA ================= */
   #influencerSection { padding: 128px var(--edge) 140px !important; gap: 30px !important; }
-  #influencerSection .li-inf-kicker { font-size: 24px !important; }
-  #influencerSection .li-inf-title { font-size: 52px !important; max-width: 760px !important; }
-  #influencerSection .li-inf-cta { font-size: 16px !important; padding: 15px 30px !important; }
+  #influencerSection .li-inf-kicker { font-size: 16px !important; }
+  #influencerSection .li-inf-title { font-size: 40px !important; max-width: 620px !important; }
+  #influencerSection .li-inf-cta { font-size: 14px !important; height: 39px !important; padding: 0 26px !important; }
 
   /* ================= TALK SECTION ================= */
   #talkSection { padding: calc(var(--sp-section) + 40px) var(--edge) !important; }
