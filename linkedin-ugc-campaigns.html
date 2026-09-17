@@ -480,6 +480,9 @@
     .li-tm-track{display:flex;align-items:center;gap:14px;width:max-content;will-change:transform;}
     .li-tm-row--a .li-tm-track{animation:tmScrollL 78s linear infinite;}
     .li-tm-row--b .li-tm-track{animation:tmScrollR 90s linear infinite;}
+    /* Third row (mobile only) drifts left at its own pace so the wall reads as
+       three staggered lanes; hidden at >=768px (see desktop view). */
+    .li-tm-row--c .li-tm-track{animation:tmScrollL 84s linear infinite;}
     .li-tm:hover .li-tm-track{animation-play-state:paused;}
     @keyframes tmScrollL{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
     @keyframes tmScrollR{from{transform:translate3d(-50%,0,0);}to{transform:translate3d(0,0,0);}}
@@ -514,7 +517,7 @@
     .li-flowchat .msg-l, .li-flowchat .msg-r{display:flex;align-items:flex-end;gap:8px;}
 
     /* Influencer CTA (full-bleed blue gradient) */
-    .li-inf{background:radial-gradient(135% 105% at 55% 42%,#1f74a4 0%,#0e547f 55%,#0a4063 100%);padding:96px 24px 104px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;}
+    .li-inf{background:radial-gradient(135% 105% at 55% 42%,#1f74a4 0%,#0e547f 55%,#0a4063 100%);min-height:560px;padding:80px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;text-align:center;}
     .li-inf-kicker{margin:0;font-weight:500;font-size:14px;line-height:1.28;letter-spacing:-0.01em;color:rgba(255,255,255,0.92);}
     .li-inf-title{margin:0;max-width:340px;font-weight:600;font-size:28px;line-height:1.08;letter-spacing:-0.03em;color:#FFFFFF;text-wrap:balance;}
     .li-inf-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;height:39px;padding:0 26px;background:#FFFFFF;border-radius:100px;color:#1845E7;font-weight:500;font-size:14px;line-height:1;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,0.14);transition:transform 0.16s ease-out,box-shadow 0.16s ease;}
@@ -549,7 +552,12 @@
       .li-phones.in .li-phone-rise{transform:none;}
     }
     @media (max-width:640px){
-      .li-phones{min-width:max-content;gap:16px;padding-top:13px;}
+      /* The 2nd/4th phones lift by --arc:-44px at rest; the row needs enough
+         top padding to clear that lift, or their tops clip against the
+         section's overflow:hidden at zero scroll. Pull the section up by the
+         same amount so the phones (and everything below) stay put. */
+      .li-phones{min-width:max-content;gap:16px;padding-top:40px;}
+      #deviceSection{margin-top:-79px;}
       .li-phone img{width:240px;}
       .li-phone--b{--arc:-44px;}
       .li-phone--c{--arc:0px;}
@@ -761,6 +769,25 @@
           <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The most authentic B2B content we&rsquo;ve ever put out.&rdquo;</span></div>
           <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Inbound requests tripled without us touching ad spend.&rdquo;</span></div>
           <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The comments section became our best focus group.&rdquo;</span></div>
+        </div>
+      </div>
+      <!-- Row C drifts left (mobile only) — adds a third lane to the wall. -->
+      <div class="li-tm-row li-tm-row--c">
+        <div class="li-tm-track">
+          <!-- set C -->
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Prospects came to us already knowing what we stand for.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-4.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;One post opened a door our sales team chased for a year.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-6.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Our founders finally sound like the experts they are.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The right people started tagging us in their own posts.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;It turned quiet expertise into an actual pipeline.&rdquo;</span></div>
+          <div class="li-pill"><img class="li-av" src="assets/img/avatars/av-5.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;We stopped chasing attention and started earning it.&rdquo;</span></div>
+          <!-- set C duplicate for a seamless loop -->
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-2.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Prospects came to us already knowing what we stand for.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-4.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;One post opened a door our sales team chased for a year.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-6.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;Our founders finally sound like the experts they are.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-1.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;The right people started tagging us in their own posts.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-3.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;It turned quiet expertise into an actual pipeline.&rdquo;</span></div>
+          <div class="li-pill" aria-hidden="true"><img class="li-av" src="assets/img/avatars/av-5.jpg" alt="" width="44" height="44" loading="lazy" decoding="async"><span>&ldquo;We stopped chasing attention and started earning it.&rdquo;</span></div>
         </div>
       </div>
     </section>
@@ -1216,6 +1243,10 @@
   #waysSection .li-way h3 { font-size: 22px !important; }
   #waysSection .li-way p { font-size: 15px !important; max-width: 400px !important; }
 
+  /* ================= TESTIMONIALS ================= */
+  /* Third marquee lane is mobile-only; keep the desktop wall at two rows. */
+  #testimonialsSection .li-tm-row--c { display: none !important; }
+
   /* ================= FLOW ================= */
   #flowSection { padding: 140px var(--edge) !important; gap: 48px !important; }
   #flowSection { gap: 44px !important; }
@@ -1231,7 +1262,7 @@
   #closerSection .li-cta { font-size: 15px !important; padding: 13px 26px !important; }
 
   /* ================= INFLUENCER CTA ================= */
-  #influencerSection { padding: 128px var(--edge) 140px !important; gap: 30px !important; }
+  #influencerSection { min-height: 660px !important; padding: 110px var(--edge) !important; gap: 30px !important; }
   #influencerSection .li-inf-kicker { font-size: 16px !important; }
   #influencerSection .li-inf-title { font-size: 40px !important; max-width: 620px !important; }
   #influencerSection .li-inf-cta { font-size: 14px !important; height: 39px !important; padding: 0 26px !important; }
