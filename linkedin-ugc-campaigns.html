@@ -560,6 +560,15 @@
     .cReveal[data-d="1"]{transition-delay:0.06s;}
     @media (prefers-reduced-motion: reduce){.cReveal{transition:opacity 0.3s ease;transform:none;}.cReveal.in{transform:none;}}
 
+    /* How-it-works chat — pop-in reveal (matches home page). */
+    .msg { opacity: 0; will-change: transform, opacity; transition: opacity 0.3s ease-out, transform 0.44s cubic-bezier(0.34,1.42,0.6,1); }
+    .msg-r { transform: translateY(10px) scale(0.8); transform-origin: bottom right; }
+    .msg-l { transform: translateY(10px) scale(0.8); transform-origin: bottom left; }
+    .msg.in { opacity: 1; transform: translateY(0) scale(1); }
+    #flowChatHead { opacity: 0; transform: translateY(18px); will-change: transform, opacity; transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); }
+    #flowChatHead.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce){ .msg, #flowChatHead { opacity: 1 !important; transform: none !important; transition: none !important; } }
+
     /* Pill container morphs width on the iOS drawer curve; overflow clipped so
        the incoming items are revealed as it grows. */
     .ctaPill { box-sizing: border-box; display: inline-flex; align-items: center; height: 64px; padding: 8px; gap: 16px; background: #161616; border-radius: 50px; width: 128px; overflow: hidden; transition: width 0.44s cubic-bezier(0.32,0.72,0,1); will-change: width; }
@@ -784,96 +793,96 @@
 
     <!-- ===== Flow ===== -->
     <section id="flowSection" style="background:#F2F2F2;padding:88px 24px;display:flex;flex-direction:column;align-items:center;gap:36px;">
-      <h2 class="li-h2" style="max-width:560px;">You tell us the requirement, <span class="accent">we&rsquo;ll run the campaign.</span></h2>
+      <h2 id="flowChatHead" class="li-h2" style="max-width:560px;">You tell us the requirement, <span class="accent">we&rsquo;ll run the campaign.</span></h2>
 
-      <div class="li-flowchat" style="width:100%;max-width:420px;margin:4px auto 0;display:flex;flex-direction:column;gap:4px;">
+      <div id="flowChat" class="li-flowchat" style="width:100%;max-width:420px;margin:4px auto 0;display:flex;flex-direction:column;gap:4px;">
         <!-- R -->
-        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;">
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">How does it actually work?</div>
+        <div class="msg msg-r" style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;">
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">How does it actually work?</div>
           <picture><source type="image/avif" srcset="assets/img/manager-avatar.avif"><source type="image/webp" srcset="assets/img/manager-avatar.webp"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/manager-avatar.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
         <!-- L group -->
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Really simply 🙂</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Really simply 🙂</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
           <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You create an open campaign for your brand</div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You create an open campaign for your brand</div>
         </div>
         <!-- R -->
-        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">What do I need to define?</div>
+        <div class="msg msg-r" style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">What do I need to define?</div>
           <picture><source type="image/avif" srcset="assets/img/manager-avatar.avif"><source type="image/webp" srcset="assets/img/manager-avatar.webp"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/manager-avatar.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
         <!-- L group -->
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Just your requirements &mdash; what you&rsquo;re promoting</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Just your requirements &mdash; what you&rsquo;re promoting</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">What details should go into the UGC post</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">What details should go into the UGC post</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
           <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">And the type of post &mdash; a video, a document or an article</div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">And the type of post &mdash; a video, a document or an article</div>
         </div>
         <!-- R -->
-        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">Got it. And the spend?</div>
+        <div class="msg msg-r" style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">Got it. And the spend?</div>
           <picture><source type="image/avif" srcset="assets/img/manager-avatar.avif"><source type="image/webp" srcset="assets/img/manager-avatar.webp"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/manager-avatar.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
         <!-- L group -->
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You set the total budget for the campaign</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You set the total budget for the campaign</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
           <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Then tell us the kind of creators you want &mdash; and in which markets or industries</div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Then tell us the kind of creators you want &mdash; and in which markets or industries</div>
         </div>
         <!-- R -->
-        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">Then what happens?</div>
+        <div class="msg msg-r" style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">Then what happens?</div>
           <picture><source type="image/avif" srcset="assets/img/manager-avatar.avif"><source type="image/webp" srcset="assets/img/manager-avatar.webp"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/manager-avatar.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
         <!-- L group -->
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">That&rsquo;s it. Once it&rsquo;s live, we find the matching creators and get them creating content</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">That&rsquo;s it. Once it&rsquo;s live, we find the matching creators and get them creating content</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
           <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You just approve the content you like</div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You just approve the content you like</div>
         </div>
         <!-- R -->
-        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">And after I approve?</div>
+        <div class="msg msg-r" style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">And after I approve?</div>
           <picture><source type="image/avif" srcset="assets/img/manager-avatar.avif"><source type="image/webp" srcset="assets/img/manager-avatar.webp"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/manager-avatar.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
         <!-- L group -->
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Just let the campaign run</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Just let the campaign run</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
           <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Payouts to the creators are automated &mdash; based on how each post performs</div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Payouts to the creators are automated &mdash; based on how each post performs</div>
         </div>
         <!-- R -->
-        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">So that&rsquo;s it?</div>
+        <div class="msg msg-r" style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">So that&rsquo;s it?</div>
           <picture><source type="image/avif" srcset="assets/img/manager-avatar.avif"><source type="image/webp" srcset="assets/img/manager-avatar.webp"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/manager-avatar.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
         <!-- L group -->
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
-          <div style="width:34px;flex:none;"></div>
-          <div style="max-width:250px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">That&rsquo;s it.</div>
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div class="spacer" style="width:34px;flex:none;"></div>
+          <div class="bubble" style="max-width:250px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">That&rsquo;s it.</div>
         </div>
-        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+        <div class="msg msg-l" style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
           <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
-          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You tell us the requirement, we run the campaign 🚀</div>
+          <div class="bubble" style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You tell us the requirement, we run the campaign 🚀</div>
         </div>
       </div>
     </section>
@@ -1068,6 +1077,27 @@
     },{threshold:0.18,rootMargin:'0px 0px -12% 0px'});
     els.forEach(function(el){io.observe(el);});
   })();
+  /* How-it-works chat — pop-in each bubble one-by-one on scroll (matches home page). */
+  (function(){
+    var msgs=Array.prototype.slice.call(document.querySelectorAll('#flowChat .msg'));
+    var head=document.getElementById('flowChatHead');
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce || !('IntersectionObserver' in window)){
+      if(head)head.classList.add('in');
+      msgs.forEach(function(m){m.classList.add('in');});
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0.35,rootMargin:'0px 0px -8% 0px'});
+    msgs.forEach(function(m){io.observe(m);});
+    if(head){
+      var ho=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting){head.classList.add('in');ho.disconnect();}});
+      },{threshold:0.9});
+      ho.observe(head);
+    }
+  })();
   /* Apple-News-style device row: rise + fade in (staggered) on first view. */
   (function(){
     var row=document.getElementById('phoneRow');
@@ -1181,8 +1211,12 @@
 
   /* ================= FLOW ================= */
   #flowSection { padding: 140px var(--edge) !important; gap: 48px !important; }
-  #flowSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
-  #flowSection .li-flowchat { max-width: 460px !important; }
+  #flowSection { gap: 44px !important; }
+  #flowSection .li-h2 { font-size: 44px !important; max-width: 720px !important; }
+  #flowChat { max-width: 900px !important; }
+  #flowChat .bubble { font-size: 20px !important; line-height: 1.35 !important; padding: 12px 24px !important; max-width: 560px !important; }
+  #flowChat img[style*="width: 34px"], #flowChat img[style*="width:34px"] { width: 44px !important; height: 44px !important; }
+  #flowChat .spacer { width: 44px !important; }
 
   /* ================= CLOSER ================= */
   #closerSection { padding: 140px var(--edge) 60px !important; gap: 40px !important; }
