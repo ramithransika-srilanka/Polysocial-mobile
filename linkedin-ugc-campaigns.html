@@ -510,20 +510,8 @@
     .li-step-n{flex:none;width:32px;height:32px;border-radius:50%;background:#1548EB;color:#FFFFFF;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.01em;}
     .li-step-t{font-weight:600;font-size:15px;line-height:1.2;color:#121212;letter-spacing:-0.01em;}
 
-    /* Flow: hand-drawn campaign diagram (phone + Caveat annotations) */
-    .li-flowdemo{position:relative;width:100%;max-width:340px;margin:8px auto 4px;aspect-ratio:340/560;}
-    .li-flow-phone{position:absolute;left:46%;top:130px;transform:translateX(-50%);width:146px;z-index:2;}
-    .li-flow-phone img{width:100%;height:auto;display:block;border-radius:20px;box-shadow:0 22px 44px rgba(18,31,96,0.18);}
-    .li-flow-ink{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:3;pointer-events:none;}
-    .li-flow-ink .ink{fill:none;stroke-linecap:round;stroke-linejoin:round;}
-    .li-note{position:absolute;font-family:'Caveat','Segoe Script','Bradley Hand',cursive;font-weight:700;line-height:1.02;z-index:4;pointer-events:none;text-align:center;}
-    .li-note--id{left:38%;top:-6px;width:150px;font-size:19px;color:#E4572E;transform:rotate(-3deg);}
-    .li-note--loop{font-size:19px;white-space:nowrap;}
-    .li-note--p{right:2%;top:112px;color:#121212;transform:rotate(-4deg);}
-    .li-note--t{right:-2%;top:206px;color:#8A8F96;transform:rotate(3deg);}
-    .li-note--c{right:4%;top:300px;color:#8A8F96;transform:rotate(-2deg);}
-    .li-note--made{left:-4px;bottom:8px;width:132px;font-size:17px;color:#E4572E;transform:rotate(-2deg);}
-    .li-note--details{right:-6px;bottom:14px;width:140px;font-size:16px;color:#8A8F96;transform:rotate(2deg);text-align:right;}
+    /* Flow: how-it-works chat thread (matches home page) */
+    .li-flowchat .msg-l, .li-flowchat .msg-r{display:flex;align-items:flex-end;gap:8px;}
 
     /* Influencer CTA (full-bleed blue gradient) */
     .li-inf{background:radial-gradient(135% 105% at 55% 42%,#1f74a4 0%,#0e547f 55%,#0a4063 100%);padding:96px 24px 104px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;}
@@ -798,32 +786,95 @@
     <section id="flowSection" style="background:#F2F2F2;padding:88px 24px;display:flex;flex-direction:column;align-items:center;gap:36px;">
       <h2 class="li-h2" style="max-width:560px;">You tell us the requirement, <span class="accent">we&rsquo;ll run the campaign.</span></h2>
 
-      <div class="li-flowdemo">
-        <div class="li-flow-phone">
-          <img src="assets/img/linkedin-profile-phone.png" alt="A ready-to-run campaign inside the Polysocial app" width="206" height="421" loading="lazy" decoding="async">
+      <div class="li-flowchat" style="width:100%;max-width:420px;margin:4px auto 0;display:flex;flex-direction:column;gap:4px;">
+        <!-- R -->
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;">
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">How does it actually work?</div>
+          <picture><source type="image/avif" srcset="assets/img/d940bd53.120w.70e90e8803.avif 120w"><source type="image/webp" srcset="assets/img/d940bd53.120w.4c848b83c7.webp 120w"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/d940bd53.fallback.dcb751ab23.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
         </div>
-
-        <svg class="li-flow-ink" viewBox="0 0 340 560" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
-          <!-- top arrow: identification -> phone -->
-          <path class="ink ink--orange" d="M150 60 C 120 78, 104 92, 108 116" stroke="#E4572E" stroke-width="2.4"/>
-          <path class="ink ink--orange" d="M108 116 L 100 102 M108 116 L 118 105" stroke="#E4572E" stroke-width="2.4"/>
-          <!-- Purchase / Trigger / Create loop (double hand-drawn loop) -->
-          <path class="ink ink--blue" d="M236 196 C 300 188, 306 242, 250 244 C 206 246, 214 300, 268 300 C 322 300, 320 352, 262 352" stroke="#1548EB" stroke-width="2.4"/>
-          <path class="ink ink--blue" d="M262 352 L 252 342 M262 352 L 258 366" stroke="#1548EB" stroke-width="2.4"/>
-          <!-- bottom-left arrow: campaign -> phone -->
-          <path class="ink ink--orange" d="M92 470 C 104 448, 118 434, 128 424" stroke="#E4572E" stroke-width="2.4"/>
-          <path class="ink ink--orange" d="M128 424 L 116 428 M128 424 L 124 439" stroke="#E4572E" stroke-width="2.4"/>
-          <!-- bottom-right pointer: details -> phone -->
-          <path class="ink ink--grey" d="M236 486 C 224 462, 210 448, 196 438" stroke="#9AA0A6" stroke-width="2.2"/>
-          <path class="ink ink--grey" d="M196 438 L 208 438 M196 438 L 200 450" stroke="#9AA0A6" stroke-width="2.2"/>
-        </svg>
-
-        <span class="li-note li-note--id">Phone number is<br>the identification</span>
-        <span class="li-note li-note--loop li-note--p">Purchase</span>
-        <span class="li-note li-note--loop li-note--t">Trigger</span>
-        <span class="li-note li-note--loop li-note--c">Create</span>
-        <span class="li-note li-note--made">Whole campaign is<br>created for the<br>customer in the app</span>
-        <span class="li-note li-note--details">Campaign details are<br>mentioned in the app</span>
+        <!-- L group -->
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Really simply 🙂</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You create an open campaign for your brand</div>
+        </div>
+        <!-- R -->
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">What do I need to define?</div>
+          <picture><source type="image/avif" srcset="assets/img/d940bd53.120w.70e90e8803.avif 120w"><source type="image/webp" srcset="assets/img/d940bd53.120w.4c848b83c7.webp 120w"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/d940bd53.fallback.dcb751ab23.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
+        </div>
+        <!-- L group -->
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Just your requirements &mdash; what you&rsquo;re promoting</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">What details should go into the UGC post</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">And the type of post &mdash; a video, a document or an article</div>
+        </div>
+        <!-- R -->
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">Got it. And the spend?</div>
+          <picture><source type="image/avif" srcset="assets/img/d940bd53.120w.70e90e8803.avif 120w"><source type="image/webp" srcset="assets/img/d940bd53.120w.4c848b83c7.webp 120w"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/d940bd53.fallback.dcb751ab23.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
+        </div>
+        <!-- L group -->
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You set the total budget for the campaign</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Then tell us the kind of creators you want &mdash; and in which markets or industries</div>
+        </div>
+        <!-- R -->
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">Then what happens?</div>
+          <picture><source type="image/avif" srcset="assets/img/d940bd53.120w.70e90e8803.avif 120w"><source type="image/webp" srcset="assets/img/d940bd53.120w.4c848b83c7.webp 120w"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/d940bd53.fallback.dcb751ab23.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
+        </div>
+        <!-- L group -->
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">That&rsquo;s it. Once it&rsquo;s live, we find the matching creators and get them creating content</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You just approve the content you like</div>
+        </div>
+        <!-- R -->
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">And after I approve?</div>
+          <picture><source type="image/avif" srcset="assets/img/d940bd53.120w.70e90e8803.avif 120w"><source type="image/webp" srcset="assets/img/d940bd53.120w.4c848b83c7.webp 120w"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/d940bd53.fallback.dcb751ab23.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
+        </div>
+        <!-- L group -->
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Just let the campaign run</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">Payouts to the creators are automated &mdash; based on how each post performs</div>
+        </div>
+        <!-- R -->
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px 20px 6px 20px;background:#E7E8FD;color:#1B1B2E;font-size:14px;font-weight:500;line-height:1.35;">So that&rsquo;s it?</div>
+          <picture><source type="image/avif" srcset="assets/img/d940bd53.120w.70e90e8803.avif 120w"><source type="image/webp" srcset="assets/img/d940bd53.120w.4c848b83c7.webp 120w"><img loading="lazy" decoding="async" height="120" width="120" src="assets/img/d940bd53.fallback.dcb751ab23.png" alt="Corporate manager avatar" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;"></picture>
+        </div>
+        <!-- L group -->
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;margin-top:18px;">
+          <div style="width:34px;flex:none;"></div>
+          <div style="max-width:250px;padding:10px 18px;border-radius:20px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">That&rsquo;s it.</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;align-items:flex-end;gap:8px;">
+          <img loading="lazy" decoding="async" src="assets/svg/63873e6f.f17771b9f9.svg" alt="Polysocial" style="width:34px;height:34px;border-radius:999px;object-fit:cover;flex:none;">
+          <div style="max-width:260px;padding:10px 18px;border-radius:20px 20px 20px 6px;background:#ECECEC;color:#121212;font-size:14px;font-weight:500;line-height:1.35;">You tell us the requirement, we run the campaign 🚀</div>
+        </div>
       </div>
 
       <p style="margin:0;max-width:360px;font-size:13px;line-height:1.55;color:#717171;text-align:center;">You set the brief and the budget. We handle the creators, the review, and the payouts.</p>
@@ -1133,12 +1184,7 @@
   /* ================= FLOW ================= */
   #flowSection { padding: 140px var(--edge) !important; gap: 48px !important; }
   #flowSection .li-h2 { font-size: 40px !important; max-width: 720px !important; }
-  #flowSection .li-flowdemo { max-width: 460px !important; }
-  #flowSection .li-flow-phone { width: 208px !important; top: 176px !important; }
-  #flowSection .li-note--id { font-size: 25px !important; }
-  #flowSection .li-note--loop { font-size: 25px !important; }
-  #flowSection .li-note--made { font-size: 22px !important; width: 178px !important; }
-  #flowSection .li-note--details { font-size: 21px !important; width: 188px !important; }
+  #flowSection .li-flowchat { max-width: 460px !important; }
 
   /* ================= CLOSER ================= */
   #closerSection { padding: 140px var(--edge) 60px !important; gap: 40px !important; }
