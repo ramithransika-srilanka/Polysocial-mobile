@@ -15,6 +15,8 @@ src-assets/            raw originals the pipeline reads from — drop new media 
 scripts/               build pipeline (paths shared via scripts/paths.mjs)
 build/                 intermediate artifacts (page.raw.html, asset-manifest.json, …)
 netlify.toml           publish dir + cache headers for polysocial.cc
+.github/workflows/      deploy-netlify.yml - deploys site/ on push to release-* (see Release)
+.claude/skills/release/ the /release command for Claude Code
 ```
 
 | Path | What it is |
@@ -27,6 +29,7 @@ netlify.toml           publish dir + cache headers for polysocial.cc
 | `scripts/build_html.mjs` | Rewrites `site/index.html` from the optimized assets (`<picture>`, `srcset`, posters, hashed URLs). |
 | `scripts/build_seo.mjs` / `build_sitemap.mjs` | Per-page `<head>` SEO tags and `site/sitemap.xml`, driven by `scripts/seo-config.mjs`. |
 | `scripts/extract_bundle.py` | One-time de-bundler that turned the original single-file Figma export into `src-assets/` + `build/page.raw.html`. |
+| `scripts/release.sh` | Cuts the next `release-<version>(<build>)` branch and pushes it with `develop`/`main` (see **Release**). |
 | `build/asset-manifest.json` | Generated map of every source → its optimized outputs (dimensions, sizes, variants). |
 
 ### Adding a campaign page
@@ -100,28 +103,93 @@ npm run serve      # http://localhost:8099  (serves site/)
 To add a new image: drop it in `src-assets/img/`, reference it in the page
 source (`build/page.raw.html`) like the others, then `npm run build`.
 
-## Deploying
+## Release
 
-`main` and `develop` are kept identical; neither deploys to polysocial.cc.
-Only pushing a `release-<version>(<build>)` branch deploys:
-`.github/workflows/deploy-netlify.yml` publishes `site/` to Netlify production.
-Netlify's own git builds are disabled (`ignore = "exit 0"` in `netlify.toml`).
+polysocial.cc is served by Netlify, and it only changes when a **release
+branch** is pushed. Day-to-day work goes to `develop`; a release pins that
+commit and deploys it.
 
-To release, commit to `develop`, then either type **`/release`** in Claude Code
-(commits pending work, releases, watches the deploy, checks the live site; see
-`.claude/skills/release/SKILL.md`) or run the script directly:
+### Branch model
 
-```bash
-scripts/release.sh --dry-run   # show the plan
-scripts/release.sh             # release-1.0.0(1) -> release-1.0.0(2)
-scripts/release.sh 1.1.0       # new version: release-1.1.0(1)
+| Branch | Purpose | Deploys? |
+| --- | --- | --- |
+| `develop` | Where work is committed. | No |
+| `main` | Always the same commit as `develop`. | No |
+| `release-<version>(<build>)` | One branch per release, cut from `develop`, e.g. `release-1.0.0(2)`. Old ones are kept for rollback. | **Yes**: every push deploys to Netlify production |
+
+### Releasing with `/release` (Claude Code)
+
+Open Claude Code in this repo and type:
+
+```text
+/release          # next build of the current version: release-1.0.0(1) -> release-1.0.0(2)
+/release 1.1.0    # new version: release-1.1.0(1)
 ```
 
-The script pushes develop's commit to `develop`, `main` and the new release
-branch in one atomic push. Old release branches are kept; to roll back, re-run
-the workflow on an older release branch (Actions → Deploy to Netlify (release)
-→ Run workflow). The workflow needs the `NETLIFY_AUTH_TOKEN` and
-`NETLIFY_SITE_ID` repo secrets.
+It then:
+
+1. commits any uncommitted work to `develop` (it stops and asks if you're on another branch);
+2. checks that every link/asset in `site/` resolves;
+3. works out the next release name;
+4. pushes the same commit to `develop`, `main` and the new release branch in
+   one atomic push, so all three move together or none do;
+5. waits for the **Deploy to Netlify (release)** workflow the push triggers;
+6. checks the live site and reports the release name, commit, run link and result.
+
+The command is defined in `.claude/skills/release/SKILL.md`.
+
+### Releasing without Claude
+
+The git part is a plain script. Commit your work to `develop` first:
+
+```bash
+scripts/release.sh --dry-run   # show what would be released and pushed
+scripts/release.sh             # release-1.0.0(1) -> release-1.0.0(2)
+scripts/release.sh 1.1.0       # release-1.1.0(1)
+```
+
+It refuses to release, and pushes nothing, when:
+
+- the working tree has uncommitted changes;
+- `main` has commits `develop` doesn't (merge them into `develop` first);
+- local `develop` and `origin/develop` have diverged;
+- nothing is new since the last release (to redeploy, see **Rollback / redeploy**).
+
+### How the deploy works
+
+- `.github/workflows/deploy-netlify.yml` runs on every push to a `release-*`
+  branch and publishes `site/` to Netlify production, with the headers from
+  `netlify.toml`. There is no build step: the committed HTML is what ships.
+- `ignore = "exit 0"` in `netlify.toml` cancels every build Netlify would start
+  from a git push, so pushes to `develop`/`main` never go live.
+- Only `site/` is published. `scripts/`, `src-assets/`, `build/` and
+  `package.json` are never served.
+
+### Rollback / redeploy
+
+Actions → **Deploy to Netlify (release)** → **Run workflow** → pick the release
+branch (an older one to roll back, the current one to redeploy).
+
+### One-time setup
+
+A repo admin adds two **repository secrets** under Settings → Secrets and
+variables → Actions (Secrets tab, not Variables, not an environment):
+
+| Secret | Where to get it |
+| --- | --- |
+| `NETLIFY_AUTH_TOKEN` | Netlify → avatar → User settings → Applications → Personal access tokens → New access token |
+| `NETLIFY_SITE_ID` | Netlify → the site → Site configuration → General → Site details → Site ID |
+
+In Netlify's build settings, leave **Base directory** and **Build command** empty.
+
+### Troubleshooting
+
+- **`Missing repo secret NETLIFY_AUTH_TOKEN` / `NETLIFY_SITE_ID`**: the secrets
+  above aren't set. Add them, then **Re-run jobs** on the failed run.
+- **Push rejected**: someone pushed to `develop`/`main` in the meantime.
+  Pull, then release again. The script never force-pushes.
+- **`nothing new since release-…`**: `develop` has no commits since that
+  release. Commit something first, or redeploy the existing release branch.
 
 ## Caching
 
