@@ -1,8 +1,13 @@
 # Netlify serves polysocial.cc. Only site/ is published — scripts/, src-assets/,
 # build/ and package.json stay private. No build command: the committed HTML in
 # site/ is the source of truth (see README "Re-running the pipeline").
+#
+# Production deploys come only from release-* branches, via
+# .github/workflows/deploy-netlify.yml. `ignore = "exit 0"` cancels every
+# git-triggered Netlify build, so a push to main/develop never goes live.
 [build]
   publish = "site"
+  ignore = "exit 0"
 
 # Everything under /assets/ is content-fingerprinted by scripts/optimize.mjs, so
 # a changed file always gets a new name and can be cached forever. HTML keeps

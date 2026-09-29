@@ -1,0 +1,65 @@
+name: Deploy to Netlify (release)
+
+# polysocial.cc is served by Netlify, and production deploys come ONLY from
+# release branches: pushing release-<version>(<build>) (cut from develop)
+# publishes site/ as-is. Netlify's own git-triggered builds are switched off by
+# `ignore = "exit 0"` in netlify.toml, so pushes to main/develop/anything else
+# never reach the live site.
+#
+# Required repo secrets (Settings > Secrets and variables > Actions):
+#   NETLIFY_AUTH_TOKEN  Netlify personal access token (User settings >
+#                       Applications > Personal access tokens)
+#   NETLIFY_SITE_ID     the site's API ID (Site configuration > General >
+#                       Site details > Site ID)
+
+on:
+  push:
+    branches:
+      - "release-*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One production deploy at a time; a newer release push supersedes an
+# in-flight one.
+concurrency:
+  group: netlify-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Release-branch guard
+        if: ${{ !startsWith(github.ref_name, 'release-') }}
+        run: |
+          echo "::error::Production deploys only run from release-* branches (got ${{ github.ref_name }})."
+          exit 1
+
+      - name: Check Netlify secrets
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          [ -n "$NETLIFY_AUTH_TOKEN" ] || { echo "::error::Missing repo secret NETLIFY_AUTH_TOKEN."; exit 1; }
+          [ -n "$NETLIFY_SITE_ID" ]    || { echo "::error::Missing repo secret NETLIFY_SITE_ID."; exit 1; }
+
+      - uses: actions/checkout@v4
+
+      # Publishes site/ with netlify.toml's headers applied. No build step:
+      # the committed HTML in site/ is the source of truth.
+      - name: Deploy site/ to Netlify production
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: site
+          netlify-config-path: ./netlify.toml
+          production-deploy: true
+          deploy-message: "${{ github.ref_name }} @ ${{ github.sha }}"
+          enable-commit-comment: false
+          enable-pull-request-comment: false
+          enable-github-deployment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

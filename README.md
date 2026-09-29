@@ -100,6 +100,23 @@ npm run serve      # http://localhost:8099  (serves site/)
 To add a new image: drop it in `src-assets/img/`, reference it in the page
 source (`build/page.raw.html`) like the others, then `npm run build`.
 
+## Deploying
+
+`main` and `develop` are kept identical; neither deploys to polysocial.cc.
+To release, cut a branch from `develop` named `release-<version>(<build>)`
+(e.g. `release-1.0.0(2)`) and push it:
+
+```bash
+git switch develop && git pull
+git switch -c 'release-1.0.0(2)' && git push -u origin 'release-1.0.0(2)'
+```
+
+`.github/workflows/deploy-netlify.yml` then publishes `site/` to Netlify
+production. Netlify's own git builds are disabled (`ignore = "exit 0"` in
+`netlify.toml`). The workflow needs the `NETLIFY_AUTH_TOKEN` and
+`NETLIFY_SITE_ID` repo secrets. To redeploy an older release, re-run the
+workflow on that release branch.
+
 ## Caching
 
 All of `site/assets/` is fingerprinted, so those files are immutable — cached
