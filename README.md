@@ -126,9 +126,6 @@ appear immediately.
 - **Netlify** (polysocial.cc) — `netlify.toml` sets
   `/assets/*` → `Cache-Control: public, max-age=31536000, immutable`; HTML keeps
   Netlify's default `max-age=0, must-revalidate`.
-- **GitHub Pages** (`.github/workflows/deploy-pages.yml`, publishes `site/` on
-  push to `main`) — Pages sends a fixed `Cache-Control: max-age=600` and does
-  not let you override headers. Fingerprinting still busts caches on deploy.
 
 ## Verifying in the browser
 
