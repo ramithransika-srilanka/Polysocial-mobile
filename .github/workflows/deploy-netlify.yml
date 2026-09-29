@@ -46,6 +46,24 @@ jobs:
           [ -n "$NETLIFY_AUTH_TOKEN" ] || { echo "::error::Missing repo secret NETLIFY_AUTH_TOKEN."; exit 1; }
           [ -n "$NETLIFY_SITE_ID" ]    || { echo "::error::Missing repo secret NETLIFY_SITE_ID."; exit 1; }
 
+      # Turns Netlify's bare "Forbidden" from the deploy step into an actionable
+      # error: is the token valid, and can its user see this site?
+      - name: Check Netlify access
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          api() { curl -s -o "$RUNNER_TEMP/resp.json" -w '%{http_code}' -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" "https://api.netlify.com/api/v1/$1"; }
+          code=$(api user)
+          [ "$code" = 200 ] || { echo "::error::Netlify rejected NETLIFY_AUTH_TOKEN (HTTP $code). Create a new personal access token and update the secret."; exit 1; }
+          echo "Token user: $(jq -r .email "$RUNNER_TEMP/resp.json")"
+          code=$(api "sites/$NETLIFY_SITE_ID")
+          case "$code" in
+            200) echo "Site: $(jq -r .name "$RUNNER_TEMP/resp.json") -> $(jq -r '.custom_domain // .url' "$RUNNER_TEMP/resp.json")" ;;
+            404) echo "::error::NETLIFY_SITE_ID is not a site this token's user can see (HTTP 404). Use the Site ID from Site configuration > Site details, created by a member of the team that owns the site."; exit 1 ;;
+            *)   echo "::error::Netlify refused access to the site (HTTP $code): $(jq -r '.message // empty' "$RUNNER_TEMP/resp.json"). The token's user must be a member of the site's team with deploy rights."; exit 1 ;;
+          esac
+
       - uses: actions/checkout@v4
 
       # Publishes site/ with netlify.toml's headers applied. No build step:
