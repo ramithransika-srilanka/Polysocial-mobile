@@ -103,19 +103,25 @@ source (`build/page.raw.html`) like the others, then `npm run build`.
 ## Deploying
 
 `main` and `develop` are kept identical; neither deploys to polysocial.cc.
-To release, cut a branch from `develop` named `release-<version>(<build>)`
-(e.g. `release-1.0.0(2)`) and push it:
+Only pushing a `release-<version>(<build>)` branch deploys:
+`.github/workflows/deploy-netlify.yml` publishes `site/` to Netlify production.
+Netlify's own git builds are disabled (`ignore = "exit 0"` in `netlify.toml`).
+
+To release, commit to `develop`, then either type **`/release`** in Claude Code
+(commits pending work, releases, watches the deploy, checks the live site; see
+`.claude/skills/release/SKILL.md`) or run the script directly:
 
 ```bash
-git switch develop && git pull
-git switch -c 'release-1.0.0(2)' && git push -u origin 'release-1.0.0(2)'
+scripts/release.sh --dry-run   # show the plan
+scripts/release.sh             # release-1.0.0(1) -> release-1.0.0(2)
+scripts/release.sh 1.1.0       # new version: release-1.1.0(1)
 ```
 
-`.github/workflows/deploy-netlify.yml` then publishes `site/` to Netlify
-production. Netlify's own git builds are disabled (`ignore = "exit 0"` in
-`netlify.toml`). The workflow needs the `NETLIFY_AUTH_TOKEN` and
-`NETLIFY_SITE_ID` repo secrets. To redeploy an older release, re-run the
-workflow on that release branch.
+The script pushes develop's commit to `develop`, `main` and the new release
+branch in one atomic push. Old release branches are kept; to roll back, re-run
+the workflow on an older release branch (Actions → Deploy to Netlify (release)
+→ Run workflow). The workflow needs the `NETLIFY_AUTH_TOKEN` and
+`NETLIFY_SITE_ID` repo secrets.
 
 ## Caching
 
