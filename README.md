@@ -22,7 +22,7 @@ netlify.toml           publish dir + cache headers for polysocial.cc
 | Path | What it is |
 | --- | --- |
 | `site/index.html` | The home page. References real, fingerprinted asset files (no base64 inlining). |
-| `site/campaigns/celeste/` | The Celeste campaign onboarding page, served at `/campaigns/celeste`. A single self-contained build (its images are inlined). |
+| `site/campaigns/celeste/` | The Celeste campaign onboarding page, served at `/campaigns/celeste`. Vite build of [Campaign_onboarding](https://github.com/ramithransika-srilanka/Campaign_onboarding), built with `--base=/campaigns/celeste/` so assets resolve with or without the trailing slash. |
 | `site/assets/` | **Generated, deployable.** Optimized, content-hashed images / video / fonts / JS. Safe to cache forever. |
 | `src-assets/` | **Sources.** Raw originals (PNG/JPEG/MP4/GIF/woff2/SVG/JS) the pipeline reads from. Not deployed. |
 | `scripts/optimize.mjs` | The image/video pipeline (sharp + ffmpeg). Re-runnable. |
