@@ -3,8 +3,7 @@
  * and scripts/build_sitemap.mjs.
  *
  * Keep titles ~60 chars and descriptions ~155 chars. Paths are the served URL
- * paths (no ".html"); the corresponding source file is inferred by appending
- * ".html" and rewriting "/" to "index.html".
+ * paths (no ".html"); `file` is the page's path under site/.
  *
  * og:image points at a dedicated 1200×630 share card (DEFAULT_OG_IMAGE) served
  * from the site root so its URL stays stable across deploys.

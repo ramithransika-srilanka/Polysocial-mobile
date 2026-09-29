@@ -5,7 +5,7 @@
  *   node scripts/build_seo.mjs
  *
  * Runs AFTER build_html.mjs (and after any hand-authored HTML has been shipped
- * to the site root). For every page listed in seo-config.mjs it rewrites the
+ * to site/). For every page listed in seo-config.mjs it rewrites the
  * <head> so the served HTML always carries:
  *
  *   - <title>
@@ -33,20 +33,19 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
+import { SITE } from "./paths.mjs";
 import {
   SITE_ORIGIN, DEFAULT_OG_IMAGE, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, OG_IMAGE_ALT,
   PAGES, ORGANIZATION_JSONLD, WEBSITE_JSONLD, PUBLISHER_JSONLD, IMG_ALT_FIXES,
 } from "./seo-config.mjs";
 
-const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 // Last git commit date (YYYY-MM-DD) for a file, used as BlogPosting
 // dateModified. Falls back to "" when git or the file history is unavailable.
 function gitLastModified(file) {
   try {
     const out = execSync(`git log -1 --format=%cs -- "${file}"`, {
-      cwd: ROOT, stdio: ["ignore", "pipe", "ignore"],
+      cwd: SITE, stdio: ["ignore", "pipe", "ignore"],
     }).toString().trim();
     return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : "";
   } catch {
@@ -211,7 +210,7 @@ function addLazyDefaults(html, eagerCount = 3) {
 }
 
 function processPage(page) {
-  const abs = path.join(ROOT, page.file);
+  const abs = path.join(SITE, page.file);
   if (!fs.existsSync(abs)) {
     console.warn(`  [skip] ${page.file} — not found`);
     return;

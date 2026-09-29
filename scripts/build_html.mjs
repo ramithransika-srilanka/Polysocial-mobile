@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Assembles the final, de-bundled, optimized index.html.
+ * Assembles the final, de-bundled, optimized site/index.html.
  *
  *   node scripts/build_html.mjs
  *
- * Consumes build/page.raw.html (de-bundled page), asset-manifest.json (from
+ * Consumes build/page.raw.html (de-bundled page), build/asset-manifest.json (from
  * optimize.mjs) and build/measure-by-file.json (rendered layout metrics) and:
  *   - rewrites every static <img> into a <picture> with AVIF + WebP + fallback,
  *     responsive srcset/sizes, intrinsic width/height, and loading/decoding
@@ -20,15 +20,14 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { SITE, SRC_ASSETS, BUILD, ASSET_MANIFEST } from "./paths.mjs";
 
-const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "asset-manifest.json"), "utf8"));
+const manifest = JSON.parse(fs.readFileSync(ASSET_MANIFEST, "utf8"));
 // Rendered layout metrics (optional): refine sizes/loading when present.
 let measure = {};
-try { measure = JSON.parse(fs.readFileSync(path.join(ROOT, "build/measure-by-file.json"), "utf8")); }
+try { measure = JSON.parse(fs.readFileSync(path.join(BUILD, "measure-by-file.json"), "utf8")); }
 catch { console.warn("build/measure-by-file.json not found — using layout heuristics."); }
-let html = fs.readFileSync(path.join(ROOT, "build/page.raw.html"), "utf8");
+let html = fs.readFileSync(path.join(BUILD, "page.raw.html"), "utf8");
 
 // ---------------------------------------------------------------------------
 // 0. Bake the campaign-recommendations carousel with real sample data so the
@@ -81,12 +80,12 @@ for (const [k, v] of Object.entries(manifest)) byBase[path.basename(k)] = v;
 // ---------------------------------------------------------------------------
 // 1. JavaScript: fingerprint app + React, patch the dc-runtime loader.
 // ---------------------------------------------------------------------------
-const JS = path.join(ROOT, "src-assets/js");
+const JS = path.join(SRC_ASSETS, "js");
 const outJs = (buf, name) => {
   const h = hash(buf);
   const rp = `assets/js/${name}.${h}.js`;
-  fs.mkdirSync(path.join(ROOT, "assets/js"), { recursive: true });
-  fs.writeFileSync(path.join(ROOT, rp), buf);
+  fs.mkdirSync(path.join(SITE, "assets/js"), { recursive: true });
+  fs.writeFileSync(path.join(SITE, rp), buf);
   return rp;
 };
 const reactPath = outJs(fs.readFileSync(path.join(JS, "20cb171d.js")), "react.production.min");
@@ -247,8 +246,8 @@ for (const [k, v] of Object.entries(manifest)) {
 // ---------------------------------------------------------------------------
 if (heroPosterPreload) html = html.replace("</head>", `${heroPosterPreload}\n</head>`);
 
-fs.writeFileSync(path.join(ROOT, "index.html"), html);
-console.log(`Built index.html: ${pics} <picture> images, ${gifs} animated (gif→webp), ${svgRepoint} svg repointed.`);
+fs.writeFileSync(path.join(SITE, "index.html"), html);
+console.log(`Built site/index.html: ${pics} <picture> images, ${gifs} animated (gif→webp), ${svgRepoint} svg repointed.`);
 console.log(`JS: react=${reactPath} reactDom=${reactDomPath} loader=${loaderPath} app=${appPath}`);
 const leftover = (html.match(/src-assets\//g) || []).length;
 console.log(`Remaining "src-assets/" references (should be 0): ${leftover}`);

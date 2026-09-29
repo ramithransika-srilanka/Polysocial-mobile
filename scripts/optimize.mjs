@@ -5,7 +5,7 @@
  *   node scripts/optimize.mjs
  *
  * Reads raw source assets from  src-assets/{img,video,svg,font,js}
- * and writes optimized, content-hashed outputs to  assets/ .
+ * and writes optimized, content-hashed outputs to  site/assets/ .
  *
  * For every raster image (PNG / JPEG) it emits:
  *   - AVIF and WebP at multiple responsive widths (480/960/1440/1920 + native)
@@ -17,7 +17,7 @@
  * SVG / font / JS assets are passed through with hashed names.
  *
  * A machine-readable map of every input -> its outputs is written to
- * asset-manifest.json, which scripts/build_html.mjs consumes to rewrite the
+ * build/asset-manifest.json, which scripts/build_html.mjs consumes to rewrite the
  * HTML. The run is idempotent: outputs are keyed by a hash of (source bytes +
  * encode settings), so re-running only re-encodes changed or new sources.
  */
@@ -27,7 +27,7 @@ import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { ROOT, SITE, SRC_ASSETS as SRC, ASSET_MANIFEST } from "./paths.mjs";
 
 // Resolve an ffmpeg binary: prefer $FFMPEG, then the bundled ffmpeg-static
 // (so the pipeline runs on machines without a system ffmpeg), else "ffmpeg".
@@ -36,9 +36,7 @@ let FFMPEG = "ffmpeg";
 try { FFMPEG = require("ffmpeg-static") || "ffmpeg"; } catch {}
 if (process.env.FFMPEG) FFMPEG = process.env.FFMPEG;
 
-const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const SRC = path.join(ROOT, "src-assets");
-const OUT = path.join(ROOT, "assets");
+const OUT = path.join(SITE, "assets");
 
 // ---- Tunables --------------------------------------------------------------
 const WIDTHS = [480, 960, 1440, 1920]; // responsive breakpoints
@@ -268,7 +266,7 @@ async function main() {
   for (const f of svgs) passthrough(f, path.relative(ROOT, f).split(path.sep).join("/"), "svg");
   for (const f of fonts) passthrough(f, path.relative(ROOT, f).split(path.sep).join("/"), "font");
 
-  fs.writeFileSync(path.join(ROOT, "asset-manifest.json"), JSON.stringify(manifest, null, 2));
+  fs.writeFileSync(ASSET_MANIFEST, JSON.stringify(manifest, null, 2));
 
   // Report
   console.log("\nBefore → After (raster/video; smaller-format best output):");
@@ -277,7 +275,7 @@ async function main() {
     console.log("  " + r.join("\t"));
   console.log(`\nRaster+video source bytes : ${kb(totalIn)} KB`);
   console.log(`All optimized output bytes: ${kb(totalOut)} KB (incl. every width/format variant)`);
-  console.log(`Wrote asset-manifest.json with ${Object.keys(manifest).length} entries.`);
+  console.log(`Wrote build/asset-manifest.json with ${Object.keys(manifest).length} entries.`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
