@@ -35,6 +35,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Vindula Kolambage",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 25000,
+      cost: null,
+      personas: ["Consumer UGC creator", "Travel Influencer", "Lifestyle UGC creator"],
+      styles: null,
+      community: "Young professionals and aspiring creators in Colombo interested in branding, digital marketing and lifestyle content",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
+      gender: "Mixed",
+      language: "Singlish"
     }
   ]
 };
