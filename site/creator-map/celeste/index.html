@@ -117,6 +117,7 @@
   .cmCard h2 { margin: 0 0 12px; font-weight: 600; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
   .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
   .cmCard h3:first-child { margin-top: 0; }
+  .cmSide > div:not(#profile) + div { margin-top: 20px; }
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
@@ -199,7 +200,13 @@
     #siteFooter .legal { font-size: 12px; }
   }
   @media (min-width: 1040px) {
-    .cmLayout { grid-template-columns: minmax(0,1fr) 340px; align-items: start; }
+    /* Map spans the full width; the details sit underneath in three columns. */
+    .cmSide { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0 32px; align-items: start; }
+    .cmSide > div:not(#profile) + div { margin-top: 0; }
+    #profile { grid-column: 1 / -1; }
+    #profile:not(:empty) { margin-bottom: 24px; }
+    .profile { margin-bottom: 0; }
+    .profile dl { grid-template-columns: 90px minmax(0,1fr) 90px minmax(0,1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
     #siteNav { animation: none; }
@@ -281,14 +288,11 @@
         </div>
       </div>
 
-      <aside class="cmCard">
+      <aside class="cmCard cmSide">
         <div id="profile"></div>
-        <h3>By tier</h3>
-        <div class="tiers" id="tiers"></div>
-        <h3>Uncovered communities</h3>
-        <div class="gaps" id="gaps"></div>
-        <h3>Creators</h3>
-        <div class="list" id="list"></div>
+        <div><h3>By tier</h3><div class="tiers" id="tiers"></div></div>
+        <div><h3>Uncovered communities</h3><div class="gaps" id="gaps"></div></div>
+        <div><h3>Creators</h3><div class="list" id="list"></div></div>
       </aside>
     </div>
   </main>
