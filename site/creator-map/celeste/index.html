@@ -135,6 +135,19 @@
   #siteFooter p a { color: var(--blue); }
   #siteFooter .legal { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 
+  /* ================= PHONES: desktop-only notice =================
+     The map needs room, so below 768px the page shows only a notice. */
+  .cmDesktopOnly { display: none; }
+  @media (max-width: 767px) {
+    main, #siteFooter { display: none; }
+    .cmDesktopOnly {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      min-height: calc(100svh - 52px); padding: 24px 32px 64px; text-align: center;
+    }
+    .cmDesktopOnly h1 { margin: 0; font-weight: 600; font-size: 24px; line-height: 1.15; letter-spacing: -0.02em; }
+    .cmDesktopOnly p { margin: 0; max-width: 280px; color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.4; }
+  }
+
   /* ================= DESKTOP ================= */
   @media (min-width: 768px) {
     :root { --edge: max(40px, calc((100% - 1200px) / 2)); }
@@ -181,6 +194,11 @@
       </svg>
     </a>
   </header>
+
+  <section class="cmDesktopOnly">
+    <h1>Open on desktop</h1>
+    <p>The creator map is built for larger screens. Please visit this page on a desktop or laptop.</p>
+  </section>
 
   <main>
 
