@@ -39,7 +39,7 @@ window.CREATOR_MAP = {
     {
       name: "Vindula Kolambage",
       handle: null,
-      photo: null,
+      photo: "avatars/vindula-kolambage.webp",
       platform: "Instagram",
       followers: 25000,
       cost: null,
