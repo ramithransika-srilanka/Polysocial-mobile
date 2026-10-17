@@ -1,6 +1,6 @@
 /*
  * Creator map data for Celeste Daily (/creator-map/celeste).
- * PLACEHOLDER: these creators are sample data until the real list arrives.
+ * Fields with no data yet are null.
  *
  * `photo` is a file in this folder (placeholder portraits for now); a
  * creator without one shows their initials instead.
@@ -19,21 +19,20 @@ window.CREATOR_MAP = {
   brand: "Celeste Daily",
   updated: "October 2026",
   creators: [
-    {name:"Nadeesha Perera",handle:"@kitchenwithamma_lk",photo:"avatars/kitchenwithamma_lk.webp",platform:"Instagram",followers:7200,cost:9500,personas:["Momfluencer","Homecook","Recipe creator"],language:"Sinhala",community:"Young mothers in Colombo suburbs wanting quick, affordable family meals",age:"25–34",gender:"Mostly women",location:"Colombo suburbs",lifestyle:"Middle-income",formats:"Reels",tone:"Warm",notes:"10-minute dinners series, 4 posts a week"},
-    {name:"Shalini Fernando",handle:"@brownieboxcolombo",photo:"avatars/brownieboxcolombo.webp",platform:"Instagram",followers:4100,cost:6000,personas:["Baker","Recipe creator"],language:"English",community:"Young professionals who love home-made treats",age:"25–34",gender:"Mostly women",location:"Colombo city",lifestyle:"Premium",formats:"Reels, Stories",tone:"Warm",notes:"Bakes weekly with ingredients ordered late at night"},
-    {name:"Kavitha Rajendran",handle:"@thamizh_samayal_cmb",photo:"avatars/thamizh_samayal_cmb.webp",platform:"YouTube",followers:9100,cost:11000,personas:["Homecook","Recipe creator"],language:"Tamil",community:"Tamil-speaking families in Wellawatte and Dehiwala",age:"35–44",gender:"Mostly women",location:"Colombo city",lifestyle:"Middle-income",formats:"Long video, Shorts",tone:"Informative",notes:""},
-    {name:"Nila Wijesinghe",handle:"@fitwithnila",photo:"avatars/fitwithnila.webp",platform:"Instagram",followers:15000,cost:18000,personas:["Fitness coach","Social runner"],language:"English",community:"Health-focused young professionals meal-prepping for the week",age:"25–34",gender:"Mixed",location:"Colombo city",lifestyle:"Premium",formats:"Reels",tone:"Informative",notes:"Sunday meal-prep hauls"},
-    {name:"Dilini Jayawardena",handle:"@colombomamadiaries",photo:"avatars/colombomamadiaries.webp",platform:"Instagram",followers:28000,cost:30000,personas:["Momfluencer","Lifestyle runner"],language:"Mixed",community:"Parents of young kids juggling work and home",age:"35–44",gender:"Mostly women",location:"Colombo suburbs",lifestyle:"Middle-income",formats:"Reels, Stories",tone:"Warm",notes:""},
-    {name:"Kasun Rathnayake",handle:"@latenightlk",photo:"avatars/latenightlk.webp",platform:"TikTok",followers:45000,cost:42000,personas:["Food critic","Mukbang reviewer","Lifestyle runner"],language:"Sinhala",community:"University students and the late-night snack crowd",age:"18–24",gender:"Mixed",location:"Colombo suburbs",lifestyle:"Budget-conscious",formats:"TikTok",tone:"Funny",notes:"Midnight cravings skits"},
-    {name:"Ravindu Senanayake",handle:"@lifeincmb",photo:"avatars/lifeincmb.webp",platform:"Instagram",followers:72000,cost:65000,personas:["Luxury Lifestyle","Restaurant reviewer","Travel Influencer"],language:"English",community:"Urban young adults into cafes and city life",age:"25–34",gender:"Mixed",location:"Colombo city",lifestyle:"Premium",formats:"Reels",tone:"Aspirational",notes:""},
-    {name:"Ashan Gunawardena",handle:"@spiceroutefoodie",photo:"avatars/spiceroutefoodie.webp",platform:"Instagram",followers:210000,cost:145000,personas:["Food critic","Restaurant reviewer"],language:"English",community:"Food lovers in Sri Lanka and the diaspora",age:"25–34",gender:"Mixed",location:"Diaspora",lifestyle:"Middle-income",formats:"Reels",tone:"Funny",notes:"Large share of audience abroad"},
-    {name:"Tharindu Bandara",handle:"@hostel_hacks_lk",photo:"avatars/hostel_hacks_lk.webp",platform:"TikTok",followers:12500,cost:14000,personas:["Homecook","Career coach"],language:"Singlish",community:"First-year students living away from home on a tight budget",age:"18–24",gender:"Mixed",location:"Outside Colombo",lifestyle:"Budget-conscious",formats:"TikTok, Reels",tone:"Funny",notes:""},
-    {name:"Sachini Dissanayake",handle:"@sparklehome.lk",photo:"avatars/sparklehome-lk.webp",platform:"Instagram",followers:6400,cost:8000,personas:["Momfluencer","Petfluencer"],language:"Sinhala",community:"Homemakers looking for cleaning and organising tips",age:"35–44",gender:"Mostly women",location:"Outside Colombo",lifestyle:"Middle-income",formats:"Reels",tone:"Informative",notes:""},
-    {name:"Chamath Herath",handle:"@machanskits",photo:"avatars/machanskits.webp",platform:"Facebook",followers:138000,cost:95000,personas:["Dadfluencer","Lifestyle runner"],language:"Sinhala",community:"Families watching weekend comedy sketches together",age:"35–44",gender:"Mixed",location:"Outside Colombo",lifestyle:"Budget-conscious",formats:"Long video, Reels",tone:"Funny",notes:"Weekly sketch every Friday"},
-    {name:"Malini Silva",handle:"@grandmasrecipes_lk",photo:"avatars/grandmasrecipes_lk.webp",platform:"Facebook",followers:33000,cost:26000,personas:["Homecook","Baker"],language:"Sinhala",community:"Older home cooks keeping traditional recipes alive",age:"45+",gender:"Mostly women",location:"Outside Colombo",lifestyle:"Middle-income",formats:"Long video",tone:"Warm",notes:""},
-    {name:"Ishara Weerasinghe",handle:"@desserttrail.cmb",photo:"avatars/desserttrail-cmb.webp",platform:"TikTok",followers:2800,cost:4500,personas:["Food critic","Baker"],language:"English",community:"Young adults hunting for the best desserts in town",age:"18–24",gender:"Mostly women",location:"Colombo city",lifestyle:"Premium",formats:"TikTok",tone:"Funny",notes:"New creator, fast growth"},
-    {name:"Nuwan Karunaratne",handle:"@dadmode.lk",photo:"avatars/dadmode-lk.webp",platform:"YouTube",followers:19800,cost:22000,personas:["Dadfluencer","Entrepreneur"],language:"English",community:"Young dads figuring out groceries and school runs",age:"25–34",gender:"Mostly men",location:"Colombo suburbs",lifestyle:"Middle-income",formats:"Shorts, Long video",tone:"Funny",notes:""},
-    {name:"Rajitha Kumara",handle:"@gymbro_rajitha",photo:"avatars/gymbro_rajitha.webp",platform:"Instagram",followers:56000,cost:48000,personas:["Fitness coach","Medfluencer"],language:"Singlish",community:"Young men building muscle on a protein-heavy diet",age:"18–24",gender:"Mostly men",location:"Colombo city",lifestyle:"Middle-income",formats:"Reels",tone:"Aspirational",notes:""},
-    {name:"Mahesh Selvaraj",handle:"@londonlankan_eats",photo:"avatars/londonlankan_eats.webp",platform:"YouTube",followers:420000,cost:240000,personas:["Travel Influencer","Restaurant reviewer","Entrepreneur"],language:"English",community:"Sri Lankans abroad missing home food",age:"35–44",gender:"Mixed",location:"Diaspora",lifestyle:"Premium",formats:"Long video, Shorts",tone:"Informative",notes:"Visits Colombo twice a year"}
+    {
+      name: "Radeesha De Silva",
+      handle: null,
+      photo: null,
+      platform: null,
+      followers: 52000,
+      cost: null,
+      personas: ["Fitness coach", "Food critic", "Restaurant reviewer", "Mukbang reviewer"],
+      community: "Young Sri Lankans in Colombo interested in gym routines, affordable food finds and relatable lifestyle content",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    }
   ]
 };

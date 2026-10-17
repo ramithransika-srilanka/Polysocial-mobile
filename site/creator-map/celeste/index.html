@@ -417,6 +417,8 @@
     return '<span class="' + cls + ' ini" aria-hidden="true">' + esc(ini) + '</span>';
   }
 
+  // Joins the parts that have a value with " · ", skipping missing (null) fields.
+  function dots(parts) { return parts.filter(function (v) { return v; }).map(esc).join(" &middot; "); }
   function nameOf(c) { return c.name || c.handle; }
   // Follower counts read as 7.2K, 20K, 210K, 1.2M.
   function fmtK(n) {
@@ -439,7 +441,7 @@
   function renderCost(list) {
     var el = $("cost"), tipEl = $("ctip");
     var rows = costRows = list.filter(function (c) { return c.cost > 0; }).sort(function (a, b) { return b.cost - a.cost; });
-    if (!rows.length) { el.innerHTML = '<p class="empty">No cost data for these creators.</p>'; return; }
+    if (!rows.length) { el.innerHTML = '<p class="empty" style="grid-column:1/-1">No cost data for these creators yet.</p>'; return; }
     var step = niceStep(rows[0].cost), top = Math.ceil(rows[0].cost / step) * step, ticks = [];
     if (rows[0].cost / top > 0.9) top += step; // headroom for the top point's label
     for (var v = 0; v <= top + 1e-9; v += step) ticks.push(v);
@@ -476,7 +478,7 @@
       var c = rows.find(function (r) { return r.id === b.dataset.id; });
       b.onclick = function () { select(c.id); };
       b.onmousemove = function (e) {
-        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per content<br>' + esc(c.platform) + ' &middot; ' + fmtK(c.followers) + ' followers &middot; ' + tierOf(c.followers).name;
+        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per content<br>' + dots([c.platform, fmtK(c.followers) + ' followers', tierOf(c.followers).name]);
         tipEl.style.opacity = 1;
         var box = el.parentElement.getBoundingClientRect();
         var left = e.clientX - box.left + 14, topPx = e.clientY - box.top + 14;
@@ -570,12 +572,12 @@
     $("gaps").innerHTML = gaps.length ? gaps.map(function (g) { return '<span class="chip">' + esc(g) + '</span>'; }).join("") : '<p class="empty">Every community on the map is reached.</p>';
 
     $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
-      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span><small>' + esc(personasOf(c).join(", ")) + ' &middot; ' + esc(c.platform) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></button>';
+      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span><small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></button>';
     }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
     $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
 
     var s = creators.find(function (c) { return c.id === selected; });
-    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + esc(s.platform) + ' &middot; ' + fmtK(s.followers) + ' followers &middot; ' + tierOf(s.followers).name + '</p></div>'
+    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([s.platform, fmtK(s.followers) + ' followers', tierOf(s.followers).name]) + '</p></div>'
       + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
       + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
       + '<dl>'
