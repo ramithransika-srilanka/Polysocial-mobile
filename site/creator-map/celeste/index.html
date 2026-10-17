@@ -135,7 +135,8 @@
   .profile .t { margin: 2px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
   .profile .x { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
   .profile .comm { margin: 12px 0; font-weight: 500; font-size: 14px; line-height: 1.4; }
-  .ptags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .profile dd.ptags { display: flex; flex-wrap: wrap; gap: 6px; grid-column: 2 / -1; margin-bottom: 4px; }
+  .profile dt.pl { padding-top: 5px; }
   .ptag { font-size: 12px; font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: 100px; background: #FFFFFF; color: var(--ink); }
   .profile dl { display: grid; grid-template-columns: 90px minmax(0,1fr); gap: 5px 10px; margin: 0; font-size: 12px; }
   .profile dt { color: var(--muted); font-weight: 500; }
@@ -471,15 +472,13 @@
     $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(s.handle) + '</p><p class="t">' + esc(s.platform) + ' &middot; ' + Number(s.followers).toLocaleString() + ' followers &middot; ' + tierOf(s.followers).name + '</p></div>'
       + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
       + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
-      + '<div class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</div>'
       + '<dl>'
-      + '<dt>Age band</dt><dd>' + esc(s.age) + '</dd>'
+      + '<dt class="pl">Personas</dt><dd class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>'
+      + '<dt>Audience age</dt><dd>' + esc(s.age) + '</dd>'
       + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
       + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
       + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
       + '<dt>Lifestyle</dt><dd>' + esc(s.lifestyle) + '</dd>'
-      + '<dt>Content</dt><dd>' + esc(s.formats || "–") + ' &middot; ' + esc(s.tone) + '</dd>'
-      + (s.notes ? '<dt>Notes</dt><dd>' + esc(s.notes) + '</dd>' : '')
       + '</dl></div>' : "";
     if (s) $("closeBtn").onclick = function () { selected = null; render(); };
   }
