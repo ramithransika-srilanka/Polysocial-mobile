@@ -23,7 +23,7 @@ window.CREATOR_MAP = {
     {
       name: "Radeesha De Silva",
       handle: null,
-      photo: null,
+      photo: "avatars/radeesha-de-silva.webp",
       platform: "Instagram",
       followers: 52000,
       cost: null,
