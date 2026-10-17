@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Celeste Daily Creator Map — Polysocial</title>
+<meta name="description" content="Where each Celeste Daily creator sits, how far their reach spreads, and which communities are still uncovered.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://polysocial.cc/creator-map/celeste">
+<link rel="preload" href="/assets/font/4d54fdaf.f11d729bb0.woff2" as="font" type="font/woff2" crossorigin="">
+<style>
+  /* Same Inter file the rest of the site serves (latin subset, variable weight). */
+  @font-face {
+    font-family: 'Inter'; font-style: normal; font-weight: 400 800; font-display: swap;
+    src: url("/assets/font/4d54fdaf.f11d729bb0.woff2") format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --ink: #121212; --muted: #717171; --soft: #ADADAD; --line: #E4E4E4;
+    --band: #F2F2F2; --cell: #F2F2F2; --cell2: #E9E9E9;
+    --blue: #1548EB; --blue-hover: #1845E7;
+    /* Reach heat ramp built on the brand coral (#FF6B49). */
+    --h0: #FFE9E3; --h1: #FFCDBF; --h2: #FFA990; --h3: #FF8868; --core: #FF6B49;
+    --edge: 20px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.45; }
+  a { text-decoration: none; color: inherit; }
+  button, select, input { font-family: inherit; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* ================= NAV (same as the rest of the site) ================= */
+  #siteNav {
+    position: sticky; top: 0; z-index: 100002;
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 24px; padding: 14px 20px 12px 25px;
+    background: rgba(255,255,255,0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;
+  }
+  #siteNav .homeLink { display: block; flex: none; line-height: 0; }
+  #siteNav .homeLink svg { display: block; width: 23px; height: 16px; }
+  #deskNav { display: none; }
+  .navRight { display: flex; align-items: center; gap: 12px; flex: none; }
+  .getAppBtn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+    padding: 4px 5px 4px 8px; border: 1px solid var(--blue); border-radius: 100px;
+    color: var(--blue); font-weight: 500; font-size: 12px; line-height: normal; white-space: nowrap;
+    transition: transform 0.16s ease-out;
+  }
+  .getAppBtn:active { transform: scale(0.96); }
+  .getAppBtn svg { display: block; flex: none; }
+  #menuBtn {
+    position: relative; z-index: 100002; width: 24px; height: 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    background: none; border: none; padding: 0; cursor: pointer;
+  }
+  .mbar { display: block; width: 16px; height: 0; border-top: 2px solid #000000; border-radius: 2px; transition: transform 0.32s cubic-bezier(0.4,0,0.2,1); }
+  #menuBtn.open .mbar1 { transform: translateY(3px) rotate(45deg); }
+  #menuBtn.open .mbar2 { transform: translateY(-3px) rotate(-45deg); }
+  #menuOverlay {
+    position: fixed; inset: 0; z-index: 100001;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.62);
+    -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%);
+    opacity: 0; visibility: hidden; transition: opacity 0.34s ease, visibility 0.34s ease;
+  }
+  #menuOverlay.open { opacity: 1; visibility: visible; }
+  #menuOverlay nav { display: flex; flex-direction: column; align-items: center; gap: 26px; }
+  .menuLink {
+    color: var(--ink); font-weight: 600; font-size: 20px; line-height: 1; letter-spacing: -0.01em;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.34s ease-out, transform 0.4s cubic-bezier(0.22,1,0.36,1), color 0.15s ease;
+  }
+  #menuOverlay.open .menuLink { opacity: 1; transform: none; }
+  #menuOverlay.open .menuLink:nth-child(2) { transition-delay: 0.05s; }
+  #menuOverlay.open .menuLink:nth-child(3) { transition-delay: 0.10s; }
+  #menuOverlay.open .menuLink:nth-child(4) { transition-delay: 0.15s; }
+  #menuOverlay.open .menuLink:nth-child(5) { transition-delay: 0.20s; }
+  .menuLink:hover { color: var(--blue-hover); }
+
+  /* ================= HERO ================= */
+  .cmHero { padding: 44px var(--edge) 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+  .cmHero .brandLogo { display: block; height: 56px; width: auto; }
+  .cmEyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 100px; background: var(--band);
+    color: var(--muted); font-weight: 500; font-size: 12px; line-height: 1;
+  }
+  .cmEyebrow i { width: 8px; height: 8px; border-radius: 50%; background: var(--core); }
+  .cmHero h1 { margin: 0; font-weight: 600; font-size: 34px; line-height: 1.05; letter-spacing: -0.02em; }
+  .cmHero h1 span { display: block; color: var(--soft); }
+  .cmHero p { margin: 0; max-width: 420px; color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.4; }
+
+  /* ================= STATS ================= */
+  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 0 var(--edge); margin-bottom: 24px; }
+  .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
+  .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
+  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 12px; }
+
+  /* ================= FILTERS ================= */
+  .cmFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--edge); margin-bottom: 16px; align-items: center; }
+  .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 100px; }
+  .seg button {
+    border: 0; background: transparent; color: var(--ink); cursor: pointer;
+    font-weight: 500; font-size: 13px; line-height: 1; padding: 8px 14px; border-radius: 100px;
+    transition: background 0.16s ease, color 0.16s ease;
+  }
+  .seg button.on { background: var(--ink); color: #FFFFFF; }
+  .pill {
+    -webkit-appearance: none; appearance: none; border: 0; outline: none;
+    background: var(--band); color: var(--ink);
+    font-weight: 500; font-size: 13px; line-height: 1.2; border-radius: 100px;
+    padding: 9px 30px 9px 14px; cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat; background-position: right 12px center;
+  }
+  .pill:focus-visible, .cmSearch:focus { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
+  .cmSearch {
+    flex: 1 1 200px; min-width: 0; border: 0; outline: none;
+    background: var(--band); color: var(--ink);
+    font-weight: 500; font-size: 13px; line-height: 1.2; border-radius: 100px; padding: 9px 14px;
+  }
+  .cmSearch::placeholder { color: #8A8A8A; }
+
+  /* ================= LAYOUT ================= */
+  .cmLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; padding: 0 var(--edge); }
+  .cmCard { background: #FFFFFF; border: 1px solid var(--line); border-radius: 24px; padding: 16px; position: relative; }
+  .cmCard h2 { margin: 0 0 12px; font-weight: 600; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
+  .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
+  .cmCard h3:first-child { margin-top: 0; }
+
+  /* ================= MAP ================= */
+  .map { position: relative; display: grid; gap: 3px; }
+  .cell { aspect-ratio: 1; border-radius: 26%; background: var(--cell); position: relative; transition: background 0.25s ease; }
+  .cell.alt { background: var(--cell2); }
+  .cell.creator { background: var(--core) !important; cursor: pointer; }
+  .cell.creator::after { content: ""; position: absolute; inset: 34%; border-radius: 50%; background: #FFFFFF; }
+  .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .ylab { font-size: 10px; font-weight: 500; color: var(--muted); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
+  .xlab { font-size: 10px; font-weight: 500; color: var(--muted); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
+  .axis { font-size: 10px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .tip {
+    position: absolute; pointer-events: none; z-index: 5;
+    background: var(--ink); color: #FFFFFF; font-size: 12px; line-height: 1.4;
+    padding: 9px 12px; border-radius: 12px; max-width: 240px;
+    opacity: 0; transition: opacity 0.12s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  }
+  .legend { display: flex; gap: 8px 16px; flex-wrap: wrap; margin-top: 16px; font-size: 12px; font-weight: 500; color: var(--muted); align-items: center; }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 4px; vertical-align: -2px; margin-right: 4px; }
+
+  /* ================= SIDE PANEL ================= */
+  .tiers .row { display: grid; grid-template-columns: 72px minmax(0,1fr) 24px; gap: 10px; align-items: center; font-size: 12px; font-weight: 500; margin-bottom: 7px; }
+  .tiers .row span:last-child { text-align: right; color: var(--muted); }
+  .bar { height: 6px; border-radius: 3px; background: var(--band); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 3px; background: var(--core); }
+  .gaps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 11px; font-weight: 500; background: #FFFFFF; border: 1px dashed #C8C8C8; border-radius: 100px; padding: 4px 10px; color: var(--muted); }
+  .empty { margin: 0; color: var(--muted); font-size: 13px; }
+  .list { max-height: 320px; overflow: auto; border-top: 1px solid var(--line); }
+  .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .li:hover .h, .li.on .h { color: var(--blue); }
+  .li small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
+  .li .r { text-align: right; flex: none; }
+
+  .profile { background: var(--band); border-radius: 18px; padding: 16px; margin-bottom: 20px; }
+  .profile .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .profile .h { margin: 0; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+  .profile .t { margin: 2px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
+  .profile .x { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .profile .comm { margin: 12px 0; font-weight: 500; font-size: 14px; line-height: 1.4; }
+  .profile dl { display: grid; grid-template-columns: 90px minmax(0,1fr); gap: 5px 10px; margin: 0; font-size: 12px; }
+  .profile dt { color: var(--muted); font-weight: 500; }
+  .profile dd { margin: 0; font-weight: 500; }
+
+  /* ================= FOOTER ================= */
+  #siteFooter { padding: 60px 17px 40px; }
+  #siteFooter .inner { display: flex; flex-direction: column; gap: 13px; }
+  #siteFooter .rule { height: 1px; background: #A0A0A0; }
+  #siteFooter .wm { display: block; width: 131px; height: 24px; }
+  #siteFooter .tag { color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.3; }
+  #siteFooter p { margin: 0; font-weight: 500; font-size: 12px; line-height: 1.5; color: var(--muted); }
+  #siteFooter p a { color: var(--blue); }
+  #siteFooter .legal { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+  /* ================= DESKTOP ================= */
+  @media (min-width: 768px) {
+    :root { --edge: max(40px, calc((100% - 1200px) / 2)); }
+    #siteNav { padding: 14px var(--edge) 12px var(--edge); justify-content: center; gap: 32px; }
+    #siteNav .homeLink svg { width: 24px; height: 16.8px; }
+    #siteNav .getAppBtn { font-size: 14px; padding: 6px 8px 6px 12px; gap: 6px; }
+    #siteNav .getAppBtn svg { width: 18px; height: 18px; }
+    #menuBtn { display: none; }
+    #deskNav { display: flex; align-items: center; gap: 32px; white-space: nowrap; }
+    #deskNav a { color: var(--ink); font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
+    #deskNav a:hover { color: var(--blue-hover); }
+
+    .cmHero { padding: 72px var(--edge) 48px; gap: 18px; }
+    .cmHero .brandLogo { height: 72px; }
+    .cmHero h1 { font-size: 56px; }
+    .cmHero p { font-size: 16px; max-width: 520px; }
+    .cmStats { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
+    .cmStat { padding: 20px; border-radius: 20px; }
+    .cmStat b { font-size: 32px; }
+    .cmStat span { font-size: 13px; }
+    .cmCard { padding: 24px; border-radius: 28px; }
+    .map { gap: 4px; }
+    .ylab, .xlab { font-size: 11px; }
+    .ylab { padding-right: 8px; }
+
+    #siteFooter { padding: 72px var(--edge) 52px; }
+    #siteFooter .wm { width: 152px; height: 28px; }
+    #siteFooter p { font-size: 14px; }
+    #siteFooter .legal { font-size: 12px; }
+  }
+  @media (min-width: 1040px) {
+    .cmLayout { grid-template-columns: minmax(0,1fr) 340px; align-items: start; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #siteNav { animation: none; }
+    .cell, .menuLink, #menuOverlay { transition: none; }
+  }
+</style>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FF6B4A">
+</head>
+<body>
+
+  <header id="siteNav">
+    <a class="homeLink" href="/" aria-label="Polysocial home">
+      <svg width="23" height="16" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path>
+        <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
+      </svg>
+    </a>
+    <nav id="deskNav" aria-label="Primary">
+      <a href="/creators">Creators</a>
+      <a href="/brands">Brands</a>
+      <a href="/partner">Partner</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/about">Our Story</a>
+    </nav>
+    <div class="navRight">
+      <a class="getAppBtn" href="https://creator.app.polysocial.cc/">Get App<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#1745E7"></circle><path d="M8 4.67V11.33M5.33 8.67L8 11.33L10.67 8.67" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <button id="menuBtn" aria-label="Menu" aria-expanded="false">
+        <span class="mbar mbar1"></span>
+        <span class="mbar mbar2"></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="menuOverlay" aria-hidden="true">
+    <nav>
+      <a class="menuLink" href="/creators">For Creators</a>
+      <a class="menuLink" href="/brands">For Brands</a>
+      <a class="menuLink" href="/partner">Partner</a>
+      <a class="menuLink" href="/pricing">Pricing</a>
+      <a class="menuLink" href="/about">Our Story</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="cmHero">
+      <img class="brandLogo" src="/creator-map/celeste/celeste-logo.webp" alt="Celeste" width="311" height="160" decoding="async">
+      <span class="cmEyebrow"><i></i>Creator community map</span>
+      <h1><span>Who we reach</span><span id="brandName" style="color:var(--ink)">Celeste Daily</span></h1>
+      <p>Where each creator sits, how far their reach spreads, and which communities are still uncovered.</p>
+    </section>
+
+    <section class="cmStats" aria-label="Summary">
+      <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
+      <div class="cmStat"><b id="sReach">0</b><span>Combined followers</span></div>
+      <div class="cmStat"><b id="sCov">0%</b><span>Map covered</span></div>
+      <div class="cmStat"><b id="sGaps">0</b><span>Uncovered communities</span></div>
+    </section>
+
+    <section class="cmFilters" aria-label="Filters">
+      <span class="seg" id="axisSeg" role="group" aria-label="Vertical axis">
+        <button type="button" data-axis="lifestyle" class="on">Lifestyle</button>
+        <button type="button" data-axis="location">Location</button>
+      </span>
+      <select class="pill" id="fNiche" aria-label="Niche"></select>
+      <select class="pill" id="fPersona" aria-label="Persona"></select>
+      <select class="pill" id="fLang" aria-label="Language"></select>
+      <select class="pill" id="fTier" aria-label="Tier"></select>
+      <input class="cmSearch" id="fSearch" type="search" placeholder="Search handle or community" aria-label="Search">
+    </section>
+
+    <div class="cmLayout">
+      <div class="cmCard">
+        <h2>Audience map</h2>
+        <div class="map" id="map"></div>
+        <div class="tip" id="tip"></div>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--core)"></span>Creator</span>
+          <span><span class="sw" style="background:var(--h2)"></span><span class="sw" style="background:var(--h0)"></span>Reach (spread grows with tier)</span>
+          <span><span class="sw" style="background:var(--h3)"></span>Overlap: several creators</span>
+          <span><span class="sw" style="background:var(--cell2)"></span>Not reached yet</span>
+        </div>
+      </div>
+
+      <aside class="cmCard">
+        <div id="profile"></div>
+        <h3>By tier</h3>
+        <div class="tiers" id="tiers"></div>
+        <h3>Uncovered communities</h3>
+        <div class="gaps" id="gaps"></div>
+        <h3>Creators</h3>
+        <div class="list" id="list"></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="siteFooter">
+    <div class="inner">
+      <div class="rule"></div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <img class="wm" src="/assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" loading="lazy" decoding="async">
+        <span class="tag">Monetizing word-of-mouth</span>
+      </div>
+      <p>You can call us on <a href="tel:+94772540134">+94 772 540 134</a> or email us on <a href="mailto:support@polysocial.cc">support@polysocial.cc</a></p>
+      <div class="rule"></div>
+      <div class="legal">
+        <span>&copy; 2026 Hygge Industries (Pvt) Ltd, operator of Polysocial. All rights reserved.</span>
+        <a href="/privacy">Privacy policy</a>
+        <a href="/terms">Terms and conditions</a>
+        <a href="/support">Support</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="/creator-map/celeste/data.js"></script>
+<script>
+(function () {
+  var btn = document.getElementById('menuBtn'), ov = document.getElementById('menuOverlay');
+  function setOpen(o) { btn.classList.toggle('open', o); ov.classList.toggle('open', o); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); ov.setAttribute('aria-hidden', o ? 'false' : 'true'); }
+  btn.addEventListener('click', function () { setOpen(!ov.classList.contains('open')); });
+  ov.addEventListener('click', function (e) { if (e.target === ov || e.target.classList.contains('menuLink')) setOpen(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+})();
+
+(function () {
+  var OPT = {
+    niche: ["Home cooking","Baking and desserts","Parenting and family","Student life","Colombo lifestyle","Fitness and health","Food reviews","Home and cleaning","Comedy and skits"],
+    persona: ["Educator","Entertainer","Documenter","Reviewer","Aspirational"],
+    language: ["Sinhala","Tamil","English","Singlish","Mixed"],
+    age: ["13–17","18–24","25–34","35–44","45+"],
+    location: ["Colombo city","Colombo suburbs","Outside Colombo","Diaspora"],
+    lifestyle: ["Premium","Middle-income","Budget-conscious"]
+  };
+  var TIERS = [
+    {name:"Emerging",max:5000,r:1.2},
+    {name:"Nano",max:10000,r:1.6},
+    {name:"Micro",max:40000,r:2.2},
+    {name:"Rising",max:100000,r:2.8},
+    {name:"Mid",max:300000,r:3.5},
+    {name:"Macro",max:1000000,r:4.3},
+    {name:"Mega",max:Infinity,r:5.2}
+  ];
+  function tierOf(f) { return TIERS.find(function (t) { return Number(f) < t.max; }) || TIERS[TIERS.length - 1]; }
+
+  var DATA = window.CREATOR_MAP || { creators: [] };
+  if (DATA.brand) document.getElementById('brandName').textContent = DATA.brand;
+  var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+
+  var axis = "lifestyle", selected = null;
+  var COLS = 25, ROWS = 12, AGE_W = 5;
+  var $ = function (id) { return document.getElementById(id); };
+  var mapEl = $("map"), tip = $("tip");
+  var mq = window.matchMedia('(min-width: 768px)');
+
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (m) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
+  function fillSelect(sel, items, label) {
+    sel.innerHTML = '<option value="">' + label + ': All</option>' + items.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
+  }
+  fillSelect($("fNiche"), OPT.niche, "Niche");
+  fillSelect($("fPersona"), OPT.persona, "Persona");
+  fillSelect($("fLang"), OPT.language, "Language");
+  fillSelect($("fTier"), TIERS.map(function (t) { return t.name; }), "Tier");
+
+  function yBands() { return OPT[axis]; }
+  function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
+
+  function visible() {
+    var n = $("fNiche").value, p = $("fPersona").value, l = $("fLang").value, t = $("fTier").value, q = $("fSearch").value.trim().toLowerCase();
+    return creators.filter(function (c) {
+      return (!n || c.niche === n) && (!p || c.persona === p) && (!l || c.language === l) && (!t || tierOf(c.followers).name === t)
+        && (!q || (c.handle + " " + (c.community || "")).toLowerCase().indexOf(q) !== -1);
+    });
+  }
+
+  // Each creator takes the free cell nearest the centre of their age x band block.
+  function place(list) {
+    var taken = {}, rows = bandRows();
+    list.slice().sort(function (a, b) { return b.followers - a.followers; }).forEach(function (c) {
+      var ai = Math.max(0, OPT.age.indexOf(c.age)), yi = Math.max(0, yBands().indexOf(c[axis]));
+      var r0 = rows[yi][0], r1 = rows[yi][1], c0 = ai * AGE_W, c1 = c0 + AGE_W;
+      var cx = c0 + Math.floor(AGE_W / 2), cy = Math.floor((r0 + r1 - 1) / 2);
+      var best = null, bd = Infinity;
+      for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
+        if (taken[y * COLS + x]) continue;
+        var inside = x >= c0 && x < c1 && y >= r0 && y < r1;
+        var d = Math.hypot(x - cx, y - cy) + (inside ? 0 : 100);
+        if (d < bd) { bd = d; best = [x, y]; }
+      }
+      c._x = best[0]; c._y = best[1]; taken[best[1] * COLS + best[0]] = true;
+    });
+  }
+
+  function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
+
+  function render() {
+    var list = visible();
+    place(list);
+    var N = COLS * ROWS, heat = new Array(N).fill(0), who = [], owner = {};
+    for (var k = 0; k < N; k++) who.push([]);
+    list.forEach(function (c) {
+      var r = tierOf(c.followers).r;
+      owner[c._y * COLS + c._x] = c;
+      for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
+        var d = Math.hypot(x - c._x, y - c._y);
+        if (d <= r) { var i = y * COLS + x; heat[i] += d === 0 ? 0 : 1.5 * (r - d + 1) / r; who[i].push(c); }
+      }
+    });
+
+    var rows = bandRows(), bands = yBands();
+    mapEl.style.gridTemplateColumns = (mq.matches ? "100px" : "62px") + " repeat(" + COLS + ", minmax(0,1fr))";
+    var html = "";
+    rows.forEach(function (rr, k) { html += '<div class="ylab" style="grid-column:1;grid-row:' + (rr[0] + 1) + '/' + (rr[1] + 1) + '">' + esc(bands[k]) + '</div>'; });
+    for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
+      var i = y * COLS + x, band = rows.findIndex(function (rr) { return y >= rr[0] && y < rr[1]; }), ab = Math.floor(x / AGE_W);
+      var cls = "cell" + ((band + ab) % 2 ? " alt" : ""), bg = "", h = heat[i];
+      if (owner[i]) cls += " creator" + (selected === owner[i].id ? " sel" : "");
+      else if (h > 0) bg = h >= 2.6 ? "var(--h3)" : h >= 1.5 ? "var(--h2)" : h >= 0.8 ? "var(--h1)" : "var(--h0)";
+      html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(owner[i].handle) + '"' : '') + '></div>';
+    }
+    OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
+    html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:4px">Audience age</div>';
+    html += '<div class="axis" style="grid-column:1;grid-row:' + (ROWS + 1) + ';text-align:right;padding-right:6px;padding-top:6px">' + (axis === "lifestyle" ? "Lifestyle" : "Location") + ' &uarr;</div>';
+    mapEl.innerHTML = html;
+
+    function showTip(el, e) {
+      var i = +el.dataset.i, y = Math.floor(i / COLS), x = i % COLS;
+      var band = bands[rows.findIndex(function (rr) { return y >= rr[0] && y < rr[1]; })], age = OPT.age[Math.floor(x / AGE_W)];
+      var o = owner[i];
+      tip.innerHTML = o
+        ? '<b>' + esc(o.handle) + '</b><br>' + esc(o.niche) + ' &times; ' + esc(o.persona) + ' &middot; ' + tierOf(o.followers).name + '<br>' + Number(o.followers).toLocaleString() + ' followers'
+        : '<b>' + age + ' &middot; ' + esc(band) + '</b><br>' + (who[i].length ? 'Reached by ' + who[i].length + ' creator' + (who[i].length > 1 ? 's' : '') + ': ' + who[i].map(function (c) { return esc(c.handle); }).join(", ") : 'Not reached by any creator yet');
+      tip.style.opacity = 1;
+      var box = mapEl.parentElement.getBoundingClientRect();
+      var left = e.clientX - box.left + 14, top = e.clientY - box.top + 14;
+      if (left + 250 > box.width) left = Math.max(8, e.clientX - box.left - 250);
+      tip.style.left = left + "px"; tip.style.top = top + "px";
+    }
+    mapEl.querySelectorAll(".cell").forEach(function (el) {
+      var i = +el.dataset.i;
+      el.onmousemove = function (e) { showTip(el, e); };
+      el.onmouseleave = function () { tip.style.opacity = 0; };
+      if (owner[i]) {
+        el.onclick = function () { select(owner[i].id); };
+        el.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(owner[i].id); } };
+      } else {
+        // Touch has no hover: tapping an empty cell shows its tooltip instead.
+        el.onclick = function (e) { showTip(el, e); };
+      }
+    });
+
+    var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
+    $("sCount").textContent = list.length;
+    $("sReach").textContent = fmt(total);
+    $("sCov").textContent = Math.round(heat.filter(function (h, i) { return h > 0 || owner[i]; }).length / N * 100) + "%";
+
+    var counts = TIERS.map(function (t) { return list.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
+    var max = Math.max.apply(null, [1].concat(counts));
+    $("tiers").innerHTML = TIERS.map(function (t, k) {
+      return '<div class="row"><span>' + t.name + '</span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span>' + counts[k] + '</span></div>';
+    }).join("");
+
+    var gaps = [];
+    rows.forEach(function (rr, k) {
+      OPT.age.forEach(function (a, ai) {
+        var hit = false;
+        for (var y = rr[0]; y < rr[1]; y++) for (var x = ai * AGE_W; x < (ai + 1) * AGE_W; x++) { var i = y * COLS + x; if (heat[i] > 0 || owner[i]) hit = true; }
+        if (!hit) gaps.push(a + " · " + bands[k]);
+      });
+    });
+    $("sGaps").textContent = gaps.length;
+    $("gaps").innerHTML = gaps.length ? gaps.map(function (g) { return '<span class="chip">' + esc(g) + '</span>'; }).join("") : '<p class="empty">Every community on the map is reached.</p>';
+
+    $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
+      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '"><span><span class="h">' + esc(c.handle) + '</span><small>' + esc(c.niche) + ' &middot; ' + esc(c.platform) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + Number(c.followers).toLocaleString() + '</small></span></button>';
+    }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
+    $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
+
+    var s = creators.find(function (c) { return c.id === selected; });
+    $("profile").innerHTML = s ? '<div class="profile"><div class="top"><div><p class="h">' + esc(s.handle) + '</p><p class="t">' + esc(s.platform) + ' &middot; ' + Number(s.followers).toLocaleString() + ' followers &middot; ' + tierOf(s.followers).name + '</p></div>'
+      + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
+      + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
+      + '<dl>'
+      + '<dt>Archetype</dt><dd>' + esc(s.niche) + ' &times; ' + esc(s.persona) + '</dd>'
+      + '<dt>Age band</dt><dd>' + esc(s.age) + '</dd>'
+      + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
+      + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
+      + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
+      + '<dt>Lifestyle</dt><dd>' + esc(s.lifestyle) + '</dd>'
+      + '<dt>Content</dt><dd>' + esc(s.formats || "–") + ' &middot; ' + esc(s.tone) + '</dd>'
+      + (s.notes ? '<dt>Notes</dt><dd>' + esc(s.notes) + '</dd>' : '')
+      + '</dl></div>' : "";
+    if (s) $("closeBtn").onclick = function () { selected = null; render(); };
+  }
+
+  function select(id) {
+    selected = id; render();
+    if (!mq.matches) $("profile").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  $("axisSeg").querySelectorAll("button").forEach(function (b) {
+    b.onclick = function () {
+      axis = b.dataset.axis;
+      $("axisSeg").querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      render();
+    };
+  });
+  ["fNiche", "fPersona", "fLang", "fTier"].forEach(function (id) { $(id).onchange = render; });
+  $("fSearch").oninput = render;
+  document.addEventListener("scroll", function () { tip.style.opacity = 0; }, { passive: true });
+  mq.addEventListener ? mq.addEventListener("change", render) : mq.addListener(render);
+  render();
+})();
+</script>
+</body></html>
