@@ -43,7 +43,8 @@
   #siteNav .homeLink svg { display: block; width: 23px; height: 16px; }
 
   /* ================= STATS ================= */
-  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 24px var(--edge) 0; margin-bottom: 24px; }
+  .cmTop { display: flex; padding: 24px var(--edge) 0; margin-bottom: 16px; }
+  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 0 var(--edge); margin-bottom: 24px; }
   .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
   .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
   .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 12px; }
@@ -170,7 +171,8 @@
     #siteNav { padding: 18px var(--edge) 14px; }
     #siteNav .homeLink svg { width: 28px; height: 19.5px; }
 
-    .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding-top: 48px; margin-bottom: 28px; }
+    .cmTop { padding-top: 48px; margin-bottom: 20px; }
+    .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
     .cmStat { padding: 20px; border-radius: 20px; }
     .cmStat b { font-size: 32px; }
     .cmStat span { font-size: 13px; }
@@ -217,6 +219,10 @@
   </section>
 
   <main>
+
+    <section class="cmTop" aria-label="Platform">
+      <select class="pill" id="fPlatform" aria-label="Platform"></select>
+    </section>
 
     <section class="cmStats" aria-label="Summary">
       <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
@@ -287,6 +293,7 @@
 (function () {
   var OPT = {
     persona: ["Momfluencer","Dadfluencer","Social runner","Lifestyle runner","Petfluencer","Fitness coach","Medfluencer","Homecook","Recipe creator","Baker","Food critic","Restaurant reviewer","Mukbang reviewer","Travel Influencer","Luxury Lifestyle","Entrepreneur","Career coach"],
+    platform: ["Instagram","TikTok","YouTube","Facebook"],
     language: ["Sinhala","Tamil","English","Singlish","Mixed"],
     age: ["18–24","25–34","35–44","45+"],
     location: ["Colombo city","Colombo suburbs","Outside Colombo","Diaspora"],
@@ -316,6 +323,7 @@
   function fillSelect(sel, items, label) {
     sel.innerHTML = '<option value="">' + label + ': All</option>' + items.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
   }
+  fillSelect($("fPlatform"), OPT.platform, "Platform");
   fillSelect($("fLang"), OPT.language, "Language");
 
   // Tag rows: pick any number of tags per row; none picked means all.
@@ -349,10 +357,10 @@
 
   // A creator matches the persona row if they carry any of the picked tags.
   function visible() {
-    var p = picked.persona, t = picked.tier, l = $("fLang").value;
+    var p = picked.persona, t = picked.tier, l = $("fLang").value, pf = $("fPlatform").value;
     return creators.filter(function (c) {
       return (!p.length || personasOf(c).some(function (v) { return p.indexOf(v) !== -1; })) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
-        && (!l || c.language === l)
+        && (!l || c.language === l) && (!pf || c.platform === pf)
         && (gender.women && gender.men || (gender.women ? c.gender !== "Mostly men" : c.gender !== "Mostly women"));
     });
   }
@@ -504,6 +512,7 @@
     };
   });
   $("fLang").onchange = render;
+  $("fPlatform").onchange = render;
   // Gender: Female and Male both start on; at least one stays on. Mixed
   // audiences count for both.
   $("tGender").querySelectorAll(".tag").forEach(function (b) {
