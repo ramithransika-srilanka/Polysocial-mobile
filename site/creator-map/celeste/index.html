@@ -379,10 +379,19 @@
   function avatar(c, size) {
     var cls = "av" + (size ? " " + size : "");
     if (c.photo) return '<img class="' + cls + '" src="' + esc(PHOTO_BASE + c.photo) + '" alt="" loading="lazy" decoding="async">';
-    var ini = c.handle.replace(/^@/, "").split(/[._\-]+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+    var ini = (c.name || c.handle.replace(/^@/, "")).split(/[\s._\-]+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
     return '<span class="' + cls + ' ini" aria-hidden="true">' + esc(ini) + '</span>';
   }
 
+  function nameOf(c) { return c.name || c.handle; }
+  // Follower counts read as 7.2K, 20K, 210K, 1.2M.
+  function fmtK(n) {
+    n = Number(n) || 0;
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+    if (n >= 1e5) return Math.round(n / 1e3) + "K";
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+    return String(n);
+  }
   function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
 
   function render() {
@@ -408,7 +417,7 @@
       var cls = "cell" + ((band + ab) % 2 ? " alt" : ""), bg = "", h = heat[i];
       if (owner[i]) cls += " creator" + (selected === owner[i].id ? " sel" : "");
       else if (h > 0) bg = h >= 2.6 ? "var(--h3)" : h >= 1.5 ? "var(--h2)" : h >= 0.8 ? "var(--h1)" : "var(--h0)";
-      html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(owner[i].handle) + '">' + avatar(owner[i]) : '>') + '</div>';
+      html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' + avatar(owner[i]) : '>') + '</div>';
     }
     OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
     html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:4px">Audience age</div>';
@@ -420,8 +429,8 @@
       var band = bands[rows.findIndex(function (rr) { return y >= rr[0] && y < rr[1]; })], age = OPT.age[Math.floor(x / AGE_W)];
       var o = owner[i];
       tip.innerHTML = o
-        ? '<b>' + esc(o.handle) + '</b><br>' + esc(personasOf(o).join(", ")) + ' &middot; ' + tierOf(o.followers).name + '<br>' + Number(o.followers).toLocaleString() + ' followers'
-        : '<b>' + age + ' &middot; ' + esc(band) + '</b><br>' + (who[i].length ? 'Reached by ' + who[i].length + ' creator' + (who[i].length > 1 ? 's' : '') + ': ' + who[i].map(function (c) { return esc(c.handle); }).join(", ") : 'Not reached by any creator yet');
+        ? '<b>' + esc(nameOf(o)) + '</b><br>' + esc(personasOf(o).join(", ")) + ' &middot; ' + tierOf(o.followers).name + '<br>' + fmtK(o.followers) + ' followers'
+        : '<b>' + age + ' &middot; ' + esc(band) + '</b><br>' + (who[i].length ? 'Reached by ' + who[i].length + ' creator' + (who[i].length > 1 ? 's' : '') + ': ' + who[i].map(function (c) { return esc(nameOf(c)); }).join(", ") : 'Not reached by any creator yet');
       tip.style.opacity = 1;
       var box = mapEl.parentElement.getBoundingClientRect();
       var left = e.clientX - box.left + 14, top = e.clientY - box.top + 14;
@@ -463,12 +472,12 @@
     $("gaps").innerHTML = gaps.length ? gaps.map(function (g) { return '<span class="chip">' + esc(g) + '</span>'; }).join("") : '<p class="empty">Every community on the map is reached.</p>';
 
     $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
-      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(c.handle) + '</span><small>' + esc(personasOf(c).join(", ")) + ' &middot; ' + esc(c.platform) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + Number(c.followers).toLocaleString() + '</small></span></button>';
+      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span><small>' + esc(personasOf(c).join(", ")) + ' &middot; ' + esc(c.platform) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></button>';
     }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
     $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
 
     var s = creators.find(function (c) { return c.id === selected; });
-    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(s.handle) + '</p><p class="t">' + esc(s.platform) + ' &middot; ' + Number(s.followers).toLocaleString() + ' followers &middot; ' + tierOf(s.followers).name + '</p></div>'
+    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + esc(s.platform) + ' &middot; ' + fmtK(s.followers) + ' followers &middot; ' + tierOf(s.followers).name + '</p></div>'
       + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
       + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
       + '<dl>'
