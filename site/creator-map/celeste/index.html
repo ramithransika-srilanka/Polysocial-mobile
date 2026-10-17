@@ -200,12 +200,8 @@
     #siteFooter .legal { font-size: 12px; }
   }
   @media (min-width: 1040px) {
-    /* Map spans the full width; the details sit underneath in three columns. */
-    .cmSide { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0 32px; align-items: start; }
-    .cmSide > div:not(#profile) + div { margin-top: 0; }
-    #profile { grid-column: 1 / -1; }
-    #profile:not(:empty) { margin-bottom: 24px; }
-    .profile { margin-bottom: 0; }
+    /* Map spans the full width; the details stack underneath as rows. */
+    .cmSide > div:not(#profile) + div { margin-top: 28px; }
     .profile dl { grid-template-columns: 90px minmax(0,1fr) 90px minmax(0,1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
