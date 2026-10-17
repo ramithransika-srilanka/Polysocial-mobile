@@ -88,6 +88,25 @@
   .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
   .cmCard h3:first-child { margin-top: 0; }
   .cmSide > div:not(#profile) + div { margin-top: 20px; }
+  .cmSub { margin: -6px 0 16px; color: var(--muted); font-weight: 500; font-size: 12px; }
+
+  /* ================= COST PER CONTENT ================= */
+  .cost { display: grid; grid-template-columns: 64px minmax(0,1fr); }
+  .costY { position: relative; height: 240px; }
+  .costY span { position: absolute; right: 10px; transform: translateY(50%); font-size: 10px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+  .costPlot { position: relative; height: 240px; border-bottom: 1px solid #C8C8C8; }
+  .costPlot .gl { position: absolute; left: 0; right: 0; border-top: 1px solid #F0F0F0; }
+  .costBars { position: absolute; inset: 0; display: flex; align-items: flex-end; }
+  .cb { flex: 1 1 0; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; cursor: pointer; border: 0; padding: 0; background: none; }
+  .cb i { display: block; flex: none; width: min(64%, 36px); min-height: 2px; background: #F05A38; border-radius: 4px 4px 0 0; transition: background 0.15s ease; }
+  .cb .v { flex: none; margin-bottom: 4px; font-size: 10px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .cb:hover i { background: #D9472A; }
+  .cb.on i { background: var(--blue); }
+  .cb:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+  .costX { grid-column: 2; display: flex; padding-top: 6px; }
+  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .costX span.on { color: var(--blue); }
+  .costAxis { grid-column: 2; padding-top: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: 0.06em; }
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
@@ -257,6 +276,13 @@
         </div>
       </div>
 
+      <div class="cmCard">
+        <h2>Cost per content</h2>
+        <p class="cmSub">What each creator charges per piece of content, in Rs. Highest first.</p>
+        <div class="cost" id="cost"></div>
+        <div class="tip" id="ctip"></div>
+      </div>
+
       <aside class="cmCard cmSide">
         <div id="profile"></div>
         <div><h3>By tier</h3><div class="tiers" id="tiers"></div></div>
@@ -396,6 +422,45 @@
     if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
     return String(n);
   }
+  function fmtRs(n) { return "Rs. " + Number(n || 0).toLocaleString("en-US"); }
+  // Round axis steps (1, 2, 2.5, 5 x 10^k) giving at most five gridlines.
+  function niceStep(max) {
+    var raw = max / 5, p = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+    return [1, 2, 2.5, 5, 10].map(function (m) { return m * p; }).find(function (s) { return s >= raw; });
+  }
+
+  function renderCost(list) {
+    var el = $("cost"), tipEl = $("ctip");
+    var rows = list.filter(function (c) { return c.cost > 0; }).sort(function (a, b) { return b.cost - a.cost; });
+    if (!rows.length) { el.innerHTML = '<p class="empty">No cost data for these creators.</p>'; return; }
+    var step = niceStep(rows[0].cost), top = Math.ceil(rows[0].cost / step) * step, ticks = [];
+    if (rows[0].cost / top > 0.9) top += step; // headroom for the top bar's label
+    for (var v = 0; v <= top + 1e-9; v += step) ticks.push(v);
+    var y = '<div class="costY">' + ticks.map(function (t) { return '<span style="bottom:' + (t / top * 100) + '%">' + (t ? "Rs. " + fmtK(t) : "0") + '</span>'; }).join("") + '</div>';
+    var plot = '<div class="costPlot">' + ticks.slice(1).map(function (t) { return '<div class="gl" style="bottom:' + (t / top * 100) + '%"></div>'; }).join("")
+      + '<div class="costBars">' + rows.map(function (c, k) {
+        return '<button type="button" class="cb' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '" aria-label="' + esc(nameOf(c)) + ', ' + fmtRs(c.cost) + ' per content">'
+          + (k === 0 || selected === c.id ? '<span class="v">' + "Rs. " + fmtK(c.cost) + '</span>' : '')
+          + '<i style="height:' + (c.cost / top * 100) + '%"></i></button>';
+      }).join("") + '</div></div>';
+    var x = '<div class="costX">' + rows.map(function (c) { return '<span class="' + (selected === c.id ? 'on' : '') + '" title="' + esc(nameOf(c)) + '">' + esc(nameOf(c).split(" ")[0]) + '</span>'; }).join("") + '</div>';
+    el.innerHTML = y + plot + x + '<div class="costAxis">Creators</div>';
+
+    el.querySelectorAll(".cb").forEach(function (b) {
+      var c = rows.find(function (r) { return r.id === b.dataset.id; });
+      b.onclick = function () { select(c.id); };
+      b.onmousemove = function (e) {
+        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per content<br>' + esc(c.platform) + ' &middot; ' + fmtK(c.followers) + ' followers &middot; ' + tierOf(c.followers).name;
+        tipEl.style.opacity = 1;
+        var box = el.parentElement.getBoundingClientRect();
+        var left = e.clientX - box.left + 14, topPx = e.clientY - box.top + 14;
+        if (left + 250 > box.width) left = Math.max(8, e.clientX - box.left - 250);
+        tipEl.style.left = left + "px"; tipEl.style.top = topPx + "px";
+      };
+      b.onmouseleave = function () { tipEl.style.opacity = 0; };
+    });
+  }
+
   function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
 
   function render() {
@@ -453,6 +518,8 @@
         el.onclick = function (e) { showTip(el, e); };
       }
     });
+
+    renderCost(list);
 
     var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
     $("sCount").textContent = list.length;
@@ -521,7 +588,7 @@
       render();
     };
   });
-  document.addEventListener("scroll", function () { tip.style.opacity = 0; }, { passive: true });
+  document.addEventListener("scroll", function () { tip.style.opacity = 0; $("ctip").style.opacity = 0; }, { passive: true });
   mq.addEventListener ? mq.addEventListener("change", render) : mq.addListener(render);
   render();
 })();
