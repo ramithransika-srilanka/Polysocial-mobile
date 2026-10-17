@@ -80,21 +80,8 @@
   #menuOverlay.open .menuLink:nth-child(5) { transition-delay: 0.20s; }
   .menuLink:hover { color: var(--blue-hover); }
 
-  /* ================= HERO ================= */
-  .cmHero { padding: 44px var(--edge) 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
-  .cmHero .brandLogo { display: block; height: 56px; width: auto; }
-  .cmEyebrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 12px; border-radius: 100px; background: var(--band);
-    color: var(--muted); font-weight: 500; font-size: 12px; line-height: 1;
-  }
-  .cmEyebrow i { width: 8px; height: 8px; border-radius: 50%; background: var(--core); }
-  .cmHero h1 { margin: 0; font-weight: 600; font-size: 34px; line-height: 1.05; letter-spacing: -0.02em; }
-  .cmHero h1 span { display: block; color: var(--soft); }
-  .cmHero p { margin: 0; max-width: 420px; color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.4; }
-
   /* ================= STATS ================= */
-  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 0 var(--edge); margin-bottom: 24px; }
+  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 24px var(--edge) 0; margin-bottom: 24px; }
   .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
   .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
   .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 12px; }
@@ -197,11 +184,7 @@
     #deskNav a { color: var(--ink); font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
     #deskNav a:hover { color: var(--blue-hover); }
 
-    .cmHero { padding: 72px var(--edge) 48px; gap: 18px; }
-    .cmHero .brandLogo { height: 72px; }
-    .cmHero h1 { font-size: 56px; }
-    .cmHero p { font-size: 16px; max-width: 520px; }
-    .cmStats { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
+    .cmStats { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; padding-top: 48px; margin-bottom: 28px; }
     .cmStat { padding: 20px; border-radius: 20px; }
     .cmStat b { font-size: 32px; }
     .cmStat span { font-size: 13px; }
@@ -265,12 +248,6 @@
   </div>
 
   <main>
-    <section class="cmHero">
-      <img class="brandLogo" src="/creator-map/celeste/celeste-logo.webp" alt="Celeste" width="311" height="160" decoding="async">
-      <span class="cmEyebrow"><i></i>Creator community map</span>
-      <h1><span>Who we reach</span><span id="brandName" style="color:var(--ink)">Celeste Daily</span></h1>
-      <p>Where each creator sits, how far their reach spreads, and which communities are still uncovered.</p>
-    </section>
 
     <section class="cmStats" aria-label="Summary">
       <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
@@ -365,7 +342,6 @@
   function tierOf(f) { return TIERS.find(function (t) { return Number(f) < t.max; }) || TIERS[TIERS.length - 1]; }
 
   var DATA = window.CREATOR_MAP || { creators: [] };
-  if (DATA.brand) document.getElementById('brandName').textContent = DATA.brand;
   var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
 
   var axis = "lifestyle", selected = null;
