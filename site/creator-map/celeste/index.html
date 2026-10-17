@@ -99,7 +99,6 @@
   .costPlot .gl { stroke: #F0F0F0; stroke-width: 1; }
   .costPlot .med { stroke: #ADADAD; stroke-width: 1; stroke-dasharray: 4 4; }
   .costPlot .medl { font-size: 10px; font-weight: 600; fill: var(--muted); }
-  .costPlot .area { fill: #F05A38; fill-opacity: 0.08; }
   .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
   .costPlot .pt.on { fill: var(--blue); }
@@ -457,12 +456,10 @@
     function Y(v) { return H - v / top * H; }
     var pts = rows.map(function (c, k) { return [X(k), Y(c.cost)]; });
     var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
-    var area = line + " L" + pts[n - 1][0].toFixed(1) + " " + H + " L" + pts[0][0].toFixed(1) + " " + H + " Z";
     var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">'
       + ticks.slice(1).map(function (t) { return '<line class="gl" x1="0" x2="' + W + '" y1="' + Y(t) + '" y2="' + Y(t) + '"/>'; }).join("")
       + '<line class="med" x1="0" x2="' + W + '" y1="' + Y(median) + '" y2="' + Y(median) + '"/>'
       + '<text class="medl" x="4" y="' + (Y(median) - 6) + '" text-anchor="start">Median ' + "Rs. " + fmtK(median) + '</text>'
-      + '<path class="area" d="' + area + '"/>'
       + '<path class="ln" d="' + line + '"/>'
       + rows.map(function (c, k) {
         var on = selected === c.id, lab = k === 0 || k === n - 1 || on;
