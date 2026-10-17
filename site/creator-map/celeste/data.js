@@ -23,7 +23,7 @@ window.CREATOR_MAP = {
       name: "Radeesha De Silva",
       handle: null,
       photo: null,
-      platform: null,
+      platform: "Instagram",
       followers: 52000,
       cost: null,
       personas: ["Fitness coach", "Food critic", "Restaurant reviewer", "Mukbang reviewer"],

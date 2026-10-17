@@ -319,7 +319,7 @@
 (function () {
   var OPT = {
     persona: ["Momfluencer","Dadfluencer","Social runner","Lifestyle runner","Petfluencer","Fitness coach","Medfluencer","Homecook","Recipe creator","Baker","Food critic","Restaurant reviewer","Mukbang reviewer","Travel Influencer","Luxury Lifestyle","Entrepreneur","Career coach"],
-    platform: ["Instagram","TikTok","YouTube","Facebook"],
+    platform: ["Instagram"],
     language: ["Sinhala","Tamil","English","Singlish","Mixed"],
     age: ["18–24","25–34","35–44","45+"],
     location: ["Colombo city","Colombo suburbs","Outside Colombo","Diaspora"],
@@ -349,7 +349,8 @@
   function fillSelect(sel, items, label) {
     sel.innerHTML = '<option value="">' + label + ': All</option>' + items.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
   }
-  fillSelect($("fPlatform"), OPT.platform, "Platform");
+  // Instagram only for now, so the dropdown has no "All" option.
+  $("fPlatform").innerHTML = OPT.platform.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
   fillSelect($("fLang"), OPT.language, "Language");
 
   // Tag rows: pick any number of tags per row; none picked means all.
