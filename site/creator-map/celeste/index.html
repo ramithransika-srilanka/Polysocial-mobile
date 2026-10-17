@@ -154,7 +154,7 @@
     #siteNav { padding: 18px var(--edge) 14px; }
     #siteNav .homeLink svg { width: 28px; height: 19.5px; }
 
-    .cmStats { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; padding-top: 48px; margin-bottom: 28px; }
+    .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding-top: 48px; margin-bottom: 28px; }
     .cmStat { padding: 20px; border-radius: 20px; }
     .cmStat b { font-size: 32px; }
     .cmStat span { font-size: 13px; }
@@ -206,7 +206,6 @@
       <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
       <div class="cmStat"><b id="sReach">0</b><span>Combined followers</span></div>
       <div class="cmStat"><b id="sCov">0%</b><span>Map covered</span></div>
-      <div class="cmStat"><b id="sGaps">0</b><span>Uncovered communities</span></div>
     </section>
 
     <section class="cmFilters" aria-label="Filters">
@@ -268,7 +267,7 @@
     niche: ["Home cooking","Baking and desserts","Parenting and family","Student life","Colombo lifestyle","Fitness and health","Food reviews","Home and cleaning","Comedy and skits"],
     persona: ["Educator","Entertainer","Documenter","Reviewer","Aspirational"],
     language: ["Sinhala","Tamil","English","Singlish","Mixed"],
-    age: ["13–17","18–24","25–34","35–44","45+"],
+    age: ["18–24","25–34","35–44","45+"],
     location: ["Colombo city","Colombo suburbs","Outside Colombo","Diaspora"],
     lifestyle: ["Premium","Middle-income","Budget-conscious"]
   };
@@ -287,7 +286,7 @@
   var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
 
   var axis = "lifestyle", selected = null;
-  var COLS = 25, ROWS = 12, AGE_W = 5;
+  var AGE_W = 6, COLS = AGE_W * OPT.age.length, ROWS = 12;
   var $ = function (id) { return document.getElementById(id); };
   var mapEl = $("map"), tip = $("tip");
   var mq = window.matchMedia('(min-width: 768px)');
@@ -407,7 +406,6 @@
         if (!hit) gaps.push(a + " · " + bands[k]);
       });
     });
-    $("sGaps").textContent = gaps.length;
     $("gaps").innerHTML = gaps.length ? gaps.map(function (g) { return '<span class="chip">' + esc(g) + '</span>'; }).join("") : '<p class="empty">Every community on the map is reached.</p>';
 
     $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
