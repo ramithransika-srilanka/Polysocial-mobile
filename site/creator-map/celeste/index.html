@@ -117,7 +117,7 @@
   .cell { aspect-ratio: 1; border-radius: 26%; background: var(--cell); position: relative; transition: background 0.25s ease; }
   .cell.alt { background: var(--cell2); }
   .cell.creator { background: var(--core) !important; cursor: pointer; }
-  .cell.creator .av { position: absolute; top: 18%; left: 18%; width: 64%; height: 64%; border-radius: 50%; font-size: 8px; box-shadow: 0 0 0 2px #FFFFFF; }
+  .cell.creator::after { content: ""; position: absolute; inset: 34%; border-radius: 50%; background: #FFFFFF; }
 
   /* Creator profile picture (initials when there is no photo). */
   .av { display: block; flex: none; width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--band); }
@@ -537,7 +537,7 @@
       var cls = "cell" + ((band + ab) % 2 ? " alt" : ""), bg = "", h = heat[i];
       if (owner[i]) cls += " creator" + (selected === owner[i].id ? " sel" : "");
       else if (h > 0) bg = h >= 2.6 ? "var(--h3)" : h >= 1.5 ? "var(--h2)" : h >= 0.8 ? "var(--h1)" : "var(--h0)";
-      html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' + avatar(owner[i]) : '>') + '</div>';
+      html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' : '>') + '</div>';
     }
     OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
     html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:4px">Audience age</div>';
