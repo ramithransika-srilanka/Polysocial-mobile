@@ -30,55 +30,17 @@
   button, select, input { font-family: inherit; }
   @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-  /* ================= NAV (same as the rest of the site) ================= */
+  /* ================= NAV: Polysocial wordmark only ================= */
   #siteNav {
     position: sticky; top: 0; z-index: 100002;
-    display: flex; align-items: center; justify-content: space-between;
-    min-height: 24px; padding: 14px 20px 12px 25px;
+    display: flex; align-items: center; justify-content: flex-start;
+    min-height: 24px; padding: 14px 20px 12px;
     background: rgba(255,255,255,0.72);
     -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
     animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;
   }
   #siteNav .homeLink { display: block; flex: none; line-height: 0; }
-  #siteNav .homeLink svg { display: block; width: 23px; height: 16px; }
-  #deskNav { display: none; }
-  .navRight { display: flex; align-items: center; gap: 12px; flex: none; }
-  .getAppBtn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
-    padding: 4px 5px 4px 8px; border: 1px solid var(--blue); border-radius: 100px;
-    color: var(--blue); font-weight: 500; font-size: 12px; line-height: normal; white-space: nowrap;
-    transition: transform 0.16s ease-out;
-  }
-  .getAppBtn:active { transform: scale(0.96); }
-  .getAppBtn svg { display: block; flex: none; }
-  #menuBtn {
-    position: relative; z-index: 100002; width: 24px; height: 24px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-    background: none; border: none; padding: 0; cursor: pointer;
-  }
-  .mbar { display: block; width: 16px; height: 0; border-top: 2px solid #000000; border-radius: 2px; transition: transform 0.32s cubic-bezier(0.4,0,0.2,1); }
-  #menuBtn.open .mbar1 { transform: translateY(3px) rotate(45deg); }
-  #menuBtn.open .mbar2 { transform: translateY(-3px) rotate(-45deg); }
-  #menuOverlay {
-    position: fixed; inset: 0; z-index: 100001;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.62);
-    -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%);
-    opacity: 0; visibility: hidden; transition: opacity 0.34s ease, visibility 0.34s ease;
-  }
-  #menuOverlay.open { opacity: 1; visibility: visible; }
-  #menuOverlay nav { display: flex; flex-direction: column; align-items: center; gap: 26px; }
-  .menuLink {
-    color: var(--ink); font-weight: 600; font-size: 20px; line-height: 1; letter-spacing: -0.01em;
-    opacity: 0; transform: translateY(10px);
-    transition: opacity 0.34s ease-out, transform 0.4s cubic-bezier(0.22,1,0.36,1), color 0.15s ease;
-  }
-  #menuOverlay.open .menuLink { opacity: 1; transform: none; }
-  #menuOverlay.open .menuLink:nth-child(2) { transition-delay: 0.05s; }
-  #menuOverlay.open .menuLink:nth-child(3) { transition-delay: 0.10s; }
-  #menuOverlay.open .menuLink:nth-child(4) { transition-delay: 0.15s; }
-  #menuOverlay.open .menuLink:nth-child(5) { transition-delay: 0.20s; }
-  .menuLink:hover { color: var(--blue-hover); }
+  #siteNav .homeLink img { display: block; width: auto; height: 22px; filter: brightness(0); }
 
   /* ================= STATS ================= */
   .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 24px var(--edge) 0; margin-bottom: 24px; }
@@ -176,14 +138,8 @@
   /* ================= DESKTOP ================= */
   @media (min-width: 768px) {
     :root { --edge: max(40px, calc((100% - 1200px) / 2)); }
-    #siteNav { padding: 14px var(--edge) 12px var(--edge); justify-content: center; gap: 32px; }
-    #siteNav .homeLink svg { width: 24px; height: 16.8px; }
-    #siteNav .getAppBtn { font-size: 14px; padding: 6px 8px 6px 12px; gap: 6px; }
-    #siteNav .getAppBtn svg { width: 18px; height: 18px; }
-    #menuBtn { display: none; }
-    #deskNav { display: flex; align-items: center; gap: 32px; white-space: nowrap; }
-    #deskNav a { color: var(--ink); font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: -0.01em; transition: color 0.15s ease; }
-    #deskNav a:hover { color: var(--blue-hover); }
+    #siteNav { padding: 18px var(--edge) 14px; }
+    #siteNav .homeLink img { height: 26px; }
 
     .cmStats { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; padding-top: 48px; margin-bottom: 28px; }
     .cmStat { padding: 20px; border-radius: 20px; }
@@ -206,7 +162,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     #siteNav { animation: none; }
-    .cell, .menuLink, #menuOverlay { transition: none; }
+    .cell { transition: none; }
   }
 </style>
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -219,36 +175,9 @@
 
   <header id="siteNav">
     <a class="homeLink" href="/" aria-label="Polysocial home">
-      <svg width="23" height="16" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path>
-        <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
-      </svg>
+      <img src="/assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" width="131" height="24" decoding="async">
     </a>
-    <nav id="deskNav" aria-label="Primary">
-      <a href="/creators">Creators</a>
-      <a href="/brands">Brands</a>
-      <a href="/partner">Partner</a>
-      <a href="/pricing">Pricing</a>
-      <a href="/about">Our Story</a>
-    </nav>
-    <div class="navRight">
-      <a class="getAppBtn" href="https://creator.app.polysocial.cc/">Get App<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#1745E7"></circle><path d="M8 4.67V11.33M5.33 8.67L8 11.33L10.67 8.67" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-      <button id="menuBtn" aria-label="Menu" aria-expanded="false">
-        <span class="mbar mbar1"></span>
-        <span class="mbar mbar2"></span>
-      </button>
-    </div>
   </header>
-
-  <div id="menuOverlay" aria-hidden="true">
-    <nav>
-      <a class="menuLink" href="/creators">For Creators</a>
-      <a class="menuLink" href="/brands">For Brands</a>
-      <a class="menuLink" href="/partner">Partner</a>
-      <a class="menuLink" href="/pricing">Pricing</a>
-      <a class="menuLink" href="/about">Our Story</a>
-    </nav>
-  </div>
 
   <main>
 
@@ -313,14 +242,6 @@
 
 <script src="/creator-map/celeste/data.js"></script>
 <script>
-(function () {
-  var btn = document.getElementById('menuBtn'), ov = document.getElementById('menuOverlay');
-  function setOpen(o) { btn.classList.toggle('open', o); ov.classList.toggle('open', o); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); ov.setAttribute('aria-hidden', o ? 'false' : 'true'); }
-  btn.addEventListener('click', function () { setOpen(!ov.classList.contains('open')); });
-  ov.addEventListener('click', function (e) { if (e.target === ov || e.target.classList.contains('menuLink')) setOpen(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
-})();
-
 (function () {
   var OPT = {
     niche: ["Home cooking","Baking and desserts","Parenting and family","Student life","Colombo lifestyle","Fitness and health","Food reviews","Home and cleaning","Comedy and skits"],
