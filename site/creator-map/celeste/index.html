@@ -342,7 +342,21 @@
   var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
 
   var axis = "lifestyle", selected = null;
-  var AGE_W = 6, COLS = AGE_W * OPT.age.length, ROWS = 12;
+  var AGE_W = 6, COLS = AGE_W * OPT.age.length, ROWS = 12, SCALE = 1;
+
+  // The grid gets finer (2x, 3x, ...) once any age x band block is more than
+  // 40% full, so creators never run out of room. Reach spreads scale with it.
+  function sizeGrid(list) {
+    var counts = {}, most = 0;
+    list.forEach(function (c) {
+      var k = Math.max(0, OPT.age.indexOf(c.age)) + "|" + Math.max(0, yBands().indexOf(c[axis]));
+      counts[k] = (counts[k] || 0) + 1; most = Math.max(most, counts[k]);
+    });
+    var perBand = 12 / yBands().length;
+    for (SCALE = 1; SCALE < 6 && most > 0.4 * (6 * SCALE) * (perBand * SCALE); SCALE++) {}
+    AGE_W = 6 * SCALE; COLS = AGE_W * OPT.age.length; ROWS = 12 * SCALE;
+    mapEl.style.gap = SCALE > 1 ? (SCALE > 2 ? "1px" : "2px") : "";
+  }
   var $ = function (id) { return document.getElementById(id); };
   var mapEl = $("map"), tip = $("tip");
   var mq = window.matchMedia('(min-width: 768px)');
@@ -501,11 +515,12 @@
 
   function render() {
     var list = visible();
+    sizeGrid(list);
     place(list);
     var N = COLS * ROWS, heat = new Array(N).fill(0), who = [], owner = {};
     for (var k = 0; k < N; k++) who.push([]);
     list.forEach(function (c) {
-      var r = tierOf(c.followers).r;
+      var r = tierOf(c.followers).r * SCALE;
       owner[c._y * COLS + c._x] = c;
       for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
         var d = Math.hypot(x - c._x, y - c._y);
