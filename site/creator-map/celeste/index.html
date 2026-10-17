@@ -135,6 +135,8 @@
   .profile .t { margin: 2px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
   .profile .x { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
   .profile .comm { margin: 12px 0; font-weight: 500; font-size: 14px; line-height: 1.4; }
+  .ptags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .ptag { font-size: 12px; font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: 100px; background: #FFFFFF; color: var(--ink); }
   .profile dl { display: grid; grid-template-columns: 90px minmax(0,1fr); gap: 5px 10px; margin: 0; font-size: 12px; }
   .profile dt { color: var(--muted); font-weight: 500; }
   .profile dd { margin: 0; font-weight: 500; }
@@ -236,7 +238,6 @@
 
     <section class="cmTags" aria-label="Tag filters">
       <p class="tagHint">Select one or more tags in each row to combine them.</p>
-      <div class="tagRow"><span class="tagLabel">Niche</span><div class="tags" id="tNiche" role="group" aria-label="Niche"></div></div>
       <div class="tagRow"><span class="tagLabel">Persona</span><div class="tags" id="tPersona" role="group" aria-label="Persona"></div></div>
       <div class="tagRow"><span class="tagLabel">Tier</span><div class="tags" id="tTier" role="group" aria-label="Tier"></div></div>
     </section>
@@ -285,7 +286,6 @@
 <script>
 (function () {
   var OPT = {
-    niche: ["Home cooking","Baking and desserts","Parenting and family","Student life","Colombo lifestyle","Fitness and health","Food reviews","Home and cleaning","Comedy and skits"],
     persona: ["Educator","Entertainer","Documenter","Reviewer","Aspirational"],
     language: ["Sinhala","Tamil","English","Singlish","Mixed"],
     age: ["18–24","25–34","35–44","45+"],
@@ -319,7 +319,7 @@
   fillSelect($("fLang"), OPT.language, "Language");
 
   // Tag rows: pick any number of tags per row; none picked means all.
-  var picked = { niche: [], persona: [], tier: [] }, gender = { women: true, men: true };
+  var picked = { persona: [], tier: [] }, gender = { women: true, men: true };
   function fillTags(el, key, items) {
     el.innerHTML = '<button type="button" class="tag on" data-v="">All</button>' + items.map(function (v) {
       return '<button type="button" class="tag" data-v="' + esc(v) + '" aria-pressed="false">' + esc(v) + '</button>';
@@ -339,17 +339,19 @@
       };
     });
   }
-  fillTags($("tNiche"), "niche", OPT.niche);
   fillTags($("tPersona"), "persona", OPT.persona);
   fillTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }));
 
   function yBands() { return OPT[axis]; }
   function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
 
+  function personasOf(c) { return c.personas || (c.persona ? [c.persona] : []); }
+
+  // A creator matches the persona row if they carry any of the picked tags.
   function visible() {
-    var n = picked.niche, p = picked.persona, t = picked.tier, l = $("fLang").value;
+    var p = picked.persona, t = picked.tier, l = $("fLang").value;
     return creators.filter(function (c) {
-      return (!n.length || n.indexOf(c.niche) !== -1) && (!p.length || p.indexOf(c.persona) !== -1) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
+      return (!p.length || personasOf(c).some(function (v) { return p.indexOf(v) !== -1; })) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
         && (!l || c.language === l)
         && (gender.women && gender.men || (gender.women ? c.gender !== "Mostly men" : c.gender !== "Mostly women"));
     });
@@ -418,7 +420,7 @@
       var band = bands[rows.findIndex(function (rr) { return y >= rr[0] && y < rr[1]; })], age = OPT.age[Math.floor(x / AGE_W)];
       var o = owner[i];
       tip.innerHTML = o
-        ? '<b>' + esc(o.handle) + '</b><br>' + esc(o.niche) + ' &times; ' + esc(o.persona) + ' &middot; ' + tierOf(o.followers).name + '<br>' + Number(o.followers).toLocaleString() + ' followers'
+        ? '<b>' + esc(o.handle) + '</b><br>' + esc(personasOf(o).join(", ")) + ' &middot; ' + tierOf(o.followers).name + '<br>' + Number(o.followers).toLocaleString() + ' followers'
         : '<b>' + age + ' &middot; ' + esc(band) + '</b><br>' + (who[i].length ? 'Reached by ' + who[i].length + ' creator' + (who[i].length > 1 ? 's' : '') + ': ' + who[i].map(function (c) { return esc(c.handle); }).join(", ") : 'Not reached by any creator yet');
       tip.style.opacity = 1;
       var box = mapEl.parentElement.getBoundingClientRect();
@@ -461,7 +463,7 @@
     $("gaps").innerHTML = gaps.length ? gaps.map(function (g) { return '<span class="chip">' + esc(g) + '</span>'; }).join("") : '<p class="empty">Every community on the map is reached.</p>';
 
     $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
-      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(c.handle) + '</span><small>' + esc(c.niche) + ' &middot; ' + esc(c.platform) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + Number(c.followers).toLocaleString() + '</small></span></button>';
+      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(c.handle) + '</span><small>' + esc(personasOf(c).join(", ")) + ' &middot; ' + esc(c.platform) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + Number(c.followers).toLocaleString() + '</small></span></button>';
     }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
     $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
 
@@ -469,8 +471,8 @@
     $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(s.handle) + '</p><p class="t">' + esc(s.platform) + ' &middot; ' + Number(s.followers).toLocaleString() + ' followers &middot; ' + tierOf(s.followers).name + '</p></div>'
       + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
       + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
+      + '<div class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</div>'
       + '<dl>'
-      + '<dt>Archetype</dt><dd>' + esc(s.niche) + ' &times; ' + esc(s.persona) + '</dd>'
       + '<dt>Age band</dt><dd>' + esc(s.age) + '</dd>'
       + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
       + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
