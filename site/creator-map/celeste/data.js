@@ -7,7 +7,7 @@
  *
  * `name` is what the page shows; `handle` is kept for reference only.
  *
- * `cost` is what the creator charges per piece of content, in Rs.
+ * `cost` is what the creator charges for one Instagram reel, in Rs.
  *
  * `personas` and `styles` (content creation style) are lists: a creator can
  * carry several tags in each.
@@ -26,7 +26,7 @@ window.CREATOR_MAP = {
       photo: "avatars/radeesha-de-silva.webp",
       platform: "Instagram",
       followers: 52000,
-      cost: null,
+      cost: 45000,
       personas: ["Fitness coach", "Food critic", "Restaurant reviewer", "Mukbang reviewer"],
       styles: null,
       community: "Young Sri Lankans in Colombo interested in gym routines, affordable food finds and relatable lifestyle content",
@@ -42,7 +42,7 @@ window.CREATOR_MAP = {
       photo: "avatars/vindula-kolambage.webp",
       platform: "Instagram",
       followers: 25000,
-      cost: null,
+      cost: 55000,
       personas: ["Consumer UGC creator", "Travel Influencer", "Lifestyle UGC creator"],
       styles: null,
       community: "Young professionals and aspiring creators in Colombo interested in branding, digital marketing and lifestyle content",

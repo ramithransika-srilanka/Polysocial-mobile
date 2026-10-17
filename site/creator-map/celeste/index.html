@@ -282,8 +282,8 @@
       </div>
 
       <div class="cmCard">
-        <h2>Cost per content</h2>
-        <p class="cmSub">The range of what creators charge per piece of content, in Rs., from highest to lowest.</p>
+        <h2>Cost per reel</h2>
+        <p class="cmSub">What each creator charges for one Instagram reel, in Rs., from highest to lowest.</p>
         <div class="cost" id="cost"></div>
         <div class="tip" id="ctip"></div>
       </div>
@@ -492,14 +492,14 @@
       + '</svg>';
     // One invisible full-height hit column per creator: easier to hover than the dot.
     plot.innerHTML = svg + '<div class="costHits">' + rows.map(function (c) {
-      return '<button type="button" class="ch" data-id="' + c.id + '" aria-label="' + esc(nameOf(c)) + ', ' + fmtRs(c.cost) + ' per content"></button>';
+      return '<button type="button" class="ch" data-id="' + c.id + '" aria-label="' + esc(nameOf(c)) + ', ' + fmtRs(c.cost) + ' per reel"></button>';
     }).join("") + '</div>';
 
     plot.querySelectorAll(".ch").forEach(function (b) {
       var c = rows.find(function (r) { return r.id === b.dataset.id; });
       b.onclick = function () { select(c.id); };
       b.onmousemove = function (e) {
-        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per content<br>' + dots([c.platform, fmtK(c.followers) + ' followers', tierOf(c.followers).name]);
+        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per reel<br>' + dots([c.platform, fmtK(c.followers) + ' followers', tierOf(c.followers).name]);
         tipEl.style.opacity = 1;
         var box = el.parentElement.getBoundingClientRect();
         var left = e.clientX - box.left + 14, topPx = e.clientY - box.top + 14;
