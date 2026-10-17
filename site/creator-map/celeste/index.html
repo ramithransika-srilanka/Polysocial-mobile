@@ -111,7 +111,7 @@
   .costX { grid-column: 2; display: flex; padding-top: 6px; }
   .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .costX span.on { color: var(--blue); }
-  .costAxis { grid-column: 2; padding-top: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .costAxis { grid-column: 2; padding-top: 6px; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
@@ -127,7 +127,7 @@
   .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
   .ylab { font-size: 10px; font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
   .xlab { font-size: 10px; font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
-  .axis { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .axis { font-size: 12px; font-weight: 600; color: var(--ink); }
   .tip {
     position: absolute; pointer-events: none; z-index: 5;
     background: var(--ink); color: #FFFFFF; font-size: 12px; line-height: 1.4;
@@ -204,7 +204,7 @@
     .cmCard { padding: 24px; border-radius: 28px; }
     .map { gap: 4px; }
     .ylab, .xlab { font-size: 13px; }
-    .axis { font-size: 11px; }
+    .axis { font-size: 13px; }
     .ylab { padding-right: 8px; }
 
     #siteFooter { padding: 72px var(--edge) 52px; }
@@ -552,7 +552,7 @@
       html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' : '>') + '</div>';
     }
     OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
-    html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:4px">Audience age</div>';
+    html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:8px">Audience age</div>';
     html += '<div class="axis" style="grid-column:1;grid-row:' + (ROWS + 1) + ';text-align:right;padding-right:6px;padding-top:6px">' + (axis === "lifestyle" ? "Lifestyle" : "Location") + ' &uarr;</div>';
     mapEl.innerHTML = html;
 
