@@ -70,7 +70,7 @@
   .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
   .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: 12px; }
   .tagRow { display: flex; align-items: flex-start; gap: 12px; }
-  .tagLabel { flex: none; width: 64px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: 12px; }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
     border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); cursor: pointer;
@@ -264,6 +264,7 @@
     <section class="cmTags" aria-label="Tag filters">
       <p class="tagHint">Select one or more tags in each row to combine them.</p>
       <div class="tagRow"><span class="tagLabel">Persona</span><div class="tags" id="tPersona" role="group" aria-label="Persona"></div></div>
+      <div class="tagRow"><span class="tagLabel">Content creation style</span><div class="tags" id="tStyle" role="group" aria-label="Content creation style"></div></div>
       <div class="tagRow"><span class="tagLabel">Tier</span><div class="tags" id="tTier" role="group" aria-label="Tier"></div></div>
     </section>
 
@@ -319,6 +320,7 @@
 (function () {
   var OPT = {
     persona: ["Momfluencer","Dadfluencer","Social runner","Lifestyle runner","Petfluencer","Fitness coach","Medfluencer","Homecook","Recipe creator","Baker","Food critic","Restaurant reviewer","Mukbang reviewer","Travel Influencer","Luxury Lifestyle","Entrepreneur","Career coach"],
+    style: ["Mukbang reviewer","Connected with real life experiences","Product reviewer"],
     platform: ["Instagram"],
     language: ["Sinhala","Tamil","English","Singlish","Mixed"],
     age: ["18–24","25–34","35–44","45+"],
@@ -354,7 +356,7 @@
   fillSelect($("fLang"), OPT.language, "Language");
 
   // Tag rows: pick any number of tags per row; none picked means all.
-  var picked = { persona: [], tier: [] }, gender = { women: true, men: true };
+  var picked = { persona: [], style: [], tier: [] }, gender = { women: true, men: true };
   function fillTags(el, key, items) {
     el.innerHTML = '<button type="button" class="tag on" data-v="">All</button>' + items.map(function (v) {
       return '<button type="button" class="tag" data-v="' + esc(v) + '" aria-pressed="false">' + esc(v) + '</button>';
@@ -375,6 +377,7 @@
     });
   }
   fillTags($("tPersona"), "persona", OPT.persona);
+  fillTags($("tStyle"), "style", OPT.style);
   fillTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }));
 
   function yBands() { return OPT[axis]; }
@@ -382,11 +385,14 @@
 
   function personasOf(c) { return c.personas || (c.persona ? [c.persona] : []); }
 
-  // A creator matches the persona row if they carry any of the picked tags.
+  function stylesOf(c) { return c.styles || []; }
+  function anyOf(have, want) { return !want.length || have.some(function (v) { return want.indexOf(v) !== -1; }); }
+
+  // A creator matches a tag row if they carry any of the picked tags.
   function visible() {
-    var p = picked.persona, t = picked.tier, l = $("fLang").value, pf = $("fPlatform").value;
+    var st = picked.style, p = picked.persona, t = picked.tier, l = $("fLang").value, pf = $("fPlatform").value;
     return creators.filter(function (c) {
-      return (!p.length || personasOf(c).some(function (v) { return p.indexOf(v) !== -1; })) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
+      return anyOf(personasOf(c), p) && anyOf(stylesOf(c), st) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
         && (!l || c.language === l) && (!pf || c.platform === pf)
         && (gender.women && gender.men || (gender.women ? c.gender !== "Mostly men" : c.gender !== "Mostly women"));
     });
@@ -583,6 +589,7 @@
       + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
       + '<dl>'
       + '<dt>Personas</dt><dd class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>'
+      + (stylesOf(s).length ? '<dt>Content style</dt><dd class="ptags">' + stylesOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>' : '')
       + '<dt>Audience age</dt><dd>' + esc(s.age) + '</dd>'
       + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
       + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'

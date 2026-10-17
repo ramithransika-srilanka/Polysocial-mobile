@@ -9,7 +9,8 @@
  *
  * `cost` is what the creator charges per piece of content, in Rs.
  *
- * `personas` is a list: a creator can carry several persona tags.
+ * `personas` and `styles` (content creation style) are lists: a creator can
+ * carry several tags in each.
  *
  * Each value in age / gender / location / lifestyle / personas / language /
  * tone must match one of the options listed in index.html (OPT), otherwise
@@ -27,6 +28,7 @@ window.CREATOR_MAP = {
       followers: 52000,
       cost: null,
       personas: ["Fitness coach", "Food critic", "Restaurant reviewer", "Mukbang reviewer"],
+      styles: null,
       community: "Young Sri Lankans in Colombo interested in gym routines, affordable food finds and relatable lifestyle content",
       age: "25–34",
       lifestyle: "Middle-income",
