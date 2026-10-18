@@ -12,6 +12,8 @@
  * `personas` and `styles` (content creation style) are lists: a creator can
  * carry several tags in each.
  *
+ * `age` is one band (e.g. 25–34) or a range across bands (e.g. 25–44).
+ *
  * Each value in age / gender / location / lifestyle / personas / language /
  * tone must match one of the options listed in index.html (OPT), otherwise
  * the creator is placed in the first band.
@@ -51,6 +53,22 @@ window.CREATOR_MAP = {
       location: "Colombo suburbs",
       gender: "Mixed",
       language: "Singlish"
+    },
+    {
+      name: "Imasha Peiris",
+      handle: null,
+      photo: "avatars/imasha-peiris.webp",
+      platform: "Instagram",
+      followers: 23000,
+      cost: 40000,
+      personas: ["Momfluencer", "Consumer UGC creator", "Medfluencer"],
+      styles: null,
+      community: "Young mothers in Colombo navigating toddler care, breastfeeding, and balancing motherhood with work",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
