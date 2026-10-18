@@ -102,6 +102,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Kyle",
+      handle: "_kyloooo_",
+      photo: null,
+      platform: "Instagram",
+      followers: 5100,
+      cost: 10000,
+      personas: ["Social runner", "Lifestyle runner"],
+      styles: null,
+      community: "Young runners in Colombo interested in community runs, run clubs and run-rave culture",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
     }
   ]
 };
