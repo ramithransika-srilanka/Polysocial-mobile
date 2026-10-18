@@ -192,6 +192,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Nivini Balachandra",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 7800,
+      cost: null,
+      personas: ["Gymfluencer", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in fashion entrepreneurship, nightlife and fitness",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
