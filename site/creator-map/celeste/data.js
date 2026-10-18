@@ -118,6 +118,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly men",
       language: "English"
+    },
+    {
+      name: "Belinda Seneviratne",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 13000,
+      cost: null,
+      personas: ["Lifestyle runner", "Social runner", "Travel Influencer"],
+      styles: null,
+      community: "Young women in Colombo interested in walking, running, hiking and sustainable active lifestyle",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
