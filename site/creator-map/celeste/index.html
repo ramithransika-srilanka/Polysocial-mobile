@@ -532,13 +532,15 @@
   function yBands() { return OPT[axis]; }
   function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
 
-  // Cost range: the slider runs from 0 to the top creator cost, rounded up.
-  // While it spans the whole range, creators with no cost listed stay in.
+  // Cost range: the slider runs from 0 to the top cost among the creators
+  // still shown (not hidden by a tier or eye), rounded up. While it spans the
+  // whole range, creators with no cost listed stay in.
   var COST_STEP = 5000;
-  var COST_MAX = Math.max(COST_STEP, Math.ceil(Math.max.apply(null, [0].concat(creators.map(function (c) { return Number(c.cost) || 0; }))) / COST_STEP) * COST_STEP);
-  var budget = { lo: 0, hi: COST_MAX };
+  function costCeil(list) { return Math.max(COST_STEP, Math.ceil(Math.max.apply(null, [0].concat(list.map(function (c) { return Number(c.cost) || 0; }))) / COST_STEP) * COST_STEP); }
+  var costMax = costCeil(creators);
+  var budget = { lo: 0, hi: costMax };
   function inBudget(c) {
-    if (budget.lo === 0 && budget.hi === COST_MAX) return true;
+    if (budget.lo === 0 && budget.hi === costMax) return true;
     return c.cost > 0 && c.cost >= budget.lo && c.cost <= budget.hi;
   }
 
@@ -863,7 +865,9 @@
 
   function render() {
     var all = visible();
-    var list = all.filter(function (c) { return !hiddenWhy(c); });
+    var shown = all.filter(function (c) { return !hiddenTiers[tierOf(c.followers).name] && !hiddenIds[c.id]; });
+    setCostMax(costCeil(shown));
+    var list = shown.filter(inBudget);
     sizeGrid(list);
     place(list);
     var N = COLS * ROWS, heat = new Array(N).fill(0), who = [], owner = {};
@@ -922,7 +926,7 @@
 
     renderCost(list);
     renderPlan(all, list);
-    var inRange = all.filter(inBudget).length;
+    var inRange = list.length;
     $("budgetCount").textContent = inRange + (inRange === 1 ? " creator" : " creators") + " in range";
 
     var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
@@ -1021,27 +1025,32 @@
       render();
     };
   });
+  // Rescale the cost slider when hiding or showing creators changes the top
+  // cost. A high thumb at the top end follows it; the range is clamped to fit.
+  function setCostMax(max) {
+    var lo = $("budgetLo"), hi = $("budgetHi");
+    if (budget.hi === costMax || budget.hi > max) budget.hi = max;
+    budget.lo = Math.min(budget.lo, budget.hi);
+    costMax = max;
+    [lo, hi].forEach(function (el) { el.min = 0; el.max = costMax; el.step = COST_STEP; });
+    lo.value = budget.lo; hi.value = budget.hi;
+    $("budgetMin").textContent = "Rs. 0"; $("budgetMax").textContent = "Rs. " + fmtK(costMax);
+    $("budgetVal").textContent = fmtRs(budget.lo) + " – " + fmtRs(budget.hi);
+    // Thumb centres sit 9px in from each end of the track.
+    $("budgetFill").style.left = "calc(9px + (100% - 18px) * " + (budget.lo / costMax) + ")";
+    $("budgetFill").style.right = "calc(9px + (100% - 18px) * " + (1 - budget.hi / costMax) + ")";
+    // Keep the low thumb reachable when both sit at the top end.
+    lo.style.zIndex = budget.lo >= costMax - COST_STEP ? 2 : "";
+  }
   (function () {
     var lo = $("budgetLo"), hi = $("budgetHi");
-    [lo, hi].forEach(function (el) { el.min = 0; el.max = COST_MAX; el.step = COST_STEP; });
-    lo.value = 0; hi.value = COST_MAX;
-    $("budgetMin").textContent = "Rs. 0"; $("budgetMax").textContent = "Rs. " + fmtK(COST_MAX);
-    function paint() {
-      $("budgetVal").textContent = fmtRs(budget.lo) + " – " + fmtRs(budget.hi);
-      // Thumb centres sit 9px in from each end of the track.
-      $("budgetFill").style.left = "calc(9px + (100% - 18px) * " + (budget.lo / COST_MAX) + ")";
-      $("budgetFill").style.right = "calc(9px + (100% - 18px) * " + (1 - budget.hi / COST_MAX) + ")";
-      // Keep the low thumb reachable when both sit at the top end.
-      lo.style.zIndex = budget.lo >= COST_MAX - COST_STEP ? 2 : "";
-    }
     function onInput(e) {
       var a = +lo.value, b = +hi.value;
       if (a > b) { if (e.target === lo) lo.value = a = b; else hi.value = b = a; }
       budget.lo = a; budget.hi = b;
-      paint(); render();
+      render();
     }
     lo.oninput = hi.oninput = onInput;
-    paint();
   })();
   $("fLang").onchange = render;
   $("fPlatform").onchange = render;
