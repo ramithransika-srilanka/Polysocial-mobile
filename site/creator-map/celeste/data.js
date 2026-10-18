@@ -175,10 +175,10 @@ window.CREATOR_MAP = {
     {
       name: "Yasasi",
       handle: null,
-      photo: null,
+      photo: "avatars/yasasi.webp",
       platform: "Instagram",
       followers: 38000,
-      cost: null,
+      cost: 80000,
       personas: ["Fitness coach", "Entrepreneur", "Social runner"],
       styles: null,
       community: "Young women in Colombo interested in motorsport, fitness and active lifestyle",
