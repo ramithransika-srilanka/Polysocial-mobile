@@ -196,7 +196,8 @@
   .ig:hover { color: var(--blue); text-decoration: underline; }
 
   /* ================= SEND YOUR PLAN ================= */
-  .plan { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; }
+  .plan { display: grid; grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .planSend { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
   .planSnap { background: var(--band); border-radius: 20px; padding: 20px; }
   .planSnap h3 { margin: 0 0 14px; font-weight: 600; font-size: var(--fs-body); }
   .planNums { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
@@ -208,14 +209,6 @@
   .planSnap dl { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 6px 12px; margin: 16px 0 0; font-size: var(--fs-meta); }
   .planSnap dt { color: var(--muted); font-weight: 500; }
   .planSnap dd { margin: 0; font-weight: 500; }
-  .planForm { display: flex; flex-direction: column; gap: 10px; }
-  .planForm label { display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-meta); font-weight: 600; color: var(--ink); }
-  .planForm label small { margin-left: 4px; font-weight: 500; color: var(--muted); }
-  .planInput { width: 100%; border: 0; outline: none; background: var(--band); color: var(--ink); font: inherit; font-weight: 500; font-size: var(--fs-body); line-height: 1.3; border-radius: 14px; padding: 14px 16px; transition: box-shadow 0.15s ease, background 0.15s ease; }
-  .planInput::placeholder { color: #8A8A8A; }
-  .planInput:focus { background: var(--cell2); box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
-  .planInput.invalid { box-shadow: 0 0 0 2px rgba(224,38,30,0.55); }
-  textarea.planInput { resize: vertical; min-height: 88px; }
   .planErr { margin: 0; color: #E0261E; font-size: var(--fs-meta); font-weight: 500; }
   .btnPrimary { border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
   .btnPrimary:hover { background: #2b4dff; }
@@ -224,7 +217,6 @@
   .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 14px 22px; }
   .btnGhost:hover { background: var(--band); }
   .btnPrimary:focus-visible, .btnGhost:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-  .planForm .btnPrimary { margin-top: 6px; }
   .planFine { margin: 0; color: var(--muted); font-size: var(--fs-meta); font-style: italic; }
 
   /* Confirm / result pop-up */
@@ -308,8 +300,8 @@
     .cmStat b { font-size: var(--fs-stat); }
     .cmStat span { font-size: var(--fs-sub); }
     .cmLayout { gap: 56px; }
-    .plan { grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: 32px; align-items: start; }
     .planSnap { padding: 24px; }
+    .planSnap dl { grid-template-columns: 120px minmax(0,1fr) 120px minmax(0,1fr); }
     .map { gap: 4px; }
     .ylab { padding-right: 8px; }
 
@@ -420,19 +412,13 @@
 
       <section class="cmCard" aria-labelledby="planTitle">
         <h2 id="planTitle">Send us your creator plan</h2>
-        <p class="cmSub">Happy with the mix? Adjust the filters, cost range and eyes above until the map shows the creators you want, then send us a snapshot. Our team will check each creator's availability and come back to you with a campaign quote.</p>
+        <p class="cmSub">Happy with the mix? Adjust the filters, cost range and eyes above until the map shows the creators you want, then send us a snapshot. Our team will check each creator's availability and put together a campaign quote.</p>
         <div class="plan">
           <div class="planSnap" id="planSnap" aria-live="polite"></div>
-          <form class="planForm" id="planForm" novalidate>
-            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-            <label>Your name<input class="planInput" type="text" name="name" autocomplete="name" maxlength="80" placeholder="e.g. Nimali Fernando" required></label>
-            <label>Work email<input class="planInput" type="email" name="email" autocomplete="email" inputmode="email" maxlength="120" placeholder="you@brand.com" required></label>
-            <label><span>Brand or company <small>Optional</small></span><input class="planInput" type="text" name="brand" autocomplete="organization" maxlength="80" value="Celeste Daily"></label>
-            <label><span>Anything we should know? <small>Optional</small></span><textarea class="planInput" name="note" maxlength="600" placeholder="Launch dates, number of reels per creator, budget limits…"></textarea></label>
-            <p class="planErr" id="planErr" hidden></p>
-            <button class="btnPrimary" type="submit" id="planBtn">Review and send plan</button>
+          <div class="planSend">
+            <button class="btnPrimary" type="button" id="planBtn">Send this plan to Polysocial</button>
             <p class="planFine">You'll see exactly what we receive before anything is sent. All costs include the Polysocial fees.</p>
-          </form>
+          </div>
         </div>
       </section>
     </div>
@@ -772,15 +758,12 @@
   }
 
   // Plain-text email body: everything we need to quote the plan.
-  function planText(p, who) {
+  function planText(p) {
     var lines = [
       "Creator plan from the " + (DATA.brand || "Celeste") + " creator map",
       "",
-      "From: " + who.name + " <" + who.email + ">" + (who.brand ? " — " + who.brand : ""),
-      who.note ? "Note: " + who.note : null,
-      "",
       "CREATORS (" + p.creators.length + ")"
-    ].filter(function (l) { return l !== null; });
+    ];
     p.creators.forEach(function (c, k) {
       var h = handleOf(c);
       lines.push((k + 1) + ". " + nameOf(c) + (h ? " (@" + h + ", instagram.com/" + h + ")" : "") + " — " + tierOf(c.followers).name + ", " + fmtK(c.followers) + " followers, " + (c.cost > 0 ? fmtRs(c.cost) + " per reel" : "no cost listed"));
@@ -813,28 +796,22 @@
   }
   planModal.addEventListener("click", function (e) { if (e.target === planModal) closePlanModal(); });
 
-  function planWho() {
-    var f = $("planForm");
-    return { name: f.elements["name"].value.trim(), email: f.elements["email"].value.trim(), brand: f.elements["brand"].value.trim(), note: f.elements["note"].value.trim() };
-  }
-  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
-
-  function confirmHtml(p, who, err) {
+  function confirmHtml(p, err) {
     var shown = p.creators.slice(0, 8);
     return '<h2 id="planModalTitle">Send this creator plan?</h2>'
       + '<p>We\'ll email Polysocial a snapshot of the <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> you have showing, with <b>' + fmt(p.followers) + '</b> combined followers and <b>' + fmtRs(p.cost) + '</b> for one reel from each.</p>'
       + '<ul>' + shown.map(function (c) { return '<li>' + esc(nameOf(c)) + '<span>' + (c.cost > 0 ? 'Rs. ' + fmtK(c.cost) : 'No cost yet') + '</span></li>'; }).join("")
       + (p.creators.length > shown.length ? '<li>and ' + (p.creators.length - shown.length) + ' more</li>' : '') + '</ul>'
-      + '<p>Your filters, cost range and hidden creators are included too. We\'ll reply to <b>' + esc(who.email) + '</b>.</p>'
+      + '<p>Your filters, cost range and hidden creators are included too.</p>'
       + (err ? '<p class="planErr">' + esc(err) + '</p>' : '')
       + '<div class="acts"><button type="button" class="btnGhost" data-act="cancel">Keep editing</button><button type="button" class="btnPrimary" data-act="send">Yes, send plan</button></div>';
   }
-  function wireModal(p, who) {
+  function wireModal(p) {
     planDialog.querySelector('[data-act="cancel"]').onclick = closePlanModal;
-    planDialog.querySelector('[data-act="send"]').onclick = function () { sendPlan(p, who, this); };
+    planDialog.querySelector('[data-act="send"]').onclick = function () { sendPlan(p, this); };
   }
 
-  function sendPlan(p, who, btn) {
+  function sendPlan(p, btn) {
     planSending = true;
     btn.disabled = true; btn.textContent = "Sending…";
     planDialog.querySelector('[data-act="cancel"]').disabled = true;
@@ -843,55 +820,37 @@
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify({
         access_key: WEB3FORMS_KEY,
-        subject: "Creator plan — " + (who.brand || DATA.brand || "Celeste") + " — " + p.creators.length + " creators, " + fmtRs(p.cost),
+        subject: "Creator plan — " + (DATA.brand || "Celeste") + " — " + p.creators.length + " creators, " + fmtRs(p.cost),
         from_name: "Polysocial — Creator map",
-        name: who.name, email: who.email, replyto: who.email,
-        brand: who.brand, note: who.note,
         creators: p.creators.map(nameOf).join(", "),
         total_cost: fmtRs(p.cost),
-        message: planText(p, who),
-        botcheck: $("planForm").elements["botcheck"].checked
+        message: planText(p)
       })
     })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (data) {
         planSending = false;
         if (data && data.success) {
-          openPlanModal('<h2 id="planModalTitle">Plan sent</h2><p>Thanks, ' + esc(who.name.split(" ")[0]) + '. We\'ve got your plan of <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> and will get back to you at <b>' + esc(who.email) + '</b> with availability and a quote.</p><div class="acts"><button type="button" class="btnPrimary" data-act="done">Done</button></div>');
+          openPlanModal('<h2 id="planModalTitle">Plan sent</h2><p>Thanks! We\'ve received your plan of <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b>. Our team will check each creator's availability and be in touch with a quote.</p><div class="acts"><button type="button" class="btnPrimary" data-act="done">Done</button></div>');
           planDialog.querySelector('[data-act="done"]').onclick = closePlanModal;
-          $("planForm").elements["note"].value = "";
         } else {
-          openPlanModal(confirmHtml(p, who, (data && data.message) || "Something went wrong. Please try again."));
-          wireModal(p, who);
+          openPlanModal(confirmHtml(p, (data && data.message) || "Something went wrong. Please try again."));
+          wireModal(p);
         }
       })
       .catch(function () {
         planSending = false;
-        openPlanModal(confirmHtml(p, who, "Network error. Check your connection and try again."));
-        wireModal(p, who);
+        openPlanModal(confirmHtml(p, "Network error. Check your connection and try again."));
+        wireModal(p);
       });
   }
 
-  $("planForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var f = this, who = planWho(), err = $("planErr");
-    f.elements["name"].classList.toggle("invalid", !who.name);
-    f.elements["email"].classList.toggle("invalid", !validEmail(who.email));
-    if (!who.name || !validEmail(who.email)) {
-      err.textContent = !who.name ? "Please add your name." : "Please add a valid email so we can reply.";
-      err.hidden = false;
-      (!who.name ? f.elements["name"] : f.elements["email"]).focus();
-      return;
-    }
-    err.hidden = true;
+  $("planBtn").onclick = function () {
     if (!plan || !plan.creators.length) return;
     var p = plan; // freeze the snapshot that is being confirmed
-    openPlanModal(confirmHtml(p, who));
-    wireModal(p, who);
-  });
-  ["name", "email"].forEach(function (n) {
-    $("planForm").elements[n].addEventListener("input", function () { this.classList.remove("invalid"); $("planErr").hidden = true; });
-  });
+    openPlanModal(confirmHtml(p));
+    wireModal(p);
+  };
 
   function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
 
