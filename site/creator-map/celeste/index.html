@@ -137,6 +137,7 @@
   /* Totals for the creators on the chart, between the slider and the plot. */
   /* Same grey boxes as the stat tiles at the top of the page (.cmStat). */
   .costSum { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 28px 0 36px; }
+  .costNote { margin: 20px 0 0; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; font-style: italic; }
   .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
@@ -351,6 +352,7 @@
         </div>
         <div class="costSum" id="costSum"></div>
         <div class="cost" id="cost"></div>
+        <p class="costNote">All costs are inclusive of the Polysocial fees.</p>
         <div class="tip" id="ctip"></div>
       </div>
 
