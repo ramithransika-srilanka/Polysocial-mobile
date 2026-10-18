@@ -147,7 +147,7 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 4000,
       cost: 20000,
-      personas: ["Luxury Lifestyle", "Travel Influencer", "Petfluencer", "Social runner"],
+      personas: ["Consumer UGC creator", "Travel Influencer", "Petfluencer", "Social runner"],
       styles: null,
       community: "Young women in Colombo interested in soft life, self-love, Pilates, girl talk and wellness",
       age: "25–34",
