@@ -88,7 +88,7 @@
   .cmCard h2 { margin: 0 0 12px; font-weight: 600; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
   .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
   .cmCard h3:first-child { margin-top: 0; }
-  .cmSide > div:not(#profile) + div { margin-top: 20px; }
+  .cmSide > div + div { margin-top: 20px; }
   .cmSub { margin: -6px 0 16px; color: var(--muted); font-weight: 500; font-size: 12px; }
 
   /* ================= COST PER CONTENT ================= */
@@ -139,6 +139,7 @@
   .av { display: block; flex: none; width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--band); }
   .av.ini { display: flex; align-items: center; justify-content: center; background: var(--h1); color: var(--ink); font-weight: 600; font-size: 12px; }
   .av.lg { width: 56px; height: 56px; font-size: 18px; }
+  .av.xl { width: 120px; height: 120px; font-size: 36px; }
   .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
   .ylab { font-size: 10px; font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
   .xlab { font-size: 10px; font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
@@ -181,18 +182,37 @@
   .ig { margin-left: 6px; color: var(--muted); font-size: 12px; font-weight: 500; text-decoration: none; letter-spacing: 0; }
   .ig:hover { color: var(--blue); text-decoration: underline; }
 
-  .profile { background: var(--band); border-radius: 18px; padding: 16px; margin-bottom: 20px; }
-  .profile .top { display: flex; align-items: center; gap: 14px; }
-  .profile .who { flex: 1; min-width: 0; }
-  .profile .h { margin: 0; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
-  .profile .t { margin: 2px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
-  .profile .x { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-  .profile .comm { margin: 12px 0; font-weight: 500; font-size: 14px; line-height: 1.4; }
-  .profile dd.ptags { display: flex; flex-wrap: wrap; gap: 4px 0; grid-column: 2 / -1; }
-  .ptag + .ptag::before { content: "\00B7"; margin: 0 6px; color: var(--muted); }
-  .profile dl { display: grid; grid-template-columns: 90px minmax(0,1fr); gap: 5px 10px; margin: 0; font-size: 12px; }
-  .profile dt { color: var(--muted); font-weight: 500; }
-  .profile dd { margin: 0; font-weight: 500; }
+  /* ================= CREATOR PROFILE DRAWER ================= */
+  .scrim { position: fixed; inset: 0; z-index: 100010; background: rgba(18,18,18,0.32); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0s linear 0.25s; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100011; width: min(520px, 100vw); display: flex; flex-direction: column; background: #FFFFFF; box-shadow: -12px 0 40px rgba(0,0,0,0.12); transform: translateX(100%); visibility: hidden; transition: transform 0.3s cubic-bezier(0.32,0.72,0,1), visibility 0s linear 0.3s; }
+  body.drawerOpen .scrim { opacity: 1; visibility: visible; transition: opacity 0.25s ease; }
+  body.drawerOpen .drawer { transform: none; visibility: visible; transition: transform 0.3s cubic-bezier(0.32,0.72,0,1); }
+  body.drawerOpen { overflow: hidden; }
+  .drawer:focus { outline: none; }
+  .drawer .dHead { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 28px; border-bottom: 1px solid var(--line); }
+  .drawer .dHead h2 { margin: 0; font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+  .drawer .x { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .drawer .x:hover { background: var(--band); }
+  .drawer .x:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .drawer .dBody { flex: 1; overflow-y: auto; padding: 28px; }
+  .drawer .who { text-align: center; padding-bottom: 24px; }
+  .drawer .who .av { margin: 0 auto 14px; }
+  .drawer .who .h { margin: 0; font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+  .drawer .who .t { margin: 4px 0 0; color: var(--muted); font-size: 14px; font-weight: 500; }
+  .drawer .sec { border-top: 1px solid var(--line); padding: 22px 0; }
+  .drawer .sec h3 { margin: 0 0 12px; color: var(--muted); font-weight: 600; font-size: 14px; }
+  .drawer .social { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--muted); }
+  .drawer .social b { color: var(--ink); font-weight: 600; }
+  .drawer .social a { color: var(--blue); font-weight: 600; text-decoration: none; }
+  .drawer .social a:hover { text-decoration: underline; }
+  .drawer .comm { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: var(--ink); }
+  .drawer .stats { display: grid; grid-template-columns: 1fr 1fr; }
+  .drawer .stats div + div { border-left: 1px solid var(--line); padding-left: 24px; }
+  .drawer .stats b { display: block; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; }
+  .drawer .stats span { display: block; margin-top: 4px; font-size: 13px; font-weight: 600; }
+  .drawer dl { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 10px 12px; margin: 0; font-size: 14px; }
+  .drawer dt { color: var(--muted); font-weight: 500; }
+  .drawer dd { margin: 0; font-weight: 500; }
 
   /* ================= FOOTER ================= */
   #siteFooter { padding: 60px 17px 40px; }
@@ -240,8 +260,7 @@
   }
   @media (min-width: 1040px) {
     /* Map spans the full width; the details stack underneath as rows. */
-    .cmSide > div:not(#profile) + div { margin-top: 28px; }
-    .profile dl { grid-template-columns: 90px minmax(0,1fr) 90px minmax(0,1fr); }
+    .cmSide > div + div { margin-top: 28px; }
   }
   @media (prefers-reduced-motion: reduce) {
     #siteNav { animation: none; }
@@ -328,12 +347,20 @@
       </div>
 
       <aside class="cmCard cmSide">
-        <div id="profile"></div>
         <div><h3>By tier</h3><div class="tiers" id="tiers"></div></div>
         <div><h3>Creators</h3><div class="list" id="list"></div></div>
       </aside>
     </div>
   </main>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+    <div class="dHead">
+      <h2 id="drawerTitle">Creator profile</h2>
+      <button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="dBody" id="profile"></div>
+  </aside>
 
   <footer id="siteFooter">
     <div class="inner">
@@ -710,24 +737,54 @@
     });
 
     var s = creators.find(function (c) { return c.id === selected; });
-    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + igLink(s) + '</p><p class="t">' + dots([s.platform, fmtK(s.followers) + ' followers', tierOf(s.followers).name]) + '</p></div>'
-      + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
-      + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
-      + '<dl>'
-      + '<dt>Personas</dt><dd class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>'
-      + (stylesOf(s).length ? '<dt>Content style</dt><dd class="ptags">' + stylesOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>' : '')
-      + '<dt>Audience age</dt><dd>' + esc(s.age) + '</dd>'
+    renderProfile(s);
+  }
+
+  var IG_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#121212" stroke="none"/></svg>';
+  function tagList(items) { return esc(items.join(", ")); }
+
+  // The selected creator's profile, shown in the drawer that slides in from the right.
+  function renderProfile(s) {
+    if (!s) return; // keep the last profile in place while the drawer slides out
+    var h = handleOf(s);
+    $("profile").innerHTML = '<div class="who">' + avatar(s, "xl") + '<p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([tierOf(s.followers).name + ' tier', s.platform]) + '</p></div>'
+      + '<div class="sec"><h3>Social profiles</h3><p class="social">' + IG_ICON + '<b>' + fmtK(s.followers) + '</b> Followers'
+      + (h ? ' &middot; <a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a>' : '') + '</p></div>'
+      + (s.community ? '<div class="sec"><h3>About the community</h3><p class="comm">' + esc(s.community) + '</p></div>' : '')
+      + '<div class="sec stats"><div><b>' + (s.cost > 0 ? "Rs. " + fmtK(s.cost) : "–") + '</b><span>Cost per reel</span></div><div><b>' + esc(s.age) + '</b><span>Audience age</span></div></div>'
+      + '<div class="sec"><h3>Audience</h3><dl>'
+      + '<dt>Personas</dt><dd>' + tagList(personasOf(s)) + '</dd>'
+      + (stylesOf(s).length ? '<dt>Content style</dt><dd>' + tagList(stylesOf(s)) + '</dd>' : '')
       + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
       + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
       + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
       + '<dt>Lifestyle</dt><dd>' + esc(s.lifestyle) + '</dd>'
-      + '</dl></div>' : "";
-    if (s) $("closeBtn").onclick = function () { selected = null; render(); };
+      + '</dl></div>';
   }
+
+  var lastFocus = null;
+  function openDrawer() {
+    if (document.body.classList.contains("drawerOpen")) return;
+    lastFocus = document.activeElement;
+    document.body.classList.add("drawerOpen");
+    $("drawer").setAttribute("aria-hidden", "false");
+    setTimeout(function () { $("drawer").focus(); }, 50);
+  }
+  function closeDrawer() {
+    if (!document.body.classList.contains("drawerOpen")) return;
+    document.body.classList.remove("drawerOpen");
+    $("drawer").setAttribute("aria-hidden", "true");
+    selected = null; render();
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+  $("closeBtn").onclick = closeDrawer;
+  $("scrim").onclick = closeDrawer;
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
 
   function select(id) {
     selected = id; render();
-    if (!mq.matches) $("profile").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    $("profile").scrollTop = 0;
+    openDrawer();
   }
 
   $("axisSeg").querySelectorAll("button").forEach(function (b) {
