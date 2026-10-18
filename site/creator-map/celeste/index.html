@@ -935,8 +935,10 @@
     $("sReach").textContent = fmt(total);
     $("sCov").textContent = Math.round(heat.filter(function (h, i) { return h > 0 || owner[i]; }).length / N * 100) + "%";
 
-    // Tier counts include hidden tiers, so a hidden tier still shows its size.
-    var counts = TIERS.map(function (t) { return all.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
+    // Tier counts leave out creators hidden by their eye or the cost range,
+    // but not by the tier's own eye, so a hidden tier still shows its size.
+    var counted = all.filter(function (c) { return !hiddenIds[c.id] && inBudget(c); });
+    var counts = TIERS.map(function (t) { return counted.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
     var max = Math.max.apply(null, [1].concat(counts));
     $("tiers").innerHTML = TIERS.map(function (t, k) {
       var lo = k ? TIERS[k - 1].max : 0;
