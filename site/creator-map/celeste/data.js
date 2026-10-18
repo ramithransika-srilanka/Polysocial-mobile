@@ -93,7 +93,7 @@ window.CREATOR_MAP = {
       photo: "avatars/chathuri-dahanayake.webp",
       platform: "Instagram",
       followers: 23000,
-      cost: null,
+      cost: 40000,
       personas: ["Momfluencer", "Travel Influencer", "Consumer UGC creator"],
       styles: null,
       community: "Working mothers in Colombo balancing kids, travel and lifestyle content",
