@@ -198,17 +198,6 @@
   /* ================= SEND YOUR PLAN ================= */
   .plan { display: grid; grid-template-columns: minmax(0,1fr); gap: 20px; }
   .planSend { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
-  .planSnap { background: var(--band); border-radius: 20px; padding: 20px; }
-  .planSnap h3 { margin: 0 0 14px; font-weight: 600; font-size: var(--fs-body); }
-  .planNums { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-  .planNums b { display: block; font-weight: 600; font-size: 24px; line-height: 1.1; letter-spacing: -0.02em; }
-  .planNums span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; }
-  .planWho { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--line); }
-  .planWho .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 100px; background: #FFFFFF; font-size: var(--fs-meta); font-weight: 500; }
-  .planWho .chip .av { width: 22px; height: 22px; font-size: 9px; }
-  .planSnap dl { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 6px 12px; margin: 16px 0 0; font-size: var(--fs-meta); }
-  .planSnap dt { color: var(--muted); font-weight: 500; }
-  .planSnap dd { margin: 0; font-weight: 500; }
   .planErr { margin: 0; color: #E0261E; font-size: var(--fs-meta); font-weight: 500; }
   .btnPrimary { border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
   .btnPrimary:hover { background: #2b4dff; }
@@ -217,7 +206,6 @@
   .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 14px 22px; }
   .btnGhost:hover { background: var(--band); }
   .btnPrimary:focus-visible, .btnGhost:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-  .planFine { margin: 0; color: var(--muted); font-size: var(--fs-meta); font-style: italic; }
 
   /* Confirm / result pop-up */
   .modalWrap { position: fixed; inset: 0; z-index: 100020; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(18,18,18,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
@@ -297,9 +285,7 @@
     .cmStat b { font-size: var(--fs-stat); }
     .cmStat span { font-size: var(--fs-sub); }
     .cmLayout { gap: 56px; }
-    .planSnap { padding: 24px; }
-    .planSnap dl { grid-template-columns: 120px minmax(0,1fr) 120px minmax(0,1fr); }
-    .map { gap: 4px; }
+        .map { gap: 4px; }
     .ylab { padding-right: 8px; }
 
     #siteFooter { padding: 72px var(--edge) 52px; }
@@ -411,10 +397,8 @@
         <h2 id="planTitle">Send us your creator plan</h2>
         <p class="cmSub">Happy with the mix? Adjust the filters, cost range and eyes above until the map shows the creators you want, then send us a snapshot. Our team will check each creator's availability and put together a campaign quote.</p>
         <div class="plan">
-          <div class="planSnap" id="planSnap" aria-live="polite"></div>
           <div class="planSend">
             <button class="btnPrimary" type="button" id="planBtn">Send this plan to Polysocial</button>
-            <p class="planFine">You'll see exactly what we receive before anything is sent. All costs include the Polysocial fees.</p>
           </div>
         </div>
       </section>
@@ -744,14 +728,7 @@
 
   function renderPlan(all, list) {
     plan = buildPlan(all, list);
-    var p = plan;
-    $("planSnap").innerHTML = '<h3>Your plan right now</h3>'
-      + '<div class="planNums"><div><b>' + p.creators.length + '</b><span>' + (p.creators.length === 1 ? 'Creator' : 'Creators') + '</span></div>'
-      + '<div><b>' + fmt(p.followers) + '</b><span>Combined followers</span></div>'
-      + '<div><b>Rs. ' + fmtK(p.cost) + '</b><span>One reel each' + (p.noCost ? ' (' + p.noCost + ' unpriced)' : '') + '</span></div></div>'
-      + '<div class="planWho">' + (p.creators.length ? p.creators.map(function (c) { return '<span class="chip">' + avatar(c) + esc(nameOf(c)) + '</span>'; }).join("") : '<span class="empty">No creators showing. Widen the filters or turn some eyes back on.</span>') + '</div>'
-      + '<dl>' + p.settings.map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join("") + '</dl>';
-    $("planBtn").disabled = !p.creators.length;
+    $("planBtn").disabled = !plan.creators.length;
   }
 
   // Plain-text email body: everything we need to quote the plan.
