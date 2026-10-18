@@ -22,11 +22,14 @@
  *
  * Each value in age / gender / location / lifestyle / personas / language /
  * tone must match one of the options listed in index.html (OPT), otherwise
- * the creator is placed in the first band.
+ * the creator is placed in the first band. *
+ * `filterPersonas` lists the persona tags offered as filters for this brand.
+ * Creators keep all their personas, which still show on their profile.
  */
 window.CREATOR_MAP = {
   brand: "Celeste Daily",
   updated: "October 2026",
+  filterPersonas: ["Momfluencer", "Social runner", "Lifestyle runner", "Fitness coach"],
   creators: [
     {
       name: "Radeesha De Silva",

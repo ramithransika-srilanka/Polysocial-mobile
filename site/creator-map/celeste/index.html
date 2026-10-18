@@ -525,7 +525,8 @@
     el.closest(".tagRow").hidden = !shown.length;
     fillTags(el, key, shown);
   }
-  usedTags($("tPersona"), "persona", OPT.persona, personasOf);
+  // A brand can narrow the persona filter to the tags it cares about.
+  usedTags($("tPersona"), "persona", DATA.filterPersonas || OPT.persona, personasOf);
   usedTags($("tStyle"), "style", OPT.style, stylesOf);
   usedTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }), function (c) { return [tierOf(c.followers).name]; });
 
