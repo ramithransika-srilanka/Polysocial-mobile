@@ -196,10 +196,10 @@ window.CREATOR_MAP = {
     {
       name: "Nivini Balachandra",
       handle: null,
-      photo: null,
+      photo: "avatars/nivini-balachandra.webp",
       platform: "Instagram",
       followers: 7800,
-      cost: null,
+      cost: 47059,
       personas: ["Gymfluencer", "Social runner"],
       styles: null,
       community: "Young women in Colombo interested in fashion entrepreneurship, nightlife and fitness",
