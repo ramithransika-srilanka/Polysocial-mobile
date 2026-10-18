@@ -135,10 +135,8 @@
   .budget input:focus-visible::-moz-range-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
   .budget .ends { display: flex; justify-content: space-between; margin-top: 2px; font-size: var(--fs-tick); font-weight: 500; color: var(--muted); }
   /* Totals for the creators on the chart, between the slider and the plot. */
-  .costSum { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); margin: 28px 0 28px; }
-  .costSum div + div { border-left: 1px solid var(--line); padding-left: 24px; }
-  .costSum b { display: block; font-weight: 600; font-size: var(--fs-stat); line-height: 1.1; letter-spacing: -0.02em; }
-  .costSum span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; }
+  /* Same grey boxes as the stat tiles at the top of the page (.cmStat). */
+  .costSum { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 28px 0 36px; }
   .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
@@ -601,9 +599,9 @@
     if (!rows.length) { $("costSum").innerHTML = ""; el.innerHTML = '<p class="empty" style="grid-column:1/-1">No cost data for these creators yet.</p>'; return; }
     // Total = one reel from every creator shown on the chart.
     var sum = rows.reduce(function (s, c) { return s + c.cost; }, 0);
-    $("costSum").innerHTML = '<div><b>' + fmtRs(sum) + '</b><span>Total for one reel from each of ' + rows.length + (rows.length === 1 ? ' creator' : ' creators') + (missing ? ' (' + missing + ' without a cost left out)' : '') + '</span></div>'
-      + '<div><b>Rs. ' + fmtK(Math.round(sum / rows.length)) + '</b><span>Average per reel</span></div>'
-      + '<div><b>Rs. ' + fmtK(Math.min.apply(null, rows.map(function (c) { return c.cost; }))) + '–' + fmtK(Math.max.apply(null, rows.map(function (c) { return c.cost; }))) + '</b><span>Cheapest to priciest</span></div>';
+    $("costSum").innerHTML = '<div class="cmStat"><b>' + fmtRs(sum) + '</b><span>Total for one reel from each of ' + rows.length + (rows.length === 1 ? ' creator' : ' creators') + (missing ? ' (' + missing + ' without a cost left out)' : '') + '</span></div>'
+      + '<div class="cmStat"><b>Rs. ' + fmtK(Math.round(sum / rows.length)) + '</b><span>Average per reel</span></div>'
+      + '<div class="cmStat"><b>Rs. ' + fmtK(Math.min.apply(null, rows.map(function (c) { return c.cost; }))) + '–' + fmtK(Math.max.apply(null, rows.map(function (c) { return c.cost; }))) + '</b><span>Cheapest to priciest</span></div>';
     var costs = rows.map(function (c) { return c.cost; }), hi = Math.max.apply(null, costs), lo = Math.min.apply(null, costs);
     var step = niceStep(hi), top = Math.ceil(hi / step) * step, ticks = [];
     if (hi / top > 0.9) top += step; // headroom for the top point's label
