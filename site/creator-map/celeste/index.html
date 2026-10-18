@@ -287,7 +287,7 @@
 
       <div class="cmCard">
         <h2>Cost per reel</h2>
-        <p class="cmSub">What each creator charges for one Instagram reel, in Rs., from highest to lowest.</p>
+        <p class="cmSub">What each creator charges for one Instagram reel, in Rs.</p>
         <div class="cost" id="cost"></div>
         <div class="tip" id="ctip"></div>
       </div>
@@ -480,15 +480,17 @@
     return [1, 2, 2.5, 5, 10].map(function (m) { return m * p; }).find(function (s) { return s >= raw; });
   }
 
-  // Line chart: creators sorted by cost, highest first, so the line traces
-  // the spread from the most to the least expensive creator.
+  // Line chart of cost per reel. Creators are in a shuffled order that stays
+  // the same between renders (seeded by name), not sorted by cost.
+  function shuffleKey(c) { var h = 2166136261, t = nameOf(c) || ""; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   var costRows = [];
   function renderCost(list) {
     var el = $("cost"), tipEl = $("ctip");
-    var rows = costRows = list.filter(function (c) { return c.cost > 0; }).sort(function (a, b) { return b.cost - a.cost; });
+    var rows = costRows = list.filter(function (c) { return c.cost > 0; }).sort(function (a, b) { return shuffleKey(a) - shuffleKey(b); });
     if (!rows.length) { el.innerHTML = '<p class="empty" style="grid-column:1/-1">No cost data for these creators yet.</p>'; return; }
-    var step = niceStep(rows[0].cost), top = Math.ceil(rows[0].cost / step) * step, ticks = [];
-    if (rows[0].cost / top > 0.9) top += step; // headroom for the top point's label
+    var costs = rows.map(function (c) { return c.cost; }), hi = Math.max.apply(null, costs), lo = Math.min.apply(null, costs);
+    var step = niceStep(hi), top = Math.ceil(hi / step) * step, ticks = [];
+    if (hi / top > 0.9) top += step; // headroom for the top point's label
     for (var v = 0; v <= top + 1e-9; v += step) ticks.push(v);
     var sorted = rows.map(function (c) { return c.cost; }).sort(function (a, b) { return a - b; }), m = sorted.length;
     var median = m % 2 ? sorted[(m - 1) / 2] : (sorted[m / 2 - 1] + sorted[m / 2]) / 2;
@@ -509,7 +511,7 @@
       + '<text class="medl" x="4" y="' + (Y(median) - 6) + '" text-anchor="start">Median ' + "Rs. " + fmtK(median) + '</text>'
       + '<path class="ln" d="' + line + '"/>'
       + rows.map(function (c, k) {
-        var on = selected === c.id, lab = k === 0 || k === n - 1 || on;
+        var on = selected === c.id, lab = c.cost === hi || c.cost === lo || on;
         return '<circle class="pt' + (on ? ' on' : '') + '" cx="' + pts[k][0] + '" cy="' + pts[k][1] + '" r="' + (on ? 6 : 4.5) + '"/>'
           + (lab ? '<text class="pv" x="' + pts[k][0] + '" y="' + (pts[k][1] - 12) + '" text-anchor="middle">Rs. ' + fmtK(c.cost) + '</text>' : '');
       }).join("")
