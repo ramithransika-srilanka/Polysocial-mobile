@@ -249,7 +249,6 @@
   .drawer .social b { color: var(--ink); font-weight: 600; }
   .drawer .social a { color: var(--blue); font-weight: 600; text-decoration: none; }
   .drawer .social a:hover { text-decoration: underline; }
-  .drawer .comm { margin: 0; font-size: var(--fs-lead); line-height: 1.5; font-weight: 500; color: var(--ink); }
   .drawer .stats { display: grid; grid-template-columns: 1fr 1fr; }
   .drawer .stats div + div { border-left: 1px solid var(--line); padding-left: 24px; }
   .drawer .stats b { display: block; font-weight: 600; font-size: var(--fs-stat); line-height: 1.1; letter-spacing: -0.02em; }
@@ -944,7 +943,6 @@
     $("profile").innerHTML = '<div class="who">' + avatar(s, "xl") + '<p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([tierOf(s.followers).name + ' tier', s.platform]) + '</p></div>'
       + '<div class="sec"><h3>Social profiles</h3><p class="social">' + IG_ICON + '<b>' + fmtK(s.followers) + '</b> Followers'
       + (h ? ' &middot; <a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a>' : '') + '</p></div>'
-      + (s.community ? '<div class="sec"><h3>About the community</h3><p class="comm">' + esc(s.community) + '</p></div>' : '')
       + '<div class="sec stats"><div><b>' + (s.cost > 0 ? "Rs. " + fmtK(s.cost) : "–") + '</b><span>Cost per reel</span></div><div><b>' + esc(s.age) + '</b><span>Audience age</span></div></div>'
       + '<div class="sec"><h3>Audience</h3><dl>'
       + '<dt>Personas</dt><dd>' + tagList(personasOf(s)) + '</dd>'
