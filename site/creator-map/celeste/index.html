@@ -103,7 +103,7 @@
   .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
   .costPlot .pt.on { fill: var(--blue); }
-  .costPlot .pv { font-size: 10px; font-weight: 600; fill: var(--ink); }
+  .costPlot .pv { font-size: 10px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
   .costHits { position: absolute; inset: 0; display: flex; }
   .ch { flex: 1 1 0; min-width: 0; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
   .ch.hov { background: rgba(18,18,18,0.03); }
@@ -504,6 +504,13 @@
     function X(k) { return band * (k + 0.5); }
     function Y(v) { return H - v / top * H; }
     var pts = rows.map(function (c, k) { return [X(k), Y(c.cost)]; });
+    // A label goes below its point where the line dips (both neighbours cost
+    // more), otherwise above, so it never sits on the segments meeting there.
+    function labelY(k) {
+      var y = pts[k][1], nb = [pts[k - 1], pts[k + 1]].filter(Boolean).map(function (p) { return p[1]; });
+      var valley = nb.length && nb.every(function (v) { return v < y; });
+      return valley && y + 20 <= H ? y + 20 : y - 12;
+    }
     var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
     var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">'
       + ticks.slice(1).map(function (t) { return '<line class="gl" x1="0" x2="' + W + '" y1="' + Y(t) + '" y2="' + Y(t) + '"/>'; }).join("")
@@ -513,7 +520,7 @@
       + rows.map(function (c, k) {
         var on = selected === c.id, lab = c.cost === hi || c.cost === lo || on;
         return '<circle class="pt' + (on ? ' on' : '') + '" cx="' + pts[k][0] + '" cy="' + pts[k][1] + '" r="' + (on ? 6 : 4.5) + '"/>'
-          + (lab ? '<text class="pv" x="' + pts[k][0] + '" y="' + (pts[k][1] - 12) + '" text-anchor="middle">Rs. ' + fmtK(c.cost) + '</text>' : '');
+          + (lab ? '<text class="pv" x="' + pts[k][0] + '" y="' + labelY(k) + '" text-anchor="middle">Rs. ' + fmtK(c.cost) + '</text>' : '');
       }).join("")
       + '</svg>';
     // One invisible full-height hit column per creator: easier to hover than the dot.
