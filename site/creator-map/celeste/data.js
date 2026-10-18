@@ -146,7 +146,7 @@ window.CREATOR_MAP = {
       photo: null,
       platform: "Instagram",
       followers: 4000,
-      cost: null,
+      cost: 20000,
       personas: ["Luxury Lifestyle", "Travel Influencer", "Petfluencer", "Social runner"],
       styles: null,
       community: "Young women in Colombo interested in soft life, self-love, Pilates, girl talk and wellness",
