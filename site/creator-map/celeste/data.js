@@ -88,18 +88,18 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
-      name: "Bhavana De Silva",
+      name: "Chathuri Dahanayake",
       handle: null,
-      photo: null,
+      photo: "avatars/chathuri-dahanayake.webp",
       platform: "Instagram",
-      followers: 19000,
+      followers: 23000,
       cost: null,
-      personas: ["Momfluencer", "Homecook", "Recipe creator"],
+      personas: ["Momfluencer", "Travel Influencer", "Consumer UGC creator"],
       styles: null,
-      community: "Young mothers in Colombo suburbs looking for baby care tips, kids activities and relatable family moments",
+      community: "Working mothers in Colombo balancing kids, travel and lifestyle content",
       age: "25–44",
       lifestyle: "Middle-income",
-      location: "Colombo suburbs",
+      location: "Colombo city",
       gender: "Mostly women",
       language: "English"
     }
