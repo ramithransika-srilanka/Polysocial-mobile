@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Celeste Daily Creator Map — Polysocial</title>
+<meta name="description" content="Where each Celeste Daily creator sits, how far their reach spreads, and which communities are still uncovered.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://polysocial.cc/creator-map/celeste">
+<link rel="preload" href="/assets/font/4d54fdaf.f11d729bb0.woff2" as="font" type="font/woff2" crossorigin="">
+<style>
+  /* Same Inter file the rest of the site serves (latin subset, variable weight). */
+  @font-face {
+    font-family: 'Inter'; font-style: normal; font-weight: 400 800; font-display: swap;
+    src: url("/assets/font/4d54fdaf.f11d729bb0.woff2") format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --ink: #121212; --muted: #717171; --soft: #ADADAD; --line: #E4E4E4;
+    --band: #F2F2F2; --cell: #F2F2F2; --cell2: #E9E9E9;
+    --blue: #1548EB; --blue-hover: #1845E7;
+    /* Reach heat ramp built on the brand coral (#FF6B49). */
+    --h0: #FFE9E3; --h1: #FFCDBF; --h2: #FFA990; --h3: #FF8868; --core: #FF6B49;
+    --edge: 20px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.45; }
+  a { text-decoration: none; color: inherit; }
+  button, select, input { font-family: inherit; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* ================= NAV: Polysocial mark only ================= */
+  #siteNav {
+    position: sticky; top: 0; z-index: 100002;
+    display: flex; align-items: center; justify-content: flex-start;
+    min-height: 24px; padding: 14px 20px 12px;
+    background: rgba(255,255,255,0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;
+  }
+  #siteNav .homeLink { display: block; flex: none; line-height: 0; }
+  #siteNav .homeLink svg { display: block; width: 23px; height: 16px; }
+
+  /* ================= STATS ================= */
+  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 24px var(--edge) 0; margin-bottom: 24px; }
+  .cmPlatform { align-self: start; justify-self: end; }
+  .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
+  .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
+  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 12px; }
+
+  /* ================= FILTERS ================= */
+  .cmFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--edge); margin-bottom: 16px; align-items: center; }
+  .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 100px; }
+  .seg button {
+    border: 0; background: transparent; color: var(--ink); cursor: pointer;
+    font-weight: 500; font-size: 13px; line-height: 1; padding: 8px 14px; border-radius: 100px;
+    transition: background 0.16s ease, color 0.16s ease;
+  }
+  .seg button.on { background: var(--ink); color: #FFFFFF; }
+  .pill {
+    -webkit-appearance: none; appearance: none; border: 0; outline: none;
+    background: var(--band); color: var(--ink);
+    font-weight: 500; font-size: 13px; line-height: 1.2; border-radius: 100px;
+    padding: 9px 30px 9px 14px; cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat; background-position: right 12px center;
+  }
+  .pill:focus-visible { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
+  .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
+  .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tagRow[hidden] { display: none; }
+  .tagRow { display: flex; align-items: flex-start; gap: 12px; }
+  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); cursor: pointer;
+    font-weight: 500; font-size: 13px; line-height: 1; padding: 7px 12px; border-radius: 100px;
+    transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+  }
+  .tag:hover { border-color: #C8C8C8; }
+  .tag.on { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+  .tag:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ================= LAYOUT ================= */
+  .cmLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; padding: 0 var(--edge); }
+  .cmCard { background: #FFFFFF; border: 1px solid var(--line); border-radius: 24px; padding: 16px; position: relative; }
+  .cmCard h2 { margin: 0 0 12px; font-weight: 600; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
+  .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
+  .cmCard h3:first-child { margin-top: 0; }
+  .cmSide > div:not(#profile) + div { margin-top: 20px; }
+  .cmSub { margin: -6px 0 16px; color: var(--muted); font-weight: 500; font-size: 12px; }
+
+  /* ================= COST PER CONTENT ================= */
+  .cost { display: grid; grid-template-columns: 64px minmax(0,1fr); }
+  .costY { position: relative; height: 240px; }
+  .costY span { position: absolute; right: 10px; transform: translateY(50%); font-size: 10px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+  .costPlot { position: relative; height: 240px; border-bottom: 1px solid #C8C8C8; }
+  .costPlot svg { position: absolute; inset: 0; overflow: visible; }
+  .costPlot .gl { stroke: #F0F0F0; stroke-width: 1; }
+  .costPlot .med { stroke: #ADADAD; stroke-width: 1; stroke-dasharray: 4 4; }
+  .costPlot .medl { font-size: 10px; font-weight: 600; fill: var(--muted); }
+  .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
+  .costPlot .pt.on { fill: var(--blue); }
+  .costPlot .pv { font-size: 10px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
+  .costHits { position: absolute; inset: 0; display: flex; }
+  .ch { flex: 1 1 0; min-width: 0; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
+  .ch.hov { background: rgba(18,18,18,0.03); }
+  .ch:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
+  .costX { grid-column: 2; display: flex; padding-top: 6px; }
+  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .costX span.on { color: var(--blue); }
+  .costAxis { grid-column: 2; padding-top: 6px; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); }
+
+  /* ================= MAP ================= */
+  .map { position: relative; display: grid; gap: 3px; }
+  .cell { aspect-ratio: 1; border-radius: 26%; background: var(--cell); position: relative; transition: background 0.25s ease; }
+  .cell.alt { background: var(--cell2); }
+  .cell.creator { background: var(--core) !important; cursor: pointer; }
+  .cell.creator::after { content: ""; position: absolute; inset: 34%; border-radius: 50%; background: #FFFFFF; }
+
+  /* Creator profile picture (initials when there is no photo). */
+  .av { display: block; flex: none; width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--band); }
+  .av.ini { display: flex; align-items: center; justify-content: center; background: var(--h1); color: var(--ink); font-weight: 600; font-size: 12px; }
+  .av.lg { width: 56px; height: 56px; font-size: 18px; }
+  .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .ylab { font-size: 10px; font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
+  .xlab { font-size: 10px; font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
+  .axis { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .tip {
+    position: absolute; pointer-events: none; z-index: 5;
+    background: var(--ink); color: #FFFFFF; font-size: 12px; line-height: 1.4;
+    padding: 9px 12px; border-radius: 12px; max-width: 240px;
+    opacity: 0; transition: opacity 0.12s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  }
+  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 14px; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .legend > span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { position: relative; display: inline-block; flex: none; width: 18px; height: 18px; border-radius: 5px; }
+  .sw.creator::after { content: ""; position: absolute; inset: 32%; border-radius: 50%; background: #FFFFFF; }
+  .sw.ramp { width: 54px; background: linear-gradient(90deg, var(--h0), var(--h1) 35%, var(--h2) 70%, var(--h3)); }
+  .sw.none { background: var(--cell2); }
+
+  /* ================= SIDE PANEL ================= */
+  .tiers .row { display: grid; grid-template-columns: 72px minmax(0,1fr) 24px; gap: 10px; align-items: center; font-size: 12px; font-weight: 500; margin-bottom: 7px; }
+  .tiers .row span:last-child { text-align: right; color: var(--muted); }
+  .bar { height: 6px; border-radius: 3px; background: var(--band); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 3px; background: var(--core); }
+  .empty { margin: 0; color: var(--muted); font-size: 13px; }
+  .list { max-height: 320px; overflow: auto; border-top: 1px solid var(--line); }
+  .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .li:hover .h, .li.on .h { color: var(--blue); }
+  .li .m { flex: 1; min-width: 0; }
+  .li small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
+  .li .r { text-align: right; flex: none; }
+
+  .profile { background: var(--band); border-radius: 18px; padding: 16px; margin-bottom: 20px; }
+  .profile .top { display: flex; align-items: center; gap: 14px; }
+  .profile .who { flex: 1; min-width: 0; }
+  .profile .h { margin: 0; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+  .profile .t { margin: 2px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
+  .profile .x { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .profile .comm { margin: 12px 0; font-weight: 500; font-size: 14px; line-height: 1.4; }
+  .profile dd.ptags { display: flex; flex-wrap: wrap; gap: 4px 0; grid-column: 2 / -1; }
+  .ptag + .ptag::before { content: "\00B7"; margin: 0 6px; color: var(--muted); }
+  .profile dl { display: grid; grid-template-columns: 90px minmax(0,1fr); gap: 5px 10px; margin: 0; font-size: 12px; }
+  .profile dt { color: var(--muted); font-weight: 500; }
+  .profile dd { margin: 0; font-weight: 500; }
+
+  /* ================= FOOTER ================= */
+  #siteFooter { padding: 60px 17px 40px; }
+  #siteFooter .inner { display: flex; flex-direction: column; gap: 13px; }
+  #siteFooter .rule { height: 1px; background: #A0A0A0; }
+  #siteFooter .wm { display: block; width: 131px; height: 24px; }
+  #siteFooter .tagline { color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.3; }
+  #siteFooter p { margin: 0; font-weight: 500; font-size: 12px; line-height: 1.5; color: var(--muted); }
+  #siteFooter p a { color: var(--blue); }
+  #siteFooter .legal { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+  /* ================= PHONES: desktop-only notice =================
+     The map needs room, so below 768px the page shows only a notice. */
+  .cmDesktopOnly { display: none; }
+  @media (max-width: 767px) {
+    main, #siteFooter { display: none; }
+    .cmDesktopOnly {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      min-height: calc(100svh - 52px); padding: 24px 32px 64px; text-align: center;
+    }
+    .cmDesktopOnly h1 { margin: 0; font-weight: 600; font-size: 24px; line-height: 1.15; letter-spacing: -0.02em; }
+    .cmDesktopOnly p { margin: 0; max-width: 280px; color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.4; }
+  }
+
+  /* ================= DESKTOP ================= */
+  @media (min-width: 768px) {
+    :root { --edge: max(40px, calc((100% - 1200px) / 2)); }
+    #siteNav { padding: 18px var(--edge) 14px; }
+    #siteNav .homeLink svg { width: 28px; height: 19.5px; }
+
+    .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)) auto; gap: 12px; padding-top: 48px; margin-bottom: 28px; }
+    .cmStat { padding: 20px; border-radius: 20px; }
+    .cmStat b { font-size: 32px; }
+    .cmStat span { font-size: 13px; }
+    .cmCard { padding: 24px; border-radius: 28px; }
+    .map { gap: 4px; }
+    .ylab, .xlab { font-size: 13px; }
+    .axis { font-size: 13px; }
+    .ylab { padding-right: 8px; }
+
+    #siteFooter { padding: 72px var(--edge) 52px; }
+    #siteFooter .wm { width: 152px; height: 28px; }
+    #siteFooter p { font-size: 14px; }
+    #siteFooter .legal { font-size: 12px; }
+  }
+  @media (min-width: 1040px) {
+    /* Map spans the full width; the details stack underneath as rows. */
+    .cmSide > div:not(#profile) + div { margin-top: 28px; }
+    .profile dl { grid-template-columns: 90px minmax(0,1fr) 90px minmax(0,1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #siteNav { animation: none; }
+    .cell { transition: none; }
+  }
+</style>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FF6B4A">
+</head>
+<body>
+
+  <header id="siteNav">
+    <a class="homeLink" href="/" aria-label="Polysocial home">
+      <svg width="23" height="16" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path>
+        <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
+      </svg>
+    </a>
+  </header>
+
+  <section class="cmDesktopOnly">
+    <h1>Open on desktop</h1>
+    <p>The creator map is built for larger screens. Please visit this page on a desktop or laptop.</p>
+  </section>
+
+  <main>
+
+    <section class="cmStats" aria-label="Summary">
+      <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
+      <div class="cmStat"><b id="sReach">0</b><span>Combined followers</span></div>
+      <div class="cmStat"><b id="sCov">0%</b><span>Map covered</span></div>
+      <select class="pill cmPlatform" id="fPlatform" aria-label="Platform"></select>
+    </section>
+
+    <section class="cmFilters" aria-label="Filters">
+      <span class="seg" id="axisSeg" role="group" aria-label="Vertical axis">
+        <button type="button" data-axis="lifestyle" class="on">Lifestyle</button>
+        <button type="button" data-axis="location">Location</button>
+      </span>
+      <select class="pill" id="fLang" aria-label="Language"></select>
+      <div class="tags" id="tGender" role="group" aria-label="Audience gender">
+        <button type="button" class="tag on" data-v="women" aria-pressed="true">Female</button>
+        <button type="button" class="tag on" data-v="men" aria-pressed="true">Male</button>
+      </div>
+    </section>
+
+    <section class="cmTags" aria-label="Tag filters">
+      <p class="tagHint">Select one or more tags in each row to combine them.</p>
+      <div class="tagRow"><span class="tagLabel">Persona</span><div class="tags" id="tPersona" role="group" aria-label="Persona"></div></div>
+      <div class="tagRow"><span class="tagLabel">Content creation style</span><div class="tags" id="tStyle" role="group" aria-label="Content creation style"></div></div>
+      <div class="tagRow"><span class="tagLabel">Tier</span><div class="tags" id="tTier" role="group" aria-label="Tier"></div></div>
+    </section>
+
+    <div class="cmLayout">
+      <div class="cmCard">
+        <h2>Audience map</h2>
+        <div class="map" id="map"></div>
+        <div class="tip" id="tip"></div>
+        <div class="legend">
+          <span><span class="sw creator" style="background:var(--core)"></span>Creator</span>
+          <span><span class="sw ramp"></span>Reach: lighter = further from the creator, spreads wider for bigger tiers</span>
+          <span><span class="sw" style="background:var(--h3)"></span>Overlap: reached by several creators</span>
+          <span><span class="sw none"></span>Not reached yet</span>
+        </div>
+      </div>
+
+      <div class="cmCard">
+        <h2>Cost per reel</h2>
+        <p class="cmSub">What each creator charges for one Instagram reel, in Rs.</p>
+        <div class="cost" id="cost"></div>
+        <div class="tip" id="ctip"></div>
+      </div>
+
+      <aside class="cmCard cmSide">
+        <div id="profile"></div>
+        <div><h3>By tier</h3><div class="tiers" id="tiers"></div></div>
+        <div><h3>Creators</h3><div class="list" id="list"></div></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="siteFooter">
+    <div class="inner">
+      <div class="rule"></div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <img class="wm" src="/assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" loading="lazy" decoding="async">
+        <span class="tagline">Monetizing word-of-mouth</span>
+      </div>
+      <p>You can call us on <a href="tel:+94772540134">+94 772 540 134</a> or email us on <a href="mailto:support@polysocial.cc">support@polysocial.cc</a></p>
+      <div class="rule"></div>
+      <div class="legal">
+        <span>&copy; 2026 Hygge Industries (Pvt) Ltd, operator of Polysocial. All rights reserved.</span>
+        <a href="/privacy">Privacy policy</a>
+        <a href="/terms">Terms and conditions</a>
+        <a href="/support">Support</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="/creator-map/celeste/data.js"></script>
+<script>
+(function () {
+  var OPT = {
+    persona: ["Momfluencer","Dadfluencer","Social runner","Lifestyle runner","Petfluencer","Fitness coach","Medfluencer","Homecook","Recipe creator","Baker","Food critic","Restaurant reviewer","Mukbang reviewer","Travel Influencer","Luxury Lifestyle","Entrepreneur","Career coach","Consumer UGC creator","Lifestyle UGC creator"],
+    style: ["Mukbang reviewer","Connected with real life experiences","Product reviewer"],
+    platform: ["Instagram"],
+    language: ["Sinhala","Tamil","English","Singlish","Mixed"],
+    age: ["18–24","25–34","35–44","45+"],
+    location: ["Colombo city","Colombo suburbs","Outside Colombo","Diaspora"],
+    lifestyle: ["Premium","Middle-income","Budget-conscious"]
+  };
+  var TIERS = [
+    {name:"Emerging",max:5000,r:1.2},
+    {name:"Nano",max:10000,r:1.6},
+    {name:"Micro",max:40000,r:2.2},
+    {name:"Rising",max:100000,r:2.8},
+    {name:"Mid",max:300000,r:3.5},
+    {name:"Macro",max:1000000,r:4.3},
+    {name:"Mega",max:Infinity,r:5.2}
+  ];
+  function tierOf(f) { return TIERS.find(function (t) { return Number(f) < t.max; }) || TIERS[TIERS.length - 1]; }
+
+  var DATA = window.CREATOR_MAP || { creators: [] };
+  var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+
+  var axis = "lifestyle", selected = null;
+  var AGE_W = 6, COLS = AGE_W * OPT.age.length, ROWS = 12, SCALE = 1;
+
+  // The grid gets finer (2x, 3x, ...) once any age x band block is more than
+  // 40% full, so creators never run out of room. Reach spreads scale with it.
+  function sizeGrid(list) {
+    var counts = {}, most = 0;
+    list.forEach(function (c) {
+      var k = ageSpan(c)[0] + "|" + Math.max(0, yBands().indexOf(c[axis]));
+      counts[k] = (counts[k] || 0) + 1; most = Math.max(most, counts[k]);
+    });
+    var perBand = 12 / yBands().length;
+    for (SCALE = 1; SCALE < 6 && most > 0.4 * (6 * SCALE) * (perBand * SCALE); SCALE++) {}
+    AGE_W = 6 * SCALE; COLS = AGE_W * OPT.age.length; ROWS = 12 * SCALE;
+    mapEl.style.gap = SCALE > 1 ? (SCALE > 2 ? "1px" : "2px") : "";
+  }
+  var $ = function (id) { return document.getElementById(id); };
+  var mapEl = $("map"), tip = $("tip");
+  var mq = window.matchMedia('(min-width: 768px)');
+
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (m) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
+  function fillSelect(sel, items, label) {
+    sel.innerHTML = '<option value="">' + label + ': All</option>' + items.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
+  }
+  // Instagram only for now, so the dropdown has no "All" option.
+  $("fPlatform").innerHTML = OPT.platform.map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
+  fillSelect($("fLang"), OPT.language, "Language");
+
+  // Tag rows: pick any number of tags per row; none picked means all.
+  var picked = { persona: [], style: [], tier: [] }, gender = { women: true, men: true };
+  function fillTags(el, key, items) {
+    el.innerHTML = '<button type="button" class="tag on" data-v="">All</button>' + items.map(function (v) {
+      return '<button type="button" class="tag" data-v="' + esc(v) + '" aria-pressed="false">' + esc(v) + '</button>';
+    }).join("");
+    el.querySelectorAll(".tag").forEach(function (b) {
+      b.onclick = function () {
+        var v = b.dataset.v, list = picked[key];
+        if (!v) picked[key] = [];
+        else if (list.indexOf(v) === -1) list.push(v);
+        else list.splice(list.indexOf(v), 1);
+        el.querySelectorAll(".tag").forEach(function (x) {
+          var on = x.dataset.v ? picked[key].indexOf(x.dataset.v) !== -1 : !picked[key].length;
+          x.classList.toggle("on", on);
+          if (x.dataset.v) x.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        render();
+      };
+    });
+  }
+  // The full option lists stay in OPT / TIERS; each row only shows the tags at
+  // least one creator has, and a row with none in use is hidden.
+  function usedTags(el, key, items, valuesOf) {
+    var used = {};
+    creators.forEach(function (c) { valuesOf(c).forEach(function (v) { used[v] = true; }); });
+    var shown = items.filter(function (v) { return used[v]; });
+    el.closest(".tagRow").hidden = !shown.length;
+    fillTags(el, key, shown);
+  }
+  usedTags($("tPersona"), "persona", OPT.persona, personasOf);
+  usedTags($("tStyle"), "style", OPT.style, stylesOf);
+  usedTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }), function (c) { return [tierOf(c.followers).name]; });
+
+  function yBands() { return OPT[axis]; }
+  function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
+
+  function personasOf(c) { return c.personas || (c.persona ? [c.persona] : []); }
+
+  function stylesOf(c) { return c.styles || []; }
+  function anyOf(have, want) { return !want.length || have.some(function (v) { return want.indexOf(v) !== -1; }); }
+
+  // A creator matches a tag row if they carry any of the picked tags.
+  function visible() {
+    var st = picked.style, p = picked.persona, t = picked.tier, l = $("fLang").value, pf = $("fPlatform").value;
+    return creators.filter(function (c) {
+      return anyOf(personasOf(c), p) && anyOf(stylesOf(c), st) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
+        && (!l || c.language === l) && (!pf || c.platform === pf)
+        && (gender.women && gender.men || (gender.women ? c.gender !== "Mostly men" : c.gender !== "Mostly women"));
+    });
+  }
+
+  // Each creator takes the free cell nearest the centre of their age x band block.
+  // Audience age is one band ("25–34") or a range across bands ("25–44").
+  // Returns the first and last OPT.age band index the creator covers.
+  function bandBounds(b) { var m = String(b).match(/(\d+)\s*[–-]\s*(\d+)/); return m ? [+m[1], +m[2]] : [parseInt(b, 10), Infinity]; }
+  function ageSpan(c) {
+    var i = OPT.age.indexOf(c.age);
+    if (i !== -1) return [i, i];
+    var r = bandBounds(c.age), hit = [];
+    OPT.age.forEach(function (b, k) { var bb = bandBounds(b); if (bb[0] <= r[1] && bb[1] >= r[0]) hit.push(k); });
+    return hit.length ? [hit[0], hit[hit.length - 1]] : [0, 0];
+  }
+
+  function place(list) {
+    var taken = {}, rows = bandRows();
+    list.slice().sort(function (a, b) { return b.followers - a.followers; }).forEach(function (c) {
+      var span = ageSpan(c), yi = Math.max(0, yBands().indexOf(c[axis]));
+      var r0 = rows[yi][0], r1 = rows[yi][1], c0 = span[0] * AGE_W, c1 = (span[1] + 1) * AGE_W;
+      // A range sits on the line between its bands, centred across them.
+      var cx = span[0] === span[1] ? c0 + Math.floor(AGE_W / 2) : (c0 + c1) / 2 - 0.5, cy = Math.floor((r0 + r1 - 1) / 2);
+      var best = null, bd = Infinity;
+      for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
+        if (taken[y * COLS + x]) continue;
+        var inside = x >= c0 && x < c1 && y >= r0 && y < r1;
+        var d = Math.hypot(x - cx, y - cy) + (inside ? 0 : 100);
+        if (d < bd) { bd = d; best = [x, y]; }
+      }
+      c._x = best[0]; c._y = best[1]; taken[best[1] * COLS + best[0]] = true;
+    });
+  }
+
+  var PHOTO_BASE = "/creator-map/celeste/";
+  function avatar(c, size) {
+    var cls = "av" + (size ? " " + size : "");
+    if (c.photo) return '<img class="' + cls + '" src="' + esc(PHOTO_BASE + c.photo) + '" alt="" loading="lazy" decoding="async">';
+    var ini = (c.name || c.handle.replace(/^@/, "")).split(/[\s._\-]+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+    return '<span class="' + cls + ' ini" aria-hidden="true">' + esc(ini) + '</span>';
+  }
+
+  // Joins the parts that have a value with " · ", skipping missing (null) fields.
+  function dots(parts) { return parts.filter(function (v) { return v; }).map(esc).join(" &middot; "); }
+  function nameOf(c) { return c.name || c.handle; }
+  // Follower counts read as 7.2K, 20K, 210K, 1.2M.
+  function fmtK(n) {
+    n = Number(n) || 0;
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+    if (n >= 1e5) return Math.round(n / 1e3) + "K";
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+    return String(n);
+  }
+  function fmtRs(n) { return "Rs. " + Number(n || 0).toLocaleString("en-US"); }
+  // Round axis steps (1, 2, 2.5, 5 x 10^k) giving at most five gridlines.
+  function niceStep(max) {
+    var raw = max / 5, p = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+    return [1, 2, 2.5, 5, 10].map(function (m) { return m * p; }).find(function (s) { return s >= raw; });
+  }
+
+  // Line chart of cost per reel. Creators are in a shuffled order that stays
+  // the same between renders (seeded by name), not sorted by cost.
+  function shuffleKey(c) { var h = 2166136261, t = nameOf(c) || ""; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  var costRows = [];
+  function renderCost(list) {
+    var el = $("cost"), tipEl = $("ctip");
+    var rows = costRows = list.filter(function (c) { return c.cost > 0; }).sort(function (a, b) { return shuffleKey(a) - shuffleKey(b); });
+    if (!rows.length) { el.innerHTML = '<p class="empty" style="grid-column:1/-1">No cost data for these creators yet.</p>'; return; }
+    var costs = rows.map(function (c) { return c.cost; }), hi = Math.max.apply(null, costs), lo = Math.min.apply(null, costs);
+    var step = niceStep(hi), top = Math.ceil(hi / step) * step, ticks = [];
+    if (hi / top > 0.9) top += step; // headroom for the top point's label
+    for (var v = 0; v <= top + 1e-9; v += step) ticks.push(v);
+    var sorted = rows.map(function (c) { return c.cost; }).sort(function (a, b) { return a - b; }), m = sorted.length;
+    var median = m % 2 ? sorted[(m - 1) / 2] : (sorted[m / 2 - 1] + sorted[m / 2]) / 2;
+
+    el.innerHTML = '<div class="costY">' + ticks.map(function (t) { return '<span style="bottom:' + (t / top * 100) + '%">' + (t ? "Rs. " + fmtK(t) : "0") + '</span>'; }).join("") + '</div>'
+      + '<div class="costPlot" id="costPlot"></div>'
+      + '<div class="costX">' + rows.map(function (c) { return '<span class="' + (selected === c.id ? 'on' : '') + '" title="' + esc(nameOf(c)) + '">' + esc(nameOf(c).split(" ")[0]) + '</span>'; }).join("") + '</div>'
+      + '<div class="costAxis">Creators</div>';
+
+    var plot = $("costPlot"), W = plot.clientWidth, H = plot.clientHeight, n = rows.length, band = W / n;
+    function X(k) { return band * (k + 0.5); }
+    function Y(v) { return H - v / top * H; }
+    var pts = rows.map(function (c, k) { return [X(k), Y(c.cost)]; });
+    // A label goes below its point where the line dips (both neighbours cost
+    // more), otherwise above, so it never sits on the segments meeting there.
+    function labelY(k) {
+      var y = pts[k][1], nb = [pts[k - 1], pts[k + 1]].filter(Boolean).map(function (p) { return p[1]; });
+      var valley = nb.length && nb.every(function (v) { return v < y; });
+      return valley && y + 20 <= H ? y + 20 : y - 12;
+    }
+    var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
+    var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">'
+      + ticks.slice(1).map(function (t) { return '<line class="gl" x1="0" x2="' + W + '" y1="' + Y(t) + '" y2="' + Y(t) + '"/>'; }).join("")
+      + '<line class="med" x1="0" x2="' + W + '" y1="' + Y(median) + '" y2="' + Y(median) + '"/>'
+      + '<text class="medl" x="4" y="' + (Y(median) - 6) + '" text-anchor="start">Median ' + "Rs. " + fmtK(median) + '</text>'
+      + '<path class="ln" d="' + line + '"/>'
+      + rows.map(function (c, k) {
+        var on = selected === c.id, lab = c.cost === hi || c.cost === lo || on;
+        return '<circle class="pt' + (on ? ' on' : '') + '" cx="' + pts[k][0] + '" cy="' + pts[k][1] + '" r="' + (on ? 6 : 4.5) + '"/>'
+          + (lab ? '<text class="pv" x="' + pts[k][0] + '" y="' + labelY(k) + '" text-anchor="middle">Rs. ' + fmtK(c.cost) + '</text>' : '');
+      }).join("")
+      + '</svg>';
+    // One invisible full-height hit column per creator: easier to hover than the dot.
+    plot.innerHTML = svg + '<div class="costHits">' + rows.map(function (c) {
+      return '<button type="button" class="ch" data-id="' + c.id + '" aria-label="' + esc(nameOf(c)) + ', ' + fmtRs(c.cost) + ' per reel"></button>';
+    }).join("") + '</div>';
+
+    plot.querySelectorAll(".ch").forEach(function (b) {
+      var c = rows.find(function (r) { return r.id === b.dataset.id; });
+      b.onclick = function () { select(c.id); };
+      b.onmousemove = function (e) {
+        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per reel<br>' + dots([c.platform, fmtK(c.followers) + ' followers', tierOf(c.followers).name]);
+        tipEl.style.opacity = 1;
+        var box = el.parentElement.getBoundingClientRect();
+        var left = e.clientX - box.left + 14, topPx = e.clientY - box.top + 14;
+        if (left + 250 > box.width) left = Math.max(8, e.clientX - box.left - 250);
+        tipEl.style.left = left + "px"; tipEl.style.top = topPx + "px";
+        b.classList.add("hov");
+      };
+      b.onmouseleave = function () { tipEl.style.opacity = 0; b.classList.remove("hov"); };
+    });
+  }
+
+  function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
+
+  function render() {
+    var list = visible();
+    sizeGrid(list);
+    place(list);
+    var N = COLS * ROWS, heat = new Array(N).fill(0), who = [], owner = {};
+    for (var k = 0; k < N; k++) who.push([]);
+    list.forEach(function (c) {
+      var r = tierOf(c.followers).r * SCALE;
+      owner[c._y * COLS + c._x] = c;
+      for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
+        var d = Math.hypot(x - c._x, y - c._y);
+        if (d <= r) { var i = y * COLS + x; heat[i] += d === 0 ? 0 : 1.5 * (r - d + 1) / r; who[i].push(c); }
+      }
+    });
+
+    var rows = bandRows(), bands = yBands();
+    mapEl.style.gridTemplateColumns = (mq.matches ? "100px" : "62px") + " repeat(" + COLS + ", minmax(0,1fr))";
+    var html = "";
+    rows.forEach(function (rr, k) { html += '<div class="ylab" style="grid-column:1;grid-row:' + (rr[0] + 1) + '/' + (rr[1] + 1) + '">' + esc(bands[k]) + '</div>'; });
+    for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
+      var i = y * COLS + x, band = rows.findIndex(function (rr) { return y >= rr[0] && y < rr[1]; }), ab = Math.floor(x / AGE_W);
+      var cls = "cell" + ((band + ab) % 2 ? " alt" : ""), bg = "", h = heat[i];
+      if (owner[i]) cls += " creator" + (selected === owner[i].id ? " sel" : "");
+      else if (h > 0) bg = h >= 2.6 ? "var(--h3)" : h >= 1.5 ? "var(--h2)" : h >= 0.8 ? "var(--h1)" : "var(--h0)";
+      html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' : '>') + '</div>';
+    }
+    OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
+    html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:8px">Audience age</div>';
+    html += '<div class="axis" style="grid-column:1;grid-row:' + (ROWS + 1) + ';text-align:right;padding-right:6px;padding-top:6px">' + (axis === "lifestyle" ? "Lifestyle" : "Location") + ' &uarr;</div>';
+    mapEl.innerHTML = html;
+
+    function showTip(el, e) {
+      var i = +el.dataset.i, y = Math.floor(i / COLS), x = i % COLS;
+      var band = bands[rows.findIndex(function (rr) { return y >= rr[0] && y < rr[1]; })], age = OPT.age[Math.floor(x / AGE_W)];
+      var o = owner[i];
+      tip.innerHTML = o
+        ? '<b>' + esc(nameOf(o)) + '</b><br>' + esc(personasOf(o).join(", ")) + ' &middot; ' + tierOf(o.followers).name + '<br>' + fmtK(o.followers) + ' followers'
+        : '<b>' + age + ' &middot; ' + esc(band) + '</b><br>' + (who[i].length ? 'Reached by ' + who[i].length + ' creator' + (who[i].length > 1 ? 's' : '') + ': ' + who[i].map(function (c) { return esc(nameOf(c)); }).join(", ") : 'Not reached by any creator yet');
+      tip.style.opacity = 1;
+      var box = mapEl.parentElement.getBoundingClientRect();
+      var left = e.clientX - box.left + 14, top = e.clientY - box.top + 14;
+      if (left + 250 > box.width) left = Math.max(8, e.clientX - box.left - 250);
+      tip.style.left = left + "px"; tip.style.top = top + "px";
+    }
+    mapEl.querySelectorAll(".cell").forEach(function (el) {
+      var i = +el.dataset.i;
+      el.onmousemove = function (e) { showTip(el, e); };
+      el.onmouseleave = function () { tip.style.opacity = 0; };
+      if (owner[i]) {
+        el.onclick = function () { select(owner[i].id); };
+        el.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(owner[i].id); } };
+      } else {
+        // Touch has no hover: tapping an empty cell shows its tooltip instead.
+        el.onclick = function (e) { showTip(el, e); };
+      }
+    });
+
+    renderCost(list);
+
+    var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
+    $("sCount").textContent = list.length;
+    $("sReach").textContent = fmt(total);
+    $("sCov").textContent = Math.round(heat.filter(function (h, i) { return h > 0 || owner[i]; }).length / N * 100) + "%";
+
+    var counts = TIERS.map(function (t) { return list.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
+    var max = Math.max.apply(null, [1].concat(counts));
+    $("tiers").innerHTML = TIERS.map(function (t, k) {
+      return '<div class="row"><span>' + t.name + '</span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span>' + counts[k] + '</span></div>';
+    }).join("");
+
+
+    $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
+      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span><small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></button>';
+    }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
+    $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
+
+    var s = creators.find(function (c) { return c.id === selected; });
+    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([s.platform, fmtK(s.followers) + ' followers', tierOf(s.followers).name]) + '</p></div>'
+      + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
+      + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
+      + '<dl>'
+      + '<dt>Personas</dt><dd class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>'
+      + (stylesOf(s).length ? '<dt>Content style</dt><dd class="ptags">' + stylesOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>' : '')
+      + '<dt>Audience age</dt><dd>' + esc(s.age) + '</dd>'
+      + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
+      + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
+      + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
+      + '<dt>Lifestyle</dt><dd>' + esc(s.lifestyle) + '</dd>'
+      + '</dl></div>' : "";
+    if (s) $("closeBtn").onclick = function () { selected = null; render(); };
+  }
+
+  function select(id) {
+    selected = id; render();
+    if (!mq.matches) $("profile").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  $("axisSeg").querySelectorAll("button").forEach(function (b) {
+    b.onclick = function () {
+      axis = b.dataset.axis;
+      $("axisSeg").querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      render();
+    };
+  });
+  $("fLang").onchange = render;
+  $("fPlatform").onchange = render;
+  // Gender: Female and Male both start on; at least one stays on. Mixed
+  // audiences count for both.
+  $("tGender").querySelectorAll(".tag").forEach(function (b) {
+    b.onclick = function () {
+      var k = b.dataset.v, other = k === "women" ? "men" : "women";
+      if (gender[k] && !gender[other]) return;
+      gender[k] = !gender[k];
+      b.classList.toggle("on", gender[k]);
+      b.setAttribute("aria-pressed", gender[k] ? "true" : "false");
+      render();
+    };
+  });
+  document.addEventListener("scroll", function () { tip.style.opacity = 0; $("ctip").style.opacity = 0; }, { passive: true });
+  mq.addEventListener ? mq.addEventListener("change", render) : mq.addListener(render);
+  var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { renderCost(costRows); }, 120); });
+  render();
+})();
+</script>
+</body></html>
