@@ -22,6 +22,15 @@
     /* Reach heat ramp built on the brand coral (#FF6B49). */
     --h0: #FFE9E3; --h1: #FFCDBF; --h2: #FFA990; --h3: #FF8868; --core: #FF6B49;
     --edge: 20px;
+    /* Type scale: every heading and label on the page uses one of these. */
+    --fs-stat: 32px;   /* big numbers: stat tiles, profile stats */
+    --fs-name: 24px;   /* creator name in the profile drawer */
+    --fs-title: 20px;  /* section titles (h2) */
+    --fs-lead: 15px;   /* longer descriptive text */
+    --fs-body: 14px;   /* list rows, values, group labels (h3) */
+    --fs-sub: 13px;    /* section subtitles, axis titles, controls */
+    --fs-meta: 12px;   /* secondary details, axis categories, filter labels */
+    --fs-tick: 11px;   /* numeric axis ticks and in-chart value labels */
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #FFFFFF; }
@@ -47,35 +56,35 @@
   .cmPlatform { align-self: start; justify-self: end; }
   .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
   .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
-  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
 
   /* ================= FILTERS ================= */
   .cmFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--edge); margin-bottom: 16px; align-items: center; }
   .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 100px; }
   .seg button {
     border: 0; background: transparent; color: var(--ink); cursor: pointer;
-    font-weight: 500; font-size: 13px; line-height: 1; padding: 8px 14px; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 100px;
     transition: background 0.16s ease, color 0.16s ease;
   }
   .seg button.on { background: var(--ink); color: #FFFFFF; }
   .pill {
     -webkit-appearance: none; appearance: none; border: 0; outline: none;
     background: var(--band); color: var(--ink);
-    font-weight: 500; font-size: 13px; line-height: 1.2; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1.2; border-radius: 100px;
     padding: 9px 30px 9px 14px; cursor: pointer;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
     background-repeat: no-repeat; background-position: right 12px center;
   }
   .pill:focus-visible { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
   .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
-  .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
   .tagRow[hidden] { display: none; }
   .tagRow { display: flex; align-items: flex-start; gap: 12px; }
-  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
     border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); cursor: pointer;
-    font-weight: 500; font-size: 13px; line-height: 1; padding: 7px 12px; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 7px 12px; border-radius: 100px;
     transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
   }
   .tag:hover { border-color: #C8C8C8; }
@@ -83,38 +92,37 @@
   .tag:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
   /* ================= LAYOUT ================= */
-  .cmLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; padding: 0 var(--edge); }
-  .cmCard { background: #FFFFFF; border-radius: 24px; padding: 16px; position: relative; }
-  .cmCard h2 { margin: 0 0 12px; font-weight: 600; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
-  .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
-  .cmCard h3:first-child { margin-top: 0; }
-  .cmSide > div + div { margin-top: 20px; }
-  .cmSub { margin: -6px 0 16px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .cmLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 48px; margin-top: 40px; padding: 0 var(--edge); }
+  /* Sections sit straight on the page: no box, so their titles line up with the stats and filters. */
+  .cmCard { position: relative; }
+  .cmCard h2 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .cmSide > section + section { margin-top: 48px; }
+  .cmSub { margin: 0 0 20px; max-width: 80ch; color: var(--muted); font-weight: 500; font-size: var(--fs-sub); line-height: 1.45; }
 
   /* ================= COST PER CONTENT ================= */
   .cost { display: grid; grid-template-columns: 64px minmax(0,1fr); }
   .costY { position: relative; height: 240px; }
-  .costY span { position: absolute; right: 10px; transform: translateY(50%); font-size: 10px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+  .costY span { position: absolute; right: 10px; transform: translateY(50%); font-size: var(--fs-tick); font-weight: 500; color: var(--muted); white-space: nowrap; }
   .costPlot { position: relative; height: 240px; border-bottom: 1px solid #C8C8C8; }
   .costPlot svg { position: absolute; inset: 0; overflow: visible; }
   .costPlot .gl { stroke: #F0F0F0; stroke-width: 1; }
   .costPlot .med { stroke: #ADADAD; stroke-width: 1; stroke-dasharray: 4 4; }
-  .costPlot .medl { font-size: 10px; font-weight: 600; fill: var(--muted); }
+  .costPlot .medl { font-size: var(--fs-tick); font-weight: 600; fill: var(--muted); }
   .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
   .costPlot .pt.on { fill: var(--blue); }
-  .costPlot .pv { font-size: 10px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
+  .costPlot .pv { font-size: var(--fs-tick); font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
   .costHits { position: absolute; inset: 0; display: flex; }
   .ch { flex: 1 1 0; min-width: 0; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
   .ch.hov { background: rgba(18,18,18,0.03); }
   .ch:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
   .costX { grid-column: 2; display: flex; padding-top: 6px; }
-  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: var(--fs-meta); font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .costX span.on { color: var(--blue); }
   /* Two range inputs stacked on one track; only their thumbs take the pointer. */
   .budget { margin: 0 0 20px; padding: 12px 16px 14px; background: var(--band); border-radius: 14px; }
-  .budget .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13px; font-weight: 600; color: var(--ink); }
-  .budget .top small { font-size: 12px; font-weight: 500; color: var(--muted); }
+  .budget .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
+  .budget .top small { font-size: var(--fs-sub); font-weight: 500; color: var(--muted); }
   .budget .rail { position: relative; height: 20px; margin-top: 8px; }
   .budget .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 2px; background: var(--cell2); }
   .budget .fill { position: absolute; top: 8px; height: 4px; border-radius: 2px; background: var(--core); }
@@ -125,8 +133,8 @@
   .budget input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; border: 2px solid var(--core); box-shadow: 0 1px 3px rgba(0,0,0,0.15); cursor: pointer; pointer-events: auto; }
   .budget input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
   .budget input:focus-visible::-moz-range-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
-  .budget .ends { display: flex; justify-content: space-between; margin-top: 2px; font-size: 10px; font-weight: 500; color: var(--muted); }
-  .costAxis { grid-column: 2; padding-top: 6px; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .budget .ends { display: flex; justify-content: space-between; margin-top: 2px; font-size: var(--fs-tick); font-weight: 500; color: var(--muted); }
+  .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-sub); font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
@@ -141,17 +149,17 @@
   .av.lg { width: 56px; height: 56px; font-size: 18px; }
   .av.xl { width: 120px; height: 120px; font-size: 36px; }
   .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
-  .ylab { font-size: 10px; font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
-  .xlab { font-size: 10px; font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
-  .axis { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .ylab { font-size: var(--fs-meta); font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
+  .xlab { font-size: var(--fs-meta); font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
+  .axis { font-size: var(--fs-sub); font-weight: 600; color: var(--ink); }
   .tip {
     position: absolute; pointer-events: none; z-index: 5;
-    background: var(--ink); color: #FFFFFF; font-size: 12px; line-height: 1.4;
+    background: var(--ink); color: #FFFFFF; font-size: var(--fs-meta); line-height: 1.4;
     padding: 9px 12px; border-radius: 12px; max-width: 240px;
     opacity: 0; transition: opacity 0.12s ease;
     box-shadow: 0 10px 30px rgba(0,0,0,0.18);
   }
-  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 14px; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 14px; font-size: var(--fs-sub); font-weight: 500; color: var(--ink); }
   .legend > span { display: inline-flex; align-items: center; gap: 8px; }
   .sw { position: relative; display: inline-block; flex: none; width: 18px; height: 18px; border-radius: 5px; }
   .sw.creator::after { content: ""; position: absolute; inset: 32%; border-radius: 50%; background: #FFFFFF; }
@@ -159,19 +167,19 @@
   .sw.none { background: var(--cell2); }
 
   /* ================= SIDE PANEL ================= */
-  .tiers .row { display: grid; grid-template-columns: 84px minmax(0,1fr) 24px 28px; gap: 10px; align-items: center; font-size: 12px; font-weight: 500; margin-bottom: 7px; }
-  .tiers .row .n { text-align: right; color: var(--muted); }
+  .tiers .row { display: grid; grid-template-columns: 84px minmax(0,1fr) 24px 28px; gap: 10px; align-items: center; font-size: var(--fs-body); font-weight: 500; margin-bottom: 8px; }
+  .tiers .row .n { text-align: right; color: var(--muted); font-size: var(--fs-sub); }
   .tiers .row.off > span, .li.off > .av, .li.off > .m, .li.off > .r { opacity: 0.4; }
   .tiers .row.off .bar i { background: var(--soft); }
-  .tiers .row small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); white-space: nowrap; }
+  .tiers .row small { display: block; font-size: var(--fs-tick); font-weight: 400; color: var(--muted); white-space: nowrap; }
   .bar { height: 6px; border-radius: 3px; background: var(--band); overflow: hidden; }
   .bar i { display: block; height: 100%; border-radius: 3px; background: var(--core); }
-  .empty { margin: 0; color: var(--muted); font-size: 13px; }
-  .list { max-height: 320px; overflow: auto; border-top: 1px solid var(--line); }
-  .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .empty { margin: 0; color: var(--muted); font-size: var(--fs-sub); }
+  .list { border-top: 1px solid var(--line); }
+  .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: var(--fs-body); font-weight: 500; color: var(--ink); }
   .li:hover .h, .li.on .h { color: var(--blue); }
   .li .m { flex: 1; min-width: 0; }
-  .li small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
+  .li small { display: block; margin-top: 2px; color: var(--muted); font-weight: 400; font-size: var(--fs-meta); }
   .li .r { text-align: right; flex: none; }
   .eye { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; color: var(--ink); cursor: pointer; }
   .eye:hover { background: var(--band); }
@@ -179,7 +187,7 @@
   .eye:disabled { cursor: default; background: none; }
   .eye:focus-visible { outline: 2px solid var(--blue); outline-offset: 0; }
   .li:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
-  .ig { margin-left: 6px; color: var(--muted); font-size: 12px; font-weight: 500; text-decoration: none; letter-spacing: 0; }
+  .ig { margin-left: 6px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; text-decoration: none; letter-spacing: 0; }
   .ig:hover { color: var(--blue); text-decoration: underline; }
 
   /* ================= CREATOR PROFILE DRAWER ================= */
@@ -190,27 +198,27 @@
   body.drawerOpen { overflow: hidden; }
   .drawer:focus { outline: none; }
   .drawer .dHead { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 28px; border-bottom: 1px solid var(--line); }
-  .drawer .dHead h2 { margin: 0; font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+  .drawer .dHead h2 { margin: 0; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
   .drawer .x { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
   .drawer .x:hover { background: var(--band); }
   .drawer .x:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
   .drawer .dBody { flex: 1; overflow-y: auto; padding: 28px; }
   .drawer .who { text-align: center; padding-bottom: 24px; }
   .drawer .who .av { margin: 0 auto 14px; }
-  .drawer .who .h { margin: 0; font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
-  .drawer .who .t { margin: 4px 0 0; color: var(--muted); font-size: 14px; font-weight: 500; }
+  .drawer .who .h { margin: 0; font-weight: 600; font-size: var(--fs-name); line-height: 1.2; letter-spacing: -0.02em; }
+  .drawer .who .t { margin: 4px 0 0; color: var(--muted); font-size: var(--fs-body); font-weight: 500; }
   .drawer .sec { border-top: 1px solid var(--line); padding: 22px 0; }
-  .drawer .sec h3 { margin: 0 0 12px; color: var(--muted); font-weight: 600; font-size: 14px; }
-  .drawer .social { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--muted); }
+  .drawer .sec h3 { margin: 0 0 12px; color: var(--muted); font-weight: 600; font-size: var(--fs-body); line-height: 1.2; }
+  .drawer .social { margin: 0; display: flex; align-items: center; gap: 8px; font-size: var(--fs-lead); font-weight: 500; color: var(--muted); }
   .drawer .social b { color: var(--ink); font-weight: 600; }
   .drawer .social a { color: var(--blue); font-weight: 600; text-decoration: none; }
   .drawer .social a:hover { text-decoration: underline; }
-  .drawer .comm { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: var(--ink); }
+  .drawer .comm { margin: 0; font-size: var(--fs-lead); line-height: 1.5; font-weight: 500; color: var(--ink); }
   .drawer .stats { display: grid; grid-template-columns: 1fr 1fr; }
   .drawer .stats div + div { border-left: 1px solid var(--line); padding-left: 24px; }
-  .drawer .stats b { display: block; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; }
-  .drawer .stats span { display: block; margin-top: 4px; font-size: 13px; font-weight: 600; }
-  .drawer dl { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 10px 12px; margin: 0; font-size: 14px; }
+  .drawer .stats b { display: block; font-weight: 600; font-size: var(--fs-stat); line-height: 1.1; letter-spacing: -0.02em; }
+  .drawer .stats span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; }
+  .drawer dl { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 10px 12px; margin: 0; font-size: var(--fs-body); }
   .drawer dt { color: var(--muted); font-weight: 500; }
   .drawer dd { margin: 0; font-weight: 500; }
 
@@ -245,22 +253,16 @@
 
     .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)) auto; gap: 12px; padding-top: 48px; margin-bottom: 28px; }
     .cmStat { padding: 20px; border-radius: 20px; }
-    .cmStat b { font-size: 32px; }
-    .cmStat span { font-size: 13px; }
-    .cmCard { padding: 24px; border-radius: 28px; }
+    .cmStat b { font-size: var(--fs-stat); }
+    .cmStat span { font-size: var(--fs-sub); }
+    .cmLayout { gap: 56px; }
     .map { gap: 4px; }
-    .ylab, .xlab { font-size: 13px; }
-    .axis { font-size: 13px; }
     .ylab { padding-right: 8px; }
 
     #siteFooter { padding: 72px var(--edge) 52px; }
     #siteFooter .wm { width: 152px; height: 28px; }
     #siteFooter p { font-size: 14px; }
     #siteFooter .legal { font-size: 12px; }
-  }
-  @media (min-width: 1040px) {
-    /* Map spans the full width; the details stack underneath as rows. */
-    .cmSide > div + div { margin-top: 28px; }
   }
   @media (prefers-reduced-motion: reduce) {
     #siteNav { animation: none; }
@@ -320,6 +322,7 @@
     <div class="cmLayout">
       <div class="cmCard">
         <h2>Audience map</h2>
+        <p class="cmSub" id="mapSub"></p>
         <div class="map" id="map"></div>
         <div class="tip" id="tip"></div>
         <div class="legend">
@@ -347,8 +350,16 @@
       </div>
 
       <aside class="cmCard cmSide">
-        <div><h3>By tier</h3><div class="tiers" id="tiers"></div></div>
-        <div><h3>Creators</h3><div class="list" id="list"></div></div>
+        <section>
+          <h2>Creators by tier</h2>
+          <p class="cmSub">How many matching creators sit in each follower tier. Use the eye to hide a whole tier.</p>
+          <div class="tiers" id="tiers"></div>
+        </section>
+        <section>
+          <h2>Creators</h2>
+          <p class="cmSub">Everyone who matches your filters. Use the eye to hide a creator from the map and cost chart.</p>
+          <div class="list" id="list"></div>
+        </section>
       </aside>
     </div>
   </main>
@@ -666,6 +677,7 @@
       html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' : '>') + '</div>';
     }
     OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
+    $("mapSub").textContent = "Where each creator's audience sits by age and " + (axis === "lifestyle" ? "lifestyle" : "location") + ". Colour spreads further for bigger tiers.";
     html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:8px">Audience age</div>';
     html += '<div class="axis" style="grid-column:1;grid-row:' + (ROWS + 1) + ';text-align:right;padding-right:6px;padding-top:6px">' + (axis === "lifestyle" ? "Lifestyle" : "Location") + ' &uarr;</div>';
     mapEl.innerHTML = html;
