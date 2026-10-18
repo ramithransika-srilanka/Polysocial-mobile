@@ -27,8 +27,8 @@
     --fs-name: 24px;   /* creator name in the profile drawer */
     --fs-title: 20px;  /* section titles (h2) */
     --fs-lead: 15px;   /* longer descriptive text */
-    --fs-body: 14px;   /* list rows, values, group labels (h3) */
-    --fs-sub: 13px;    /* section subtitles, axis titles, controls */
+    --fs-body: 14px;   /* list rows, values, group labels (h3), axis titles */
+    --fs-sub: 13px;    /* section subtitles, controls */
     --fs-meta: 12px;   /* secondary details, axis categories, filter labels */
     --fs-tick: 11px;   /* numeric axis ticks and in-chart value labels */
   }
@@ -107,17 +107,17 @@
   .costPlot svg { position: absolute; inset: 0; overflow: visible; }
   .costPlot .gl { stroke: #F0F0F0; stroke-width: 1; }
   .costPlot .med { stroke: #ADADAD; stroke-width: 1; stroke-dasharray: 4 4; }
-  .costPlot .medl { font-size: var(--fs-tick); font-weight: 600; fill: var(--muted); }
+  .costPlot .medl { font-size: var(--fs-tick); font-weight: 500; fill: var(--muted); }
   .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
   .costPlot .pt.on { fill: var(--blue); }
-  .costPlot .pv { font-size: var(--fs-tick); font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
+  .costPlot .pv { font-size: var(--fs-tick); font-weight: 500; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
   .costHits { position: absolute; inset: 0; display: flex; }
   .ch { flex: 1 1 0; min-width: 0; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
   .ch.hov { background: rgba(18,18,18,0.03); }
   .ch:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
   .costX { grid-column: 2; display: flex; padding-top: 6px; }
-  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: var(--fs-meta); font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: var(--fs-meta); font-weight: 400; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .costX span.on { color: var(--blue); }
   /* Two range inputs stacked on one track; only their thumbs take the pointer. */
   .budget { margin: 0 0 20px; padding: 12px 16px 14px; background: var(--band); border-radius: 14px; }
@@ -134,7 +134,7 @@
   .budget input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
   .budget input:focus-visible::-moz-range-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
   .budget .ends { display: flex; justify-content: space-between; margin-top: 2px; font-size: var(--fs-tick); font-weight: 500; color: var(--muted); }
-  .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-sub); font-weight: 600; color: var(--ink); }
+  .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
@@ -149,9 +149,10 @@
   .av.lg { width: 56px; height: 56px; font-size: 18px; }
   .av.xl { width: 120px; height: 120px; font-size: 36px; }
   .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
-  .ylab { font-size: var(--fs-meta); font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
-  .xlab { font-size: var(--fs-meta); font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
-  .axis { font-size: var(--fs-sub); font-weight: 600; color: var(--ink); }
+  .ylab { font-size: var(--fs-meta); font-weight: 400; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
+  .xlab { font-size: var(--fs-meta); font-weight: 400; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
+  /* Axis titles are the only semibold labels on the charts. */
+  .axis { font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
   .tip {
     position: absolute; pointer-events: none; z-index: 5;
     background: var(--ink); color: #FFFFFF; font-size: var(--fs-meta); line-height: 1.4;
