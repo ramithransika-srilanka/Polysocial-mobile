@@ -143,7 +143,7 @@ window.CREATOR_MAP = {
     {
       name: "Shavi",
       handle: null,
-      photo: null,
+      photo: "avatars/shavi.webp",
       platform: "Instagram",
       followers: 4000,
       cost: 20000,
@@ -159,10 +159,10 @@ window.CREATOR_MAP = {
     {
       name: "Lelumi Jagoda",
       handle: null,
-      photo: null,
+      photo: "avatars/lelumi-jagoda.webp",
       platform: "Instagram",
       followers: 7700,
-      cost: null,
+      cost: 20000,
       personas: ["Restaurant reviewer", "Food critic", "Social runner"],
       styles: null,
       community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
