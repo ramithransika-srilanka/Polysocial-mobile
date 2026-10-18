@@ -475,7 +475,7 @@
   function sizeGrid(list) {
     var counts = {}, most = 0;
     list.forEach(function (c) {
-      var k = ageSpan(c)[0] + "|" + Math.max(0, yBands().indexOf(c[axis]));
+      var k = ageSpan(c)[0] + "|" + bandSpan(c)[0];
       counts[k] = (counts[k] || 0) + 1; most = Math.max(most, counts[k]);
     });
     var perBand = 12 / yBands().length;
@@ -583,13 +583,32 @@
     return hit.length ? [hit[0], hit[hit.length - 1]] : [0, 0];
   }
 
+  // Lifestyle / location is one band, or two bands listed together when the
+  // audience sits between them; `lean` names the band it is closer to.
+  // Returns the first and last yBands() index the creator covers.
+  function bandSpan(c) {
+    var v = c[axis], list = Array.isArray(v) ? v : [v];
+    var idx = list.map(function (b) { return yBands().indexOf(b); }).filter(function (i) { return i !== -1; }).sort(function (a, b) { return a - b; });
+    return idx.length ? [idx[0], idx[idx.length - 1]] : [0, 0];
+  }
+  function bandText(v, lean) {
+    if (!Array.isArray(v)) return v;
+    return v.join(" to ") + (lean ? ", closer to " + lean : "");
+  }
+
   function place(list) {
     var taken = {}, rows = bandRows();
     list.slice().sort(function (a, b) { return b.followers - a.followers; }).forEach(function (c) {
-      var span = ageSpan(c), yi = Math.max(0, yBands().indexOf(c[axis]));
-      var r0 = rows[yi][0], r1 = rows[yi][1], c0 = span[0] * AGE_W, c1 = (span[1] + 1) * AGE_W;
+      var span = ageSpan(c), ys = bandSpan(c);
+      var r0 = rows[ys[0]][0], r1 = rows[ys[1]][1], c0 = span[0] * AGE_W, c1 = (span[1] + 1) * AGE_W;
       // A range sits on the line between its bands, centred across them.
       var cx = span[0] === span[1] ? c0 + Math.floor(AGE_W / 2) : (c0 + c1) / 2 - 0.5, cy = Math.floor((r0 + r1 - 1) / 2);
+      // Between two bands: sit on the line between them, nudged one row
+      // towards the band the audience leans to.
+      if (ys[0] !== ys[1]) {
+        var line = rows[ys[1]][0], lean = yBands().indexOf(c.lean);
+        cy = lean === ys[0] ? line - 1 : lean === ys[1] ? line : line - 0.5;
+      }
       var best = null, bd = Infinity;
       for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
         if (taken[y * COLS + x]) continue;
@@ -948,9 +967,9 @@
       + '<dt>Personas</dt><dd>' + tagList(personasOf(s)) + '</dd>'
       + (stylesOf(s).length ? '<dt>Content style</dt><dd>' + tagList(stylesOf(s)) + '</dd>' : '')
       + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
-      + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
+      + '<dt>Location</dt><dd>' + esc(bandText(s.location, s.lean)) + '</dd>'
       + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
-      + '<dt>Lifestyle</dt><dd>' + esc(s.lifestyle) + '</dd>'
+      + '<dt>Lifestyle</dt><dd>' + esc(bandText(s.lifestyle, s.lean)) + '</dd>'
       + '</dl></div>';
   }
 

@@ -15,6 +15,10 @@
  *
  * `age` is one band (e.g. 25–34) or a range across bands (e.g. 25–44).
  *
+ * `lifestyle` (or `location`) is one band, or two bands in a list when the
+ * audience sits between them, e.g. ["Middle-income", "Premium"]; `lean` then
+ * names the band they are closer to.
+ *
  * Each value in age / gender / location / lifestyle / personas / language /
  * tone must match one of the options listed in index.html (OPT), otherwise
  * the creator is placed in the first band.
@@ -130,7 +134,8 @@ window.CREATOR_MAP = {
       styles: null,
       community: "Young women in Colombo interested in walking, running, hiking and sustainable active lifestyle",
       age: "25–45",
-      lifestyle: "Middle-income",
+      lifestyle: ["Middle-income", "Premium"],
+      lean: "Premium",
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
