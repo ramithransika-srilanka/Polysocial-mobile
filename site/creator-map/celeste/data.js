@@ -139,6 +139,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Shavi",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 4000,
+      cost: null,
+      personas: ["Luxury Lifestyle", "Travel Influencer", "Petfluencer", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in soft life, self-love, Pilates, girl talk and wellness",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
