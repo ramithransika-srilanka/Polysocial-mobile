@@ -171,6 +171,23 @@ window.CREATOR_MAP = {
       location: "Colombo suburbs",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Yasasi",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 38000,
+      cost: null,
+      personas: ["Fitness coach", "Entrepreneur", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in motorsport, fitness and active lifestyle",
+      age: "25–34",
+      lifestyle: ["Middle-income", "Premium"],
+      lean: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
