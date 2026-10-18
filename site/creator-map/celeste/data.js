@@ -69,6 +69,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Dithmini De Silva",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 5900,
+      cost: null,
+      personas: ["Travel Influencer", "Restaurant reviewer", "Food critic", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in travel diaries, restaurant finds and lifestyle moments",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
