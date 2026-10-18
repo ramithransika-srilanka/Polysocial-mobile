@@ -106,7 +106,7 @@ window.CREATOR_MAP = {
     {
       name: "Kyle",
       handle: "_kyloooo_",
-      photo: null,
+      photo: "avatars/kyle.webp",
       platform: "Instagram",
       followers: 5100,
       cost: 10000,
