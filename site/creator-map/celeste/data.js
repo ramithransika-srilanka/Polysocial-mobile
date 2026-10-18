@@ -155,6 +155,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Lelumi Jagoda",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 7700,
+      cost: null,
+      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
