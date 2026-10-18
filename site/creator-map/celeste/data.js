@@ -85,6 +85,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Bhavana De Silva",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 19000,
+      cost: null,
+      personas: ["Momfluencer", "Homecook", "Recipe creator"],
+      styles: null,
+      community: "Young mothers in Colombo suburbs looking for baby care tips, kids activities and relatable family moments",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
