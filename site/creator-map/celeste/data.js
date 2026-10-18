@@ -208,6 +208,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Senodhi Gloria",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 11000,
+      cost: null,
+      personas: ["Social runner", "Lifestyle runner", "Travel Influencer"],
+      styles: null,
+      community: "Young women in Colombo interested in women's road races, beach runs and corporate-girly lifestyle",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ]
 };
