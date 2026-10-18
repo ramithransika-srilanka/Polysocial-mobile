@@ -795,7 +795,7 @@
 
   function confirmHtml(p, err) {
     return '<h2 id="planModalTitle">Send this creator plan?</h2>'
-      + '<p><b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> &middot; ' + fmt(p.followers) + ' followers &middot; <b>' + fmtRs(p.cost) + '</b> for one reel each.</p>'
+      + '<p><b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> &middot; <b>' + fmtRs(p.cost) + '</b> total</p>'
       + (err ? '<p class="planErr">' + esc(err) + '</p>' : '')
       + '<div class="acts"><button type="button" class="btnGhost" data-act="cancel">Keep editing</button><button type="button" class="btnPrimary" data-act="send">Yes, send plan</button></div>';
   }
