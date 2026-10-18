@@ -228,9 +228,6 @@
   .modal h2 { margin: 0 0 8px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
   .modal p { margin: 0 0 12px; color: var(--muted); font-size: var(--fs-body); line-height: 1.5; font-weight: 500; }
   .modal p b { color: var(--ink); font-weight: 600; }
-  .modal ul { margin: 0 0 16px; padding: 12px 16px; list-style: none; background: var(--band); border-radius: 14px; font-size: var(--fs-sub); font-weight: 500; }
-  .modal li + li { margin-top: 4px; }
-  .modal li span { float: right; color: var(--muted); }
   .modal .acts { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
   .modal .planErr { margin-top: 4px; }
 
@@ -797,12 +794,8 @@
   planModal.addEventListener("click", function (e) { if (e.target === planModal) closePlanModal(); });
 
   function confirmHtml(p, err) {
-    var shown = p.creators.slice(0, 8);
     return '<h2 id="planModalTitle">Send this creator plan?</h2>'
-      + '<p>We\'ll email Polysocial a snapshot of the <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> you have showing, with <b>' + fmt(p.followers) + '</b> combined followers and <b>' + fmtRs(p.cost) + '</b> for one reel from each.</p>'
-      + '<ul>' + shown.map(function (c) { return '<li>' + esc(nameOf(c)) + '<span>' + (c.cost > 0 ? 'Rs. ' + fmtK(c.cost) : 'No cost yet') + '</span></li>'; }).join("")
-      + (p.creators.length > shown.length ? '<li>and ' + (p.creators.length - shown.length) + ' more</li>' : '') + '</ul>'
-      + '<p>Your filters, cost range and hidden creators are included too.</p>'
+      + '<p><b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> &middot; ' + fmt(p.followers) + ' followers &middot; <b>' + fmtRs(p.cost) + '</b> for one reel each.</p>'
       + (err ? '<p class="planErr">' + esc(err) + '</p>' : '')
       + '<div class="acts"><button type="button" class="btnGhost" data-act="cancel">Keep editing</button><button type="button" class="btnPrimary" data-act="send">Yes, send plan</button></div>';
   }
