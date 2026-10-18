@@ -111,6 +111,21 @@
   .costX { grid-column: 2; display: flex; padding-top: 6px; }
   .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .costX span.on { color: var(--blue); }
+  /* Two range inputs stacked on one track; only their thumbs take the pointer. */
+  .budget { margin: 0 0 20px; padding: 12px 16px 14px; background: var(--band); border-radius: 14px; }
+  .budget .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .budget .top small { font-size: 12px; font-weight: 500; color: var(--muted); }
+  .budget .rail { position: relative; height: 20px; margin-top: 8px; }
+  .budget .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 2px; background: var(--cell2); }
+  .budget .fill { position: absolute; top: 8px; height: 4px; border-radius: 2px; background: var(--core); }
+  .budget input { position: absolute; inset: 0; width: 100%; height: 20px; margin: 0; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
+  .budget input::-webkit-slider-runnable-track { background: none; }
+  .budget input::-moz-range-track { background: none; }
+  .budget input::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 2px solid var(--core); box-shadow: 0 1px 3px rgba(0,0,0,0.15); cursor: pointer; pointer-events: auto; }
+  .budget input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; border: 2px solid var(--core); box-shadow: 0 1px 3px rgba(0,0,0,0.15); cursor: pointer; pointer-events: auto; }
+  .budget input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .budget input:focus-visible::-moz-range-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .budget .ends { display: flex; justify-content: space-between; margin-top: 2px; font-size: 10px; font-weight: 500; color: var(--muted); }
   .costAxis { grid-column: 2; padding-top: 6px; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
@@ -289,6 +304,15 @@
       <div class="cmCard">
         <h2>Cost per reel</h2>
         <p class="cmSub">What each creator charges for one Instagram reel, in Rs.</p>
+        <div class="budget" id="budget">
+          <div class="top"><span id="budgetVal"></span><small id="budgetCount"></small></div>
+          <div class="rail">
+            <span class="fill" id="budgetFill"></span>
+            <input type="range" id="budgetLo" aria-label="Lowest cost per reel">
+            <input type="range" id="budgetHi" aria-label="Highest cost per reel">
+          </div>
+          <div class="ends"><span id="budgetMin"></span><span id="budgetMax"></span></div>
+        </div>
         <div class="cost" id="cost"></div>
         <div class="tip" id="ctip"></div>
       </div>
@@ -410,6 +434,16 @@
   function yBands() { return OPT[axis]; }
   function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
 
+  // Cost range: the slider runs from 0 to the top creator cost, rounded up.
+  // While it spans the whole range, creators with no cost listed stay in.
+  var COST_STEP = 5000;
+  var COST_MAX = Math.max(COST_STEP, Math.ceil(Math.max.apply(null, [0].concat(creators.map(function (c) { return Number(c.cost) || 0; }))) / COST_STEP) * COST_STEP);
+  var budget = { lo: 0, hi: COST_MAX };
+  function inBudget(c) {
+    if (budget.lo === 0 && budget.hi === COST_MAX) return true;
+    return c.cost > 0 && c.cost >= budget.lo && c.cost <= budget.hi;
+  }
+
   function personasOf(c) { return c.personas || (c.persona ? [c.persona] : []); }
 
   function stylesOf(c) { return c.styles || []; }
@@ -420,7 +454,7 @@
     var st = picked.style, p = picked.persona, t = picked.tier, l = $("fLang").value, pf = $("fPlatform").value;
     return creators.filter(function (c) {
       return anyOf(personasOf(c), p) && anyOf(stylesOf(c), st) && (!t.length || t.indexOf(tierOf(c.followers).name) !== -1)
-        && (!l || c.language === l) && (!pf || c.platform === pf)
+        && inBudget(c) && (!l || c.language === l) && (!pf || c.platform === pf)
         && (gender.women && gender.men || (gender.women ? c.gender !== "Mostly men" : c.gender !== "Mostly women"));
     });
   }
@@ -605,6 +639,7 @@
     });
 
     renderCost(list);
+    $("budgetCount").textContent = list.length + (list.length === 1 ? " creator" : " creators") + " in range";
 
     var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
     $("sCount").textContent = list.length;
@@ -653,6 +688,28 @@
       render();
     };
   });
+  (function () {
+    var lo = $("budgetLo"), hi = $("budgetHi");
+    [lo, hi].forEach(function (el) { el.min = 0; el.max = COST_MAX; el.step = COST_STEP; });
+    lo.value = 0; hi.value = COST_MAX;
+    $("budgetMin").textContent = "Rs. 0"; $("budgetMax").textContent = "Rs. " + fmtK(COST_MAX);
+    function paint() {
+      $("budgetVal").textContent = fmtRs(budget.lo) + " – " + fmtRs(budget.hi);
+      // Thumb centres sit 9px in from each end of the track.
+      $("budgetFill").style.left = "calc(9px + (100% - 18px) * " + (budget.lo / COST_MAX) + ")";
+      $("budgetFill").style.right = "calc(9px + (100% - 18px) * " + (1 - budget.hi / COST_MAX) + ")";
+      // Keep the low thumb reachable when both sit at the top end.
+      lo.style.zIndex = budget.lo >= COST_MAX - COST_STEP ? 2 : "";
+    }
+    function onInput(e) {
+      var a = +lo.value, b = +hi.value;
+      if (a > b) { if (e.target === lo) lo.value = a = b; else hi.value = b = a; }
+      budget.lo = a; budget.hi = b;
+      paint(); render();
+    }
+    lo.oninput = hi.oninput = onInput;
+    paint();
+  })();
   $("fLang").onchange = render;
   $("fPlatform").onchange = render;
   // Gender: Female and Male both start on; at least one stays on. Mixed
