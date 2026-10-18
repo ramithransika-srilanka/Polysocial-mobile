@@ -22,6 +22,15 @@
     /* Reach heat ramp built on the brand coral (#FF6B49). */
     --h0: #FFE9E3; --h1: #FFCDBF; --h2: #FFA990; --h3: #FF8868; --core: #FF6B49;
     --edge: 20px;
+    /* Type scale: every heading and label on the page uses one of these. */
+    --fs-stat: 32px;   /* big numbers: stat tiles, profile stats */
+    --fs-name: 24px;   /* creator name in the profile drawer */
+    --fs-title: 20px;  /* section titles (h2) */
+    --fs-lead: 15px;   /* longer descriptive text */
+    --fs-body: 14px;   /* list rows, values, group labels (h3), axis titles */
+    --fs-sub: 13px;    /* section subtitles, controls */
+    --fs-meta: 12px;   /* secondary details, axis categories, filter labels */
+    --fs-tick: 11px;   /* numeric axis ticks and in-chart value labels */
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #FFFFFF; }
@@ -47,35 +56,35 @@
   .cmPlatform { align-self: start; justify-self: end; }
   .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
   .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
-  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
 
   /* ================= FILTERS ================= */
   .cmFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--edge); margin-bottom: 16px; align-items: center; }
   .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 100px; }
   .seg button {
     border: 0; background: transparent; color: var(--ink); cursor: pointer;
-    font-weight: 500; font-size: 13px; line-height: 1; padding: 8px 14px; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 100px;
     transition: background 0.16s ease, color 0.16s ease;
   }
   .seg button.on { background: var(--ink); color: #FFFFFF; }
   .pill {
     -webkit-appearance: none; appearance: none; border: 0; outline: none;
     background: var(--band); color: var(--ink);
-    font-weight: 500; font-size: 13px; line-height: 1.2; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1.2; border-radius: 100px;
     padding: 9px 30px 9px 14px; cursor: pointer;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
     background-repeat: no-repeat; background-position: right 12px center;
   }
   .pill:focus-visible { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
   .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
-  .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
   .tagRow[hidden] { display: none; }
   .tagRow { display: flex; align-items: flex-start; gap: 12px; }
-  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
     border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); cursor: pointer;
-    font-weight: 500; font-size: 13px; line-height: 1; padding: 7px 12px; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 7px 12px; border-radius: 100px;
     transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
   }
   .tag:hover { border-color: #C8C8C8; }
@@ -83,35 +92,53 @@
   .tag:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
   /* ================= LAYOUT ================= */
-  .cmLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; padding: 0 var(--edge); }
-  .cmCard { background: #FFFFFF; border: 1px solid var(--line); border-radius: 24px; padding: 16px; position: relative; }
-  .cmCard h2 { margin: 0 0 12px; font-weight: 600; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
-  .cmCard h3 { margin: 20px 0 10px; font-weight: 600; font-size: 13px; line-height: 1.2; }
-  .cmCard h3:first-child { margin-top: 0; }
-  .cmSide > div:not(#profile) + div { margin-top: 20px; }
-  .cmSub { margin: -6px 0 16px; color: var(--muted); font-weight: 500; font-size: 12px; }
+  .cmLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 48px; margin-top: 40px; padding: 0 var(--edge); }
+  /* Sections sit straight on the page: no box, so their titles line up with the stats and filters. */
+  .cmCard { position: relative; }
+  .cmCard h2 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .cmSide > section + section { margin-top: 48px; }
+  .cmSub { margin: 0 0 20px; max-width: 80ch; color: var(--muted); font-weight: 500; font-size: var(--fs-sub); line-height: 1.45; }
 
   /* ================= COST PER CONTENT ================= */
   .cost { display: grid; grid-template-columns: 64px minmax(0,1fr); }
   .costY { position: relative; height: 240px; }
-  .costY span { position: absolute; right: 10px; transform: translateY(50%); font-size: 10px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+  .costY span { position: absolute; right: 10px; transform: translateY(50%); font-size: var(--fs-tick); font-weight: 500; color: var(--muted); white-space: nowrap; }
   .costPlot { position: relative; height: 240px; border-bottom: 1px solid #C8C8C8; }
   .costPlot svg { position: absolute; inset: 0; overflow: visible; }
   .costPlot .gl { stroke: #F0F0F0; stroke-width: 1; }
   .costPlot .med { stroke: #ADADAD; stroke-width: 1; stroke-dasharray: 4 4; }
-  .costPlot .medl { font-size: 10px; font-weight: 600; fill: var(--muted); }
+  .costPlot .medl { font-size: var(--fs-tick); font-weight: 500; fill: var(--muted); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
   .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
   .costPlot .pt.on { fill: var(--blue); }
-  .costPlot .pv { font-size: 10px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
+  .costPlot .pv { font-size: var(--fs-tick); font-weight: 500; fill: var(--ink); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
   .costHits { position: absolute; inset: 0; display: flex; }
   .ch { flex: 1 1 0; min-width: 0; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
   .ch.hov { background: rgba(18,18,18,0.03); }
   .ch:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
   .costX { grid-column: 2; display: flex; padding-top: 6px; }
-  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: 11px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: var(--fs-meta); font-weight: 400; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .costX span.on { color: var(--blue); }
-  .costAxis { grid-column: 2; padding-top: 6px; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); }
+  /* Two range inputs stacked on one track; only their thumbs take the pointer. */
+  .budget { margin: 0 0 20px; padding: 12px 16px 14px; background: var(--band); border-radius: 14px; }
+  .budget .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
+  .budget .top small { font-size: var(--fs-sub); font-weight: 500; color: var(--muted); }
+  .budget .rail { position: relative; height: 20px; margin-top: 8px; }
+  .budget .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 2px; background: var(--cell2); }
+  .budget .fill { position: absolute; top: 8px; height: 4px; border-radius: 2px; background: var(--core); }
+  .budget input { position: absolute; inset: 0; width: 100%; height: 20px; margin: 0; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
+  .budget input::-webkit-slider-runnable-track { background: none; }
+  .budget input::-moz-range-track { background: none; }
+  .budget input::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 2px solid var(--core); box-shadow: 0 1px 3px rgba(0,0,0,0.15); cursor: pointer; pointer-events: auto; }
+  .budget input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; border: 2px solid var(--core); box-shadow: 0 1px 3px rgba(0,0,0,0.15); cursor: pointer; pointer-events: auto; }
+  .budget input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .budget input:focus-visible::-moz-range-thumb { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .budget .ends { display: flex; justify-content: space-between; margin-top: 2px; font-size: var(--fs-tick); font-weight: 500; color: var(--muted); }
+  /* Totals for the creators on the chart, between the slider and the plot. */
+  /* Same grey boxes as the stat tiles at the top of the page (.cmStat). */
+  .costSum { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 28px 0 36px; }
+  .costNote { margin: 20px 0 0; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; font-style: italic; }
+  .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
@@ -124,18 +151,20 @@
   .av { display: block; flex: none; width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--band); }
   .av.ini { display: flex; align-items: center; justify-content: center; background: var(--h1); color: var(--ink); font-weight: 600; font-size: 12px; }
   .av.lg { width: 56px; height: 56px; font-size: 18px; }
+  .av.xl { width: 120px; height: 120px; font-size: 36px; }
   .cell.sel { outline: 2px solid var(--blue); outline-offset: 2px; }
-  .ylab { font-size: 10px; font-weight: 600; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
-  .xlab { font-size: 10px; font-weight: 600; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
-  .axis { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .ylab { font-size: var(--fs-meta); font-weight: 400; color: var(--ink); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; text-align: right; line-height: 1.2; border-right: 1px solid var(--line); }
+  .xlab { font-size: var(--fs-meta); font-weight: 400; color: var(--ink); text-align: center; padding-top: 6px; border-top: 1px solid var(--line); }
+  /* Axis titles are the only semibold labels on the charts. */
+  .axis { font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
   .tip {
     position: absolute; pointer-events: none; z-index: 5;
-    background: var(--ink); color: #FFFFFF; font-size: 12px; line-height: 1.4;
+    background: var(--ink); color: #FFFFFF; font-size: var(--fs-meta); line-height: 1.4;
     padding: 9px 12px; border-radius: 12px; max-width: 240px;
     opacity: 0; transition: opacity 0.12s ease;
     box-shadow: 0 10px 30px rgba(0,0,0,0.18);
   }
-  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 14px; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 14px; font-size: var(--fs-sub); font-weight: 500; color: var(--ink); }
   .legend > span { display: inline-flex; align-items: center; gap: 8px; }
   .sw { position: relative; display: inline-block; flex: none; width: 18px; height: 18px; border-radius: 5px; }
   .sw.creator::after { content: ""; position: absolute; inset: 32%; border-radius: 50%; background: #FFFFFF; }
@@ -143,30 +172,90 @@
   .sw.none { background: var(--cell2); }
 
   /* ================= SIDE PANEL ================= */
-  .tiers .row { display: grid; grid-template-columns: 72px minmax(0,1fr) 24px; gap: 10px; align-items: center; font-size: 12px; font-weight: 500; margin-bottom: 7px; }
-  .tiers .row span:last-child { text-align: right; color: var(--muted); }
+  .tiers .row { display: grid; grid-template-columns: 84px minmax(0,1fr) 24px 28px; gap: 10px; align-items: center; font-size: var(--fs-body); font-weight: 500; margin-bottom: 8px; }
+  .tiers .row .n { text-align: right; color: var(--muted); font-size: var(--fs-sub); }
+  .tiers .row.off > span, .li.off > .av, .li.off > .m, .li.off > .r { opacity: 0.4; }
+  .tiers .row.off .bar i { background: var(--soft); }
+  .tiers .row small { display: block; font-size: var(--fs-tick); font-weight: 400; color: var(--muted); white-space: nowrap; }
   .bar { height: 6px; border-radius: 3px; background: var(--band); overflow: hidden; }
   .bar i { display: block; height: 100%; border-radius: 3px; background: var(--core); }
-  .empty { margin: 0; color: var(--muted); font-size: 13px; }
-  .list { max-height: 320px; overflow: auto; border-top: 1px solid var(--line); }
-  .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .empty { margin: 0; color: var(--muted); font-size: var(--fs-sub); }
+  .list { border-top: 1px solid var(--line); }
+  .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: var(--fs-body); font-weight: 500; color: var(--ink); }
   .li:hover .h, .li.on .h { color: var(--blue); }
   .li .m { flex: 1; min-width: 0; }
-  .li small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
+  .li small { display: block; margin-top: 2px; color: var(--muted); font-weight: 400; font-size: var(--fs-meta); }
   .li .r { text-align: right; flex: none; }
+  .eye { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; color: var(--ink); cursor: pointer; }
+  .eye:hover { background: var(--band); }
+  .eye.off { color: var(--soft); }
+  .eye:disabled { cursor: default; background: none; }
+  .eye:focus-visible { outline: 2px solid var(--blue); outline-offset: 0; }
+  .li:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
+  .ig { margin-left: 6px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; text-decoration: none; letter-spacing: 0; }
+  .ig:hover { color: var(--blue); text-decoration: underline; }
 
-  .profile { background: var(--band); border-radius: 18px; padding: 16px; margin-bottom: 20px; }
-  .profile .top { display: flex; align-items: center; gap: 14px; }
-  .profile .who { flex: 1; min-width: 0; }
-  .profile .h { margin: 0; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
-  .profile .t { margin: 2px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
-  .profile .x { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-  .profile .comm { margin: 12px 0; font-weight: 500; font-size: 14px; line-height: 1.4; }
-  .profile dd.ptags { display: flex; flex-wrap: wrap; gap: 4px 0; grid-column: 2 / -1; }
-  .ptag + .ptag::before { content: "\00B7"; margin: 0 6px; color: var(--muted); }
-  .profile dl { display: grid; grid-template-columns: 90px minmax(0,1fr); gap: 5px 10px; margin: 0; font-size: 12px; }
-  .profile dt { color: var(--muted); font-weight: 500; }
-  .profile dd { margin: 0; font-weight: 500; }
+  /* ================= SEND YOUR PLAN ================= */
+  /* Full-width coral band above the footer. */
+  .planBand { margin-top: 72px; padding: 40px var(--edge); background: var(--h0); }
+  .planBand h2 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .planBand .cmSub { color: #5E4A44; }
+  /* Title and subtitle on the left, send button on the right, in one row. */
+  .plan { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px; }
+  .plan > div { flex: 1 1 420px; min-width: 0; }
+  .plan .cmSub { margin-bottom: 0; }
+  .plan .btnPrimary { flex: none; }
+  .planErr { margin: 0; color: #E0261E; font-size: var(--fs-meta); font-weight: 500; }
+  .btnPrimary { border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
+  .btnPrimary:hover { background: #2b4dff; }
+  .btnPrimary:active { transform: scale(0.98); }
+  .btnPrimary:disabled { background: #AEB4CC; cursor: not-allowed; transform: none; }
+  .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 14px 22px; }
+  .btnGhost:hover { background: var(--band); }
+  .btnPrimary:focus-visible, .btnGhost:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* Confirm / result pop-up */
+  .modalWrap { position: fixed; inset: 0; z-index: 100020; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(18,18,18,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
+  .modalWrap.show { opacity: 1; visibility: visible; transition: opacity 0.2s ease; }
+  .modal { width: min(460px, 100%); max-height: calc(100vh - 48px); overflow-y: auto; background: #FFFFFF; border-radius: 24px; padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.18); transform: translateY(12px) scale(0.98); transition: transform 0.25s cubic-bezier(0.32,0.72,0,1); }
+  .modalWrap.show .modal { transform: none; }
+  .modal:focus { outline: none; }
+  .modal h2 { margin: 0 0 8px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .modal p { margin: 0 0 12px; color: var(--muted); font-size: var(--fs-body); line-height: 1.5; font-weight: 500; }
+  .modal p b { color: var(--ink); font-weight: 600; }
+  .modal .acts { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+  .modal .planErr { margin-top: 4px; }
+
+  /* ================= CREATOR PROFILE DRAWER ================= */
+  .scrim { position: fixed; inset: 0; z-index: 100010; background: rgba(18,18,18,0.32); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0s linear 0.25s; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100011; width: min(520px, 100vw); display: flex; flex-direction: column; background: #FFFFFF; box-shadow: -12px 0 40px rgba(0,0,0,0.12); transform: translateX(100%); visibility: hidden; transition: transform 0.3s cubic-bezier(0.32,0.72,0,1), visibility 0s linear 0.3s; }
+  body.drawerOpen .scrim { opacity: 1; visibility: visible; transition: opacity 0.25s ease; }
+  body.drawerOpen .drawer { transform: none; visibility: visible; transition: transform 0.3s cubic-bezier(0.32,0.72,0,1); }
+  body.drawerOpen, body.modalOpen { overflow: hidden; }
+  .drawer:focus { outline: none; }
+  .drawer .dHead { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 28px; border-bottom: 1px solid var(--line); }
+  .drawer .dHead h2 { margin: 0; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .drawer .x { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .drawer .x:hover { background: var(--band); }
+  .drawer .x:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .drawer .dBody { flex: 1; overflow-y: auto; padding: 28px; }
+  .drawer .who { text-align: center; padding-bottom: 24px; }
+  .drawer .who .av { margin: 0 auto 14px; }
+  .drawer .who .h { margin: 0; font-weight: 600; font-size: var(--fs-name); line-height: 1.2; letter-spacing: -0.02em; }
+  .drawer .who .t { margin: 4px 0 0; color: var(--muted); font-size: var(--fs-body); font-weight: 500; }
+  .drawer .sec { border-top: 1px solid var(--line); padding: 22px 0; }
+  .drawer .sec h3 { margin: 0 0 12px; color: var(--muted); font-weight: 600; font-size: var(--fs-body); line-height: 1.2; }
+  .drawer .social { margin: 0; display: flex; align-items: center; gap: 8px; font-size: var(--fs-lead); font-weight: 500; color: var(--muted); }
+  .drawer .social b { color: var(--ink); font-weight: 600; }
+  .drawer .social a { color: var(--blue); font-weight: 600; text-decoration: none; }
+  .drawer .social a:hover { text-decoration: underline; }
+  .drawer .stats { display: grid; grid-template-columns: 1fr 1fr; }
+  .drawer .stats div + div { border-left: 1px solid var(--line); padding-left: 24px; }
+  .drawer .stats b { display: block; font-weight: 600; font-size: var(--fs-stat); line-height: 1.1; letter-spacing: -0.02em; }
+  .drawer .stats span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; }
+  .drawer dl { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 10px 12px; margin: 0; font-size: var(--fs-body); }
+  .drawer dt { color: var(--muted); font-weight: 500; }
+  .drawer dd { margin: 0; font-weight: 500; }
 
   /* ================= FOOTER ================= */
   #siteFooter { padding: 60px 17px 40px; }
@@ -199,23 +288,16 @@
 
     .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)) auto; gap: 12px; padding-top: 48px; margin-bottom: 28px; }
     .cmStat { padding: 20px; border-radius: 20px; }
-    .cmStat b { font-size: 32px; }
-    .cmStat span { font-size: 13px; }
-    .cmCard { padding: 24px; border-radius: 28px; }
-    .map { gap: 4px; }
-    .ylab, .xlab { font-size: 13px; }
-    .axis { font-size: 13px; }
+    .cmStat b { font-size: var(--fs-stat); }
+    .cmStat span { font-size: var(--fs-sub); }
+    .cmLayout { gap: 56px; }
+        .map { gap: 4px; }
     .ylab { padding-right: 8px; }
 
     #siteFooter { padding: 72px var(--edge) 52px; }
     #siteFooter .wm { width: 152px; height: 28px; }
     #siteFooter p { font-size: 14px; }
     #siteFooter .legal { font-size: 12px; }
-  }
-  @media (min-width: 1040px) {
-    /* Map spans the full width; the details stack underneath as rows. */
-    .cmSide > div:not(#profile) + div { margin-top: 28px; }
-    .profile dl { grid-template-columns: 90px minmax(0,1fr) 90px minmax(0,1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
     #siteNav { animation: none; }
@@ -275,6 +357,7 @@
     <div class="cmLayout">
       <div class="cmCard">
         <h2>Audience map</h2>
+        <p class="cmSub" id="mapSub"></p>
         <div class="map" id="map"></div>
         <div class="tip" id="tip"></div>
         <div class="legend">
@@ -288,17 +371,57 @@
       <div class="cmCard">
         <h2>Cost per reel</h2>
         <p class="cmSub">What each creator charges for one Instagram reel, in Rs.</p>
+        <div class="budget" id="budget">
+          <div class="top"><span id="budgetVal"></span><small id="budgetCount"></small></div>
+          <div class="rail">
+            <span class="fill" id="budgetFill"></span>
+            <input type="range" id="budgetLo" aria-label="Lowest cost per reel">
+            <input type="range" id="budgetHi" aria-label="Highest cost per reel">
+          </div>
+          <div class="ends"><span id="budgetMin"></span><span id="budgetMax"></span></div>
+        </div>
+        <div class="costSum" id="costSum"></div>
         <div class="cost" id="cost"></div>
+        <p class="costNote">All costs are inclusive of the Polysocial fees.</p>
         <div class="tip" id="ctip"></div>
       </div>
 
       <aside class="cmCard cmSide">
-        <div id="profile"></div>
-        <div><h3>By tier</h3><div class="tiers" id="tiers"></div></div>
-        <div><h3>Creators</h3><div class="list" id="list"></div></div>
+        <section>
+          <h2>Creators by tier</h2>
+          <p class="cmSub">How many matching creators sit in each follower tier. Use the eye to hide a whole tier.</p>
+          <div class="tiers" id="tiers"></div>
+        </section>
+        <section>
+          <h2>Creators</h2>
+          <p class="cmSub">Everyone who matches your filters. Use the eye to hide a creator from the map and cost chart.</p>
+          <div class="list" id="list"></div>
+        </section>
       </aside>
+
     </div>
+
+    <section class="planBand" aria-labelledby="planTitle"><div class="plan">
+      <div>
+        <h2 id="planTitle">Send us your creator plan</h2>
+        <p class="cmSub">Happy with the mix? Adjust the filters, cost range and eyes above until the map shows the creators you want, then send us a snapshot. Our team will check each creator's availability and put together a campaign quote.</p>
+      </div>
+      <button class="btnPrimary" type="button" id="planBtn">Send this plan to Polysocial</button>
+    </div></section>
   </main>
+
+  <div class="modalWrap" id="planModal" aria-hidden="true">
+    <div class="modal" id="planDialog" role="dialog" aria-modal="true" aria-labelledby="planModalTitle" tabindex="-1"></div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+    <div class="dHead">
+      <h2 id="drawerTitle">Creator profile</h2>
+      <button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="dBody" id="profile"></div>
+  </aside>
 
   <footer id="siteFooter">
     <div class="inner">
@@ -352,7 +475,7 @@
   function sizeGrid(list) {
     var counts = {}, most = 0;
     list.forEach(function (c) {
-      var k = ageSpan(c)[0] + "|" + Math.max(0, yBands().indexOf(c[axis]));
+      var k = ageSpan(c)[0] + "|" + bandSpan(c)[0];
       counts[k] = (counts[k] || 0) + 1; most = Math.max(most, counts[k]);
     });
     var perBand = 12 / yBands().length;
@@ -409,12 +532,36 @@
   function yBands() { return OPT[axis]; }
   function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
 
+  // Cost range: the slider runs from 0 to the top creator cost, rounded up.
+  // While it spans the whole range, creators with no cost listed stay in.
+  var COST_STEP = 5000;
+  var COST_MAX = Math.max(COST_STEP, Math.ceil(Math.max.apply(null, [0].concat(creators.map(function (c) { return Number(c.cost) || 0; }))) / COST_STEP) * COST_STEP);
+  var budget = { lo: 0, hi: COST_MAX };
+  function inBudget(c) {
+    if (budget.lo === 0 && budget.hi === COST_MAX) return true;
+    return c.cost > 0 && c.cost >= budget.lo && c.cost <= budget.hi;
+  }
+
   function personasOf(c) { return c.personas || (c.persona ? [c.persona] : []); }
 
   function stylesOf(c) { return c.styles || []; }
   function anyOf(have, want) { return !want.length || have.some(function (v) { return want.indexOf(v) !== -1; }); }
 
   // A creator matches a tag row if they carry any of the picked tags.
+  // Hidden with the eye buttons: single creators, or whole tiers.
+  var hiddenIds = {}, hiddenTiers = {};
+  // Why a creator in the list is not drawn, or "" when they are.
+  function hiddenWhy(c) {
+    if (hiddenTiers[tierOf(c.followers).name]) return "Hidden with the " + tierOf(c.followers).name + " tier";
+    if (!inBudget(c)) return c.cost > 0 ? "Outside the cost range" : "No cost listed, so outside the cost range";
+    if (hiddenIds[c.id]) return "Hidden";
+    return "";
+  }
+  var EYE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.9 5.2A10.6 10.6 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-2.6 3.5M6.6 6.6C3.6 8.5 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/></svg>';
+
+  // Creators matching the tag rows, language, platform and gender. The list
+  // shows all of these; the map, stats and chart only the ones not hidden.
   function visible() {
     var st = picked.style, p = picked.persona, t = picked.tier, l = $("fLang").value, pf = $("fPlatform").value;
     return creators.filter(function (c) {
@@ -436,13 +583,32 @@
     return hit.length ? [hit[0], hit[hit.length - 1]] : [0, 0];
   }
 
+  // Lifestyle / location is one band, or two bands listed together when the
+  // audience sits between them; `lean` names the band it is closer to.
+  // Returns the first and last yBands() index the creator covers.
+  function bandSpan(c) {
+    var v = c[axis], list = Array.isArray(v) ? v : [v];
+    var idx = list.map(function (b) { return yBands().indexOf(b); }).filter(function (i) { return i !== -1; }).sort(function (a, b) { return a - b; });
+    return idx.length ? [idx[0], idx[idx.length - 1]] : [0, 0];
+  }
+  function bandText(v, lean) {
+    if (!Array.isArray(v)) return v;
+    return v.join(" to ") + (lean ? ", closer to " + lean : "");
+  }
+
   function place(list) {
     var taken = {}, rows = bandRows();
     list.slice().sort(function (a, b) { return b.followers - a.followers; }).forEach(function (c) {
-      var span = ageSpan(c), yi = Math.max(0, yBands().indexOf(c[axis]));
-      var r0 = rows[yi][0], r1 = rows[yi][1], c0 = span[0] * AGE_W, c1 = (span[1] + 1) * AGE_W;
+      var span = ageSpan(c), ys = bandSpan(c);
+      var r0 = rows[ys[0]][0], r1 = rows[ys[1]][1], c0 = span[0] * AGE_W, c1 = (span[1] + 1) * AGE_W;
       // A range sits on the line between its bands, centred across them.
       var cx = span[0] === span[1] ? c0 + Math.floor(AGE_W / 2) : (c0 + c1) / 2 - 0.5, cy = Math.floor((r0 + r1 - 1) / 2);
+      // Between two bands: sit on the line between them, nudged one row
+      // towards the band the audience leans to.
+      if (ys[0] !== ys[1]) {
+        var line = rows[ys[1]][0], lean = yBands().indexOf(c.lean);
+        cy = lean === ys[0] ? line - 1 : lean === ys[1] ? line : line - 0.5;
+      }
       var best = null, bd = Infinity;
       for (var y = 0; y < ROWS; y++) for (var x = 0; x < COLS; x++) {
         if (taken[y * COLS + x]) continue;
@@ -465,6 +631,12 @@
   // Joins the parts that have a value with " · ", skipping missing (null) fields.
   function dots(parts) { return parts.filter(function (v) { return v; }).map(esc).join(" &middot; "); }
   function nameOf(c) { return c.name || c.handle; }
+  // The creator's @handle as a link to their Instagram page (shown next to the name).
+  function handleOf(c) { return String(c.handle || "").trim().replace(/^@/, ""); }
+  function igLink(c) {
+    var h = handleOf(c);
+    return h && c.name ? '<a class="ig" href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a>' : '';
+  }
   // Follower counts read as 7.2K, 20K, 210K, 1.2M.
   function fmtK(n) {
     n = Number(n) || 0;
@@ -487,7 +659,13 @@
   function renderCost(list) {
     var el = $("cost"), tipEl = $("ctip");
     var rows = costRows = list.filter(function (c) { return c.cost > 0; }).sort(function (a, b) { return shuffleKey(a) - shuffleKey(b); });
-    if (!rows.length) { el.innerHTML = '<p class="empty" style="grid-column:1/-1">No cost data for these creators yet.</p>'; return; }
+    var missing = list.length - rows.length;
+    if (!rows.length) { $("costSum").innerHTML = ""; el.innerHTML = '<p class="empty" style="grid-column:1/-1">No cost data for these creators yet.</p>'; return; }
+    // Total = one reel from every creator shown on the chart.
+    var sum = rows.reduce(function (s, c) { return s + c.cost; }, 0);
+    $("costSum").innerHTML = '<div class="cmStat"><b>' + fmtRs(sum) + '</b><span>Total for one reel from each of ' + rows.length + (rows.length === 1 ? ' creator' : ' creators') + (missing ? ' (' + missing + ' without a cost left out)' : '') + '</span></div>'
+      + '<div class="cmStat"><b>Rs. ' + fmtK(Math.round(sum / rows.length)) + '</b><span>Average per reel</span></div>'
+      + '<div class="cmStat"><b>Rs. ' + fmtK(Math.min.apply(null, rows.map(function (c) { return c.cost; }))) + '–' + fmtK(Math.max.apply(null, rows.map(function (c) { return c.cost; }))) + '</b><span>Cheapest to priciest</span></div>';
     var costs = rows.map(function (c) { return c.cost; }), hi = Math.max.apply(null, costs), lo = Math.min.apply(null, costs);
     var step = niceStep(hi), top = Math.ceil(hi / step) * step, ticks = [];
     if (hi / top > 0.9) top += step; // headroom for the top point's label
@@ -511,12 +689,25 @@
       var valley = nb.length && nb.every(function (v) { return v < y; });
       return valley && y + 20 <= H ? y + 20 : y - 12;
     }
+    // The median label goes in the gap between two creators where the line
+    // stays furthest from it, so no line or point runs through the text.
+    var medX = W / 2, medY = Y(median) - 10, bestGap = -1;
+    function lineY(x) {
+      if (x <= pts[0][0]) return pts[0][1];
+      for (var k = 1; k < pts.length; k++) if (x <= pts[k][0]) { var a = pts[k - 1], b = pts[k]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); }
+      return pts[pts.length - 1][1];
+    }
+    for (var g = 0; g < n - 1; g++) {
+      var mid = (pts[g][0] + pts[g + 1][0]) / 2, clear = Infinity;
+      for (var dx = -48; dx <= 48; dx += 8) clear = Math.min(clear, Math.abs(lineY(mid + dx) - medY));
+      if (clear > bestGap) { bestGap = clear; medX = mid; }
+    }
     var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
     var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">'
       + ticks.slice(1).map(function (t) { return '<line class="gl" x1="0" x2="' + W + '" y1="' + Y(t) + '" y2="' + Y(t) + '"/>'; }).join("")
       + '<line class="med" x1="0" x2="' + W + '" y1="' + Y(median) + '" y2="' + Y(median) + '"/>'
-      + '<text class="medl" x="4" y="' + (Y(median) - 6) + '" text-anchor="start">Median ' + "Rs. " + fmtK(median) + '</text>'
       + '<path class="ln" d="' + line + '"/>'
+      + '<text class="medl" x="' + medX + '" y="' + (Y(median) - 6) + '" text-anchor="middle">Median ' + "Rs. " + fmtK(median) + '</text>'
       + rows.map(function (c, k) {
         var on = selected === c.id, lab = c.cost === hi || c.cost === lo || on;
         return '<circle class="pt' + (on ? ' on' : '') + '" cx="' + pts[k][0] + '" cy="' + pts[k][1] + '" r="' + (on ? 6 : 4.5) + '"/>'
@@ -544,10 +735,135 @@
     });
   }
 
+  // ---------- Creator plan snapshot (sent to Polysocial through Web3Forms) ----------
+  var WEB3FORMS_KEY = "f9505284-5759-4069-976f-5eb4e8842eb7";
+  var plan = null; // the latest snapshot, rebuilt on every render
+
+  function listOr(items, none) { return items.length ? items.join(", ") : none; }
+  function buildPlan(all, list) {
+    var costed = list.filter(function (c) { return c.cost > 0; });
+    var hiddenByYou = all.filter(function (c) { return hiddenIds[c.id]; }).map(nameOf);
+    return {
+      creators: list.slice().sort(function (a, b) { return b.followers - a.followers; }),
+      followers: list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0),
+      cost: costed.reduce(function (s, c) { return s + c.cost; }, 0),
+      noCost: list.length - costed.length,
+      settings: [
+        ["Platform", $("fPlatform").value || "All"],
+        ["Map view", axis === "lifestyle" ? "Lifestyle" : "Location"],
+        ["Language", $("fLang").value || "All"],
+        ["Audience gender", gender.women && gender.men ? "Female and male" : gender.women ? "Female" : "Male"],
+        ["Personas", listOr(picked.persona, "All")],
+        ["Content style", listOr(picked.style, "All")],
+        ["Tiers", listOr(picked.tier, "All")],
+        ["Cost range", fmtRs(budget.lo) + " – " + fmtRs(budget.hi)],
+        ["Hidden tiers", listOr(Object.keys(hiddenTiers), "None")],
+        ["Hidden creators", listOr(hiddenByYou, "None")]
+      ]
+    };
+  }
+
+  function renderPlan(all, list) {
+    plan = buildPlan(all, list);
+    $("planBtn").disabled = !plan.creators.length;
+  }
+
+  // Plain-text email body: everything we need to quote the plan.
+  function planText(p) {
+    var lines = [
+      "Creator plan from the " + (DATA.brand || "Celeste") + " creator map",
+      "",
+      "CREATORS (" + p.creators.length + ")"
+    ];
+    p.creators.forEach(function (c, k) {
+      var h = handleOf(c);
+      lines.push((k + 1) + ". " + nameOf(c) + (h ? " (@" + h + ", instagram.com/" + h + ")" : "") + " — " + tierOf(c.followers).name + ", " + fmtK(c.followers) + " followers, " + (c.cost > 0 ? fmtRs(c.cost) + " per reel" : "no cost listed"));
+    });
+    lines.push("", "TOTALS",
+      "Creators: " + p.creators.length,
+      "Combined followers: " + fmt(p.followers),
+      "One reel from each: " + fmtRs(p.cost) + (p.noCost ? " (" + p.noCost + " creator(s) without a cost not included)" : "") + ", inclusive of Polysocial fees",
+      "", "SETTINGS");
+    p.settings.forEach(function (r) { lines.push(r[0] + ": " + r[1]); });
+    lines.push("", "Page: " + location.href, "Sent: " + new Date().toString());
+    return lines.join("\n");
+  }
+
+  var planModal = $("planModal"), planDialog = $("planDialog"), planLastFocus = null, planSending = false;
+  function openPlanModal(html) {
+    planDialog.innerHTML = html;
+    if (!planModal.classList.contains("show")) planLastFocus = document.activeElement;
+    planModal.classList.add("show");
+    planModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modalOpen");
+    setTimeout(function () { planDialog.focus(); }, 30);
+  }
+  function closePlanModal() {
+    if (planSending) return;
+    planModal.classList.remove("show");
+    planModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modalOpen");
+    if (planLastFocus && document.contains(planLastFocus)) planLastFocus.focus();
+  }
+  planModal.addEventListener("click", function (e) { if (e.target === planModal) closePlanModal(); });
+
+  function confirmHtml(p, err) {
+    return '<h2 id="planModalTitle">Send this creator plan?</h2>'
+      + '<p><b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b> &middot; <b>' + fmtRs(p.cost) + '</b> total</p>'
+      + (err ? '<p class="planErr">' + esc(err) + '</p>' : '')
+      + '<div class="acts"><button type="button" class="btnGhost" data-act="cancel">Keep editing</button><button type="button" class="btnPrimary" data-act="send">Yes, send plan</button></div>';
+  }
+  function wireModal(p) {
+    planDialog.querySelector('[data-act="cancel"]').onclick = closePlanModal;
+    planDialog.querySelector('[data-act="send"]').onclick = function () { sendPlan(p, this); };
+  }
+
+  function sendPlan(p, btn) {
+    planSending = true;
+    btn.disabled = true; btn.textContent = "Sending…";
+    planDialog.querySelector('[data-act="cancel"]').disabled = true;
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: "Creator plan — " + (DATA.brand || "Celeste") + " — " + p.creators.length + " creators, " + fmtRs(p.cost),
+        from_name: "Polysocial — Creator map",
+        creators: p.creators.map(nameOf).join(", "),
+        total_cost: fmtRs(p.cost),
+        message: planText(p)
+      })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (data) {
+        planSending = false;
+        if (data && data.success) {
+          openPlanModal('<h2 id="planModalTitle">Plan sent</h2><p>Thanks! We\'ve received your plan of <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b>. Our team will check each creator\'s availability and be in touch with a quote.</p><div class="acts"><button type="button" class="btnPrimary" data-act="done">Done</button></div>');
+          planDialog.querySelector('[data-act="done"]').onclick = closePlanModal;
+        } else {
+          openPlanModal(confirmHtml(p, (data && data.message) || "Something went wrong. Please try again."));
+          wireModal(p);
+        }
+      })
+      .catch(function () {
+        planSending = false;
+        openPlanModal(confirmHtml(p, "Network error. Check your connection and try again."));
+        wireModal(p);
+      });
+  }
+
+  $("planBtn").onclick = function () {
+    if (!plan || !plan.creators.length) return;
+    var p = plan; // freeze the snapshot that is being confirmed
+    openPlanModal(confirmHtml(p));
+    wireModal(p);
+  };
+
   function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
 
   function render() {
-    var list = visible();
+    var all = visible();
+    var list = all.filter(function (c) { return !hiddenWhy(c); });
     sizeGrid(list);
     place(list);
     var N = COLS * ROWS, heat = new Array(N).fill(0), who = [], owner = {};
@@ -573,6 +889,7 @@
       html += '<div class="' + cls + '" data-i="' + i + '" style="grid-column:' + (x + 2) + ';grid-row:' + (y + 1) + ';' + (bg ? 'background:' + bg : '') + '"' + (owner[i] ? ' role="button" tabindex="0" aria-label="' + esc(nameOf(owner[i])) + '">' : '>') + '</div>';
     }
     OPT.age.forEach(function (a, k) { html += '<div class="xlab" style="grid-column:' + (k * AGE_W + 2) + '/span ' + AGE_W + ';grid-row:' + (ROWS + 1) + '">' + a + '</div>'; });
+    $("mapSub").textContent = "Where each creator's audience sits by age and " + (axis === "lifestyle" ? "lifestyle" : "location") + ". Colour spreads further for bigger tiers.";
     html += '<div class="axis" style="grid-column:2/-1;grid-row:' + (ROWS + 2) + ';text-align:center;padding-top:8px">Audience age</div>';
     html += '<div class="axis" style="grid-column:1;grid-row:' + (ROWS + 1) + ';text-align:right;padding-right:6px;padding-top:6px">' + (axis === "lifestyle" ? "Lifestyle" : "Location") + ' &uarr;</div>';
     mapEl.innerHTML = html;
@@ -604,43 +921,97 @@
     });
 
     renderCost(list);
+    renderPlan(all, list);
+    var inRange = all.filter(inBudget).length;
+    $("budgetCount").textContent = inRange + (inRange === 1 ? " creator" : " creators") + " in range";
 
     var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
     $("sCount").textContent = list.length;
     $("sReach").textContent = fmt(total);
     $("sCov").textContent = Math.round(heat.filter(function (h, i) { return h > 0 || owner[i]; }).length / N * 100) + "%";
 
-    var counts = TIERS.map(function (t) { return list.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
+    // Tier counts include hidden tiers, so a hidden tier still shows its size.
+    var counts = TIERS.map(function (t) { return all.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
     var max = Math.max.apply(null, [1].concat(counts));
     $("tiers").innerHTML = TIERS.map(function (t, k) {
-      return '<div class="row"><span>' + t.name + '</span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span>' + counts[k] + '</span></div>';
+      var lo = k ? TIERS[k - 1].max : 0;
+      var range = !lo ? "Under " + fmtK(t.max) : t.max === Infinity ? fmtK(lo) + "+" : fmtK(lo) + "–" + fmtK(t.max);
+      var off = !!hiddenTiers[t.name];
+      return '<div class="row' + (off ? ' off' : '') + '"><span>' + t.name + '<small>' + range + '</small></span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span class="n">' + counts[k] + '</span>'
+        + '<button type="button" class="eye' + (off ? ' off' : '') + '" data-tier="' + t.name + '" aria-pressed="' + off + '" aria-label="' + (off ? 'Show' : 'Hide') + ' ' + t.name + ' creators" title="' + (off ? 'Show' : 'Hide') + ' ' + t.name + ' creators">' + (off ? EYE_OFF : EYE) + '</button></div>';
     }).join("");
+    $("tiers").querySelectorAll(".eye").forEach(function (b) {
+      b.onclick = function () { var t = b.dataset.tier; if (hiddenTiers[t]) delete hiddenTiers[t]; else hiddenTiers[t] = true; render(); };
+    });
 
 
-    $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
-      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span><small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></button>';
+    $("list").innerHTML = all.length ? all.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
+      // The eye is locked closed while a tier or the cost range hides the creator.
+      var why = hiddenWhy(c), locked = why && !hiddenIds[c.id], tipTxt = why ? (locked ? why : "Show " + nameOf(c)) : "Hide " + nameOf(c);
+      var eye = '<button type="button" class="eye' + (why ? ' off' : '') + '" data-eye="' + c.id + '"' + (locked ? ' disabled' : '') + ' aria-pressed="' + !!why + '" aria-label="' + esc(tipTxt) + '" title="' + esc(tipTxt) + '">' + (why ? EYE_OFF : EYE) + '</button>';
+      return '<div role="button" tabindex="0" class="li' + (selected === c.id ? ' on' : '') + (why ? ' off' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span>' + igLink(c) + '<small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span>' + eye + '</div>';
     }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
-    $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
+    // Rows are divs (not buttons) so the Instagram link can sit inside them.
+    $("list").querySelectorAll(".li").forEach(function (el) {
+      el.onclick = function (e) { if (!e.target.closest(".ig, .eye")) select(el.dataset.id); };
+      el.onkeydown = function (e) { if (e.target === el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(el.dataset.id); } };
+    });
+
+    $("list").querySelectorAll(".eye").forEach(function (b) {
+      b.onclick = function () { var id = b.dataset.eye; if (hiddenIds[id]) delete hiddenIds[id]; else hiddenIds[id] = true; render(); };
+    });
 
     var s = creators.find(function (c) { return c.id === selected; });
-    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([s.platform, fmtK(s.followers) + ' followers', tierOf(s.followers).name]) + '</p></div>'
-      + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
-      + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
-      + '<dl>'
-      + '<dt>Personas</dt><dd class="ptags">' + personasOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>'
-      + (stylesOf(s).length ? '<dt>Content style</dt><dd class="ptags">' + stylesOf(s).map(function (v) { return '<span class="ptag">' + esc(v) + '</span>'; }).join("") + '</dd>' : '')
-      + '<dt>Audience age</dt><dd>' + esc(s.age) + '</dd>'
-      + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
-      + '<dt>Location</dt><dd>' + esc(s.location) + '</dd>'
-      + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
-      + '<dt>Lifestyle</dt><dd>' + esc(s.lifestyle) + '</dd>'
-      + '</dl></div>' : "";
-    if (s) $("closeBtn").onclick = function () { selected = null; render(); };
+    renderProfile(s);
   }
+
+  var IG_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#121212" stroke="none"/></svg>';
+  function tagList(items) { return esc(items.join(", ")); }
+
+  // The selected creator's profile, shown in the drawer that slides in from the right.
+  function renderProfile(s) {
+    if (!s) return; // keep the last profile in place while the drawer slides out
+    var h = handleOf(s);
+    $("profile").innerHTML = '<div class="who">' + avatar(s, "xl") + '<p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([tierOf(s.followers).name + ' tier', s.platform]) + '</p></div>'
+      + '<div class="sec"><h3>Social profiles</h3><p class="social">' + IG_ICON + '<b>' + fmtK(s.followers) + '</b> Followers'
+      + (h ? ' &middot; <a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a>' : '') + '</p></div>'
+      + '<div class="sec stats"><div><b>' + (s.cost > 0 ? "Rs. " + fmtK(s.cost) : "–") + '</b><span>Cost per reel</span></div><div><b>' + esc(s.age) + '</b><span>Audience age</span></div></div>'
+      + '<div class="sec"><h3>Audience</h3><dl>'
+      + '<dt>Personas</dt><dd>' + tagList(personasOf(s)) + '</dd>'
+      + (stylesOf(s).length ? '<dt>Content style</dt><dd>' + tagList(stylesOf(s)) + '</dd>' : '')
+      + '<dt>Gender</dt><dd>' + esc(s.gender) + '</dd>'
+      + '<dt>Location</dt><dd>' + esc(bandText(s.location, s.lean)) + '</dd>'
+      + '<dt>Language</dt><dd>' + esc(s.language) + '</dd>'
+      + '<dt>Lifestyle</dt><dd>' + esc(bandText(s.lifestyle, s.lean)) + '</dd>'
+      + '</dl></div>';
+  }
+
+  var lastFocus = null;
+  function openDrawer() {
+    if (document.body.classList.contains("drawerOpen")) return;
+    lastFocus = document.activeElement;
+    document.body.classList.add("drawerOpen");
+    $("drawer").setAttribute("aria-hidden", "false");
+    setTimeout(function () { $("drawer").focus(); }, 50);
+  }
+  function closeDrawer() {
+    if (!document.body.classList.contains("drawerOpen")) return;
+    document.body.classList.remove("drawerOpen");
+    $("drawer").setAttribute("aria-hidden", "true");
+    selected = null; render();
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+  $("closeBtn").onclick = closeDrawer;
+  $("scrim").onclick = closeDrawer;
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (planModal.classList.contains("show")) closePlanModal(); else closeDrawer();
+  });
 
   function select(id) {
     selected = id; render();
-    if (!mq.matches) $("profile").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    $("profile").scrollTop = 0;
+    openDrawer();
   }
 
   $("axisSeg").querySelectorAll("button").forEach(function (b) {
@@ -650,6 +1021,28 @@
       render();
     };
   });
+  (function () {
+    var lo = $("budgetLo"), hi = $("budgetHi");
+    [lo, hi].forEach(function (el) { el.min = 0; el.max = COST_MAX; el.step = COST_STEP; });
+    lo.value = 0; hi.value = COST_MAX;
+    $("budgetMin").textContent = "Rs. 0"; $("budgetMax").textContent = "Rs. " + fmtK(COST_MAX);
+    function paint() {
+      $("budgetVal").textContent = fmtRs(budget.lo) + " – " + fmtRs(budget.hi);
+      // Thumb centres sit 9px in from each end of the track.
+      $("budgetFill").style.left = "calc(9px + (100% - 18px) * " + (budget.lo / COST_MAX) + ")";
+      $("budgetFill").style.right = "calc(9px + (100% - 18px) * " + (1 - budget.hi / COST_MAX) + ")";
+      // Keep the low thumb reachable when both sit at the top end.
+      lo.style.zIndex = budget.lo >= COST_MAX - COST_STEP ? 2 : "";
+    }
+    function onInput(e) {
+      var a = +lo.value, b = +hi.value;
+      if (a > b) { if (e.target === lo) lo.value = a = b; else hi.value = b = a; }
+      budget.lo = a; budget.hi = b;
+      paint(); render();
+    }
+    lo.oninput = hi.oninput = onInput;
+    paint();
+  })();
   $("fLang").onchange = render;
   $("fPlatform").onchange = render;
   // Gender: Female and Male both start on; at least one stays on. Mixed

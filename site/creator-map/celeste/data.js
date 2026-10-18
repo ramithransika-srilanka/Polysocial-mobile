@@ -5,14 +5,20 @@
  * `photo` is a file in this folder (placeholder portraits for now); a
  * creator without one shows their initials instead.
  *
- * `name` is what the page shows; `handle` is kept for reference only.
+ * `name` is what the page shows; `handle` (the Instagram username, with or
+ * without @) appears next to it as a link to their Instagram page.
  *
- * `cost` is what the creator charges for one Instagram reel, in Rs.
+ * `cost` is the price a brand pays for one Instagram reel from the creator,
+ * in Rs., inclusive of the Polysocial fees.
  *
  * `personas` and `styles` (content creation style) are lists: a creator can
  * carry several tags in each.
  *
  * `age` is one band (e.g. 25–34) or a range across bands (e.g. 25–44).
+ *
+ * `lifestyle` (or `location`) is one band, or two bands in a list when the
+ * audience sits between them, e.g. ["Middle-income", "Premium"]; `lean` then
+ * names the band they are closer to.
  *
  * Each value in age / gender / location / lifestyle / personas / language /
  * tone must match one of the options listed in index.html (OPT), otherwise
@@ -24,11 +30,11 @@ window.CREATOR_MAP = {
   creators: [
     {
       name: "Radeesha De Silva",
-      handle: null,
+      handle: "radeeshaa",
       photo: "avatars/radeesha-de-silva.webp",
       platform: "Instagram",
       followers: 52000,
-      cost: 45000,
+      cost: 52941,
       personas: ["Fitness coach", "Food critic", "Restaurant reviewer", "Mukbang reviewer"],
       styles: null,
       community: "Young Sri Lankans in Colombo interested in gym routines, affordable food finds and relatable lifestyle content",
@@ -40,11 +46,11 @@ window.CREATOR_MAP = {
     },
     {
       name: "Vindula Kolambage",
-      handle: null,
+      handle: "viindula",
       photo: "avatars/vindula-kolambage.webp",
       platform: "Instagram",
       followers: 25000,
-      cost: 55000,
+      cost: 64706,
       personas: ["Consumer UGC creator", "Travel Influencer", "Lifestyle UGC creator"],
       styles: null,
       community: "Young professionals and aspiring creators in Colombo interested in branding, digital marketing and lifestyle content",
@@ -56,11 +62,11 @@ window.CREATOR_MAP = {
     },
     {
       name: "Imasha Peiris",
-      handle: null,
+      handle: "mitchie_imasha",
       photo: "avatars/imasha-peiris.webp",
       platform: "Instagram",
       followers: 23000,
-      cost: 40000,
+      cost: 47059,
       personas: ["Momfluencer", "Consumer UGC creator", "Medfluencer"],
       styles: null,
       community: "Young mothers in Colombo navigating toddler care, breastfeeding, and balancing motherhood with work",
@@ -72,16 +78,114 @@ window.CREATOR_MAP = {
     },
     {
       name: "Dithmini De Silva",
-      handle: null,
+      handle: "dithiiiii",
       photo: "avatars/dithmini-de-silva.webp",
       platform: "Instagram",
       followers: 5900,
-      cost: 15000,
+      cost: 17647,
       personas: ["Travel Influencer", "Restaurant reviewer", "Food critic", "Social runner"],
       styles: null,
       community: "Young women in Colombo interested in travel diaries, restaurant finds and lifestyle moments",
       age: "25–34",
       lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Chathuri Dahanayake",
+      handle: "she_writes_a_diary",
+      photo: "avatars/chathuri-dahanayake.webp",
+      platform: "Instagram",
+      followers: 23000,
+      cost: 47059,
+      personas: ["Momfluencer", "Travel Influencer", "Consumer UGC creator"],
+      styles: null,
+      community: "Working mothers in Colombo balancing kids, travel and lifestyle content",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Kyle",
+      handle: "_kyloooo_",
+      photo: "avatars/kyle.webp",
+      platform: "Instagram",
+      followers: 5100,
+      cost: 11765,
+      personas: ["Social runner", "Lifestyle runner"],
+      styles: null,
+      community: "Young runners in Colombo interested in community runs, run clubs and run-rave culture",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
+    },
+    {
+      name: "Belinda Seneviratne",
+      handle: null,
+      photo: "avatars/belinda-seneviratne.webp",
+      platform: "Instagram",
+      followers: 13000,
+      cost: 70588,
+      personas: ["Lifestyle runner", "Social runner", "Travel Influencer"],
+      styles: null,
+      community: "Young women in Colombo interested in walking, running, hiking and sustainable active lifestyle",
+      age: "25–45",
+      lifestyle: ["Middle-income", "Premium"],
+      lean: "Premium",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Shavi",
+      handle: null,
+      photo: "avatars/shavi.webp",
+      platform: "Instagram",
+      followers: 4000,
+      cost: 23529,
+      personas: ["Consumer UGC creator", "Travel Influencer", "Petfluencer", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in soft life, self-love, Pilates, girl talk and wellness",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Lelumi Jagoda",
+      handle: null,
+      photo: "avatars/lelumi-jagoda.webp",
+      platform: "Instagram",
+      followers: 7700,
+      cost: 23529,
+      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Yasasi",
+      handle: null,
+      photo: "avatars/yasasi.webp",
+      platform: "Instagram",
+      followers: 38000,
+      cost: 94118,
+      personas: ["Fitness coach", "Entrepreneur", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in motorsport, fitness and active lifestyle",
+      age: "25–34",
+      lifestyle: ["Middle-income", "Premium"],
+      lean: "Middle-income",
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
