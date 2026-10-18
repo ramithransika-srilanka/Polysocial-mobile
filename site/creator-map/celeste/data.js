@@ -73,10 +73,10 @@ window.CREATOR_MAP = {
     {
       name: "Dithmini De Silva",
       handle: null,
-      photo: null,
+      photo: "avatars/dithmini-de-silva.webp",
       platform: "Instagram",
       followers: 5900,
-      cost: null,
+      cost: 15000,
       personas: ["Travel Influencer", "Restaurant reviewer", "Food critic", "Social runner"],
       styles: null,
       community: "Young women in Colombo interested in travel diaries, restaurant finds and lifestyle moments",
