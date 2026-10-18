@@ -107,7 +107,7 @@
   .costPlot svg { position: absolute; inset: 0; overflow: visible; }
   .costPlot .gl { stroke: #F0F0F0; stroke-width: 1; }
   .costPlot .med { stroke: #ADADAD; stroke-width: 1; stroke-dasharray: 4 4; }
-  .costPlot .medl { font-size: var(--fs-tick); font-weight: 500; fill: var(--muted); }
+  .costPlot .medl { font-size: var(--fs-tick); font-weight: 500; fill: var(--muted); paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; stroke-linejoin: round; }
   .costPlot .ln { fill: none; stroke: #F05A38; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   .costPlot .pt { fill: #F05A38; stroke: #FFFFFF; stroke-width: 2; }
   .costPlot .pt.on { fill: var(--blue); }
@@ -689,12 +689,25 @@
       var valley = nb.length && nb.every(function (v) { return v < y; });
       return valley && y + 20 <= H ? y + 20 : y - 12;
     }
+    // The median label goes in the gap between two creators where the line
+    // stays furthest from it, so no line or point runs through the text.
+    var medX = W / 2, medY = Y(median) - 10, bestGap = -1;
+    function lineY(x) {
+      if (x <= pts[0][0]) return pts[0][1];
+      for (var k = 1; k < pts.length; k++) if (x <= pts[k][0]) { var a = pts[k - 1], b = pts[k]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); }
+      return pts[pts.length - 1][1];
+    }
+    for (var g = 0; g < n - 1; g++) {
+      var mid = (pts[g][0] + pts[g + 1][0]) / 2, clear = Infinity;
+      for (var dx = -48; dx <= 48; dx += 8) clear = Math.min(clear, Math.abs(lineY(mid + dx) - medY));
+      if (clear > bestGap) { bestGap = clear; medX = mid; }
+    }
     var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
     var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">'
       + ticks.slice(1).map(function (t) { return '<line class="gl" x1="0" x2="' + W + '" y1="' + Y(t) + '" y2="' + Y(t) + '"/>'; }).join("")
       + '<line class="med" x1="0" x2="' + W + '" y1="' + Y(median) + '" y2="' + Y(median) + '"/>'
-      + '<text class="medl" x="4" y="' + (Y(median) - 6) + '" text-anchor="start">Median ' + "Rs. " + fmtK(median) + '</text>'
       + '<path class="ln" d="' + line + '"/>'
+      + '<text class="medl" x="' + medX + '" y="' + (Y(median) - 6) + '" text-anchor="middle">Median ' + "Rs. " + fmtK(median) + '</text>'
       + rows.map(function (c, k) {
         var on = selected === c.id, lab = c.cost === hi || c.cost === lo || on;
         return '<circle class="pt' + (on ? ' on' : '') + '" cx="' + pts[k][0] + '" cy="' + pts[k][1] + '" r="' + (on ? 6 : 4.5) + '"/>'
