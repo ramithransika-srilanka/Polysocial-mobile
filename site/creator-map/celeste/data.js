@@ -25,7 +25,7 @@ window.CREATOR_MAP = {
   creators: [
     {
       name: "Radeesha De Silva",
-      handle: null,
+      handle: "radeeshaa",
       photo: "avatars/radeesha-de-silva.webp",
       platform: "Instagram",
       followers: 52000,
@@ -41,7 +41,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Vindula Kolambage",
-      handle: null,
+      handle: "viindula",
       photo: "avatars/vindula-kolambage.webp",
       platform: "Instagram",
       followers: 25000,
@@ -57,7 +57,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Imasha Peiris",
-      handle: null,
+      handle: "mitchie_imasha",
       photo: "avatars/imasha-peiris.webp",
       platform: "Instagram",
       followers: 23000,
@@ -73,7 +73,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Dithmini De Silva",
-      handle: null,
+      handle: "dithiiiii",
       photo: "avatars/dithmini-de-silva.webp",
       platform: "Instagram",
       followers: 5900,
@@ -89,7 +89,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Chathuri Dahanayake",
-      handle: null,
+      handle: "she_writes_a_diary",
       photo: "avatars/chathuri-dahanayake.webp",
       platform: "Instagram",
       followers: 23000,
