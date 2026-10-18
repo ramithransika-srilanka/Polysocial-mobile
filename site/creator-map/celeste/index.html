@@ -54,23 +54,23 @@
   /* ================= STATS ================= */
   .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 24px var(--edge) 0; margin-bottom: 24px; }
   .cmPlatform { align-self: start; justify-self: end; }
-  .cmStat { background: var(--band); border-radius: 18px; padding: 16px 16px 14px; }
+  .cmStat { background: var(--band); border-radius: 16px; padding: 16px 16px 14px; }
   .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
   .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
 
   /* ================= FILTERS ================= */
   .cmFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--edge); margin-bottom: 16px; align-items: center; }
-  .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 100px; }
+  .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 16px; }
   .seg button {
     border: 0; background: transparent; color: var(--ink); cursor: pointer;
-    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 16px;
     transition: background 0.16s ease, color 0.16s ease;
   }
   .seg button.on { background: var(--ink); color: #FFFFFF; }
   .pill {
     -webkit-appearance: none; appearance: none; border: 0; outline: none;
     background: var(--band); color: var(--ink);
-    font-weight: 500; font-size: var(--fs-sub); line-height: 1.2; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1.2; border-radius: 16px;
     padding: 9px 30px 9px 14px; cursor: pointer;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
     background-repeat: no-repeat; background-position: right 12px center;
@@ -84,7 +84,7 @@
   .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
     border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); cursor: pointer;
-    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 7px 12px; border-radius: 100px;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 7px 12px; border-radius: 16px;
     transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
   }
   .tag:hover { border-color: #C8C8C8; }
@@ -120,12 +120,12 @@
   .costX span { flex: 1 1 0; min-width: 0; padding: 0 2px; text-align: center; font-size: var(--fs-meta); font-weight: 400; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .costX span.on { color: var(--blue); }
   /* Two range inputs stacked on one track; only their thumbs take the pointer. */
-  .budget { margin: 0 0 20px; padding: 12px 16px 14px; background: var(--band); border-radius: 14px; }
+  .budget { margin: 0 0 20px; padding: 12px 16px 14px; background: var(--band); border-radius: 16px; }
   .budget .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
   .budget .top small { font-size: var(--fs-sub); font-weight: 500; color: var(--muted); }
   .budget .rail { position: relative; height: 20px; margin-top: 8px; }
-  .budget .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 2px; background: var(--cell2); }
-  .budget .fill { position: absolute; top: 8px; height: 4px; border-radius: 2px; background: var(--core); }
+  .budget .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 4px; background: var(--cell2); }
+  .budget .fill { position: absolute; top: 8px; height: 4px; border-radius: 4px; background: var(--core); }
   .budget input { position: absolute; inset: 0; width: 100%; height: 20px; margin: 0; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
   .budget input::-webkit-slider-runnable-track { background: none; }
   .budget input::-moz-range-track { background: none; }
@@ -142,7 +142,7 @@
 
   /* ================= MAP ================= */
   .map { position: relative; display: grid; gap: 3px; }
-  .cell { aspect-ratio: 1; border-radius: 26%; background: var(--cell); position: relative; transition: background 0.25s ease; }
+  .cell { aspect-ratio: 1; border-radius: 8px; background: var(--cell); position: relative; transition: background 0.25s ease; }
   .cell.alt { background: var(--cell2); }
   .cell.creator { background: var(--core) !important; cursor: pointer; }
   .cell.creator::after { content: ""; position: absolute; inset: 34%; border-radius: 50%; background: #FFFFFF; }
@@ -164,9 +164,9 @@
     opacity: 0; transition: opacity 0.12s ease;
     box-shadow: 0 10px 30px rgba(0,0,0,0.18);
   }
-  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 14px; font-size: var(--fs-sub); font-weight: 500; color: var(--ink); }
+  .legend { display: flex; gap: 10px 24px; flex-wrap: wrap; align-items: center; margin-top: 18px; padding: 12px 16px; background: var(--band); border-radius: 16px; font-size: var(--fs-sub); font-weight: 500; color: var(--ink); }
   .legend > span { display: inline-flex; align-items: center; gap: 8px; }
-  .sw { position: relative; display: inline-block; flex: none; width: 18px; height: 18px; border-radius: 5px; }
+  .sw { position: relative; display: inline-block; flex: none; width: 18px; height: 18px; border-radius: 4px; }
   .sw.creator::after { content: ""; position: absolute; inset: 32%; border-radius: 50%; background: #FFFFFF; }
   .sw.ramp { width: 54px; background: linear-gradient(90deg, var(--h0), var(--h1) 35%, var(--h2) 70%, var(--h3)); }
   .sw.none { background: var(--cell2); }
@@ -177,8 +177,8 @@
   .tiers .row.off > span, .li.off > .av, .li.off > .m, .li.off > .r { opacity: 0.4; }
   .tiers .row.off .bar i { background: var(--soft); }
   .tiers .row small { display: block; font-size: var(--fs-tick); font-weight: 400; color: var(--muted); white-space: nowrap; }
-  .bar { height: 6px; border-radius: 3px; background: var(--band); overflow: hidden; }
-  .bar i { display: block; height: 100%; border-radius: 3px; background: var(--core); }
+  .bar { height: 6px; border-radius: 4px; background: var(--band); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 4px; background: var(--core); }
   .empty { margin: 0; color: var(--muted); font-size: var(--fs-sub); }
   .list { border-top: 1px solid var(--line); }
   .li { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: var(--fs-body); font-weight: 500; color: var(--ink); }
@@ -189,7 +189,6 @@
   .eye { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; color: var(--ink); cursor: pointer; }
   .eye:hover { background: var(--band); }
   .eye.off { color: var(--soft); }
-  .eye:disabled { cursor: default; background: none; }
   .eye:focus-visible { outline: 2px solid var(--blue); outline-offset: 0; }
   .li:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
   .ig { margin-left: 6px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; text-decoration: none; letter-spacing: 0; }
@@ -206,18 +205,18 @@
   .plan .cmSub { margin-bottom: 0; }
   .plan .btnPrimary { flex: none; }
   .planErr { margin: 0; color: #E0261E; font-size: var(--fs-meta); font-weight: 500; }
-  .btnPrimary { border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
+  .btnPrimary { border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 500; font-size: 15px; line-height: 1; border-radius: 16px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
   .btnPrimary:hover { background: #2b4dff; }
   .btnPrimary:active { transform: scale(0.98); }
   .btnPrimary:disabled { background: #AEB4CC; cursor: not-allowed; transform: none; }
-  .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 14px 22px; }
+  .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 16px; padding: 14px 22px; }
   .btnGhost:hover { background: var(--band); }
   .btnPrimary:focus-visible, .btnGhost:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
   /* Confirm / result pop-up */
   .modalWrap { position: fixed; inset: 0; z-index: 100020; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(18,18,18,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
   .modalWrap.show { opacity: 1; visibility: visible; transition: opacity 0.2s ease; }
-  .modal { width: min(460px, 100%); max-height: calc(100vh - 48px); overflow-y: auto; background: #FFFFFF; border-radius: 24px; padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.18); transform: translateY(12px) scale(0.98); transition: transform 0.25s cubic-bezier(0.32,0.72,0,1); }
+  .modal { width: min(460px, 100%); max-height: calc(100vh - 48px); overflow-y: auto; background: #FFFFFF; border-radius: 16px; padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.18); transform: translateY(12px) scale(0.98); transition: transform 0.25s cubic-bezier(0.32,0.72,0,1); }
   .modalWrap.show .modal { transform: none; }
   .modal:focus { outline: none; }
   .modal h2 { margin: 0 0 8px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
@@ -287,7 +286,7 @@
     #siteNav .homeLink svg { width: 28px; height: 19.5px; }
 
     .cmStats { grid-template-columns: repeat(3, minmax(0,1fr)) auto; gap: 12px; padding-top: 48px; margin-bottom: 28px; }
-    .cmStat { padding: 20px; border-radius: 20px; }
+    .cmStat { padding: 20px; border-radius: 16px; }
     .cmStat b { font-size: var(--fs-stat); }
     .cmStat span { font-size: var(--fs-sub); }
     .cmLayout { gap: 56px; }
@@ -445,7 +444,7 @@
 <script>
 (function () {
   var OPT = {
-    persona: ["Momfluencer","Dadfluencer","Social runner","Lifestyle runner","Petfluencer","Fitness coach","Medfluencer","Homecook","Recipe creator","Baker","Food critic","Restaurant reviewer","Mukbang reviewer","Travel Influencer","Luxury Lifestyle","Entrepreneur","Career coach","Consumer UGC creator","Lifestyle UGC creator"],
+    persona: ["Momfluencer","Dadfluencer","Social runner","Lifestyle runner","Petfluencer","Fitness coach","Gymfluencer","Medfluencer","Homecook","Recipe creator","Baker","Food critic","Restaurant reviewer","Mukbang reviewer","Travel Influencer","Luxury Lifestyle","Entrepreneur","Career coach","Consumer UGC creator","Lifestyle UGC creator"],
     style: ["Mukbang reviewer","Connected with real life experiences","Product reviewer"],
     platform: ["Instagram"],
     language: ["Sinhala","Tamil","English","Singlish","Mixed"],
@@ -525,20 +524,23 @@
     el.closest(".tagRow").hidden = !shown.length;
     fillTags(el, key, shown);
   }
-  usedTags($("tPersona"), "persona", OPT.persona, personasOf);
+  // A brand can narrow the persona filter to the tags it cares about.
+  usedTags($("tPersona"), "persona", DATA.filterPersonas || OPT.persona, personasOf);
   usedTags($("tStyle"), "style", OPT.style, stylesOf);
   usedTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }), function (c) { return [tierOf(c.followers).name]; });
 
   function yBands() { return OPT[axis]; }
   function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
 
-  // Cost range: the slider runs from 0 to the top creator cost, rounded up.
-  // While it spans the whole range, creators with no cost listed stay in.
+  // Cost range: the slider runs from 0 to the top cost among the creators
+  // still shown (not hidden by a tier or eye), rounded up. While it spans the
+  // whole range, creators with no cost listed stay in.
   var COST_STEP = 5000;
-  var COST_MAX = Math.max(COST_STEP, Math.ceil(Math.max.apply(null, [0].concat(creators.map(function (c) { return Number(c.cost) || 0; }))) / COST_STEP) * COST_STEP);
-  var budget = { lo: 0, hi: COST_MAX };
+  function costCeil(list) { return Math.max(COST_STEP, Math.ceil(Math.max.apply(null, [0].concat(list.map(function (c) { return Number(c.cost) || 0; }))) / COST_STEP) * COST_STEP); }
+  var costMax = costCeil(creators);
+  var budget = { lo: 0, hi: costMax };
   function inBudget(c) {
-    if (budget.lo === 0 && budget.hi === COST_MAX) return true;
+    if (budget.lo === 0 && budget.hi === costMax) return true;
     return c.cost > 0 && c.cost >= budget.lo && c.cost <= budget.hi;
   }
 
@@ -548,14 +550,25 @@
   function anyOf(have, want) { return !want.length || have.some(function (v) { return want.indexOf(v) !== -1; }); }
 
   // A creator matches a tag row if they carry any of the picked tags.
-  // Hidden with the eye buttons: single creators, or whole tiers.
-  var hiddenIds = {}, hiddenTiers = {};
+  // Hidden with the eye buttons: single creators, or whole tiers. A creator's
+  // own eye wins over their tier and the cost range, so a creator hidden in
+  // one place can be shown again from another: hiddenIds hides them, shownIds
+  // shows them even in a hidden tier or outside the cost range.
+  var hiddenIds = {}, shownIds = {}, hiddenTiers = {};
+  // Hidden by an eye (their own or their tier's), ignoring the cost range.
+  function eyeHidden(c) { return !!hiddenIds[c.id] || !shownIds[c.id] && !!hiddenTiers[tierOf(c.followers).name]; }
   // Why a creator in the list is not drawn, or "" when they are.
   function hiddenWhy(c) {
+    if (hiddenIds[c.id]) return "Hidden";
+    if (shownIds[c.id]) return "";
     if (hiddenTiers[tierOf(c.followers).name]) return "Hidden with the " + tierOf(c.followers).name + " tier";
     if (!inBudget(c)) return c.cost > 0 ? "Outside the cost range" : "No cost listed, so outside the cost range";
-    if (hiddenIds[c.id]) return "Hidden";
     return "";
+  }
+  // Showing or hiding a whole tier resets each of its creators' own eyes.
+  function setTier(name, hide) {
+    if (hide) hiddenTiers[name] = true; else delete hiddenTiers[name];
+    creators.forEach(function (c) { if (tierOf(c.followers).name === name) { delete hiddenIds[c.id]; delete shownIds[c.id]; } });
   }
   var EYE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var EYE_OFF = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.9 5.2A10.6 10.6 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-2.6 3.5M6.6 6.6C3.6 8.5 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/></svg>';
@@ -863,7 +876,9 @@
 
   function render() {
     var all = visible();
-    var list = all.filter(function (c) { return !hiddenWhy(c); });
+    var shown = all.filter(function (c) { return !eyeHidden(c); });
+    setCostMax(costCeil(shown));
+    var list = shown.filter(function (c) { return !hiddenWhy(c); });
     sizeGrid(list);
     place(list);
     var N = COLS * ROWS, heat = new Array(N).fill(0), who = [], owner = {};
@@ -922,7 +937,7 @@
 
     renderCost(list);
     renderPlan(all, list);
-    var inRange = all.filter(inBudget).length;
+    var inRange = list.length;
     $("budgetCount").textContent = inRange + (inRange === 1 ? " creator" : " creators") + " in range";
 
     var total = list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0);
@@ -930,25 +945,28 @@
     $("sReach").textContent = fmt(total);
     $("sCov").textContent = Math.round(heat.filter(function (h, i) { return h > 0 || owner[i]; }).length / N * 100) + "%";
 
-    // Tier counts include hidden tiers, so a hidden tier still shows its size.
-    var counts = TIERS.map(function (t) { return all.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
+    // Tier counts leave out creators hidden by their eye or the cost range,
+    // but not by the tier's own eye, so a hidden tier still shows its size.
+    var counted = all.filter(function (c) { return !hiddenIds[c.id] && (shownIds[c.id] || inBudget(c)); });
+    var counts = TIERS.map(function (t) { return counted.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
     var max = Math.max.apply(null, [1].concat(counts));
     $("tiers").innerHTML = TIERS.map(function (t, k) {
       var lo = k ? TIERS[k - 1].max : 0;
       var range = !lo ? "Under " + fmtK(t.max) : t.max === Infinity ? fmtK(lo) + "+" : fmtK(lo) + "–" + fmtK(t.max);
-      var off = !!hiddenTiers[t.name];
+      // A tier reads as hidden once all its creators are hidden by an eye.
+      var inTier = all.filter(function (c) { return tierOf(c.followers).name === t.name; });
+      var off = inTier.length ? inTier.every(eyeHidden) : !!hiddenTiers[t.name];
       return '<div class="row' + (off ? ' off' : '') + '"><span>' + t.name + '<small>' + range + '</small></span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span class="n">' + counts[k] + '</span>'
         + '<button type="button" class="eye' + (off ? ' off' : '') + '" data-tier="' + t.name + '" aria-pressed="' + off + '" aria-label="' + (off ? 'Show' : 'Hide') + ' ' + t.name + ' creators" title="' + (off ? 'Show' : 'Hide') + ' ' + t.name + ' creators">' + (off ? EYE_OFF : EYE) + '</button></div>';
     }).join("");
     $("tiers").querySelectorAll(".eye").forEach(function (b) {
-      b.onclick = function () { var t = b.dataset.tier; if (hiddenTiers[t]) delete hiddenTiers[t]; else hiddenTiers[t] = true; render(); };
+      b.onclick = function () { setTier(b.dataset.tier, b.getAttribute("aria-pressed") !== "true"); render(); };
     });
 
 
     $("list").innerHTML = all.length ? all.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
-      // The eye is locked closed while a tier or the cost range hides the creator.
-      var why = hiddenWhy(c), locked = why && !hiddenIds[c.id], tipTxt = why ? (locked ? why : "Show " + nameOf(c)) : "Hide " + nameOf(c);
-      var eye = '<button type="button" class="eye' + (why ? ' off' : '') + '" data-eye="' + c.id + '"' + (locked ? ' disabled' : '') + ' aria-pressed="' + !!why + '" aria-label="' + esc(tipTxt) + '" title="' + esc(tipTxt) + '">' + (why ? EYE_OFF : EYE) + '</button>';
+      var why = hiddenWhy(c), tipTxt = why ? "Show " + nameOf(c) + (why === "Hidden" ? "" : " (" + why.toLowerCase() + ")") : "Hide " + nameOf(c);
+      var eye = '<button type="button" class="eye' + (why ? ' off' : '') + '" data-eye="' + c.id + '" aria-pressed="' + !!why + '" aria-label="' + esc(tipTxt) + '" title="' + esc(tipTxt) + '">' + (why ? EYE_OFF : EYE) + '</button>';
       return '<div role="button" tabindex="0" class="li' + (selected === c.id ? ' on' : '') + (why ? ' off' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span>' + igLink(c) + '<small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span>' + eye + '</div>';
     }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
     // Rows are divs (not buttons) so the Instagram link can sit inside them.
@@ -958,7 +976,14 @@
     });
 
     $("list").querySelectorAll(".eye").forEach(function (b) {
-      b.onclick = function () { var id = b.dataset.eye; if (hiddenIds[id]) delete hiddenIds[id]; else hiddenIds[id] = true; render(); };
+      b.onclick = function () {
+        var id = b.dataset.eye, c = creators.find(function (x) { return x.id === id; });
+        delete hiddenIds[id]; delete shownIds[id];
+        // Showing: if their tier or the cost range still hides them, override it.
+        if (b.getAttribute("aria-pressed") === "true") { if (hiddenWhy(c)) shownIds[id] = true; }
+        else hiddenIds[id] = true;
+        render();
+      };
     });
 
     var s = creators.find(function (c) { return c.id === selected; });
@@ -1021,27 +1046,32 @@
       render();
     };
   });
+  // Rescale the cost slider when hiding or showing creators changes the top
+  // cost. A high thumb at the top end follows it; the range is clamped to fit.
+  function setCostMax(max) {
+    var lo = $("budgetLo"), hi = $("budgetHi");
+    if (budget.hi === costMax || budget.hi > max) budget.hi = max;
+    budget.lo = Math.min(budget.lo, budget.hi);
+    costMax = max;
+    [lo, hi].forEach(function (el) { el.min = 0; el.max = costMax; el.step = COST_STEP; });
+    lo.value = budget.lo; hi.value = budget.hi;
+    $("budgetMin").textContent = "Rs. 0"; $("budgetMax").textContent = "Rs. " + fmtK(costMax);
+    $("budgetVal").textContent = fmtRs(budget.lo) + " – " + fmtRs(budget.hi);
+    // Thumb centres sit 9px in from each end of the track.
+    $("budgetFill").style.left = "calc(9px + (100% - 18px) * " + (budget.lo / costMax) + ")";
+    $("budgetFill").style.right = "calc(9px + (100% - 18px) * " + (1 - budget.hi / costMax) + ")";
+    // Keep the low thumb reachable when both sit at the top end.
+    lo.style.zIndex = budget.lo >= costMax - COST_STEP ? 2 : "";
+  }
   (function () {
     var lo = $("budgetLo"), hi = $("budgetHi");
-    [lo, hi].forEach(function (el) { el.min = 0; el.max = COST_MAX; el.step = COST_STEP; });
-    lo.value = 0; hi.value = COST_MAX;
-    $("budgetMin").textContent = "Rs. 0"; $("budgetMax").textContent = "Rs. " + fmtK(COST_MAX);
-    function paint() {
-      $("budgetVal").textContent = fmtRs(budget.lo) + " – " + fmtRs(budget.hi);
-      // Thumb centres sit 9px in from each end of the track.
-      $("budgetFill").style.left = "calc(9px + (100% - 18px) * " + (budget.lo / COST_MAX) + ")";
-      $("budgetFill").style.right = "calc(9px + (100% - 18px) * " + (1 - budget.hi / COST_MAX) + ")";
-      // Keep the low thumb reachable when both sit at the top end.
-      lo.style.zIndex = budget.lo >= COST_MAX - COST_STEP ? 2 : "";
-    }
     function onInput(e) {
       var a = +lo.value, b = +hi.value;
       if (a > b) { if (e.target === lo) lo.value = a = b; else hi.value = b = a; }
       budget.lo = a; budget.hi = b;
-      paint(); render();
+      render();
     }
     lo.oninput = hi.oninput = onInput;
-    paint();
   })();
   $("fLang").onchange = render;
   $("fPlatform").onchange = render;

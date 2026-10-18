@@ -22,11 +22,14 @@
  *
  * Each value in age / gender / location / lifestyle / personas / language /
  * tone must match one of the options listed in index.html (OPT), otherwise
- * the creator is placed in the first band.
+ * the creator is placed in the first band. *
+ * `filterPersonas` lists the persona tags offered as filters for this brand.
+ * Creators keep all their personas, which still show on their profile.
  */
 window.CREATOR_MAP = {
   brand: "Celeste Daily",
   updated: "October 2026",
+  filterPersonas: ["Momfluencer", "Social runner", "Lifestyle runner", "Fitness coach"],
   creators: [
     {
       name: "Radeesha De Silva",
@@ -186,6 +189,38 @@ window.CREATOR_MAP = {
       age: "25–34",
       lifestyle: ["Middle-income", "Premium"],
       lean: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Nivini Balachandra",
+      handle: null,
+      photo: "avatars/nivini-balachandra.webp",
+      platform: "Instagram",
+      followers: 7800,
+      cost: 47059,
+      personas: ["Gymfluencer", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo interested in fashion entrepreneurship, nightlife and fitness",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Senodhi Gloria",
+      handle: null,
+      photo: "avatars/senodhi-gloria.webp",
+      platform: "Instagram",
+      followers: 11000,
+      cost: 47059,
+      personas: ["Social runner", "Lifestyle runner", "Travel Influencer"],
+      styles: null,
+      community: "Young women in Colombo interested in women's road races, beach runs and corporate-girly lifestyle",
+      age: "18–35",
+      lifestyle: "Middle-income",
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
