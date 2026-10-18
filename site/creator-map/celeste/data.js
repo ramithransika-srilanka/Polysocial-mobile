@@ -212,10 +212,10 @@ window.CREATOR_MAP = {
     {
       name: "Senodhi Gloria",
       handle: null,
-      photo: null,
+      photo: "avatars/senodhi-gloria.webp",
       platform: "Instagram",
       followers: 11000,
-      cost: null,
+      cost: 47059,
       personas: ["Social runner", "Lifestyle runner", "Travel Influencer"],
       styles: null,
       community: "Young women in Colombo interested in women's road races, beach runs and corporate-girly lifestyle",
