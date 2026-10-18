@@ -143,8 +143,9 @@
   .sw.none { background: var(--cell2); }
 
   /* ================= SIDE PANEL ================= */
-  .tiers .row { display: grid; grid-template-columns: 72px minmax(0,1fr) 24px; gap: 10px; align-items: center; font-size: 12px; font-weight: 500; margin-bottom: 7px; }
+  .tiers .row { display: grid; grid-template-columns: 84px minmax(0,1fr) 24px; gap: 10px; align-items: center; font-size: 12px; font-weight: 500; margin-bottom: 7px; }
   .tiers .row span:last-child { text-align: right; color: var(--muted); }
+  .tiers .row small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); white-space: nowrap; }
   .bar { height: 6px; border-radius: 3px; background: var(--band); overflow: hidden; }
   .bar i { display: block; height: 100%; border-radius: 3px; background: var(--core); }
   .empty { margin: 0; color: var(--muted); font-size: 13px; }
@@ -613,7 +614,9 @@
     var counts = TIERS.map(function (t) { return list.filter(function (c) { return tierOf(c.followers).name === t.name; }).length; });
     var max = Math.max.apply(null, [1].concat(counts));
     $("tiers").innerHTML = TIERS.map(function (t, k) {
-      return '<div class="row"><span>' + t.name + '</span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span>' + counts[k] + '</span></div>';
+      var lo = k ? TIERS[k - 1].max : 0;
+      var range = !lo ? "Under " + fmtK(t.max) : t.max === Infinity ? fmtK(lo) + "+" : fmtK(lo) + "–" + fmtK(t.max);
+      return '<div class="row"><span>' + t.name + '<small>' + range + '</small></span><span class="bar"><i style="width:' + (counts[k] / max * 100) + '%"></i></span><span>' + counts[k] + '</span></div>';
     }).join("");
 
 
