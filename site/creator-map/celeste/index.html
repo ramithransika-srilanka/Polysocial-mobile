@@ -831,7 +831,7 @@
       .then(function (data) {
         planSending = false;
         if (data && data.success) {
-          openPlanModal('<h2 id="planModalTitle">Plan sent</h2><p>Thanks! We\'ve received your plan of <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b>. Our team will check each creator's availability and be in touch with a quote.</p><div class="acts"><button type="button" class="btnPrimary" data-act="done">Done</button></div>');
+          openPlanModal('<h2 id="planModalTitle">Plan sent</h2><p>Thanks! We\'ve received your plan of <b>' + p.creators.length + (p.creators.length === 1 ? ' creator' : ' creators') + '</b>. Our team will check each creator\'s availability and be in touch with a quote.</p><div class="acts"><button type="button" class="btnPrimary" data-act="done">Done</button></div>');
           planDialog.querySelector('[data-act="done"]').onclick = closePlanModal;
         } else {
           openPlanModal(confirmHtml(p, (data && data.message) || "Something went wrong. Please try again."));
