@@ -196,8 +196,15 @@
   .ig:hover { color: var(--blue); text-decoration: underline; }
 
   /* ================= SEND YOUR PLAN ================= */
-  .plan { display: grid; grid-template-columns: minmax(0,1fr); gap: 20px; }
-  .planSend { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  /* Full-width coral band above the footer. */
+  .planBand { margin-top: 72px; padding: 40px var(--edge); background: var(--h0); }
+  .planBand h2 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .planBand .cmSub { color: #5E4A44; }
+  /* Title and subtitle on the left, send button on the right, in one row. */
+  .plan { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px; }
+  .plan > div { flex: 1 1 420px; min-width: 0; }
+  .plan .cmSub { margin-bottom: 0; }
+  .plan .btnPrimary { flex: none; }
   .planErr { margin: 0; color: #E0261E; font-size: var(--fs-meta); font-weight: 500; }
   .btnPrimary { border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 100px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
   .btnPrimary:hover { background: #2b4dff; }
@@ -393,16 +400,15 @@
         </section>
       </aside>
 
-      <section class="cmCard" aria-labelledby="planTitle">
+    </div>
+
+    <section class="planBand" aria-labelledby="planTitle"><div class="plan">
+      <div>
         <h2 id="planTitle">Send us your creator plan</h2>
         <p class="cmSub">Happy with the mix? Adjust the filters, cost range and eyes above until the map shows the creators you want, then send us a snapshot. Our team will check each creator's availability and put together a campaign quote.</p>
-        <div class="plan">
-          <div class="planSend">
-            <button class="btnPrimary" type="button" id="planBtn">Send this plan to Polysocial</button>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+      <button class="btnPrimary" type="button" id="planBtn">Send this plan to Polysocial</button>
+    </div></section>
   </main>
 
   <div class="modalWrap" id="planModal" aria-hidden="true">
