@@ -170,6 +170,9 @@
   .li .m { flex: 1; min-width: 0; }
   .li small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
   .li .r { text-align: right; flex: none; }
+  .li:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
+  .ig { margin-left: 6px; color: var(--muted); font-size: 12px; font-weight: 500; text-decoration: none; letter-spacing: 0; }
+  .ig:hover { color: var(--blue); text-decoration: underline; }
 
   .profile { background: var(--band); border-radius: 18px; padding: 16px; margin-bottom: 20px; }
   .profile .top { display: flex; align-items: center; gap: 14px; }
@@ -500,6 +503,12 @@
   // Joins the parts that have a value with " · ", skipping missing (null) fields.
   function dots(parts) { return parts.filter(function (v) { return v; }).map(esc).join(" &middot; "); }
   function nameOf(c) { return c.name || c.handle; }
+  // The creator's @handle as a link to their Instagram page (shown next to the name).
+  function handleOf(c) { return String(c.handle || "").trim().replace(/^@/, ""); }
+  function igLink(c) {
+    var h = handleOf(c);
+    return h && c.name ? '<a class="ig" href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a>' : '';
+  }
   // Follower counts read as 7.2K, 20K, 210K, 1.2M.
   function fmtK(n) {
     n = Number(n) || 0;
@@ -656,12 +665,16 @@
 
 
     $("list").innerHTML = list.length ? list.slice().sort(function (a, b) { return b.followers - a.followers; }).map(function (c) {
-      return '<button type="button" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span><small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></button>';
+      return '<div role="button" tabindex="0" class="li' + (selected === c.id ? ' on' : '') + '" data-id="' + c.id + '">' + avatar(c) + '<span class="m"><span class="h">' + esc(nameOf(c)) + '</span>' + igLink(c) + '<small>' + dots([personasOf(c).join(", "), c.platform]) + '</small></span><span class="r">' + tierOf(c.followers).name + '<small>' + fmtK(c.followers) + '</small></span></div>';
     }).join("") : '<p class="empty" style="padding-top:10px">No creators match these filters.</p>';
-    $("list").querySelectorAll(".li").forEach(function (el) { el.onclick = function () { select(el.dataset.id); }; });
+    // Rows are divs (not buttons) so the Instagram link can sit inside them.
+    $("list").querySelectorAll(".li").forEach(function (el) {
+      el.onclick = function (e) { if (!e.target.closest(".ig")) select(el.dataset.id); };
+      el.onkeydown = function (e) { if (e.target === el && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(el.dataset.id); } };
+    });
 
     var s = creators.find(function (c) { return c.id === selected; });
-    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([s.platform, fmtK(s.followers) + ' followers', tierOf(s.followers).name]) + '</p></div>'
+    $("profile").innerHTML = s ? '<div class="profile"><div class="top">' + avatar(s, "lg") + '<div class="who"><p class="h">' + esc(nameOf(s)) + igLink(s) + '</p><p class="t">' + dots([s.platform, fmtK(s.followers) + ' followers', tierOf(s.followers).name]) + '</p></div>'
       + '<button type="button" class="x" id="closeBtn" aria-label="Close profile"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
       + (s.community ? '<p class="comm">' + esc(s.community) + '</p>' : '')
       + '<dl>'

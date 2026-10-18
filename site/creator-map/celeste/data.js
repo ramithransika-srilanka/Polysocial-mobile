@@ -5,7 +5,8 @@
  * `photo` is a file in this folder (placeholder portraits for now); a
  * creator without one shows their initials instead.
  *
- * `name` is what the page shows; `handle` is kept for reference only.
+ * `name` is what the page shows; `handle` (the Instagram username, with or
+ * without @) appears next to it as a link to their Instagram page.
  *
  * `cost` is what the creator charges for one Instagram reel, in Rs.
  *
