@@ -129,7 +129,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Belinda Seneviratne",
-      handle: null,
+      handle: "belinda_seneviratne",
       photo: "avatars/belinda-seneviratne.webp",
       platform: "Instagram",
       followers: 13000,
@@ -146,7 +146,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Shavi",
-      handle: null,
+      handle: "iamshavi__",
       photo: "avatars/shavi.webp",
       platform: "Instagram",
       followers: 4000,
@@ -162,7 +162,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Lelumi Jagoda",
-      handle: null,
+      handle: "le.lumii",
       photo: "avatars/lelumi-jagoda.webp",
       platform: "Instagram",
       followers: 7700,
@@ -178,7 +178,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Yasasi",
-      handle: null,
+      handle: "ya_sassy",
       photo: "avatars/yasasi.webp",
       platform: "Instagram",
       followers: 38000,
@@ -195,7 +195,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Nivini Balachandra",
-      handle: null,
+      handle: "nivinibalachandra",
       photo: "avatars/nivini-balachandra.webp",
       platform: "Instagram",
       followers: 7800,
@@ -211,7 +211,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Senodhi Gloria",
-      handle: null,
+      handle: "senodeee",
       photo: "avatars/senodhi-gloria.webp",
       platform: "Instagram",
       followers: 11000,
