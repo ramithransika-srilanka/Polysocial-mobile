@@ -25,6 +25,8 @@
  * the creator is placed in the first band. *
  * `filterPersonas` lists the persona tags offered as filters for this brand.
  * Creators keep all their personas, which still show on their profile.
+ *
+ * `parked` holds creators taken off the map for now; the page ignores it.
  */
 window.CREATOR_MAP = {
   brand: "Celeste Daily",
@@ -161,22 +163,6 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
-      name: "Lelumi Jagoda",
-      handle: "le.lumii",
-      photo: "avatars/lelumi-jagoda.webp",
-      platform: "Instagram",
-      followers: 7700,
-      cost: 23529,
-      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
-      styles: null,
-      community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
-      age: "18–35",
-      lifestyle: "Middle-income",
-      location: "Colombo suburbs",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
       name: "Yasasi",
       handle: "ya_sassy",
       photo: "avatars/yasasi.webp",
@@ -239,6 +225,26 @@ window.CREATOR_MAP = {
       lifestyle: "Middle-income",
       location: "Colombo city",
       gender: "Mostly men",
+      language: "English"
+    }
+  ],
+  // Off the map for now but kept for later. The page only reads `creators`;
+  // to bring someone back, move their entry into that list.
+  parked: [
+    {
+      name: "Lelumi Jagoda",
+      handle: "le.lumii",
+      photo: "avatars/lelumi-jagoda.webp",
+      platform: "Instagram",
+      followers: 7700,
+      cost: 23529,
+      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
+      gender: "Mostly women",
       language: "English"
     }
   ]
