@@ -228,10 +228,10 @@ window.CREATOR_MAP = {
     {
       name: "Ranshan Jude Gomez",
       handle: null,
-      photo: null,
+      photo: "avatars/ranshan-jude-gomez.webp",
       platform: "Instagram",
       followers: 26000,
-      cost: null,
+      cost: 70588,
       personas: ["Dadfluencer", "Food critic", "Travel Influencer", "Luxury Lifestyle", "Consumer UGC creator"],
       styles: null,
       community: "Young dads in Colombo interested in food, family dining and lifestyle",
