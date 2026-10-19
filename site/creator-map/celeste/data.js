@@ -227,7 +227,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Ranshan Jude Gomez",
-      handle: null,
+      handle: "ranshan15",
       photo: "avatars/ranshan-jude-gomez.webp",
       platform: "Instagram",
       followers: 26000,
