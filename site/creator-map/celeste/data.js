@@ -2,7 +2,7 @@
  * Creator map data for Celeste Daily (/creator-map/celeste).
  * Fields with no data yet are null.
  *
- * `photo` is a file in this folder (placeholder portraits for now); a
+ * `photo` is a file in this folder; a
  * creator without one shows their initials instead.
  *
  * `name` is what the page shows; `handle` (the Instagram username, with or
