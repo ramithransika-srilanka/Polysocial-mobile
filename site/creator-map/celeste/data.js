@@ -2,7 +2,7 @@
  * Creator map data for Celeste Daily (/creator-map/celeste).
  * Fields with no data yet are null.
  *
- * `photo` is a file in this folder (placeholder portraits for now); a
+ * `photo` is a file in this folder; a
  * creator without one shows their initials instead.
  *
  * `name` is what the page shows; `handle` (the Instagram username, with or
@@ -25,6 +25,8 @@
  * the creator is placed in the first band. *
  * `filterPersonas` lists the persona tags offered as filters for this brand.
  * Creators keep all their personas, which still show on their profile.
+ *
+ * `parked` holds creators taken off the map for now; the page ignores it.
  */
 window.CREATOR_MAP = {
   brand: "Celeste Daily",
@@ -129,7 +131,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Belinda Seneviratne",
-      handle: null,
+      handle: "belinda_seneviratne",
       photo: "avatars/belinda-seneviratne.webp",
       platform: "Instagram",
       followers: 13000,
@@ -146,7 +148,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Shavi",
-      handle: null,
+      handle: "iamshavi__",
       photo: "avatars/shavi.webp",
       platform: "Instagram",
       followers: 4000,
@@ -161,24 +163,8 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
-      name: "Lelumi Jagoda",
-      handle: null,
-      photo: "avatars/lelumi-jagoda.webp",
-      platform: "Instagram",
-      followers: 7700,
-      cost: 23529,
-      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
-      styles: null,
-      community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
-      age: "18–35",
-      lifestyle: "Middle-income",
-      location: "Colombo suburbs",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
       name: "Yasasi",
-      handle: null,
+      handle: "ya_sassy",
       photo: "avatars/yasasi.webp",
       platform: "Instagram",
       followers: 38000,
@@ -195,7 +181,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Nivini Balachandra",
-      handle: null,
+      handle: "nivinibalachandra",
       photo: "avatars/nivini-balachandra.webp",
       platform: "Instagram",
       followers: 7800,
@@ -211,7 +197,7 @@ window.CREATOR_MAP = {
     },
     {
       name: "Senodhi Gloria",
-      handle: null,
+      handle: "senodeee",
       photo: "avatars/senodhi-gloria.webp",
       platform: "Instagram",
       followers: 11000,
@@ -222,6 +208,42 @@ window.CREATOR_MAP = {
       age: "18–35",
       lifestyle: "Middle-income",
       location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Ranshan Jude Gomez",
+      handle: "ranshan15",
+      photo: "avatars/ranshan-jude-gomez.webp",
+      platform: "Instagram",
+      followers: 26000,
+      cost: 70588,
+      personas: ["Dadfluencer", "Food critic", "Travel Influencer", "Luxury Lifestyle", "Consumer UGC creator"],
+      styles: null,
+      community: "Young dads in Colombo interested in food, family dining and lifestyle",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
+    }
+  ],
+  // Off the map for now but kept for later. The page only reads `creators`;
+  // to bring someone back, move their entry into that list.
+  parked: [
+    {
+      name: "Lelumi Jagoda",
+      handle: "le.lumii",
+      photo: "avatars/lelumi-jagoda.webp",
+      platform: "Instagram",
+      followers: 7700,
+      cost: 23529,
+      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
+      styles: null,
+      community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
       gender: "Mostly women",
       language: "English"
     }
