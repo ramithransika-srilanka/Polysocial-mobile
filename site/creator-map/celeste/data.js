@@ -31,7 +31,7 @@
 window.CREATOR_MAP = {
   brand: "Celeste Daily",
   updated: "October 2026",
-  filterPersonas: ["Momfluencer", "Social runner", "Lifestyle runner", "Fitness coach"],
+  filterPersonas: ["Momfluencer", "Dadfluencer", "Social runner", "Lifestyle runner", "Fitness coach"],
   creators: [
     {
       name: "Radeesha De Silva",
