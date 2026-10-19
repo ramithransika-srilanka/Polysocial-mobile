@@ -224,6 +224,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Ranshan Jude Gomez",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 26000,
+      cost: null,
+      personas: ["Dadfluencer", "Food critic", "Travel Influencer", "Luxury Lifestyle", "Consumer UGC creator"],
+      styles: null,
+      community: "Young dads in Colombo interested in food, family dining and lifestyle",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
     }
   ]
 };
