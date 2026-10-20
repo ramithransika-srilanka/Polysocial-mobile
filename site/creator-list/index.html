@@ -185,14 +185,18 @@
   #siteFooter p a { color: var(--blue); }
   #siteFooter .legal { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 
-  /* Narrow phones: tag labels sit above their tags. */
-  @media (max-width: 479px) {
-    .tagRow { flex-direction: column; gap: 6px; }
-    .tagLabel { width: auto; padding-top: 0; }
-    /* The map status badge drops under the name, lined up with it. */
-    .card .who { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 8px 14px; }
-    .card .who .av { grid-row: span 2; }
-    .status { justify-self: start; }
+  /* ================= PHONES: desktop-only notice =================
+     Same as the creator map: below 768px the page shows only a notice. */
+  .cmDesktopOnly { display: none; }
+  @media (max-width: 767px) {
+    /* The map is desktop-only too, so its nav link is hidden as well. */
+    main, #siteFooter, .navLink { display: none; }
+    .cmDesktopOnly {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      min-height: calc(100svh - 52px); padding: 24px 32px 64px; text-align: center;
+    }
+    .cmDesktopOnly h1 { margin: 0; font-weight: 600; font-size: 24px; line-height: 1.15; letter-spacing: -0.02em; }
+    .cmDesktopOnly p { margin: 0; max-width: 280px; color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.4; }
   }
 
   /* ================= TABLET / DESKTOP ================= */
@@ -239,6 +243,11 @@
     </a>
     <a class="navLink" href="/creator-map/celeste/">Creator map</a>
   </header>
+
+  <section class="cmDesktopOnly">
+    <h1>Open on desktop</h1>
+    <p>The creator list is built for larger screens. Please visit this page on a desktop or laptop.</p>
+  </section>
 
   <main>
     <section class="clHead">
