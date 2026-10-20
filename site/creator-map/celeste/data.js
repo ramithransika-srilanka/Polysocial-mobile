@@ -259,6 +259,38 @@ window.CREATOR_MAP = {
       location: "Colombo suburbs",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Shewan Jayaweera",
+      handle: null,
+      photo: null,
+      platform: "Instagram",
+      followers: 3000,
+      cost: 17647,
+      personas: ["Entrepreneur", "Luxury Lifestyle"],
+      styles: null,
+      community: "Young creators in Colombo interested in videography, fashion and comedy",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
+    },
+    {
+      name: "Haifa Hassan",
+      handle: null,
+      photo: "avatars/haifa-hassan.webp",
+      platform: "Instagram",
+      followers: 3700,
+      cost: 47059,
+      personas: ["Fitness coach", "Entrepreneur", "Luxury Lifestyle"],
+      styles: null,
+      community: "Young women in Colombo interested in modest activewear, rehab fitness and halal lifestyle",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ],
   // Off the map for now but kept for later. The page only reads `creators`;
