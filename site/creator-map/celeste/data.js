@@ -27,7 +27,7 @@
  * Creators keep all their personas, which still show on their profile.
  *
  * `reels` is a Markdown file in reels/ breaking down the creator's last 50
- * reels, opened from the creator list. Its "Persona tags" section lists the
+ * reels (or all of them, if they have fewer), opened from the creator list. Its "Persona tags" section lists the
  * reels behind each tag in `personas`; keep the two in step.
  *
  * `parked` holds creators taken off the map for now; the page ignores it.
@@ -125,7 +125,8 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 5100,
       cost: 11765,
-      personas: ["Social runner", "Lifestyle runner"],
+      personas: ["Social runner", "Lifestyle runner", "Lifestyle UGC creator"],
+      reels: "reels/kyle.md",
       styles: null,
       community: "Young runners in Colombo interested in community runs, run clubs and run-rave culture",
       age: "18–34",
@@ -176,7 +177,8 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 38000,
       cost: 94118,
-      personas: ["Fitness coach", "Entrepreneur", "Social runner"],
+      personas: ["Gymfluencer", "Fashion creator", "Consumer UGC creator", "Motorsport creator"],
+      reels: "reels/yasasi.md",
       styles: null,
       community: "Young women in Colombo interested in motorsport, fitness and active lifestyle",
       age: "25–34",
@@ -210,7 +212,8 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 11000,
       cost: 47059,
-      personas: ["Social runner", "Lifestyle runner", "Travel Influencer"],
+      personas: ["Nightlife creator", "Travel Influencer", "Lifestyle UGC creator", "Consumer UGC creator"],
+      reels: "reels/senodhi-gloria.md",
       styles: null,
       community: "Young women in Colombo interested in women's road races, beach runs and corporate-girly lifestyle",
       age: "18–35",
@@ -247,7 +250,8 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 7700,
       cost: 23529,
-      personas: ["Restaurant reviewer", "Food critic", "Social runner"],
+      personas: ["Fashion creator", "Beauty creator", "Lifestyle UGC creator", "Consumer UGC creator", "Restaurant reviewer"],
+      reels: "reels/lelumi-jagoda.md",
       styles: null,
       community: "Young women in Colombo suburbs romanticizing everyday fashion and lifestyle",
       age: "18–35",

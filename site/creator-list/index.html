@@ -295,7 +295,7 @@
   <div class="scrim" id="scrim"></div>
   <aside class="drawer" id="drawer" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
     <div class="dHead">
-      <h2 id="drawerTitle">Last 50 reels</h2>
+      <h2 id="drawerTitle">Reel breakdown</h2>
       <button type="button" class="x" id="closeBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="dBody reels" id="reels"></div>
@@ -444,7 +444,7 @@
       + (c.styles && c.styles.length ? '<dt>Content style</dt><dd>' + esc(c.styles.join(", ")) + '</dd>' : '')
       + '</dl>'
       + '<div class="act' + (c.reels ? ' two' : '') + '">'
-      + (c.reels ? '<button type="button" class="btnGhost" data-reels="' + c.id + '">Last 50 reels</button>' : '')
+      + (c.reels ? '<button type="button" class="btnGhost" data-reels="' + c.id + '">Reel breakdown</button>' : '')
       + (on
         ? '<button type="button" class="btnGhost" data-id="' + c.id + '" data-on="0">Remove from map</button>'
         : '<button type="button" class="btnPrimary" data-id="' + c.id + '" data-on="1">Add to map</button>') + '</div>'
@@ -516,7 +516,7 @@
   var lastFocus = null, reelsFor = null;
   function openReels(c) {
     reelsFor = c.id;
-    $("drawerTitle").textContent = nameOf(c) + " — last 50 reels";
+    $("drawerTitle").textContent = nameOf(c) + " — reel breakdown";
     $("reels").innerHTML = '<p>Loading…</p>';
     $("reels").scrollTop = 0;
     fetch(PHOTO_BASE + c.reels)
