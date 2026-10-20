@@ -42,7 +42,7 @@
   /* ================= NAV: Polysocial mark only ================= */
   #siteNav {
     position: sticky; top: 0; z-index: 100002;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    display: flex; align-items: center; justify-content: flex-start;
     min-height: 24px; padding: 14px 20px 12px;
     background: rgba(255,255,255,0.72);
     -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
@@ -50,10 +50,6 @@
   }
   #siteNav .homeLink { display: block; flex: none; line-height: 0; }
   #siteNav .homeLink svg { display: block; width: 23px; height: 16px; }
-  /* Link to the creator list (/creator-list), which reads the same data.js. */
-  .navLink { flex: none; background: var(--band); color: var(--ink); font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 16px; transition: background 0.16s ease; }
-  .navLink:hover { background: var(--cell2); }
-  .navLink:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
   /* ================= STATS ================= */
   .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 24px var(--edge) 0; margin-bottom: 24px; }
@@ -82,11 +78,12 @@
   .pill:focus-visible { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
   .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
   .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
-  /* Shown when this browser has added or removed creators on the creator list. */
+  /* Shown when this browser has added or removed creators on the creator list
+     (/creator-list). The map never links to that page. */
   .rosterNote[hidden] { display: none; }
   .rosterNote { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 var(--edge) 20px; padding: 12px 16px; background: var(--h0); border-radius: 16px; color: #5E4A44; font-weight: 500; font-size: var(--fs-sub); }
-  .rosterNote a, .rosterNote button { border: 0; padding: 0; background: none; color: var(--blue); font: inherit; font-weight: 600; cursor: pointer; }
-  .rosterNote a:hover, .rosterNote button:hover { text-decoration: underline; }
+  .rosterNote button { border: 0; padding: 0; background: none; color: var(--blue); font: inherit; font-weight: 600; cursor: pointer; }
+  .rosterNote button:hover { text-decoration: underline; }
   .tagRow[hidden] { display: none; }
   .tagRow { display: flex; align-items: flex-start; gap: 12px; }
   .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
@@ -327,13 +324,11 @@
         <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
       </svg>
     </a>
-    <a class="navLink" href="/creator-list/">Creator list</a>
   </header>
 
   <section class="cmDesktopOnly">
     <h1>Open on desktop</h1>
     <p>The creator map is built for larger screens. Please visit this page on a desktop or laptop.</p>
-    <a class="navLink" href="/creator-list/" style="margin-top:6px">Browse the creator list</a>
   </section>
 
   <main>
@@ -345,7 +340,7 @@
       <select class="pill cmPlatform" id="fPlatform" aria-label="Platform"></select>
     </section>
 
-    <p class="rosterNote" id="rosterNote" hidden><span id="rosterTxt"></span><a href="/creator-list/">Edit on the creator list</a><button type="button" id="rosterReset">Reset to the original line-up</button></p>
+    <p class="rosterNote" id="rosterNote" hidden><span id="rosterTxt"></span><button type="button" id="rosterReset">Reset to the original line-up</button></p>
 
     <section class="cmFilters" aria-label="Filters">
       <span class="seg" id="axisSeg" role="group" aria-label="Vertical axis">
@@ -406,7 +401,7 @@
         </section>
         <section>
           <h2>Creators</h2>
-          <p class="cmSub">Everyone who matches your filters. Use the eye to hide a creator from the map and cost chart. To add or remove creators, use the <a href="/creator-list/" style="color:var(--blue);font-weight:600">creator list</a>.</p>
+          <p class="cmSub">Everyone who matches your filters. Use the eye to hide a creator from the map and cost chart.</p>
           <div class="list" id="list"></div>
         </section>
       </aside>
