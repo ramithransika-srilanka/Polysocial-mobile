@@ -89,8 +89,10 @@
   .clList > .cmSub { margin-bottom: 20px; }
   .grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; }
   .card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 16px; padding: 20px; background: #FFFFFF; animation: riseIn 0.5s cubic-bezier(0.23,1,0.32,1) both; }
+  /* Cards only rise in on first load, not each time a filter or button redraws them. */
+  .grid.ready .card { animation: none; }
   .card .who { display: flex; align-items: center; gap: 14px; }
-  .card .who > div { min-width: 0; }
+  .card .who > div { flex: 1; min-width: 0; }
   .card .h { margin: 0; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
   .card .t { margin: 4px 0 0; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; }
   .card .t a { color: var(--blue); font-weight: 600; }
@@ -105,6 +107,26 @@
   .card dl { display: grid; grid-template-columns: 84px minmax(0,1fr); gap: 8px 12px; margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: var(--fs-sub); }
   .card dt { color: var(--muted); font-weight: 500; }
   .card dd { margin: 0; font-weight: 500; }
+  /* Map status badge and the add / remove button at the foot of each card. */
+  .status { flex: none; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: var(--band); color: var(--muted); font-size: var(--fs-meta); font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: 16px; white-space: nowrap; }
+  .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--soft); }
+  .status.on { background: var(--h0); color: var(--ink); }
+  .status.on::before { background: var(--core); }
+  .card .act { margin-top: auto; padding-top: 18px; }
+  .card .act button { width: 100%; font-size: var(--fs-body); padding: 12px 16px; }
+  .card.off .who .av, .card.off .stats, .card.off .about, .card.off .chips, .card.off dl { opacity: 0.55; }
+  .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 16px; }
+  .seg button {
+    border: 0; background: transparent; color: var(--ink); cursor: pointer;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 16px;
+    transition: background 0.16s ease, color 0.16s ease;
+  }
+  .seg button.on { background: var(--ink); color: #FFFFFF; }
+  .seg button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .rosterNote[hidden] { display: none; }
+  .rosterNote { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 20px; padding: 12px 16px; background: var(--h0); border-radius: 16px; color: #5E4A44; font-weight: 500; font-size: var(--fs-sub); }
+  .rosterNote button { border: 0; padding: 0; background: none; color: var(--blue); font: inherit; font-weight: 600; cursor: pointer; }
+  .rosterNote button:hover { text-decoration: underline; }
 
   /* Creator profile picture (initials when there is no photo). */
   .av { display: block; flex: none; width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--band); }
@@ -122,7 +144,9 @@
   .btnPrimary { display: inline-block; flex: none; border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 500; font-size: 15px; line-height: 1; border-radius: 16px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
   .btnPrimary:hover { background: #2b4dff; }
   .btnPrimary:active { transform: scale(0.98); }
-  .btnPrimary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .btnPrimary:focus-visible, .btnGhost:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 16px; padding: 14px 22px; }
+  .btnGhost:hover { background: var(--band); }
 
   /* ================= FOOTER ================= */
   #siteFooter { padding: 60px 17px 40px; }
@@ -138,6 +162,10 @@
   @media (max-width: 479px) {
     .tagRow { flex-direction: column; gap: 6px; }
     .tagLabel { width: auto; padding-top: 0; }
+    /* The map status badge drops under the name, lined up with it. */
+    .card .who { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 8px 14px; }
+    .card .who .av { grid-row: span 2; }
+    .status { justify-self: start; }
   }
 
   /* ================= TABLET / DESKTOP ================= */
@@ -193,12 +221,17 @@
 
     <section class="cmStats" aria-label="Summary">
       <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
+      <div class="cmStat"><b id="sOnMap">0</b><span>On the creator map</span></div>
       <div class="cmStat"><b id="sReach">0</b><span>Combined followers</span></div>
       <div class="cmStat"><b id="sAvg">–</b><span>Average per reel</span></div>
-      <div class="cmStat"><b id="sTotal">–</b><span>One reel from each</span></div>
     </section>
 
     <section class="cmFilters" aria-label="Filters">
+      <span class="seg" id="mapSeg" role="group" aria-label="Map status">
+        <button type="button" data-v="" class="on">All</button>
+        <button type="button" data-v="on">On the map</button>
+        <button type="button" data-v="off">Not on the map</button>
+      </span>
       <input class="search" id="fSearch" type="search" placeholder="Search name, handle or community" aria-label="Search creators">
       <select class="pill" id="fLang" aria-label="Language"></select>
       <select class="pill" id="fSort" aria-label="Sort by">
@@ -217,7 +250,8 @@
 
     <section class="clList" aria-labelledby="listTitle">
       <h2 id="listTitle">Creator profiles</h2>
-      <p class="cmSub">Everyone on the creator map, with their reach, cost and audience.</p>
+      <p class="cmSub">Use Add to map and Remove from map to choose who appears on the creator map. Your line-up is saved in this browser.</p>
+      <p class="rosterNote" id="rosterNote" hidden><span id="rosterTxt"></span><button type="button" id="rosterReset">Reset to the original line-up</button></p>
       <div class="grid" id="grid"></div>
       <p class="costNote">All costs are inclusive of the Polysocial fees.</p>
     </section>
@@ -251,6 +285,7 @@
 
 <!-- The list reads the same data file as the creator map, so the two stay in sync. -->
 <script src="/creator-map/celeste/data.js"></script>
+<script src="/creator-map/celeste/roster.js"></script>
 <script>
 (function () {
   var LANGS = ["Sinhala","Tamil","English","Singlish","Mixed"];
@@ -267,7 +302,10 @@
   function tierOf(f) { return TIERS.find(function (t) { return Number(f) < t.max; }) || TIERS[TIERS.length - 1]; }
 
   var DATA = window.CREATOR_MAP || { creators: [] };
-  var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+  // Everyone in data.js, parked creators included; roster.js says who is on the map.
+  var ROSTER = window.CREATOR_ROSTER;
+  var creators = ROSTER.all().map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+  var mapFilter = "";
   var PHOTO_BASE = "/creator-map/celeste/";
   var $ = function (id) { return document.getElementById(id); };
 
@@ -297,7 +335,7 @@
     $("clTitle").textContent = DATA.brand + " creator list";
     document.title = DATA.brand + " Creator List — Polysocial";
   }
-  $("clSub").textContent = "Every creator on the " + (DATA.brand || "creator") + " map, with their reach, cost per reel and audience." + (DATA.updated ? " Updated " + DATA.updated + "." : "");
+  $("clSub").textContent = "Every " + (DATA.brand || "") + " creator, with their reach, cost per reel and audience. Add or remove them from the creator map." + (DATA.updated ? " Updated " + DATA.updated + "." : "");
 
   $("fLang").innerHTML = '<option value="">Language: All</option>' + LANGS.filter(function (v) {
     return creators.some(function (c) { return c.language === v; });
@@ -338,7 +376,8 @@
     var q = $("fSearch").value.trim().toLowerCase(), l = $("fLang").value;
     return creators.filter(function (c) {
       var text = [c.name, handleOf(c), c.community].join(" ").toLowerCase();
-      return (!q || text.indexOf(q) !== -1) && (!l || c.language === l)
+      return (!mapFilter || ROSTER.onMap(c) === (mapFilter === "on"))
+        && (!q || text.indexOf(q) !== -1) && (!l || c.language === l)
         && anyOf(personasOf(c), picked.persona)
         && (!picked.tier.length || picked.tier.indexOf(tierOf(c.followers).name) !== -1);
     });
@@ -352,11 +391,12 @@
   };
 
   function card(c) {
-    var h = handleOf(c);
-    return '<article class="card">'
+    var h = handleOf(c), on = ROSTER.onMap(c);
+    return '<article class="card' + (on ? '' : ' off') + '">'
       + '<div class="who">' + avatar(c) + '<div><p class="h">' + esc(nameOf(c)) + '</p><p class="t">'
       + (h ? '<a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a> &middot; ' : '')
-      + dots([tierOf(c.followers).name + ' tier', c.platform]) + '</p></div></div>'
+      + dots([tierOf(c.followers).name + ' tier', c.platform]) + '</p></div>'
+      + '<span class="status' + (on ? ' on' : '') + '">' + (on ? 'On the map' : 'Not on the map') + '</span></div>'
       + '<div class="stats"><div><b>' + fmtK(c.followers) + '</b><span>Followers</span></div><div><b>' + (c.cost > 0 ? "Rs. " + fmtK(c.cost) : "–") + '</b><span>Cost per reel</span></div></div>'
       + (c.community ? '<p class="about">' + esc(c.community) + '</p>' : '')
       + '<div class="chips">' + personasOf(c).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join("") + '</div>'
@@ -367,7 +407,11 @@
       + '<dt>Lifestyle</dt><dd>' + esc(bandText(c.lifestyle, c.lean) || "–") + '</dd>'
       + '<dt>Language</dt><dd>' + esc(c.language || "–") + '</dd>'
       + (c.styles && c.styles.length ? '<dt>Content style</dt><dd>' + esc(c.styles.join(", ")) + '</dd>' : '')
-      + '</dl></article>';
+      + '</dl>'
+      + '<div class="act">' + (on
+        ? '<button type="button" class="btnGhost" data-id="' + c.id + '" data-on="0">Remove from map</button>'
+        : '<button type="button" class="btnPrimary" data-id="' + c.id + '" data-on="1">Add to map</button>') + '</div>'
+      + '</article>';
   }
 
   function render() {
@@ -375,11 +419,37 @@
     var costed = list.filter(function (c) { return c.cost > 0; });
     var sum = costed.reduce(function (s, c) { return s + c.cost; }, 0);
     $("sCount").textContent = list.length;
+    $("sOnMap").textContent = creators.filter(ROSTER.onMap).length + " of " + creators.length;
     $("sReach").textContent = fmt(list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0));
     $("sAvg").textContent = costed.length ? "Rs. " + fmtK(Math.round(sum / costed.length)) : "–";
-    $("sTotal").textContent = costed.length ? "Rs. " + fmtK(sum) : "–";
     $("grid").innerHTML = list.length ? list.map(card).join("") : '<p class="empty">No creators match these filters.</p>';
+    $("grid").querySelectorAll(".act button").forEach(function (b) {
+      b.onclick = function () {
+        var c = creators.find(function (x) { return x.id === b.dataset.id; });
+        ROSTER.set(c, b.dataset.on === "1");
+        render();
+        // Keep keyboard focus on the same card's (now swapped) button.
+        var again = $("grid").querySelector('.act button[data-id="' + c.id + '"]');
+        if (again) again.focus();
+      };
+    });
+    setTimeout(function () { $("grid").classList.add("ready"); }, 600);
+    var changed = ROSTER.changed();
+    $("rosterNote").hidden = !changed;
+    if (changed) $("rosterTxt").textContent = "You've changed who is on the creator map.";
   }
+
+  $("mapSeg").querySelectorAll("button").forEach(function (b) {
+    b.onclick = function () {
+      mapFilter = b.dataset.v;
+      $("mapSeg").querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      render();
+    };
+  });
+  $("rosterReset").onclick = function () { ROSTER.reset(); render(); };
+  // Stay in step with the map or another list open in another tab.
+  window.addEventListener("storage", function (e) { if (e.key === ROSTER.KEY || e.key === null) render(); });
+  window.addEventListener("pageshow", function (e) { if (e.persisted) render(); });
 
   $("fSearch").oninput = render;
   $("fLang").onchange = render;

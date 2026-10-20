@@ -82,6 +82,11 @@
   .pill:focus-visible { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
   .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
   .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
+  /* Shown when this browser has added or removed creators on the creator list. */
+  .rosterNote[hidden] { display: none; }
+  .rosterNote { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 var(--edge) 20px; padding: 12px 16px; background: var(--h0); border-radius: 16px; color: #5E4A44; font-weight: 500; font-size: var(--fs-sub); }
+  .rosterNote a, .rosterNote button { border: 0; padding: 0; background: none; color: var(--blue); font: inherit; font-weight: 600; cursor: pointer; }
+  .rosterNote a:hover, .rosterNote button:hover { text-decoration: underline; }
   .tagRow[hidden] { display: none; }
   .tagRow { display: flex; align-items: flex-start; gap: 12px; }
   .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
@@ -340,6 +345,8 @@
       <select class="pill cmPlatform" id="fPlatform" aria-label="Platform"></select>
     </section>
 
+    <p class="rosterNote" id="rosterNote" hidden><span id="rosterTxt"></span><a href="/creator-list/">Edit on the creator list</a><button type="button" id="rosterReset">Reset to the original line-up</button></p>
+
     <section class="cmFilters" aria-label="Filters">
       <span class="seg" id="axisSeg" role="group" aria-label="Vertical axis">
         <button type="button" data-axis="lifestyle" class="on">Lifestyle</button>
@@ -399,7 +406,7 @@
         </section>
         <section>
           <h2>Creators</h2>
-          <p class="cmSub">Everyone who matches your filters. Use the eye to hide a creator from the map and cost chart.</p>
+          <p class="cmSub">Everyone who matches your filters. Use the eye to hide a creator from the map and cost chart. To add or remove creators, use the <a href="/creator-list/" style="color:var(--blue);font-weight:600">creator list</a>.</p>
           <div class="list" id="list"></div>
         </section>
       </aside>
@@ -447,6 +454,7 @@
   </footer>
 
 <script src="/creator-map/celeste/data.js"></script>
+<script src="/creator-map/celeste/roster.js"></script>
 <script>
 (function () {
   var OPT = {
@@ -470,7 +478,13 @@
   function tierOf(f) { return TIERS.find(function (t) { return Number(f) < t.max; }) || TIERS[TIERS.length - 1]; }
 
   var DATA = window.CREATOR_MAP || { creators: [] };
-  var creators = DATA.creators.map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+  // Who is on the map: data.js, plus any adds / removes made on the creator
+  // list in this browser (see roster.js).
+  var ROSTER = window.CREATOR_ROSTER;
+  function loadCreators() {
+    return (ROSTER ? ROSTER.mapCreators() : DATA.creators).map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+  }
+  var creators = loadCreators();
 
   var axis = "lifestyle", selected = null;
   var AGE_W = 6, COLS = AGE_W * OPT.age.length, ROWS = 12, SCALE = 1;
@@ -531,9 +545,12 @@
     fillTags(el, key, shown);
   }
   // A brand can narrow the persona filter to the tags it cares about.
-  usedTags($("tPersona"), "persona", DATA.filterPersonas || OPT.persona, personasOf);
-  usedTags($("tStyle"), "style", OPT.style, stylesOf);
-  usedTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }), function (c) { return [tierOf(c.followers).name]; });
+  function buildTags() {
+    usedTags($("tPersona"), "persona", DATA.filterPersonas || OPT.persona, personasOf);
+    usedTags($("tStyle"), "style", OPT.style, stylesOf);
+    usedTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }), function (c) { return [tierOf(c.followers).name]; });
+  }
+  buildTags();
 
   function yBands() { return OPT[axis]; }
   function bandRows() { var n = yBands().length; return yBands().map(function (_, k) { return [Math.round(k * ROWS / n), Math.round((k + 1) * ROWS / n)]; }); }
@@ -1096,6 +1113,31 @@
   document.addEventListener("scroll", function () { tip.style.opacity = 0; $("ctip").style.opacity = 0; }, { passive: true });
   mq.addEventListener ? mq.addEventListener("change", render) : mq.addListener(render);
   var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { renderCost(costRows); }, 120); });
+
+  // The line-up can change on the creator list (in another tab, or before
+  // coming back here). Rebuild from it, clearing tag picks, eyes and the
+  // open profile, since creator ids follow the line-up.
+  function reloadRoster() {
+    creators = loadCreators();
+    picked = { persona: [], style: [], tier: [] };
+    hiddenIds = {}; shownIds = {}; hiddenTiers = {};
+    buildTags();
+    budget = { lo: 0, hi: costMax };
+    closeDrawer(); selected = null;
+    render();
+  }
+  function renderRosterNote() {
+    var changed = ROSTER && ROSTER.changed();
+    $("rosterNote").hidden = !changed;
+    if (changed) $("rosterTxt").textContent = "You've changed who is on this map (" + creators.length + (creators.length === 1 ? " creator" : " creators") + "). Changes are saved in this browser only.";
+  }
+  if (ROSTER) {
+    window.addEventListener("storage", function (e) { if (e.key === ROSTER.KEY || e.key === null) { reloadRoster(); renderRosterNote(); } });
+    // Coming back with the browser's back button can restore a stale page.
+    window.addEventListener("pageshow", function (e) { if (e.persisted) { reloadRoster(); renderRosterNote(); } });
+    $("rosterReset").onclick = function () { ROSTER.reset(); reloadRoster(); renderRosterNote(); };
+  }
+  renderRosterNote();
   render();
 })();
 </script>
