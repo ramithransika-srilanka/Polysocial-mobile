@@ -101,7 +101,6 @@
   .card .stats div { background: var(--band); border-radius: 12px; padding: 12px 14px; }
   .card .stats b { display: block; font-weight: 600; font-size: var(--fs-title); line-height: 1.1; letter-spacing: -0.02em; }
   .card .stats span { display: block; margin-top: 2px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; }
-  .card .about { margin: 16px 0 0; color: var(--ink); font-size: var(--fs-body); font-weight: 500; line-height: 1.5; }
   .card .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
   .chip { display: inline-block; background: var(--h0); color: var(--ink); font-size: var(--fs-meta); font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: 16px; }
   .card dl { display: grid; grid-template-columns: 84px minmax(0,1fr); gap: 8px 12px; margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: var(--fs-sub); }
@@ -114,7 +113,7 @@
   .status.on::before { background: var(--core); }
   .card .act { margin-top: auto; padding-top: 18px; }
   .card .act button { width: 100%; font-size: var(--fs-body); padding: 12px 16px; }
-  .card.off .who .av, .card.off .stats, .card.off .about, .card.off .chips, .card.off dl { opacity: 0.55; }
+  .card.off .who .av, .card.off .stats, .card.off .chips, .card.off dl { opacity: 0.55; }
   .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 16px; }
   .seg button {
     border: 0; background: transparent; color: var(--ink); cursor: pointer;
@@ -232,7 +231,7 @@
         <button type="button" data-v="on">On the map</button>
         <button type="button" data-v="off">Not on the map</button>
       </span>
-      <input class="search" id="fSearch" type="search" placeholder="Search name, handle or community" aria-label="Search creators">
+      <input class="search" id="fSearch" type="search" placeholder="Search name or handle" aria-label="Search creators">
       <select class="pill" id="fLang" aria-label="Language"></select>
       <select class="pill" id="fSort" aria-label="Sort by">
         <option value="followers">Sort: Most followers</option>
@@ -375,7 +374,7 @@
   function visible() {
     var q = $("fSearch").value.trim().toLowerCase(), l = $("fLang").value;
     return creators.filter(function (c) {
-      var text = [c.name, handleOf(c), c.community].join(" ").toLowerCase();
+      var text = [c.name, handleOf(c)].join(" ").toLowerCase();
       return (!mapFilter || ROSTER.onMap(c) === (mapFilter === "on"))
         && (!q || text.indexOf(q) !== -1) && (!l || c.language === l)
         && anyOf(personasOf(c), picked.persona)
@@ -398,7 +397,6 @@
       + dots([tierOf(c.followers).name + ' tier', c.platform]) + '</p></div>'
       + '<span class="status' + (on ? ' on' : '') + '">' + (on ? 'On the map' : 'Not on the map') + '</span></div>'
       + '<div class="stats"><div><b>' + fmtK(c.followers) + '</b><span>Followers</span></div><div><b>' + (c.cost > 0 ? "Rs. " + fmtK(c.cost) : "–") + '</b><span>Cost per reel</span></div></div>'
-      + (c.community ? '<p class="about">' + esc(c.community) + '</p>' : '')
       + '<div class="chips">' + personasOf(c).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join("") + '</div>'
       + '<dl>'
       + '<dt>Age</dt><dd>' + esc(c.age || "–") + '</dd>'
