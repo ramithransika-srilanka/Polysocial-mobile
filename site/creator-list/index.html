@@ -158,6 +158,8 @@
   .reels li b { color: var(--ink); font-weight: 600; }
   .reels .reel { padding: 18px 0 6px; border-top: 1px solid var(--line); }
   .reels .reel p { margin-bottom: 12px; }
+  .reels p a { color: var(--blue); font-weight: 600; }
+  .reels p a:hover { text-decoration: underline; }
   .reels .when { display: block; margin-bottom: 4px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; }
 
   /* ================= MAP BAND ================= */
@@ -479,9 +481,13 @@
 
   // ---------- Reel breakdowns (reels/*.md next to data.js) ----------
   // Renders the small Markdown subset the breakdown files use: ## and ###
-  // headings, "- " lists, **bold** and paragraphs. "### 1. 2026-10-20 — Title"
-  // becomes one reel with its date above the title.
-  function inline(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
+  // headings, "- " lists, **bold**, [links](https://…) and paragraphs.
+  // "### 1. 2026-10-20 — Title" becomes one reel with its date above the
+  // title; the title is optional.
+  function inline(t) {
+    return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+      .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
   function renderMd(md) {
     var html = "", list = false, reel = false;
     function endList() { if (list) { html += "</ul>"; list = false; } }
@@ -491,8 +497,8 @@
       if (!line.trim()) { endList(); return; }
       if ((m = line.match(/^###\s+(.*)$/))) {
         endList(); endReel();
-        var r = m[1].match(/^(\d+\.)\s*(\d{4}-\d{2}-\d{2})\s*[—–-]\s*(.*)$/);
-        html += '<div class="reel">' + (r ? '<span class="when">' + esc(r[1] + " " + r[2]) + '</span><h3>' + inline(r[3]) + '</h3>' : '<h3>' + inline(m[1]) + '</h3>');
+        var r = m[1].match(/^(\d+\.)\s*(\d{4}-\d{2}-\d{2})(?:\s*[—–-]\s*(.*))?$/);
+        html += '<div class="reel">' + (r ? '<span class="when">' + esc(r[1] + " " + r[2]) + '</span>' + (r[3] ? '<h3>' + inline(r[3]) + '</h3>' : '') : '<h3>' + inline(m[1]) + '</h3>');
         reel = true;
       } else if ((m = line.match(/^##\s+(.*)$/))) {
         endList(); endReel(); html += '<h2>' + inline(m[1]) + '</h2>';
