@@ -26,6 +26,10 @@
  * `filterPersonas` lists the persona tags offered as filters for this brand.
  * Creators keep all their personas, which still show on their profile.
  *
+ * `reels` is a Markdown file in reels/ breaking down the creator's last 50
+ * reels, opened from the creator list. Its "Persona tags" section lists the
+ * reels behind each tag in `personas`; keep the two in step.
+ *
  * `parked` holds creators taken off the map for now; the page ignores it.
  */
 window.CREATOR_MAP = {
@@ -136,7 +140,8 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 13000,
       cost: 70588,
-      personas: ["Lifestyle runner", "Social runner", "Travel Influencer"],
+      personas: ["Long-distance walker", "Trail hiker", "Lifestyle runner", "Travel Influencer", "Beauty creator", "Social runner", "Lifestyle UGC creator", "Consumer UGC creator"],
+      reels: "reels/belinda-seneviratne.md",
       styles: null,
       community: "Young women in Colombo interested in walking, running, hiking and sustainable active lifestyle",
       age: "25–45",
