@@ -291,6 +291,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: "Udula Karawita",
+      handle: null,
+      photo: "avatars/udula-karawita.webp",
+      platform: "Instagram",
+      followers: 2400,
+      cost: 35294,
+      personas: ["Luxury Lifestyle", "Entrepreneur", "Fitness coach"],
+      styles: null,
+      community: "Young creators in Colombo interested in modelling, lifestyle and fitness",
+      age: "18–35",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
     }
   ],
   // Off the map for now but kept for later. The page only reads `creators`;
