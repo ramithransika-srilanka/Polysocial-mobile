@@ -238,11 +238,7 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly men",
       language: "English"
-    }
-  ],
-  // Off the map for now but kept for later. The page only reads `creators`;
-  // to bring someone back, move their entry into that list.
-  parked: [
+    },
     {
       name: "Lelumi Jagoda",
       handle: "le.lumii",
@@ -260,5 +256,8 @@ window.CREATOR_MAP = {
       gender: "Mostly women",
       language: "English"
     }
-  ]
+  ],
+  // Off the map for now but kept for later. The page only reads `creators`;
+  // to bring someone back, move their entry into that list.
+  parked: []
 };
