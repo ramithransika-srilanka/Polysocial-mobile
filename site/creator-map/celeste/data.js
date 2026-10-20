@@ -263,7 +263,7 @@ window.CREATOR_MAP = {
     {
       name: "Shewan Jayaweera",
       handle: "shewan_j",
-      photo: null,
+      photo: "avatars/shewan-jayaweera.webp",
       platform: "Instagram",
       followers: 3000,
       cost: 17647,

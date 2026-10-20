@@ -259,7 +259,7 @@
       <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
       <div class="cmStat"><b id="sOnMap">0</b><span>On the creator map</span></div>
       <div class="cmStat"><b id="sReach">0</b><span>Combined followers</span></div>
-      <div class="cmStat"><b id="sAvg">–</b><span>Average per reel</span></div>
+      <div class="cmStat"><b id="sAvg">–</b><span>Average rate per reel</span></div>
     </section>
 
     <section class="cmFilters" aria-label="Filters">
@@ -289,7 +289,7 @@
       <p class="cmSub">Use Add to map and Remove from map to choose who appears on the creator map. Your line-up is saved in this browser.</p>
       <p class="rosterNote" id="rosterNote" hidden><span id="rosterTxt"></span><button type="button" id="rosterReset">Reset to the original line-up</button></p>
       <div class="grid" id="grid"></div>
-      <p class="costNote">All costs are inclusive of the Polysocial fees.</p>
+      <p class="costNote">Rates are what each creator charges for one reel, before the 15% Polysocial fee.</p>
     </section>
 
     <section class="planBand" aria-labelledby="mapTitle"><div class="plan">
@@ -367,6 +367,9 @@
     if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
     return String(n);
   }
+  // data.js stores what a brand pays (the creator's rate plus the 15%
+  // Polysocial fee, i.e. rate / 0.85); the list shows the creator's own rate.
+  function rateOf(c) { return c.cost > 0 ? Math.round(c.cost * 0.85 / 10) * 10 : 0; }
   function fmtRs(n) { return "Rs. " + Number(n || 0).toLocaleString("en-US"); }
   function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
 
@@ -442,7 +445,7 @@
       + (h ? '<a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a> &middot; ' : '')
       + dots([tierOf(c.followers).name + ' tier', c.platform]) + '</p></div>'
       + '<span class="status' + (on ? ' on' : '') + '">' + (on ? 'On the map' : 'Not on the map') + '</span></div>'
-      + '<div class="stats"><div><b>' + fmtK(c.followers) + '</b><span>Followers</span></div><div><b>' + (c.cost > 0 ? "Rs. " + fmtK(c.cost) : "–") + '</b><span>Cost per reel</span></div></div>'
+      + '<div class="stats"><div><b>' + fmtK(c.followers) + '</b><span>Followers</span></div><div><b>' + (c.cost > 0 ? "Rs. " + fmtK(rateOf(c)) : "–") + '</b><span>Rate per reel</span></div></div>'
       + '<div class="chips">' + personasOf(c).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join("") + '</div>'
       + '<dl>'
       + '<dt>Age</dt><dd>' + esc(c.age || "–") + '</dd>'
@@ -463,7 +466,7 @@
   function render() {
     var list = visible().sort(SORTS[$("fSort").value]);
     var costed = list.filter(function (c) { return c.cost > 0; });
-    var sum = costed.reduce(function (s, c) { return s + c.cost; }, 0);
+    var sum = costed.reduce(function (s, c) { return s + rateOf(c); }, 0);
     $("sCount").textContent = list.length;
     $("sOnMap").textContent = creators.filter(ROSTER.onMap).length + " of " + creators.length;
     $("sReach").textContent = fmt(list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0));
