@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Celeste Daily Creator List — Polysocial</title>
+<meta name="description" content="Every creator on the Celeste Daily creator map, with their reach, cost per reel and audience.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://polysocial.cc/creator-list">
+<link rel="preload" href="/assets/font/4d54fdaf.f11d729bb0.woff2" as="font" type="font/woff2" crossorigin="">
+<style>
+  /* Same tokens and components as the creator map (/creator-map/celeste). */
+  @font-face {
+    font-family: 'Inter'; font-style: normal; font-weight: 400 800; font-display: swap;
+    src: url("/assets/font/4d54fdaf.f11d729bb0.woff2") format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --ink: #121212; --muted: #717171; --soft: #ADADAD; --line: #E4E4E4;
+    --band: #F2F2F2; --cell: #F2F2F2; --cell2: #E9E9E9;
+    --blue: #1548EB; --blue-hover: #1845E7;
+    --h0: #FFE9E3; --h1: #FFCDBF; --h2: #FFA990; --h3: #FF8868; --core: #FF6B49;
+    --edge: 20px;
+    --fs-stat: 32px; --fs-name: 24px; --fs-title: 20px; --fs-lead: 15px;
+    --fs-body: 14px; --fs-sub: 13px; --fs-meta: 12px; --fs-tick: 11px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.45; }
+  a { text-decoration: none; color: inherit; }
+  button, select, input { font-family: inherit; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* ================= NAV ================= */
+  #siteNav {
+    position: sticky; top: 0; z-index: 100002;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    min-height: 24px; padding: 14px 20px 12px;
+    background: rgba(255,255,255,0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both;
+  }
+  #siteNav .homeLink { display: block; flex: none; line-height: 0; }
+  #siteNav .homeLink svg { display: block; width: 23px; height: 16px; }
+  .navLink { flex: none; background: var(--band); color: var(--ink); font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 16px; transition: background 0.16s ease; }
+  .navLink:hover { background: var(--cell2); }
+  .navLink:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ================= HEADER + STATS ================= */
+  .clHead { padding: 24px var(--edge) 0; }
+  .clHead h1 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-name); line-height: 1.2; letter-spacing: -0.02em; }
+  .cmSub { margin: 0; max-width: 80ch; color: var(--muted); font-weight: 500; font-size: var(--fs-sub); line-height: 1.45; }
+  .cmStats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; padding: 20px var(--edge) 0; margin-bottom: 24px; }
+  .cmStat { background: var(--band); border-radius: 16px; padding: 16px 16px 14px; }
+  .cmStat b { display: block; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; }
+  .cmStat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
+
+  /* ================= FILTERS ================= */
+  .cmFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--edge); margin-bottom: 16px; align-items: center; }
+  .pill {
+    -webkit-appearance: none; appearance: none; border: 0; outline: none;
+    background: var(--band); color: var(--ink);
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1.2; border-radius: 16px;
+    padding: 9px 30px 9px 14px; cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat; background-position: right 12px center;
+  }
+  .pill:focus-visible, .search:focus-visible { box-shadow: 0 0 0 2px rgba(24,69,231,0.5); }
+  .search { flex: 1 1 220px; max-width: 320px; min-width: 0; border: 0; outline: none; background: var(--band); color: var(--ink); font-weight: 500; font-size: var(--fs-sub); line-height: 1.2; border-radius: 16px; padding: 9px 14px; }
+  .search::placeholder { color: var(--muted); }
+  .cmTags { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--edge); margin-bottom: 20px; }
+  .tagHint { margin: 0; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
+  .tagRow[hidden] { display: none; }
+  .tagRow { display: flex; align-items: flex-start; gap: 12px; }
+  .tagLabel { flex: none; width: 92px; padding-top: 7px; color: var(--muted); font-weight: 500; font-size: var(--fs-meta); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); cursor: pointer;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 7px 12px; border-radius: 16px;
+    transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+  }
+  .tag:hover { border-color: #C8C8C8; }
+  .tag.on { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+  .tag:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ================= PROFILE CARDS ================= */
+  .clList { padding: 0 var(--edge); margin-top: 32px; }
+  .clList h2 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .clList > .cmSub { margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 16px; padding: 20px; background: #FFFFFF; animation: riseIn 0.5s cubic-bezier(0.23,1,0.32,1) both; }
+  /* Cards only rise in on first load, not each time a filter or button redraws them. */
+  .grid.ready .card { animation: none; }
+  .card .who { display: flex; align-items: center; gap: 14px; }
+  .card .who > div { flex: 1; min-width: 0; }
+  .card .h { margin: 0; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .card .t { margin: 4px 0 0; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; }
+  .card .t a { color: var(--blue); font-weight: 600; }
+  .card .t a:hover { text-decoration: underline; }
+  .card .stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-top: 18px; }
+  .card .stats div { background: var(--band); border-radius: 12px; padding: 12px 14px; }
+  .card .stats b { display: block; font-weight: 600; font-size: var(--fs-title); line-height: 1.1; letter-spacing: -0.02em; }
+  .card .stats span { display: block; margin-top: 2px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; }
+  .card .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .chip { display: inline-block; background: var(--h0); color: var(--ink); font-size: var(--fs-meta); font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: 16px; }
+  .card dl { display: grid; grid-template-columns: 84px minmax(0,1fr); gap: 8px 12px; margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: var(--fs-sub); }
+  .card dt { color: var(--muted); font-weight: 500; }
+  .card dd { margin: 0; font-weight: 500; }
+  /* Map status badge and the add / remove button at the foot of each card. */
+  .status { flex: none; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: var(--band); color: var(--muted); font-size: var(--fs-meta); font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: 16px; white-space: nowrap; }
+  .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--soft); }
+  .status.on { background: var(--h0); color: var(--ink); }
+  .status.on::before { background: var(--core); }
+  .card .act { margin-top: auto; padding-top: 18px; }
+  .card .act { display: grid; grid-template-columns: minmax(0,1fr); gap: 8px; }
+  .card .act.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .card .act button { width: 100%; font-size: var(--fs-body); padding: 12px 16px; }
+  .card.off .who .av, .card.off .stats, .card.off .chips, .card.off dl { opacity: 0.55; }
+  .seg { display: inline-flex; padding: 3px; background: var(--band); border-radius: 16px; }
+  .seg button {
+    border: 0; background: transparent; color: var(--ink); cursor: pointer;
+    font-weight: 500; font-size: var(--fs-sub); line-height: 1; padding: 8px 14px; border-radius: 16px;
+    transition: background 0.16s ease, color 0.16s ease;
+  }
+  .seg button.on { background: var(--ink); color: #FFFFFF; }
+  .seg button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .rosterNote[hidden] { display: none; }
+  .rosterNote { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 20px; padding: 12px 16px; background: var(--h0); border-radius: 16px; color: #5E4A44; font-weight: 500; font-size: var(--fs-sub); }
+  .rosterNote button { border: 0; padding: 0; background: none; color: var(--blue); font: inherit; font-weight: 600; cursor: pointer; }
+  .rosterNote button:hover { text-decoration: underline; }
+
+  /* Creator profile picture (initials when there is no photo). */
+  .av { display: block; flex: none; width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--band); }
+  .av.ini { display: flex; align-items: center; justify-content: center; background: var(--h1); color: var(--ink); font-weight: 600; font-size: 12px; }
+  .av.lg { width: 64px; height: 64px; font-size: 20px; }
+  .empty { margin: 0; color: var(--muted); font-size: var(--fs-sub); }
+  .costNote { margin: 20px 0 0; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; font-style: italic; }
+
+  /* ================= REELS DRAWER (same as the map's profile drawer) ================= */
+  .scrim { position: fixed; inset: 0; z-index: 100010; background: rgba(18,18,18,0.32); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0s linear 0.25s; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100011; width: min(640px, 100vw); display: flex; flex-direction: column; background: #FFFFFF; box-shadow: -12px 0 40px rgba(0,0,0,0.12); transform: translateX(100%); visibility: hidden; transition: transform 0.3s cubic-bezier(0.32,0.72,0,1), visibility 0s linear 0.3s; }
+  body.drawerOpen .scrim { opacity: 1; visibility: visible; transition: opacity 0.25s ease; }
+  body.drawerOpen .drawer { transform: none; visibility: visible; transition: transform 0.3s cubic-bezier(0.32,0.72,0,1); }
+  body.drawerOpen { overflow: hidden; }
+  .drawer:focus { outline: none; }
+  .drawer .dHead { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 28px; border-bottom: 1px solid var(--line); }
+  .drawer .dHead h2 { margin: 0; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .drawer .x { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #FFFFFF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .drawer .x:hover { background: var(--band); }
+  .drawer .x:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .drawer .dBody { flex: 1; overflow-y: auto; padding: 8px 28px 40px; }
+  .reels h2 { margin: 24px 0 12px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .reels h3 { margin: 0 0 6px; font-weight: 600; font-size: var(--fs-lead); line-height: 1.3; }
+  .reels p { margin: 0 0 12px; color: var(--muted); font-size: var(--fs-body); font-weight: 500; line-height: 1.55; }
+  .reels p b { color: var(--ink); font-weight: 600; }
+  .reels ul { margin: 0 0 12px; padding: 0; list-style: none; }
+  .reels li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-body); font-weight: 500; line-height: 1.5; color: var(--muted); }
+  .reels li b { color: var(--ink); font-weight: 600; }
+  .reels .reel { padding: 18px 0 6px; border-top: 1px solid var(--line); }
+  .reels .reel p { margin-bottom: 12px; }
+  .reels p a { color: var(--blue); font-weight: 600; }
+  .reels p a:hover { text-decoration: underline; }
+  .reels .when { display: block; margin-bottom: 4px; color: var(--muted); font-size: var(--fs-meta); font-weight: 500; }
+
+  /* ================= MAP BAND ================= */
+  .planBand { margin-top: 72px; padding: 40px var(--edge); background: var(--h0); }
+  .planBand h2 { margin: 0 0 4px; font-weight: 600; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -0.02em; }
+  .planBand .cmSub { color: #5E4A44; }
+  .plan { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px; }
+  .plan > div { flex: 1 1 420px; min-width: 0; }
+  .btnPrimary { display: inline-block; flex: none; border: 0; cursor: pointer; background: var(--blue); color: #FFFFFF; font: inherit; font-weight: 500; font-size: 15px; line-height: 1; border-radius: 16px; padding: 15px 24px; transition: transform 0.16s ease-out, background 0.16s ease-out; }
+  .btnPrimary:hover { background: #2b4dff; }
+  .btnPrimary:active { transform: scale(0.98); }
+  .btnPrimary:focus-visible, .btnGhost:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .btnGhost { border: 1px solid var(--line); cursor: pointer; background: #FFFFFF; color: var(--ink); font: inherit; font-weight: 600; font-size: 15px; line-height: 1; border-radius: 16px; padding: 14px 22px; }
+  .btnGhost:hover { background: var(--band); }
+
+  /* ================= FOOTER ================= */
+  #siteFooter { padding: 60px 17px 40px; }
+  #siteFooter .inner { display: flex; flex-direction: column; gap: 13px; }
+  #siteFooter .rule { height: 1px; background: #A0A0A0; }
+  #siteFooter .wm { display: block; width: 131px; height: 24px; }
+  #siteFooter .tagline { color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.3; }
+  #siteFooter p { margin: 0; font-weight: 500; font-size: 12px; line-height: 1.5; color: var(--muted); }
+  #siteFooter p a { color: var(--blue); }
+  #siteFooter .legal { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+  /* ================= PHONES: desktop-only notice =================
+     Same as the creator map: below 768px the page shows only a notice. */
+  .cmDesktopOnly { display: none; }
+  @media (max-width: 767px) {
+    /* The map is desktop-only too, so its nav link is hidden as well. */
+    main, #siteFooter, .navLink { display: none; }
+    .cmDesktopOnly {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      min-height: calc(100svh - 52px); padding: 24px 32px 64px; text-align: center;
+    }
+    .cmDesktopOnly h1 { margin: 0; font-weight: 600; font-size: 24px; line-height: 1.15; letter-spacing: -0.02em; }
+    .cmDesktopOnly p { margin: 0; max-width: 280px; color: var(--muted); font-weight: 500; font-size: 14px; line-height: 1.4; }
+  }
+
+  /* ================= TABLET / DESKTOP ================= */
+  @media (min-width: 768px) {
+    :root { --edge: max(40px, calc((100% - 1200px) / 2)); }
+    #siteNav { padding: 18px var(--edge) 14px; }
+    #siteNav .homeLink svg { width: 28px; height: 19.5px; }
+
+    .clHead { padding-top: 48px; }
+    .clHead h1 { font-size: 32px; }
+    .cmStats { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
+    .cmStat { padding: 20px; }
+    .cmStat b { font-size: var(--fs-stat); }
+    .cmStat span { font-size: var(--fs-sub); }
+    .clList { margin-top: 40px; }
+    .grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+
+    #siteFooter { padding: 72px var(--edge) 52px; }
+    #siteFooter .wm { width: 152px; height: 28px; }
+    #siteFooter p { font-size: 14px; }
+    #siteFooter .legal { font-size: 12px; }
+  }
+  @media (min-width: 1100px) {
+    .grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #siteNav, .card { animation: none; }
+  }
+</style>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FF6B4A">
+</head>
+<body>
+
+  <header id="siteNav">
+    <a class="homeLink" href="/" aria-label="Polysocial home">
+      <svg width="23" height="16" viewBox="0 0 269 184" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#000000"></path>
+        <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#000000"></path>
+      </svg>
+    </a>
+    <a class="navLink" href="/creator-map/celeste/">Creator map</a>
+  </header>
+
+  <section class="cmDesktopOnly">
+    <h1>Open on desktop</h1>
+    <p>The creator list is built for larger screens. Please visit this page on a desktop or laptop.</p>
+  </section>
+
+  <main>
+    <section class="clHead">
+      <h1 id="clTitle">Creator list</h1>
+      <p class="cmSub" id="clSub"></p>
+    </section>
+
+    <section class="cmStats" aria-label="Summary">
+      <div class="cmStat"><b id="sCount">0</b><span>Creators shown</span></div>
+      <div class="cmStat"><b id="sOnMap">0</b><span>On the creator map</span></div>
+      <div class="cmStat"><b id="sReach">0</b><span>Combined followers</span></div>
+      <div class="cmStat"><b id="sAvg">–</b><span>Average rate per reel</span></div>
+    </section>
+
+    <section class="cmFilters" aria-label="Filters">
+      <span class="seg" id="mapSeg" role="group" aria-label="Map status">
+        <button type="button" data-v="" class="on">All</button>
+        <button type="button" data-v="on">On the map</button>
+        <button type="button" data-v="off">Not on the map</button>
+      </span>
+      <input class="search" id="fSearch" type="search" placeholder="Search name or handle" aria-label="Search creators">
+      <select class="pill" id="fLang" aria-label="Language"></select>
+      <select class="pill" id="fSort" aria-label="Sort by">
+        <option value="followers">Sort: Most followers</option>
+        <option value="costLo">Sort: Lowest cost</option>
+        <option value="costHi">Sort: Highest cost</option>
+        <option value="name">Sort: Name A–Z</option>
+      </select>
+    </section>
+
+    <section class="cmTags" aria-label="Tag filters">
+      <p class="tagHint">Select one or more tags in each row to combine them.</p>
+      <div class="tagRow"><span class="tagLabel">Persona</span><div class="tags" id="tPersona" role="group" aria-label="Persona"></div></div>
+      <div class="tagRow"><span class="tagLabel">Tier</span><div class="tags" id="tTier" role="group" aria-label="Tier"></div></div>
+    </section>
+
+    <section class="clList" aria-labelledby="listTitle">
+      <h2 id="listTitle">Creator profiles</h2>
+      <p class="cmSub">Use Add to map and Remove from map to choose who appears on the creator map. Your line-up is saved in this browser.</p>
+      <p class="rosterNote" id="rosterNote" hidden><span id="rosterTxt"></span><button type="button" id="rosterReset">Reset to the original line-up</button></p>
+      <div class="grid" id="grid"></div>
+      <p class="costNote">Rates are what each creator charges for one reel, before the 15% Polysocial fee.</p>
+    </section>
+
+    <section class="planBand" aria-labelledby="mapTitle"><div class="plan">
+      <div>
+        <h2 id="mapTitle">See where they sit on the map</h2>
+        <p class="cmSub">The creator map plots each creator's audience by age, lifestyle and location, shows how far their reach spreads, and lets you send us a creator plan.</p>
+      </div>
+      <a class="btnPrimary" href="/creator-map/celeste/">Open the creator map</a>
+    </div></section>
+  </main>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+    <div class="dHead">
+      <h2 id="drawerTitle">Reel breakdown</h2>
+      <button type="button" class="x" id="closeBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="dBody reels" id="reels"></div>
+  </aside>
+
+  <footer id="siteFooter">
+    <div class="inner">
+      <div class="rule"></div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <img class="wm" src="/assets/svg/a9f0640a.21119f0406.svg" alt="polysocial" loading="lazy" decoding="async">
+        <span class="tagline">Monetizing word-of-mouth</span>
+      </div>
+      <p>You can call us on <a href="tel:+94772540134">+94 772 540 134</a> or email us on <a href="mailto:support@polysocial.cc">support@polysocial.cc</a></p>
+      <div class="rule"></div>
+      <div class="legal">
+        <span>&copy; 2026 Hygge Industries (Pvt) Ltd, operator of Polysocial. All rights reserved.</span>
+        <a href="/privacy">Privacy policy</a>
+        <a href="/terms">Terms and conditions</a>
+        <a href="/support">Support</a>
+      </div>
+    </div>
+  </footer>
+
+<!-- The list reads the same data file as the creator map, so the two stay in sync. -->
+<script src="/creator-map/celeste/data.js"></script>
+<script src="/creator-map/celeste/roster.js"></script>
+<script>
+(function () {
+  var LANGS = ["Sinhala","Tamil","English","Singlish","Mixed"];
+  // Same follower tiers as the creator map.
+  var TIERS = [
+    {name:"Emerging",max:5000},
+    {name:"Nano",max:10000},
+    {name:"Micro",max:40000},
+    {name:"Rising",max:100000},
+    {name:"Mid",max:300000},
+    {name:"Macro",max:1000000},
+    {name:"Mega",max:Infinity}
+  ];
+  function tierOf(f) { return TIERS.find(function (t) { return Number(f) < t.max; }) || TIERS[TIERS.length - 1]; }
+
+  var DATA = window.CREATOR_MAP || { creators: [] };
+  // Everyone in data.js, parked creators included; roster.js says who is on the map.
+  var ROSTER = window.CREATOR_ROSTER;
+  var creators = ROSTER.all().map(function (c, i) { return Object.assign({ id: String(i) }, c); });
+  var mapFilter = "";
+  var PHOTO_BASE = "/creator-map/celeste/";
+  var $ = function (id) { return document.getElementById(id); };
+
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (m) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
+  function dots(parts) { return parts.filter(function (v) { return v; }).map(esc).join(" &middot; "); }
+  function nameOf(c) { return c.name || c.handle; }
+  function handleOf(c) { return String(c.handle || "").trim().replace(/^@/, ""); }
+  function personasOf(c) { return c.personas || (c.persona ? [c.persona] : []); }
+  function bandText(v, lean) { return Array.isArray(v) ? v.join(" to ") + (lean ? ", closer to " + lean : "") : v; }
+  function fmtK(n) {
+    n = Number(n) || 0;
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+    if (n >= 1e5) return Math.round(n / 1e3) + "K";
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+    return String(n);
+  }
+  // data.js stores what a brand pays (the creator's rate plus the 15%
+  // Polysocial fee, i.e. rate / 0.85); the list shows the creator's own rate.
+  function rateOf(c) { return c.cost > 0 ? Math.round(c.cost * 0.85 / 10) * 10 : 0; }
+  function fmtRs(n) { return "Rs. " + Number(n || 0).toLocaleString("en-US"); }
+  function fmt(total) { return total >= 1e6 ? (total / 1e6).toFixed(1) + "M" : total >= 1e3 ? Math.round(total / 1e3) + "K" : String(total); }
+
+  function avatar(c) {
+    if (c.photo) return '<img class="av lg" src="' + esc(PHOTO_BASE + c.photo) + '" alt="" loading="lazy" decoding="async">';
+    var ini = (c.name || c.handle.replace(/^@/, "")).split(/[\s._\-]+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+    return '<span class="av lg ini" aria-hidden="true">' + esc(ini) + '</span>';
+  }
+
+  if (DATA.brand) {
+    $("clTitle").textContent = DATA.brand + " creator list";
+    document.title = DATA.brand + " Creator List — Polysocial";
+  }
+  $("clSub").textContent = "Every " + (DATA.brand || "") + " creator, with their reach, cost per reel and audience. Add or remove them from the creator map." + (DATA.updated ? " Updated " + DATA.updated + "." : "");
+
+  $("fLang").innerHTML = '<option value="">Language: All</option>' + LANGS.filter(function (v) {
+    return creators.some(function (c) { return c.language === v; });
+  }).map(function (v) { return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join("");
+
+  // Tag rows: pick any number of tags per row; none picked means all. Each row
+  // only offers tags at least one creator has.
+  var picked = { persona: [], tier: [] };
+  function fillTags(el, key, items) {
+    el.closest(".tagRow").hidden = !items.length;
+    el.innerHTML = '<button type="button" class="tag on" data-v="">All</button>' + items.map(function (v) {
+      return '<button type="button" class="tag" data-v="' + esc(v) + '" aria-pressed="false">' + esc(v) + '</button>';
+    }).join("");
+    el.querySelectorAll(".tag").forEach(function (b) {
+      b.onclick = function () {
+        var v = b.dataset.v, list = picked[key];
+        if (!v) picked[key] = [];
+        else if (list.indexOf(v) === -1) list.push(v);
+        else list.splice(list.indexOf(v), 1);
+        el.querySelectorAll(".tag").forEach(function (x) {
+          var on = x.dataset.v ? picked[key].indexOf(x.dataset.v) !== -1 : !picked[key].length;
+          x.classList.toggle("on", on);
+          if (x.dataset.v) x.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        render();
+      };
+    });
+  }
+  var usedPersonas = [];
+  creators.forEach(function (c) { personasOf(c).forEach(function (p) { if (usedPersonas.indexOf(p) === -1) usedPersonas.push(p); }); });
+  fillTags($("tPersona"), "persona", usedPersonas.sort());
+  fillTags($("tTier"), "tier", TIERS.map(function (t) { return t.name; }).filter(function (n) {
+    return creators.some(function (c) { return tierOf(c.followers).name === n; });
+  }));
+
+  function anyOf(have, want) { return !want.length || have.some(function (v) { return want.indexOf(v) !== -1; }); }
+  function visible() {
+    var q = $("fSearch").value.trim().toLowerCase(), l = $("fLang").value;
+    return creators.filter(function (c) {
+      var text = [c.name, handleOf(c)].join(" ").toLowerCase();
+      return (!mapFilter || ROSTER.onMap(c) === (mapFilter === "on"))
+        && (!q || text.indexOf(q) !== -1) && (!l || c.language === l)
+        && anyOf(personasOf(c), picked.persona)
+        && (!picked.tier.length || picked.tier.indexOf(tierOf(c.followers).name) !== -1);
+    });
+  }
+  // Creators with no cost listed go last in both cost sorts.
+  var SORTS = {
+    followers: function (a, b) { return b.followers - a.followers; },
+    costLo: function (a, b) { return (a.cost || Infinity) - (b.cost || Infinity); },
+    costHi: function (a, b) { return (b.cost || -1) - (a.cost || -1); },
+    name: function (a, b) { return nameOf(a).localeCompare(nameOf(b)); }
+  };
+
+  function card(c) {
+    var h = handleOf(c), on = ROSTER.onMap(c);
+    return '<article class="card' + (on ? '' : ' off') + '">'
+      + '<div class="who">' + avatar(c) + '<div><p class="h">' + esc(nameOf(c)) + '</p><p class="t">'
+      + (h ? '<a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a> &middot; ' : '')
+      + dots([tierOf(c.followers).name + ' tier', c.platform]) + '</p></div>'
+      + '<span class="status' + (on ? ' on' : '') + '">' + (on ? 'On the map' : 'Not on the map') + '</span></div>'
+      + '<div class="stats"><div><b>' + fmtK(c.followers) + '</b><span>Followers</span></div><div><b>' + (c.cost > 0 ? "Rs. " + fmtK(rateOf(c)) : "–") + '</b><span>Rate per reel</span></div></div>'
+      + '<div class="chips">' + personasOf(c).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join("") + '</div>'
+      + '<dl>'
+      + '<dt>Age</dt><dd>' + esc(c.age || "–") + '</dd>'
+      + '<dt>Gender</dt><dd>' + esc(c.gender || "–") + '</dd>'
+      + '<dt>Location</dt><dd>' + esc(bandText(c.location, c.lean) || "–") + '</dd>'
+      + '<dt>Lifestyle</dt><dd>' + esc(bandText(c.lifestyle, c.lean) || "–") + '</dd>'
+      + '<dt>Language</dt><dd>' + esc(c.language || "–") + '</dd>'
+      + (c.styles && c.styles.length ? '<dt>Content style</dt><dd>' + esc(c.styles.join(", ")) + '</dd>' : '')
+      + '</dl>'
+      + '<div class="act' + (c.reels ? ' two' : '') + '">'
+      + (c.reels ? '<button type="button" class="btnGhost" data-reels="' + c.id + '">Reel breakdown</button>' : '')
+      + (on
+        ? '<button type="button" class="btnGhost" data-id="' + c.id + '" data-on="0">Remove from map</button>'
+        : '<button type="button" class="btnPrimary" data-id="' + c.id + '" data-on="1">Add to map</button>') + '</div>'
+      + '</article>';
+  }
+
+  function render() {
+    var list = visible().sort(SORTS[$("fSort").value]);
+    var costed = list.filter(function (c) { return c.cost > 0; });
+    var sum = costed.reduce(function (s, c) { return s + rateOf(c); }, 0);
+    $("sCount").textContent = list.length;
+    $("sOnMap").textContent = creators.filter(ROSTER.onMap).length + " of " + creators.length;
+    $("sReach").textContent = fmt(list.reduce(function (s, c) { return s + Number(c.followers || 0); }, 0));
+    $("sAvg").textContent = costed.length ? "Rs. " + fmtK(Math.round(sum / costed.length)) : "–";
+    $("grid").innerHTML = list.length ? list.map(card).join("") : '<p class="empty">No creators match these filters.</p>';
+    $("grid").querySelectorAll("[data-reels]").forEach(function (b) {
+      b.onclick = function () { openReels(creators.find(function (x) { return x.id === b.dataset.reels; })); };
+    });
+    $("grid").querySelectorAll(".act button[data-on]").forEach(function (b) {
+      b.onclick = function () {
+        var c = creators.find(function (x) { return x.id === b.dataset.id; });
+        ROSTER.set(c, b.dataset.on === "1");
+        render();
+        // Keep keyboard focus on the same card's (now swapped) button.
+        var again = $("grid").querySelector('.act button[data-on][data-id="' + c.id + '"]');
+        if (again) again.focus();
+      };
+    });
+    setTimeout(function () { $("grid").classList.add("ready"); }, 600);
+    var changed = ROSTER.changed();
+    $("rosterNote").hidden = !changed;
+    if (changed) $("rosterTxt").textContent = "You've changed who is on the creator map.";
+  }
+
+  // ---------- Reel breakdowns (reels/*.md next to data.js) ----------
+  // Renders the small Markdown subset the breakdown files use: ## and ###
+  // headings, "- " lists, **bold**, [links](https://…) and paragraphs.
+  // "### 1. 2026-10-20 — Title" becomes one reel with its date above the
+  // title; the title is optional.
+  function inline(t) {
+    return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+      .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
+  function renderMd(md) {
+    var html = "", list = false, reel = false;
+    function endList() { if (list) { html += "</ul>"; list = false; } }
+    function endReel() { if (reel) { html += "</div>"; reel = false; } }
+    md.split(/\r?\n/).forEach(function (line) {
+      var m;
+      if (!line.trim()) { endList(); return; }
+      if ((m = line.match(/^###\s+(.*)$/))) {
+        endList(); endReel();
+        var r = m[1].match(/^(\d+\.)\s*(\d{4}-\d{2}-\d{2})(?:\s*[—–-]\s*(.*))?$/);
+        html += '<div class="reel">' + (r ? '<span class="when">' + esc(r[1] + " " + r[2]) + '</span>' + (r[3] ? '<h3>' + inline(r[3]) + '</h3>' : '') : '<h3>' + inline(m[1]) + '</h3>');
+        reel = true;
+      } else if ((m = line.match(/^##\s+(.*)$/))) {
+        endList(); endReel(); html += '<h2>' + inline(m[1]) + '</h2>';
+      } else if ((m = line.match(/^[-*]\s+(.*)$/))) {
+        if (!list) { html += "<ul>"; list = true; }
+        html += '<li>' + inline(m[1]) + '</li>';
+      } else {
+        endList(); html += '<p>' + inline(line) + '</p>';
+      }
+    });
+    endList(); endReel();
+    return html;
+  }
+
+  var lastFocus = null, reelsFor = null;
+  function openReels(c) {
+    reelsFor = c.id;
+    $("drawerTitle").textContent = nameOf(c) + " — reel breakdown";
+    $("reels").innerHTML = '<p>Loading…</p>';
+    $("reels").scrollTop = 0;
+    fetch(PHOTO_BASE + c.reels)
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function (md) { if (reelsFor === c.id) $("reels").innerHTML = renderMd(md); })
+      .catch(function () { if (reelsFor === c.id) $("reels").innerHTML = '<p>Could not load the reel breakdown. Please try again.</p>'; });
+    if (document.body.classList.contains("drawerOpen")) return;
+    lastFocus = document.activeElement;
+    document.body.classList.add("drawerOpen");
+    $("drawer").setAttribute("aria-hidden", "false");
+    setTimeout(function () { $("drawer").focus(); }, 50);
+  }
+  function closeReels() {
+    if (!document.body.classList.contains("drawerOpen")) return;
+    document.body.classList.remove("drawerOpen");
+    $("drawer").setAttribute("aria-hidden", "true");
+    reelsFor = null;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+  $("closeBtn").onclick = closeReels;
+  $("scrim").onclick = closeReels;
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeReels(); });
+
+  $("mapSeg").querySelectorAll("button").forEach(function (b) {
+    b.onclick = function () {
+      mapFilter = b.dataset.v;
+      $("mapSeg").querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      render();
+    };
+  });
+  $("rosterReset").onclick = function () { ROSTER.reset(); render(); };
+  // Stay in step with the map or another list open in another tab.
+  window.addEventListener("storage", function (e) { if (e.key === ROSTER.KEY || e.key === null) render(); });
+  window.addEventListener("pageshow", function (e) { if (e.persisted) render(); });
+
+  $("fSearch").oninput = render;
+  $("fLang").onchange = render;
+  $("fSort").onchange = render;
+  render();
+})();
+</script>
+</body></html>
