@@ -123,6 +123,22 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
+    },
+    {
+      name: null,
+      handle: "kavishkaw",
+      photo: "avatars/kavishkaw.webp",
+      platform: "Instagram",
+      followers: null,
+      cost: 40000,
+      personas: null,
+      styles: null,
+      community: null,
+      age: null,
+      lifestyle: null,
+      location: null,
+      gender: null,
+      language: null
     }
   ],
   // Off the map for now but kept for later. The page only reads `creators`;
