@@ -38,23 +38,6 @@ window.CREATOR_MAP = {
   filterPersonas: ["Social runner", "Gymfluencer", "Pilates creator"],
   creators: [
     {
-      name: "Dithmini De Silva",
-      handle: "dithiiiii",
-      photo: "avatars/dithmini-de-silva.webp",
-      platform: "Instagram",
-      followers: 5900,
-      cost: 17647,
-      personas: ["Travel Influencer", "Consumer UGC creator", "Lifestyle UGC creator", "Social runner"],
-      reels: "reels/dithmini-de-silva.md",
-      styles: null,
-      community: "Young women in Colombo interested in travel diaries, restaurant finds and lifestyle moments",
-      age: "25–34",
-      lifestyle: "Middle-income",
-      location: "Colombo city",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
       name: "Kyle",
       handle: "_kyloooo_",
       photo: "avatars/kyle.webp",
