@@ -35,7 +35,7 @@
 window.CREATOR_MAP = {
   brand: "Flash Health",
   updated: "October 2026",
-  filterPersonas: ["Social runner", "Gymfluencer", "Pilates creator"],
+  filterPersonas: ["Social runner", "Gymfluencer", "Pilates creator", "Everyday fitness"],
   creators: [
     {
       name: "Radeesha De Silva",
@@ -114,7 +114,7 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 26000,
       cost: 70588,
-      personas: ["Padel player", "Lifestyle UGC creator", "Consumer UGC creator", "Fashion creator", "Restaurant reviewer", "Mukbang reviewer", "Dadfluencer", "Travel Influencer"],
+      personas: ["Padel player", "Everyday fitness", "Lifestyle UGC creator", "Consumer UGC creator", "Fashion creator", "Restaurant reviewer", "Mukbang reviewer", "Dadfluencer", "Travel Influencer"],
       reels: "reels/ranshan-jude-gomez.md",
       styles: null,
       community: "Young dads in Colombo interested in food, family dining and lifestyle",

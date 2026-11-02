@@ -1,6 +1,7 @@
 ## Persona tags from these reels
 
 - **Padel player** — reels 3, 8, 12, 19, 22, 33, 36, 40 (Padel House community, interviews, tournaments, padel-led brand spots)
+- **Everyday fitness** — reels 8, 12, 19, 30, 33, 40 (playing and training padel week to week, a CrossFit Ceylon x Padel House fitness day, Under Armour activewear, playing through knee pain)
 - **Lifestyle UGC creator** — reels 1, 2, 7, 9, 10, 25, 32, 41, 43, 44, 46 (golf and rugby events, premieres, fashion week, Oktoberfest, launches, parties)
 - **Consumer UGC creator** — reels 8, 13, 16, 19, 21, 28, 35, 39, 42 (Reignite, Cif, 4Planet, Iodex, Nutrimax, TECNO, Ritzbury, Revello, Dialog Play)
 - **Fashion creator** — reels 10, 26, 29, 30, 31, 37, 45 (ROUGH, Under Armour, HUGO BOSS, ODEL, sneakers)
