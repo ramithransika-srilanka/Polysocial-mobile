@@ -108,6 +108,23 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
+      name: "Ranshan Jude Gomez",
+      handle: "ranshan15",
+      photo: "avatars/ranshan-jude-gomez.webp",
+      platform: "Instagram",
+      followers: 26000,
+      cost: 70588,
+      personas: ["Padel player", "Lifestyle UGC creator", "Consumer UGC creator", "Fashion creator", "Restaurant reviewer", "Mukbang reviewer", "Dadfluencer", "Travel Influencer"],
+      reels: "reels/ranshan-jude-gomez.md",
+      styles: null,
+      community: "Young dads in Colombo interested in food, family dining and lifestyle",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
+    },
+    {
       name: "Haifa Hassan",
       handle: "haifah14.hh",
       photo: "avatars/haifa-hassan.webp",
