@@ -125,20 +125,21 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
-      name: null,
+      name: "Kavishka Weerasinghe",
       handle: "kavishkaw",
-      photo: "avatars/kavishkaw.webp",
+      photo: "avatars/kavishka-weerasinghe.webp",
       platform: "Instagram",
-      followers: null,
-      cost: 40000,
-      personas: null,
+      followers: 6900,
+      cost: 47059,
+      personas: ["Social runner", "Lifestyle runner", "Dadfluencer", "Consumer UGC creator"],
+      reels: "reels/kavishka-weerasinghe.md",
       styles: null,
-      community: null,
-      age: null,
-      lifestyle: null,
-      location: null,
-      gender: null,
-      language: null
+      community: "Runners in Colombo, from first-timers to marathoners, interested in community and charity runs, marathon training and balancing running with family life",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
     }
   ],
   // Off the map for now but kept for later. The page only reads `creators`;
