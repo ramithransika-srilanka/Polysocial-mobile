@@ -73,23 +73,6 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
-      name: "Shavi",
-      handle: "iamshavi__",
-      photo: "avatars/shavi.webp",
-      platform: "Instagram",
-      followers: 4000,
-      cost: 23529,
-      personas: ["Consumer UGC creator", "Self-love creator", "Restaurant reviewer", "Pilates creator", "Travel Influencer"],
-      reels: "reels/shavi.md",
-      styles: null,
-      community: "Young women in Colombo interested in soft life, self-love, Pilates, girl talk and wellness",
-      age: "25–34",
-      lifestyle: "Middle-income",
-      location: "Colombo city",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
       name: "Yasasi",
       handle: "ya_sassy",
       photo: "avatars/yasasi.webp",
