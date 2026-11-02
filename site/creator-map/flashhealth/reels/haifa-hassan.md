@@ -5,6 +5,7 @@
 - **Fashion creator** — reels 8, 13, 14, 30, 32, 33, 38, 41, 42 (modest activewear and streetwear, Carnage, Spade bags, PALLU)
 - **Recipe creator** — reels 1, 4, 5, 7, 11, 25, 29, 36 (protein coffee, smoothie bowls, waffles, avocado toast)
 - **Lifestyle UGC creator** — reels 3, 12, 32, 33, 35, 38 (Befit Sports, Carnage, PALLU, Christell Acne Lab)
+- **Everyday fitness** — reels 2, 3, 17, 18, 19, 24, 26, 27, 28, 31, 34, 37, 39, 43, 44, 45, 50 (regular gym and calisthenics sessions, getting back to training after surgery)
 
 Also seen, not tagged: rehab after injury and surgery (2, 3), her day job in social media (23), friends and travel (15, 16, 20, 21, 46), her cats (49). She trains with a coach (45) rather than coaching others.
 

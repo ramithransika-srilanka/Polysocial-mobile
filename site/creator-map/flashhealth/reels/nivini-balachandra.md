@@ -5,6 +5,7 @@
 - **Pilates creator** — reels 6, 16, 18, 34, 38, 42 (Flex Studio reformer classes, rooftop yoga, post-Pilates recovery)
 - **Lifestyle UGC creator** — reels 1, 2, 7, 8, 14, 15, 18, 31, 33 (Oktoberfest, Ceylon Music Festival, bars, a beach hotel, a nail studio, cafés)
 - **Consumer UGC creator** — reels 10, 13, 19, 28, 34, 39 (Bifesta, Carnage, Viana, TRESemmé, Onyx Nutrition)
+- **Everyday fitness** — reels 6, 16, 18, 34, 38, 42 (Flex Studio reformer Pilates, rooftop yoga, post-Pilates recovery)
 
 Also seen, not tagged: nightlife and drinks (1, 7, 8, 14). No running in any reel. Her bio says she founded @nina_official2026, but no reel shows that brand.
 

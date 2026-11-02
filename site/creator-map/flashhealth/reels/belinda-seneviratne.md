@@ -8,6 +8,7 @@
 - **Social runner** — reels 11, 20, 21, 22, 23 (runs and walks with friends and groups)
 - **Lifestyle UGC creator** — reels 7, 8, 15, 23, 24, 29, 30, 32, 33, 34, 37, 44, 47 (brand experiences: stores, events, resorts, services)
 - **Consumer UGC creator** — reels 1, 3, 6, 9, 31, 38, 43 (product demos and reviews)
+- **Everyday fitness** — reels 1, 3, 4, 11, 12, 21, 22, 23, 24, 26, 29, 31, 32, 35, 36, 37, 39, 40, 41 (running as a daily routine and long overnight walks)
 
 Also seen, not tagged: pets (4, 12, 38), luxury and fashion (7, 8, 27, 42), couple and family moments (13, 14, 17, 28, 30, 40, 48), causes and environment (10, 19).
 

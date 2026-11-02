@@ -4,6 +4,7 @@
 - **Fashion creator** — reels 2, 3, 12, 13, 35, 40, 42, 47, 49, 50 (Carnage activewear, Polar Sun, beach and brunch outfits)
 - **Consumer UGC creator** — reels 1, 4, 6, 8, 9, 13, 14, 27, 41 (Vaseline, Pearson PTE, Daraz, NMX, Polar Sun, Nissan)
 - **Motorsport creator** — reels 17, 28, 29, 31, 36, 43 (go-kart racing, Iron Maidens Racing, a racing-suit fit check)
+- **Everyday fitness** — reels 10, 11, 15, 16, 18, 22, 24, 26, 30, 32, 34, 37, 44, 48 (her day-by-day athletic training series: sprints, plyometrics, pull-ups)
 
 Also seen, not tagged: cafés and dining (5, 46), friendship (7, 20, 21), salon promos (38, 39). She is coached in the training series rather than coaching others.
 

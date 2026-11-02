@@ -4,6 +4,7 @@
 - **Lifestyle runner** — reels 4, 7, 11, 23, 24, 38, 43, 45, 46 (training runs before work and on trips: Pearl River long runs and intervals in Guangzhou, Kotte to Borella, hill sprints near Kandy, a run with his golden retriever Chad)
 - **Dadfluencer** — reels 15, 19, 27, 36, 46, 49 (a father to a one-year-old boy: weekday "runner dad" routine, balancing London Marathon training with family, his wife's grocery run)
 - **Consumer UGC creator** — reels 1, 2, 7, 10, 12, 21, 22, 28, 31, 42, 50 (Ceylon Sports Therapy, Janashakthi Life ICA Half-Marathon, Ceylon Cobbler shoes, SŌRA Wellness Shot, Primo, Carnage, Under Armour, Iodex Rapid Action Spray)
+- **Everyday fitness** — reels 4, 7, 11, 15, 18, 23, 24, 38, 43, 45, 46 (pre-dawn runs before work, long runs and intervals, hill sprints)
 
 Also seen, not tagged: travel in China (3, 6, 9), a post-run food haul (3), beginner running tips (32), the Runova'26 charity run (29), new running shoes (49).
 
