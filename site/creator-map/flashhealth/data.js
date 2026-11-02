@@ -38,6 +38,23 @@ window.CREATOR_MAP = {
   filterPersonas: ["Social runner", "Gymfluencer", "Pilates creator"],
   creators: [
     {
+      name: "Radeesha De Silva",
+      handle: "radeeshaa",
+      photo: "avatars/radeesha-de-silva.webp",
+      platform: "Instagram",
+      followers: 52000,
+      cost: 52941,
+      personas: ["Restaurant reviewer", "Food critic", "Mukbang reviewer", "Consumer UGC creator", "Lifestyle UGC creator", "Homecook", "Travel Influencer"],
+      reels: "reels/radeesha-de-silva.md",
+      styles: null,
+      community: "Young Sri Lankans in Colombo interested in gym routines, affordable food finds and relatable lifestyle content",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
       name: "Belinda Seneviratne",
       handle: "belinda_seneviratne",
       photo: "avatars/belinda-seneviratne.webp",
