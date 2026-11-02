@@ -38,23 +38,6 @@ window.CREATOR_MAP = {
   filterPersonas: ["Social runner", "Gymfluencer", "Pilates creator"],
   creators: [
     {
-      name: "Kyle",
-      handle: "_kyloooo_",
-      photo: "avatars/kyle.webp",
-      platform: "Instagram",
-      followers: 5100,
-      cost: 11765,
-      personas: ["Social runner", "Lifestyle runner", "Lifestyle UGC creator"],
-      reels: "reels/kyle.md",
-      styles: null,
-      community: "Young runners in Colombo interested in community runs, run clubs and run-rave culture",
-      age: "18–34",
-      lifestyle: "Middle-income",
-      location: "Colombo city",
-      gender: "Mostly men",
-      language: "English"
-    },
-    {
       name: "Belinda Seneviratne",
       handle: "belinda_seneviratne",
       photo: "avatars/belinda-seneviratne.webp",
