@@ -44,7 +44,7 @@ window.CREATOR_MAP = {
       platform: "Instagram",
       followers: 52000,
       cost: 52941,
-      personas: ["Restaurant reviewer", "Food critic", "Mukbang reviewer", "Consumer UGC creator", "Lifestyle UGC creator", "Homecook", "Travel Influencer"],
+      personas: ["Restaurant reviewer", "Food critic", "Mukbang reviewer", "Consumer UGC creator", "Lifestyle UGC creator", "Homecook", "Travel Influencer", "Everyday fitness"],
       reels: "reels/radeesha-de-silva.md",
       styles: null,
       community: "Young Sri Lankans in Colombo interested in gym routines, affordable food finds and relatable lifestyle content",

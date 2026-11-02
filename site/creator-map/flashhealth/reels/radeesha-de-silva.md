@@ -7,8 +7,9 @@
 - **Lifestyle UGC creator** — reels 11, 19, 23, 25, 26, 27, 32, 36, 39, 46 (brand events, store launches, activities, a hotel)
 - **Homecook** — reels 17, 21, 30, 35, 41, 44 (fish cutlets, a family lunch, pol sambol, mango float, quick snacks)
 - **Travel Influencer** — reels 26, 34, 46, 49 (Thailand series, The Golden Crown Kandy)
+- **Everyday fitness** — reels 15, 23, 32, 39 (a gym session, laser tag as cardio, Carnage activewear; no coaching)
 
-Also seen, not tagged: gaming (11, 23, 37, 40), fitness (15, 23, 32, 39 — a gym session, laser tag as cardio, Carnage activewear; no coaching), beauty (9, 14), family and kids (15, 21, 29).
+Also seen, not tagged: gaming (11, 23, 37, 40), beauty (9, 14), family and kids (15, 21, 29).
 
 ## Last 50 reels
 
