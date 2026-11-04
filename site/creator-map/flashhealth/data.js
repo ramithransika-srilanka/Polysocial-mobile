@@ -157,6 +157,23 @@ window.CREATOR_MAP = {
       location: "Colombo city",
       gender: "Mostly men",
       language: "English"
+    },
+    {
+      name: "Anish Wickramasinghe",
+      handle: "neeshwck",
+      photo: "avatars/anish-wickramasinghe.webp",
+      platform: "Instagram",
+      followers: 35000,
+      cost: 88235,
+      personas: ["Social runner", "Lifestyle runner", "Gymfluencer", "Everyday fitness", "Nightlife creator", "Fashion creator", "Actor & model", "Consumer UGC creator", "Lifestyle UGC creator", "Entrepreneur", "Comedy creator", "Self-love creator"],
+      reels: "reels/anish-wickramasinghe.md",
+      styles: null,
+      community: "Young Colombo runners and gym-goers drawn to the Lightning run club, run-and-rave events and a high-energy, put-yourself-out-there mindset",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mixed",
+      language: "English"
     }
   ],
   // Off the map for now but kept for later. The page only reads `creators`;
