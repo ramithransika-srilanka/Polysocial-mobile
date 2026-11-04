@@ -38,6 +38,79 @@ window.CREATOR_MAP = {
   filterPersonas: ["Social runner", "Gymfluencer", "Pilates creator", "Everyday fitness"],
   creators: [
     {
+      name: "Yasasi",
+      handle: "ya_sassy",
+      photo: "avatars/yasasi.webp",
+      platform: "Instagram",
+      followers: 38000,
+      cost: 94118,
+      personas: ["Gymfluencer", "Fashion creator", "Consumer UGC creator", "Motorsport creator", "Everyday fitness"],
+      reels: "reels/yasasi.md",
+      styles: null,
+      community: "Young women in Colombo interested in motorsport, fitness and active lifestyle",
+      age: "25–34",
+      lifestyle: ["Middle-income", "Premium"],
+      lean: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Haifa Hassan",
+      handle: "haifah14.hh",
+      photo: "avatars/haifa-hassan.webp",
+      platform: "Instagram",
+      followers: 3700,
+      cost: 47059,
+      personas: ["Gymfluencer", "Consumer UGC creator", "Fashion creator", "Recipe creator", "Lifestyle UGC creator", "Everyday fitness"],
+      reels: "reels/haifa-hassan.md",
+      styles: null,
+      community: "Young women in Colombo interested in modest activewear, rehab fitness and halal lifestyle",
+      age: "25–44",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
+    {
+      name: "Anish Wickramasinghe",
+      handle: "neeshwck",
+      photo: "avatars/anish-wickramasinghe.webp",
+      platform: "Instagram",
+      followers: 35000,
+      cost: 88235,
+      personas: ["Social runner", "Lifestyle runner", "Gymfluencer", "Everyday fitness", "Nightlife creator", "Fashion creator", "Actor & model", "Consumer UGC creator", "Lifestyle UGC creator", "Entrepreneur", "Comedy creator", "Self-love creator"],
+      reels: "reels/anish-wickramasinghe.md",
+      styles: null,
+      community: "Young Colombo runners and gym-goers drawn to the Lightning run club, run-and-rave events and a high-energy, put-yourself-out-there mindset",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mixed",
+      language: "English"
+    },
+    {
+      name: "Vindula Kolambage",
+      handle: "viindula",
+      photo: "avatars/vindula-kolambage.webp",
+      platform: "Instagram",
+      followers: 25000,
+      cost: 64706,
+      personas: ["Lifestyle UGC creator", "Consumer UGC creator", "Fashion creator", "Everyday fitness"],
+      reels: "reels/vindula-kolambage.md",
+      styles: null,
+      community: "Young professionals and aspiring creators in Colombo interested in branding, digital marketing and lifestyle content",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo suburbs",
+      gender: "Mixed",
+      language: "Singlish"
+    }
+  ],
+  // Off the map for now but kept for later. The page only reads `creators`;
+  // to bring someone back, move their entry into that list.
+  parked: [
+    {
       name: "Radeesha De Silva",
       handle: "radeeshaa",
       photo: "avatars/radeesha-de-silva.webp",
@@ -68,24 +141,6 @@ window.CREATOR_MAP = {
       age: "25–45",
       lifestyle: ["Middle-income", "Premium"],
       lean: "Premium",
-      location: "Colombo city",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
-      name: "Yasasi",
-      handle: "ya_sassy",
-      photo: "avatars/yasasi.webp",
-      platform: "Instagram",
-      followers: 38000,
-      cost: 94118,
-      personas: ["Gymfluencer", "Fashion creator", "Consumer UGC creator", "Motorsport creator", "Everyday fitness"],
-      reels: "reels/yasasi.md",
-      styles: null,
-      community: "Young women in Colombo interested in motorsport, fitness and active lifestyle",
-      age: "25–34",
-      lifestyle: ["Middle-income", "Premium"],
-      lean: "Middle-income",
       location: "Colombo city",
       gender: "Mostly women",
       language: "English"
@@ -125,23 +180,6 @@ window.CREATOR_MAP = {
       language: "English"
     },
     {
-      name: "Haifa Hassan",
-      handle: "haifah14.hh",
-      photo: "avatars/haifa-hassan.webp",
-      platform: "Instagram",
-      followers: 3700,
-      cost: 47059,
-      personas: ["Gymfluencer", "Consumer UGC creator", "Fashion creator", "Recipe creator", "Lifestyle UGC creator", "Everyday fitness"],
-      reels: "reels/haifa-hassan.md",
-      styles: null,
-      community: "Young women in Colombo interested in modest activewear, rehab fitness and halal lifestyle",
-      age: "25–44",
-      lifestyle: "Middle-income",
-      location: "Colombo city",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
       name: "Kavishka Weerasinghe",
       handle: "kavishkaw",
       photo: "avatars/kavishka-weerasinghe.webp",
@@ -158,8 +196,5 @@ window.CREATOR_MAP = {
       gender: "Mostly men",
       language: "English"
     }
-  ],
-  // Off the map for now but kept for later. The page only reads `creators`;
-  // to bring someone back, move their entry into that list.
-  parked: []
+  ]
 };
