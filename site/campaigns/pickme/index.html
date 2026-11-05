@@ -147,7 +147,9 @@
   .card .photo { position: relative; width: 100%; height: 100%; border-radius: 16px; overflow: hidden; display: grid; place-items: center; align-content: center; gap: 6px; color: rgba(255,255,255,.85); }
   .card .photo .ph { width: 34px; height: 34px; }
   .card .photo span { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
-  .p1 { background: linear-gradient(160deg, #F7B733 0%, #FC4A1A 100%); }
+  .p1 { background: #2a2a2a; }
+  .p1 picture, .p1 img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .p1 img { object-fit: cover; object-position: 44% 50%; }
   .p2 { background: linear-gradient(160deg, #43C6AC 0%, #191654 100%); }
   .p3 { background: linear-gradient(160deg, #F857A6 0%, #FF5858 100%); }
   .card.big { width: 210px; height: 280px; left: 50%; top: 36px; margin-left: -105px; --r: -4deg; transform: rotate(var(--r)); padding-bottom: 40px; z-index: 2; animation-delay: .05s; }
@@ -204,7 +206,7 @@
     <div class="collage" aria-hidden="true"><div class="stage">
       <svg class="blob" viewBox="0 0 200 200"><path fill="#FEC227" d="M100 8c14 0 18 18 31 22s30-6 38 6-3 26 0 39 19 22 14 36-24 12-33 22-8 30-22 34-24-12-38-12-28 15-39 7-2-27-9-38-29-12-28-27 21-17 23-30-12-27-2-37 28 2 39-5S86 8 100 8z"/></svg>
       <div class="card big">
-        <div class="photo p1"><svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg><span>Rider photo</span></div>
+        <div class="photo p1"><picture><source type="image/webp" srcset="/campaigns/pickme/campaign/rider-main.webp"><img src="/campaigns/pickme/campaign/rider-main.jpg" alt="" width="720" height="720" fetchpriority="high"></picture></div>
         <div class="postbar">
           <svg viewBox="0 0 24 24" fill="#E5376B"><path d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.6 3.7 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.3 0 5.3 3.1 4.2 6.2C19.5 15.4 12 20 12 20z"/></svg>
           <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 01-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1121 12z"/></svg>
