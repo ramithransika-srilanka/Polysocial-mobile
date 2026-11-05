@@ -24,14 +24,10 @@
   button { font: inherit; color: inherit; }
   a { color: inherit; }
   svg { display: block; }
+  .app[hidden] { display: none; }
   .app { max-width: 480px; margin: 0 auto; min-height: 100dvh; position: relative; }
   .view[hidden] { display: none !important; }
 
-  /* Splash */
-  .splash { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50; transition: opacity .35s ease; }
-  .splash img { width: 190px; height: auto; }
-  .splash p { position: absolute; bottom: calc(40px + env(safe-area-inset-bottom)); margin: 0; color: var(--muted); font-size: 15px; }
-  .splash.leaving { opacity: 0; pointer-events: none; }
 
   /* Campaign page */
   .page { padding: 12px 12px calc(110px + env(safe-area-inset-bottom)); }
@@ -102,8 +98,7 @@
     background: linear-gradient(to top, var(--bg) 70%, rgba(255,255,255,0)); }
   .actionbar > * { max-width: 456px; margin: 0 auto; }
   .primary { display: block; width: 100%; padding: 14px; border: 0; border-radius: 999px; background: var(--accent); color: #fff;
-    font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; box-shadow: 0 4px 14px rgba(21,72,235,.25); }
-  .primary:disabled { background: #B9C6F7; box-shadow: none; cursor: default; }
+    font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; box-shadow: 0 4px 14px rgba(21,72,235,.25); }
 
   /* About page */
   .backBtn { width: 40px; height: 40px; border-radius: 50%; border: 0; background: #fff; display: grid; place-items: center; cursor: pointer; box-shadow: 0 1px 6px rgba(0,0,0,.12); }
@@ -122,35 +117,101 @@
   .pill svg { width: 18px; height: 18px; }
   .quote { margin: 0 0 8px; padding: 14px 16px; border-left: 3px solid var(--accent); border-radius: 4px 12px 12px 4px; background: var(--accent-soft); font-style: italic; }
 
-  /* Join sheet */
-  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 20; opacity: 0; pointer-events: none; transition: opacity .25s; }
-  .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 21; max-width: 480px; margin: 0 auto; background: var(--bg);
-    border-radius: 24px 24px 0 0; padding: 10px 20px calc(24px + env(safe-area-inset-bottom)); transform: translateY(105%); visibility: hidden; transition: transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s .3s; }
-  .joinOpen .scrim { opacity: 1; pointer-events: auto; }
-  .joinOpen .sheet { transform: none; visibility: visible; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
-  .handle { display: block; width: 100%; border: 0; background: none; padding: 4px 0 14px; cursor: pointer; }
-  .handle span { display: block; width: 40px; height: 4px; border-radius: 4px; background: #D6D6D6; margin: 0 auto; }
-  .sheet h2 { margin: 0; text-align: center; }
-  .sheet .sub { text-align: center; color: var(--muted); margin: 6px 0 20px; }
-  .phoneField { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 14px; padding: 0 16px; background: var(--surface); margin-bottom: 12px; }
-  .phoneField:focus-within { border-color: var(--accent); background: #fff; }
-  .phoneField span { font-weight: 600; }
-  .phoneField input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 17px; padding: 15px 0; color: var(--text); }
-  .err { color: #D42A2A; font-size: 14px; text-align: center; margin: 10px 0 0; }
-  .done { text-align: center; padding: 8px 0 4px; }
-  .done .tick { width: 56px; height: 56px; border-radius: 50%; background: #E3F6E6; color: var(--ok); display: grid; place-items: center; margin: 0 auto 14px; }
-  .done .tick svg { width: 28px; height: 28px; }
+  /* Onboarding: splash, welcome, how it works, phone. Same as the Celeste campaign. */
+  .onb { --color-text:#000; --color-ink:#121212; --color-primary:#1845e7; --color-input:#e2e2e2; --color-placeholder:#717171; --page-gutter:33px;
+    max-width: 393px; margin: 0 auto; min-height: 100dvh; display: flex; background: #fff; color: var(--color-text); -webkit-font-smoothing: antialiased; }
+  .onb[hidden] { display: none; }
+  .onb .screen { padding: 0 var(--page-gutter); flex: 1; display: flex; flex-direction: column; }
+  .onb .screen[hidden] { display: none; }
+  .onb .screen__body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .onb .screen__footer { padding-bottom: calc(50px + env(safe-area-inset-bottom)); }
+  .onb .screen__bottom { margin-bottom: 12px; }
+  .onb .screen--scroll .screen__body { padding-block: 40px 32px; }
+  .onb .screen--scroll .screen__footer { position: sticky; bottom: 0; margin: 0 calc(-1 * var(--page-gutter)); padding: 16px var(--page-gutter) calc(50px + env(safe-area-inset-bottom)); background: linear-gradient(#fff0, #fff 16px); }
+  .onb .powered-by { margin: 0; color: var(--color-placeholder); text-align: center; font-size: 12px; font-weight: 500; line-height: 15px; }
+  .onb .btn { width: 100%; font: inherit; cursor: pointer; border: 0; display: flex; justify-content: center; align-items: center; transition: opacity .15s, transform .1s;
+    background: var(--color-primary); color: #fff; border-radius: 100px; height: 43px; padding: 12px 48px; font-size: 16px; font-weight: 500; }
+  .onb .btn:active:not(:disabled) { transform: scale(.98); }
+  .onb .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .onb .splash-logo { width: 172px; height: 86px; margin-top: 65px; align-self: center; display: flex; justify-content: center; align-items: center; animation: logo-in .6s cubic-bezier(.22,1,.36,1) both; }
+  .onb .splash-logo.leaving { animation: logo-out .4s cubic-bezier(.4,0,1,1) both; }
+  .onb .splash-logo img { width: 100%; height: 100%; object-fit: contain; }
+  @keyframes logo-in { from { opacity: 0; transform: scale(.96); } }
+  @keyframes logo-out { to { opacity: 0; transform: scale(1.04); } }
+  .onb .welcome { display: flex; flex-direction: column; margin-top: 20px; }
+  .onb .welcome__intro { text-align: center; display: flex; flex-direction: column; align-self: center; gap: 12px; width: 184px; }
+  .onb .welcome__intro > * { margin: 0; animation: fade-up .5s cubic-bezier(.22,1,.36,1) both; }
+  .onb .welcome__title { font-size: 24px; font-weight: 600; line-height: 29px; }
+  .onb .welcome__subtitle { font-size: 14px; font-weight: 500; line-height: 17px; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } }
+  .onb .chat { margin: 0 calc(16px - var(--page-gutter)); display: flex; flex-direction: column; gap: 4px; }
+  .onb .msg { opacity: 0; display: flex; align-items: flex-end; gap: 8px; transition: opacity .3s ease-out, transform .44s cubic-bezier(.34,1.42,.6,1); }
+  .onb .msg-r { justify-content: flex-end; transform-origin: 100% 100%; transform: translateY(10px) scale(.8); }
+  .onb .msg-l { justify-content: flex-start; transform-origin: 0 100%; transform: translateY(10px) scale(.8); }
+  .onb .msg.in { opacity: 1; transform: none; }
+  .onb .msg--group-start { margin-top: 16px; }
+  .onb .bubble { text-wrap: pretty; border-radius: 20px; max-width: 250px; padding: 10px 18px; font-size: 14px; font-weight: 500; line-height: 1.35; }
+  .onb .bubble--wide { max-width: 260px; }
+  .onb .bubble--one-line { white-space: nowrap; max-width: none; }
+  .onb .bubble--r { color: #1b1b2e; background: #e7e8fd; border-radius: 20px 20px 6px; }
+  .onb .bubble--l { color: #121212; background: #ececec; }
+  .onb .bubble--l.bubble--tail { border-radius: 20px 20px 20px 6px; }
+  .onb .chat-avatar { width: 34px; height: 34px; border-radius: 999px; object-fit: cover; flex: none; display: block; }
+  .onb .chat-avatar-space { width: 34px; flex: none; }
+  .onb .phone { display: flex; flex-direction: column; gap: 25px; margin-top: 90px; }
+  .onb .phone__title { margin: 0; text-align: center; font-size: 14px; font-weight: 500; line-height: 17px; }
+  .onb .phone__stack { display: flex; flex-direction: column; gap: 12px; }
+  .onb .phone-field { background: var(--color-input); width: 100%; height: 41px; border-radius: 12px; padding: 0 16px; font-size: 14px; font-weight: 500;
+    display: flex; align-items: center; gap: 6px; cursor: text; }
+  .onb .phone-field:focus-within { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .onb .phone-field input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; padding: 0; font: inherit; color: inherit; }
+  .onb .phone-field input::placeholder { color: var(--color-placeholder); }
+  .onb .phone__error { margin: 0; color: #d92d20; text-align: center; font-size: 13px; font-weight: 500; line-height: 17px; }
+  @media (height <= 740px) { .onb .screen--scroll .screen__body { padding-block: 16px 8px; } .onb .msg--group-start { margin-top: 12px; } }
+  @media (prefers-reduced-motion: reduce) { .onb .splash-logo, .onb .welcome__intro > * { animation-duration: 1ms; } .onb .msg { opacity: 1; transition: none; transform: none; } }
   .toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); background: #121212; color: #fff; padding: 9px 16px; border-radius: 999px; font-size: 14px; z-index: 30; opacity: 0; transition: opacity .2s; pointer-events: none; }
   .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
-<div class="splash" id="splash" aria-hidden="true">
-  <img src="/campaigns/pickme/pickme-logo.png" alt="PickMe">
-  <p>Powered by Polysocial</p>
+<div class="onb" id="onb">
+  <!-- Splash -->
+  <section class="screen" data-step="splash">
+    <div class="screen__body"><div class="splash-logo" id="splashLogo"><img src="/campaigns/pickme/pickme-logo.png" alt="PickMe"></div></div>
+    <footer class="screen__footer"><p class="powered-by">Powered by Polysocial</p></footer>
+  </section>
+  <!-- Welcome -->
+  <section class="screen" data-step="welcome" hidden>
+    <div class="screen__body"><div class="welcome"><div class="welcome__intro">
+      <h1 class="welcome__title">Welcome!</h1>
+      <p class="welcome__subtitle">Join the PickMe Creator community!</p>
+    </div></div></div>
+    <footer class="screen__footer"><div class="screen__bottom"><button type="button" class="btn" data-next="how">Continue</button></div><p class="powered-by">Powered by Polysocial</p></footer>
+  </section>
+  <!-- How it works -->
+  <section class="screen screen--scroll" data-step="how" hidden>
+    <div class="screen__body"><div class="chat" id="chat"></div></div>
+    <footer class="screen__footer"><div class="screen__bottom"><button type="button" class="btn" data-next="phone">Continue</button></div><p class="powered-by">Powered by Polysocial</p></footer>
+  </section>
+  <!-- Phone number -->
+  <section class="screen" data-step="phone" hidden>
+    <div class="screen__body">
+      <form class="phone" id="joinForm" novalidate>
+        <p class="phone__title">You are almost there!</p>
+        <div class="phone__stack">
+          <label class="phone-field"><span id="prefix" hidden>+94</span>
+            <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Enter your phone number" aria-label="Phone number, 9 digits after +94">
+          </label>
+          <button type="submit" class="btn" id="submitBtn" disabled>Continue</button>
+          <p class="phone__error" id="err" role="alert" hidden>Couldn't submit your number. Please check your connection and try again.</p>
+        </div>
+      </form>
+    </div>
+    <footer class="screen__footer"><p class="powered-by">Powered by Polysocial</p></footer>
+  </section>
 </div>
 
-<main class="app">
+<main class="app" id="app" hidden>
   <!-- Campaign page -->
   <section class="view page" id="view-campaign">
     <div class="hero" role="img" aria-label="">
@@ -266,29 +327,9 @@
     </ul>
   </section>
 
-  <div class="actionbar"><button type="button" class="primary" id="joinBtn">Join campaign</button></div>
+  <div class="actionbar"><a class="primary" id="joinBtn" href="https://creator.app.polysocial.cc/">Join campaign</a></div>
 </main>
 
-<!-- Join sheet -->
-<div class="scrim" id="scrim"></div>
-<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Join campaign" aria-hidden="true">
-  <button type="button" class="handle" id="closeSheet" aria-label="Close"><span></span></button>
-  <form id="joinForm" novalidate>
-    <h2>You are almost there!</h2>
-    <p class="sub">Enter your phone number and the Polysocial team will get in touch with the next steps.</p>
-    <label class="phoneField"><span>+94</span>
-      <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="77 123 4567" aria-label="Phone number, 9 digits after +94">
-    </label>
-    <button type="submit" class="primary" id="submitBtn" disabled>Continue</button>
-    <p class="err" id="err" role="alert" hidden>Couldn't submit your number. Please check your connection and try again.</p>
-  </form>
-  <div class="done" id="done" hidden>
-    <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-    <h2>You're in!</h2>
-    <p class="sub">Thanks for joining the PickMe ride review campaign. We'll contact you on <strong id="doneNum"></strong> with the next steps.</p>
-    <button type="button" class="primary" id="doneBtn">Done</button>
-  </div>
-</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -312,15 +353,57 @@
   $("briefShort").textContent = BRIEF;
   $("briefFull").textContent = BRIEF;
 
-  // Splash
-  setTimeout(function () { $("splash").classList.add("leaving"); setTimeout(function () { $("splash").remove(); }, 400); }, 1400);
+  // Onboarding: splash -> welcome -> how it works -> phone number -> campaign page.
+  var CHAT = [
+    { side: "r", text: "How does it work?", start: true, end: true },
+    { side: "l", text: "Go to the campaign", start: true },
+    { side: "l", text: "Create content as mentioned in the campaign", wide: true },
+    { side: "l", text: "Submit your content", end: true },
+    { side: "r", text: "How much can I earn?", start: true, end: true },
+    { side: "l", text: "Earn up to Rs. 100,000 per content", start: true, oneLine: true },
+    { side: "l", text: "You get paid based on the reach of your content, at the end of the campaign", end: true, wide: true }
+  ];
+  var CHAT_IMG = "/campaigns/pickme/chat/";
+  $("chat").innerHTML = CHAT.map(function (m, i) {
+    var bubble = '<div class="bubble bubble--' + m.side + (m.end ? " bubble--tail" : "") + (m.wide ? " bubble--wide" : "") + (m.oneLine ? " bubble--one-line" : "") + '"></div>';
+    var av = m.side === "l"
+      ? (m.end ? '<img class="chat-avatar" src="' + CHAT_IMG + 'polysocial.svg" alt="Polysocial">' : '<div class="chat-avatar-space"></div>')
+      : '<picture><source type="image/avif" srcset="' + CHAT_IMG + 'user-avatar.avif"><source type="image/webp" srcset="' + CHAT_IMG + 'user-avatar.webp"><img class="chat-avatar" src="' + CHAT_IMG + 'user-avatar.png" alt="" width="120" height="120"></picture>';
+    return '<div class="msg msg-' + m.side + (m.start && i > 0 ? " msg--group-start" : "") + '">' + (m.side === "l" ? av + bubble : bubble + av) + "</div>";
+  }).join("");
+  $("chat").querySelectorAll(".bubble").forEach(function (b, i) { b.textContent = CHAT[i].text; });
+
+  function revealChat() {
+    var msgs = Array.prototype.slice.call(document.querySelectorAll("#chat .msg"));
+    if ((window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) || !("IntersectionObserver" in window)) {
+      msgs.forEach(function (m) { m.classList.add("in"); }); return;
+    }
+    var foot = document.querySelector('[data-step="how"] .screen__footer');
+    var io = new IntersectionObserver(function (entries) {
+      entries.filter(function (e) { return e.isIntersecting; }).forEach(function (e, i) {
+        e.target.style.transitionDelay = i * 140 + "ms"; e.target.classList.add("in"); io.unobserve(e.target);
+      });
+    }, { threshold: 0.35, rootMargin: "0px 0px -" + Math.round(innerHeight * 0.08 + (foot ? foot.offsetHeight : 0)) + "px 0px" });
+    msgs.forEach(function (m) { io.observe(m); });
+  }
+
+  function step(name) {
+    if (name === "campaign") { $("onb").hidden = true; $("app").hidden = false; route(); return; }
+    document.querySelectorAll("#onb [data-step]").forEach(function (el) { el.hidden = el.dataset.step !== name; });
+    window.scrollTo(0, 0);
+    if (name === "how") revealChat();
+    if (name === "phone") setTimeout(function () { $("phone").focus(); }, 50);
+  }
+  document.querySelectorAll("#onb [data-next]").forEach(function (b) { b.addEventListener("click", function () { step(b.dataset.next); }); });
+  setTimeout(function () { $("splashLogo").classList.add("leaving"); }, 1800);
+  setTimeout(function () { step("welcome"); }, 2200);
 
   // Views: #about shows the campaign details, anything else the campaign page.
   function route() {
     var about = location.hash === "#about";
     $("view-campaign").hidden = about;
     $("view-about").hidden = !about;
-    window.scrollTo(0, 0);
+    if (!$("app").hidden) window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", route);
   route();
@@ -347,25 +430,17 @@
     else if (navigator.clipboard) navigator.clipboard.writeText(data.url).then(function () { toast("Link copied"); }, function () {});
   });
 
-  // Join sheet
-  function openSheet(open) {
-    document.body.classList.toggle("joinOpen", open);
-    $("sheet").setAttribute("aria-hidden", String(!open));
-    if (open && $("done").hidden) setTimeout(function () { $("phone").focus(); }, 300);
-  }
-  $("joinBtn").addEventListener("click", function () { openSheet(true); });
-  $("closeSheet").addEventListener("click", function () { openSheet(false); });
-  $("scrim").addEventListener("click", function () { openSheet(false); });
-  $("doneBtn").addEventListener("click", function () { openSheet(false); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") openSheet(false); });
 
   var DIGITS = 9, sending = false;
   function digits() { return $("phone").value.replace(/\D/g, "").replace(/^0/, "").slice(0, DIGITS); }
   $("phone").addEventListener("input", function () {
     var d = digits(); this.value = d;
+    $("prefix").hidden = !d && document.activeElement !== this;
     $("submitBtn").disabled = d.length !== DIGITS || sending;
     $("err").hidden = true;
   });
+  $("phone").addEventListener("focus", function () { $("prefix").hidden = false; });
+  $("phone").addEventListener("blur", function () { $("prefix").hidden = !digits(); });
   $("joinForm").addEventListener("submit", function (e) {
     e.preventDefault();
     var d = digits(); if (d.length !== DIGITS || sending) return;
@@ -384,8 +459,7 @@
     }).then(function (r) {
       return r.json().catch(function () { return null; }).then(function (j) { if (!r.ok || !j || !j.success) throw new Error("failed"); });
     }).then(function () {
-      $("joinForm").hidden = true; $("done").hidden = false; $("doneNum").textContent = phone;
-      $("joinBtn").textContent = "Joined"; $("joinBtn").disabled = true;
+      step("campaign");
     }, function () {
       $("err").hidden = false; $("submitBtn").disabled = false;
     }).then(function () { sending = false; $("submitBtn").textContent = "Continue"; });
