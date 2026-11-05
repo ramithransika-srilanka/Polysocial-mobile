@@ -81,7 +81,11 @@
   .greyBtn { display: block; width: 100%; margin-top: 14px; padding: 12px; border: 0; border-radius: 999px; background: #EDEDED; font-weight: 500; font-size: 15px; cursor: pointer; text-align: center; text-decoration: none; }
 
   .creator { border: 1px solid var(--line); border-radius: 16px; padding: 24px; text-align: center; }
-  .stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .socials { display: flex; justify-content: center; gap: 32px; }
+  .socials div { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+  .socials span.ic { width: 56px; height: 56px; border-radius: 50%; background: #EDEDED; display: grid; place-items: center; }
+  .socials svg { width: 20px; height: 20px; }
+  .stat { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
   .stat strong { font-size: 24px; font-weight: 600; line-height: 1.2; }
   .stat span { color: var(--muted); font-size: 13px; }
 
@@ -296,6 +300,10 @@
 
     <h3>Campaign created by</h3>
     <div class="creator">
+      <div class="socials">
+        <div><span class="ic" data-icon="insta"></span>10K</div>
+        <div><span class="ic" data-icon="tiktok"></span>2.5K</div>
+      </div>
       <div class="stat"><strong>1</strong><span>Campaign</span></div>
     </div>
   </section>
