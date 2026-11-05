@@ -1,15 +1,404 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
-    <title>PickMe Creator</title>
-    <link rel="canonical" href="https://polysocial.cc/campaigns/pickme" />
-    <script type="module" crossorigin src="/campaigns/pickme/assets/index-382260bc.js"></script>
-    <link rel="stylesheet" crossorigin href="/campaigns/pickme/assets/index-eb776e1b.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>PickMe Creator</title>
+<meta name="description" content="Join the PickMe ride review campaign on Polysocial.">
+<link rel="canonical" href="https://polysocial.cc/campaigns/pickme">
+<link rel="preload" href="/campaigns/pickme/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: Inter; font-weight: 400; font-display: swap; src: url(/campaigns/pickme/fonts/inter-latin-400.woff2) format("woff2"); }
+  @font-face { font-family: Inter; font-weight: 500; font-display: swap; src: url(/campaigns/pickme/fonts/inter-latin-500.woff2) format("woff2"); }
+  @font-face { font-family: Inter; font-weight: 600 700; font-display: swap; src: url(/campaigns/pickme/fonts/inter-latin-600.woff2) format("woff2"); }
+
+  :root {
+    --bg: #FFFFFF; --surface: #F5F5F5; --card: #FFFFFF; --text: #121212; --muted: #717171; --faint: #9A9A9A;
+    --line: #E5E5E5; --accent: #1548EB; --accent-soft: #E8EEFE; --accent-text: #1548EB; --ink: #121212; --ink-text: #FFFFFF;
+    --hero-a: #3B4FE0; --hero-b: #8A3FD1; --hero-c: #E040A8; --ok: #07B11E;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.45; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+  svg { display: block; }
+  .app { max-width: 480px; margin: 0 auto; min-height: 100dvh; position: relative; }
+  .view[hidden] { display: none !important; }
+
+  /* Splash */
+  .splash { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50; transition: opacity .35s ease; }
+  .splash img { width: 190px; height: auto; }
+  .splash p { position: absolute; bottom: calc(40px + env(safe-area-inset-bottom)); margin: 0; color: var(--muted); font-size: 15px; }
+  .splash.leaving { opacity: 0; pointer-events: none; }
+
+  /* Campaign page */
+  .page { padding: 12px 12px calc(110px + env(safe-area-inset-bottom)); }
+  .hero { position: relative; height: 292px; border-radius: 16px; overflow: hidden;
+    background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 55%, var(--hero-c) 100%); }
+  .hero i { position: absolute; border-radius: 50%; background: rgba(255,255,255,.12); }
+  .hero i:nth-child(1) { width: 230px; height: 230px; right: -60px; top: 20px; }
+  .hero i:nth-child(2) { width: 190px; height: 190px; left: 115px; bottom: -70px; }
+  .hero i:nth-child(3) { width: 110px; height: 110px; left: 155px; bottom: -30px; background: rgba(0,0,0,.12); }
+  .roundBtn { position: absolute; top: 12px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; color: #121212;
+    display: grid; place-items: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+  .roundBtn svg { width: 20px; height: 20px; }
+  .roundBtn.like { right: 56px; } .roundBtn.share { right: 12px; }
+  .roundBtn.like[aria-pressed="true"] svg path { fill: #E5376B; stroke: #E5376B; }
+  .logoWrap { display: flex; justify-content: center; margin-top: -38px; position: relative; }
+  .logoWrap img { width: 76px; height: 76px; border-radius: 50%; border: 4px solid var(--bg); background: var(--ink); object-fit: cover; }
+  .head { text-align: center; padding: 10px 8px 0; }
+  .head h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+  .head .brandLine { margin: 6px 0 0; color: var(--faint); font-size: 14px; letter-spacing: .02em; }
+  .head .meta { margin: 6px 0 0; color: var(--muted); font-size: 14px; font-weight: 500; }
+  .head .meta span::before { content: "•"; margin: 0 7px; color: var(--faint); }
+  .joined { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 3px 12px 3px 4px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent-text); font-size: 14px; font-weight: 600; }
+  .faces { display: inline-flex; }
+  .faces img { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--accent-soft); object-fit: cover; }
+  .faces img + img { margin-left: -8px; }
+
+  .feeCard { margin-top: 22px; border-radius: 16px; background: var(--ink); color: var(--ink-text); text-align: center; padding: 18px 16px 20px; }
+  .feeCard .lbl { font-size: 15px; opacity: .92; }
+  .feeCard .amt { font-size: 24px; font-weight: 700; margin-top: 2px; letter-spacing: -.01em; }
+
+  .rows { margin-top: 12px; border: 1px solid var(--line); border-radius: 16px; padding: 4px 16px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; font-size: 14px; }
+  .row + .row { border-top: 1px solid var(--line); }
+  .row span:first-child { color: var(--muted); }
+  .row span:last-child { font-weight: 600; text-align: right; }
+  .budget { padding: 12px 0 14px; border-top: 1px solid var(--line); }
+  .bar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .bar b { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+  .budget .legend { display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .budget .legend strong { color: var(--text); font-weight: 600; }
+
+  .lineItem { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; color: var(--muted); font-size: 14px; }
+  .icons { display: flex; gap: 12px; color: var(--text); }
+  .icons svg { width: 18px; height: 18px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .tag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: var(--surface); font-size: 13px; font-weight: 500; }
+  .tag svg { width: 15px; height: 15px; }
+
+  h2 { font-size: 20px; font-weight: 600; margin: 28px 0 8px; letter-spacing: -.01em; }
+  h3 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+  .body { color: var(--muted); margin: 0; white-space: pre-line; }
+  .clamp { display: -webkit-box; -webkit-line-clamp: 9; -webkit-box-orient: vertical; overflow: hidden; }
+  .greyBtn { display: block; width: 100%; margin-top: 14px; padding: 12px; border: 0; border-radius: 999px; background: #EDEDED; font-weight: 500; font-size: 15px; cursor: pointer; text-align: center; text-decoration: none; }
+
+  .creator { border: 1px solid var(--line); border-radius: 16px; padding: 20px 20px 24px; text-align: center; }
+  .creator img.avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); }
+  .creator .name { margin-top: 10px; font-weight: 600; font-size: 16px; }
+  .creator .since { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .socials { display: flex; justify-content: center; gap: 20px; margin-top: 18px; }
+  .socials div { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+  .socials span.ic { width: 56px; height: 56px; border-radius: 50%; background: #EDEDED; display: grid; place-items: center; }
+  .socials svg { width: 20px; height: 20px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; row-gap: 16px; margin-top: 26px; }
+  .stats div { padding: 0 8px; }
+  .stats div:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stats strong { display: block; font-size: 16px; font-weight: 600; }
+  .stats span { color: var(--muted); font-size: 12.5px; }
+
+  .actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 12px 12px calc(14px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--bg) 70%, rgba(255,255,255,0)); }
+  .actionbar > * { max-width: 456px; margin: 0 auto; }
+  .primary { display: block; width: 100%; padding: 14px; border: 0; border-radius: 999px; background: var(--accent); color: #fff;
+    font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; box-shadow: 0 4px 14px rgba(21,72,235,.25); }
+  .primary:disabled { background: #B9C6F7; box-shadow: none; cursor: default; }
+
+  /* About page */
+  .backBtn { width: 40px; height: 40px; border-radius: 50%; border: 0; background: #fff; display: grid; place-items: center; cursor: pointer; box-shadow: 0 1px 6px rgba(0,0,0,.12); }
+  .backBtn svg { width: 20px; height: 20px; }
+  .about h1 { font-size: 24px; font-weight: 600; margin: 18px 0 0; letter-spacing: -.01em; }
+  .bullets { margin: 0; padding-left: 18px; color: var(--muted); }
+  .bullets li { margin: 0 0 10px; padding-left: 4px; }
+  .bullets li::marker { color: var(--faint); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cell { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .cell.wide { grid-column: 1 / -1; }
+  .cell span { display: block; color: var(--muted); font-size: 13px; }
+  .cell strong { display: block; font-weight: 600; font-size: 14.5px; margin-top: 2px; }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-weight: 500; }
+  .pill svg { width: 18px; height: 18px; }
+  .quote { margin: 0 0 8px; padding: 14px 16px; border-left: 3px solid var(--accent); border-radius: 4px 12px 12px 4px; background: var(--accent-soft); font-style: italic; }
+
+  /* Join sheet */
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 20; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 21; max-width: 480px; margin: 0 auto; background: var(--bg);
+    border-radius: 24px 24px 0 0; padding: 10px 20px calc(24px + env(safe-area-inset-bottom)); transform: translateY(105%); visibility: hidden; transition: transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s .3s; }
+  .joinOpen .scrim { opacity: 1; pointer-events: auto; }
+  .joinOpen .sheet { transform: none; visibility: visible; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .handle { display: block; width: 100%; border: 0; background: none; padding: 4px 0 14px; cursor: pointer; }
+  .handle span { display: block; width: 40px; height: 4px; border-radius: 4px; background: #D6D6D6; margin: 0 auto; }
+  .sheet h2 { margin: 0; text-align: center; }
+  .sheet .sub { text-align: center; color: var(--muted); margin: 6px 0 20px; }
+  .phoneField { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 14px; padding: 0 16px; background: var(--surface); margin-bottom: 12px; }
+  .phoneField:focus-within { border-color: var(--accent); background: #fff; }
+  .phoneField span { font-weight: 600; }
+  .phoneField input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 17px; padding: 15px 0; color: var(--text); }
+  .err { color: #D42A2A; font-size: 14px; text-align: center; margin: 10px 0 0; }
+  .done { text-align: center; padding: 8px 0 4px; }
+  .done .tick { width: 56px; height: 56px; border-radius: 50%; background: #E3F6E6; color: var(--ok); display: grid; place-items: center; margin: 0 auto 14px; }
+  .done .tick svg { width: 28px; height: 28px; }
+  .toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); background: #121212; color: #fff; padding: 9px 16px; border-radius: 999px; font-size: 14px; z-index: 30; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="splash" id="splash" aria-hidden="true">
+  <img src="/campaigns/pickme/pickme-logo.png" alt="PickMe">
+  <p>Powered by Polysocial</p>
+</div>
+
+<main class="app">
+  <!-- Campaign page -->
+  <section class="view page" id="view-campaign">
+    <div class="hero" role="img" aria-label="">
+      <i></i><i></i><i></i>
+      <button type="button" class="roundBtn like" id="like" aria-pressed="false" aria-label="Save campaign">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.6 3.7 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.3 0 5.3 3.1 4.2 6.2C19.5 15.4 12 20 12 20z"/></svg>
+      </button>
+      <button type="button" class="roundBtn share" id="share" aria-label="Share campaign">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5M5 13v5a2 2 0 002 2h10a2 2 0 002-2v-5"/></svg>
+      </button>
+    </div>
+    <div class="logoWrap"><img src="/campaigns/pickme/campaign/pickme-logo.png" alt="PickMe"></div>
+    <div class="head">
+      <h1>Ride review campaign</h1>
+      <p class="brandLine">PickMe</p>
+      <p class="meta">Posted 5 hrs ago<span>10 d left</span></p>
+      <div class="joined"><span class="faces" id="faces"></span>400+ joined</div>
+    </div>
+
+    <div class="feeCard">
+      <div class="lbl">Base price per content</div>
+      <div class="amt">Rs. 6,488</div>
+    </div>
+
+    <div class="rows">
+      <div class="row"><span>Max earning per content</span><span>Rs. 100,000</span></div>
+      <div class="row"><span>Performance pricing</span><span>Rs. 2,000 / 1K views</span></div>
+      <div class="row"><span>Total budget</span><span>Rs. 1,000,000</span></div>
+      <div class="budget">
+        <div class="bar"><b style="width:28.5%"></b></div>
+        <div class="legend"><span><strong>Rs. 284,536</strong> spent</span><span><strong>Rs. 715,464</strong> available</span></div>
+      </div>
+    </div>
+
+    <div class="lineItem"><span>Target platforms</span><span class="icons" data-icons="insta tiktok"></span></div>
+    <div class="lineItem"><span>Who we're looking for</span></div>
+    <div class="tags">
+      <span class="tag" data-icon="people">Females</span>
+      <span class="tag" data-icon="age">25–35 age</span>
+      <span class="tag" data-icon="pin">Colombo</span>
+      <span class="tag" data-icon="camera">Selfie</span>
+      <span class="tag" data-icon="video">Reels</span>
+    </div>
+
+    <h2>About this campaign</h2>
+    <p class="body clamp" id="briefShort"></p>
+    <a class="greyBtn" href="#about">Show more</a>
+
+    <h3>Campaign created by</h3>
+    <div class="creator">
+      <img class="avatar" src="/campaigns/pickme/campaign/pickme-logo.png" alt="">
+      <div class="name">PickMe</div>
+      <div class="since">Since 2015</div>
+      <div class="socials">
+        <div><span class="ic" data-icon="insta"></span>10K</div>
+        <div><span class="ic" data-icon="tiktok"></span>2.5K</div>
+        <div><span class="ic" data-icon="linkedin"></span>546</div>
+      </div>
+      <div class="stats">
+        <div><strong>Rs. 2.6 M</strong><span>Total paid</span></div>
+        <div><strong>48</strong><span>Campaigns</span></div>
+        <div><strong>96%</strong><span>Approval rate</span></div>
+        <div><strong>2 hrs</strong><span>Replies within</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About this campaign -->
+  <section class="view page about" id="view-about" hidden>
+    <button type="button" class="backBtn" id="back" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    </button>
+    <h1>About this campaign</h1>
+
+    <h3>The message we want to deliver</h3>
+    <p class="body">Wherever you're headed, PickMe gets you there.</p>
+
+    <h3>Brief</h3>
+    <p class="body" id="briefFull"></p>
+
+    <h3>Required actions</h3>
+    <ul class="bullets">
+      <li>Book a ride on the PickMe app: a tuk, car or bike, whichever you'd really take.</li>
+      <li>Show the booking screen: your pickup, the fare estimate and your driver on the way.</li>
+      <li>Film your pickup and a moment from the ride, and say how quickly your driver arrived.</li>
+      <li>End at where PickMe got you, whether that's work, class, dinner with friends or home.</li>
+    </ul>
+
+    <h3>Requirements &amp; resources</h3>
+    <div class="grid">
+      <div class="cell"><span>Format</span><strong>Vertical 9:16</strong></div>
+      <div class="cell"><span>Duration</span><strong>30–45 seconds</strong></div>
+      <div class="cell"><span>Quality</span><strong>Min 1080p</strong></div>
+      <div class="cell"><span>Captions</span><strong>Required</strong></div>
+      <div class="cell wide"><span>Language</span><strong>English, Sinhala</strong></div>
+      <div class="cell wide"><span>Brand visibility</span><strong>PickMe app booking screen must be clearly visible</strong></div>
+      <div class="cell wide"><span>Reference files</span><strong>PickMe logo files, campaign whitepaper</strong></div>
+    </div>
+
+    <h3>Platforms to post on</h3>
+    <div class="pills">
+      <span class="pill" data-icon="insta">Instagram</span>
+      <span class="pill" data-icon="tiktok">TikTok</span>
+    </div>
+
+    <h3>Call-to-action ideas</h3>
+    <p class="quote">“Need a ride? Book a PickMe and get going in minutes.”</p>
+    <p class="quote">“Book your next trip on PickMe and see how fast your driver arrives.”</p>
+    <p class="quote">“Try PickMe for your next ride across town, any time of the day or night.”</p>
+
+    <h3>Restrictions</h3>
+    <ul class="bullets">
+      <li>No AI generated content</li>
+      <li>Face must be visible in the content</li>
+      <li>No competitor brands in the frame</li>
+      <li>Caption must tag the brand handle</li>
+      <li>Use only licensed or original audio</li>
+    </ul>
+  </section>
+
+  <div class="actionbar"><button type="button" class="primary" id="joinBtn">Join campaign</button></div>
+</main>
+
+<!-- Join sheet -->
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Join campaign" aria-hidden="true">
+  <button type="button" class="handle" id="closeSheet" aria-label="Close"><span></span></button>
+  <form id="joinForm" novalidate>
+    <h2>You are almost there!</h2>
+    <p class="sub">Enter your phone number and the Polysocial team will get in touch with the next steps.</p>
+    <label class="phoneField"><span>+94</span>
+      <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="77 123 4567" aria-label="Phone number, 9 digits after +94">
+    </label>
+    <button type="submit" class="primary" id="submitBtn" disabled>Continue</button>
+    <p class="err" id="err" role="alert" hidden>Couldn't submit your number. Please check your connection and try again.</p>
+  </form>
+  <div class="done" id="done" hidden>
+    <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2>You're in!</h2>
+    <p class="sub">Thanks for joining the PickMe ride review campaign. We'll contact you on <strong id="doneNum"></strong> with the next steps.</p>
+    <button type="button" class="primary" id="doneBtn">Done</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  var BRIEF = "Show a real ride from your day: getting to work, heading to class or meeting friends for dinner, booked on the PickMe app. Keep it natural and unscripted, and talk about how easy it was to book and how quickly your driver arrived.\n\nOne Instagram Reel or TikTok, 30 to 45 seconds, posted from your own account. Tag the brand in the caption. You earn the base price for approved content, plus performance pricing on the views it gets.";
+  var ICONS = {
+    insta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>',
+    tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.5 3.5 3.8V10c-1.3 0-2.6-.4-3.5-1v6.5A5.5 5.5 0 1110.5 10v3.2A2.3 2.3 0 1013 15.5V3z"/></svg>',
+    linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM3 9h4v12H3zM10 9h3.8v1.7c.5-.9 1.8-1.9 3.7-1.9 4 0 4.5 2.6 4.5 6V21H18v-4.8c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6V21h-3.9z"/></svg>',
+    people: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21c0-2.8-3.6-5-8-5s-8 2.2-8 5M12 13a5 5 0 100-10 5 5 0 000 10z"/></svg>',
+    age: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+    camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M10.5 8.5l4 2.5-4 2.5zM9 20h6"/></svg>'
+  };
+  var $ = function (id) { return document.getElementById(id); };
+
+  document.querySelectorAll("[data-icon]").forEach(function (el) { el.insertAdjacentHTML("afterbegin", ICONS[el.dataset.icon]); });
+  document.querySelectorAll("[data-icons]").forEach(function (el) { el.innerHTML = el.dataset.icons.split(" ").map(function (k) { return ICONS[k]; }).join(""); });
+  $("faces").innerHTML = [1, 2, 3, 4].map(function (n) { return '<img src="/campaigns/pickme/campaign/creator-' + n + '.jpg" alt="">'; }).join("");
+  $("briefShort").textContent = BRIEF;
+  $("briefFull").textContent = BRIEF;
+
+  // Splash
+  setTimeout(function () { $("splash").classList.add("leaving"); setTimeout(function () { $("splash").remove(); }, 400); }, 1400);
+
+  // Views: #about shows the campaign details, anything else the campaign page.
+  function route() {
+    var about = location.hash === "#about";
+    $("view-campaign").hidden = about;
+    $("view-about").hidden = !about;
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  route();
+  // "Show more" pushes #about, so Back can return to the same scroll spot;
+  // opened straight from a link, Back just goes to the campaign page.
+  var cameFromPage = false;
+  document.querySelector('a[href="#about"]').addEventListener("click", function () { cameFromPage = true; });
+  $("back").addEventListener("click", function () {
+    if (cameFromPage) { cameFromPage = false; history.back(); } else location.hash = "";
+  });
+
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast.t); toast.t = setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+  $("like").addEventListener("click", function () {
+    var on = this.getAttribute("aria-pressed") !== "true";
+    this.setAttribute("aria-pressed", String(on));
+    toast(on ? "Saved" : "Removed from saved");
+  });
+  $("share").addEventListener("click", function () {
+    var data = { title: "PickMe ride review campaign", url: "https://polysocial.cc/campaigns/pickme" };
+    if (navigator.share) navigator.share(data).catch(function () {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(data.url).then(function () { toast("Link copied"); }, function () {});
+  });
+
+  // Join sheet
+  function openSheet(open) {
+    document.body.classList.toggle("joinOpen", open);
+    $("sheet").setAttribute("aria-hidden", String(!open));
+    if (open && $("done").hidden) setTimeout(function () { $("phone").focus(); }, 300);
+  }
+  $("joinBtn").addEventListener("click", function () { openSheet(true); });
+  $("closeSheet").addEventListener("click", function () { openSheet(false); });
+  $("scrim").addEventListener("click", function () { openSheet(false); });
+  $("doneBtn").addEventListener("click", function () { openSheet(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") openSheet(false); });
+
+  var DIGITS = 9, sending = false;
+  function digits() { return $("phone").value.replace(/\D/g, "").replace(/^0/, "").slice(0, DIGITS); }
+  $("phone").addEventListener("input", function () {
+    var d = digits(); this.value = d;
+    $("submitBtn").disabled = d.length !== DIGITS || sending;
+    $("err").hidden = true;
+  });
+  $("joinForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var d = digits(); if (d.length !== DIGITS || sending) return;
+    var phone = "+94" + d;
+    sending = true; $("submitBtn").disabled = true; $("submitBtn").textContent = "Sending…"; $("err").hidden = true;
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: "70dd1793-8e21-4dd1-a27f-2990e8b10eb1",
+        subject: "New campaign sign-up: " + phone,
+        from_name: "PickMe Creator onboarding",
+        phone: phone,
+        campaign: "PickMe Ride review campaign"
+      })
+    }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (j) { if (!r.ok || !j || !j.success) throw new Error("failed"); });
+    }).then(function () {
+      $("joinForm").hidden = true; $("done").hidden = false; $("doneNum").textContent = phone;
+      $("joinBtn").textContent = "Joined"; $("joinBtn").disabled = true;
+    }, function () {
+      $("err").hidden = false; $("submitBtn").disabled = false;
+    }).then(function () { sending = false; $("submitBtn").textContent = "Continue"; });
+  });
+})();
+</script>
+</body>
 </html>
