@@ -16,7 +16,7 @@
   :root {
     --bg: #FFFFFF; --surface: #F5F5F5; --card: #FFFFFF; --text: #121212; --muted: #717171; --faint: #9A9A9A;
     --line: #E5E5E5; --accent: #1548EB; --accent-soft: #E8EEFE; --accent-text: #1548EB; --ink: #121212; --ink-text: #FFFFFF;
-    --hero-a: #3B4FE0; --hero-b: #8A3FD1; --hero-c: #E040A8; --ok: #07B11E;
+    --ok: #07B11E;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; overflow-x: hidden; overflow-x: clip; }
@@ -31,12 +31,12 @@
 
   /* Campaign page */
   .page { padding: 12px 12px calc(110px + env(safe-area-inset-bottom)); }
-  .hero { position: relative; height: 292px; border-radius: 16px; overflow: hidden;
-    background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 55%, var(--hero-c) 100%); }
-  .hero i { position: absolute; border-radius: 50%; background: rgba(255,255,255,.12); }
-  .hero i:nth-child(1) { width: 230px; height: 230px; right: -60px; top: 20px; }
-  .hero i:nth-child(2) { width: 190px; height: 190px; left: 115px; bottom: -70px; }
-  .hero i:nth-child(3) { width: 110px; height: 110px; left: 155px; bottom: -30px; background: rgba(0,0,0,.12); }
+  .hero { position: relative; height: 292px; border-radius: 16px; overflow: hidden; background: #2a2a2a; }
+  .hero picture, .hero img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero img { object-fit: cover; object-position: 50% 38%; }
+  /* Soft shade at the top so the Save / Share buttons read on a bright sky. */
+  .hero::after { content: ""; position: absolute; inset: 0 0 auto; height: 88px; background: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,0)); pointer-events: none; }
+  .hero .roundBtn { z-index: 1; }
   .roundBtn { position: absolute; top: 12px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; color: #121212;
     display: grid; place-items: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
   .roundBtn svg { width: 20px; height: 20px; }
@@ -262,8 +262,8 @@
 <main class="app" id="app" hidden>
   <!-- Campaign page -->
   <section class="view page" id="view-campaign">
-    <div class="hero" role="img" aria-label="">
-      <i></i><i></i><i></i>
+    <div class="hero">
+      <picture><source type="image/webp" srcset="/campaigns/pickme/campaign/rider-main.webp"><img src="/campaigns/pickme/campaign/rider-main.jpg" alt="A rider taking a selfie on the back of a PickMe bike" width="720" height="720"></picture>
       <button type="button" class="roundBtn like" id="like" aria-pressed="false" aria-label="Save campaign">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.6 3.7 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.3 0 5.3 3.1 4.2 6.2C19.5 15.4 12 20 12 20z"/></svg>
       </button>
