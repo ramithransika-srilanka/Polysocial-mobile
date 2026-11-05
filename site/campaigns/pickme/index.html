@@ -145,13 +145,12 @@
   .blob { position: absolute; width: 330px; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-8deg); animation: spin 60s linear infinite; }
   .card { position: absolute; background: #fff; border-radius: 22px; padding: 7px; box-shadow: 0 18px 40px rgba(0,0,0,.45); animation: pop .7s cubic-bezier(.34,1.4,.6,1) both; }
   .card .photo { position: relative; width: 100%; height: 100%; border-radius: 16px; overflow: hidden; display: grid; place-items: center; align-content: center; gap: 6px; color: rgba(255,255,255,.85); }
-  .card .photo .ph { width: 34px; height: 34px; }
-  .card .photo span { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
-  .p1 { background: #2a2a2a; }
-  .p1 picture, .p1 img { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .p1 img { object-fit: cover; object-position: 44% 50%; }
-  .p2 { background: linear-gradient(160deg, #43C6AC 0%, #191654 100%); }
-  .p3 { background: linear-gradient(160deg, #F857A6 0%, #FF5858 100%); }
+  .card .photo { background: #2a2a2a; }
+  .card .photo picture, .card .photo img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .card .photo img { object-fit: cover; }
+  .p1 img { object-position: 44% 50%; }
+  .p2 img { object-position: 62% 28%; }
+  .p3 img { object-position: 55% 30%; }
   .card.big { width: 210px; height: 280px; left: 50%; top: 36px; margin-left: -105px; --r: -4deg; transform: rotate(var(--r)); padding-bottom: 40px; z-index: 2; animation-delay: .05s; }
   .postbar { position: absolute; left: 14px; right: 14px; bottom: 9px; height: 22px; display: flex; align-items: center; gap: 10px; }
   .postbar svg { width: 18px; height: 18px; }
@@ -214,8 +213,8 @@
           <i></i>
         </div>
       </div>
-      <div class="card small left"><div class="photo p2"><svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></div></div>
-      <div class="card small right"><div class="photo p3"><svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></div></div>
+      <div class="card small left"><div class="photo p2"><picture><source type="image/webp" srcset="/campaigns/pickme/campaign/rider-2.webp"><img src="/campaigns/pickme/campaign/rider-2.jpg" alt="" width="420" height="420"></picture></div></div>
+      <div class="card small right"><div class="photo p3"><picture><source type="image/webp" srcset="/campaigns/pickme/campaign/rider-3.webp"><img src="/campaigns/pickme/campaign/rider-3.jpg" alt="" width="420" height="420"></picture></div></div>
       <span class="chip chipViews"><b></b>12.4K views</span>
       <span class="chip chipEarn">Rs. 2,000 / 1K views</span>
     </div></div>
