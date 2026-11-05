@@ -59,15 +59,12 @@
   .faces img { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--accent-soft); object-fit: cover; }
   .faces img + img { margin-left: -8px; }
 
-  .feeCard { margin-top: 22px; border-radius: 16px; background: var(--ink); color: var(--ink-text); text-align: center; padding: 18px 16px 20px; }
-  .feeCard .lbl { font-size: 15px; opacity: .92; }
-  .feeCard .amt { font-size: 24px; font-weight: 700; margin-top: 2px; letter-spacing: -.01em; }
-
-  .rows { margin-top: 12px; border: 1px solid var(--line); border-radius: 16px; padding: 4px 16px; }
-  .row { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; font-size: 14px; }
+  .rows { margin-top: 22px; background: var(--surface); border-radius: 12px; padding: 4px 16px; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; font-size: 14px; line-height: 20px; }
   .row + .row { border-top: 1px solid var(--line); }
-  .row span:first-child { color: var(--muted); }
+  .row span:first-child { color: var(--muted); font-weight: 500; }
   .row span:last-child { font-weight: 600; text-align: right; }
+  .row .icons svg { width: 16px; height: 16px; }
   .budget { padding: 12px 0 14px; border-top: 1px solid var(--line); }
   .bar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
   .bar b { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
@@ -173,12 +170,8 @@
       <div class="joined"><span class="faces" id="faces"></span>400+ joined</div>
     </div>
 
-    <div class="feeCard">
-      <div class="lbl">Base price per content</div>
-      <div class="amt">Rs. 6,488</div>
-    </div>
-
     <div class="rows">
+      <div class="row"><span>Target platforms</span><span class="icons" data-icons="insta tiktok"></span></div>
       <div class="row"><span>Max earning per content</span><span>Rs. 100,000</span></div>
       <div class="row"><span>Performance pricing</span><span>Rs. 2,000 / 1K views</span></div>
       <div class="row"><span>Total budget</span><span>Rs. 1,000,000</span></div>
@@ -188,7 +181,6 @@
       </div>
     </div>
 
-    <div class="lineItem"><span>Target platforms</span><span class="icons" data-icons="insta tiktok"></span></div>
     <div class="lineItem"><span>Who we're looking for</span></div>
     <div class="tags">
       <span class="tag" data-icon="people">Females</span>
