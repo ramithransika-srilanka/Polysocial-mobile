@@ -117,7 +117,7 @@
   .pill svg { width: 18px; height: 18px; }
   .quote { margin: 0 0 8px; padding: 14px 16px; border-left: 3px solid var(--accent); border-radius: 4px 12px 12px 4px; background: var(--accent-soft); font-style: italic; }
 
-  /* Onboarding: splash, welcome, how it works, phone. Same as the Celeste campaign. */
+  /* Onboarding: welcome and phone number, as on the Celeste campaign. */
   .onb { --color-text:#000; --color-ink:#121212; --color-primary:#1845e7; --color-input:#e2e2e2; --color-placeholder:#717171; --page-gutter:33px;
     max-width: 393px; margin: 0 auto; min-height: 100dvh; display: flex; background: #fff; color: var(--color-text); -webkit-font-smoothing: antialiased; }
   .onb[hidden] { display: none; }
@@ -126,38 +126,17 @@
   .onb .screen__body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .onb .screen__footer { padding-bottom: calc(50px + env(safe-area-inset-bottom)); }
   .onb .screen__bottom { margin-bottom: 12px; }
-  .onb .screen--scroll .screen__body { padding-block: 40px 32px; }
-  .onb .screen--scroll .screen__footer { position: sticky; bottom: 0; margin: 0 calc(-1 * var(--page-gutter)); padding: 16px var(--page-gutter) calc(50px + env(safe-area-inset-bottom)); background: linear-gradient(#fff0, #fff 16px); }
   .onb .powered-by { margin: 0; color: var(--color-placeholder); text-align: center; font-size: 12px; font-weight: 500; line-height: 15px; }
   .onb .btn { width: 100%; font: inherit; cursor: pointer; border: 0; display: flex; justify-content: center; align-items: center; transition: opacity .15s, transform .1s;
     background: var(--color-primary); color: #fff; border-radius: 100px; height: 43px; padding: 12px 48px; font-size: 16px; font-weight: 500; }
   .onb .btn:active:not(:disabled) { transform: scale(.98); }
   .onb .btn:disabled { opacity: .5; cursor: not-allowed; }
-  .onb .splash-logo { width: 172px; height: 86px; margin-top: 65px; align-self: center; display: flex; justify-content: center; align-items: center; animation: logo-in .6s cubic-bezier(.22,1,.36,1) both; }
-  .onb .splash-logo.leaving { animation: logo-out .4s cubic-bezier(.4,0,1,1) both; }
-  .onb .splash-logo img { width: 100%; height: 100%; object-fit: contain; }
-  @keyframes logo-in { from { opacity: 0; transform: scale(.96); } }
-  @keyframes logo-out { to { opacity: 0; transform: scale(1.04); } }
   .onb .welcome { display: flex; flex-direction: column; margin-top: 20px; }
   .onb .welcome__intro { text-align: center; display: flex; flex-direction: column; align-self: center; gap: 12px; width: 184px; }
   .onb .welcome__intro > * { margin: 0; animation: fade-up .5s cubic-bezier(.22,1,.36,1) both; }
   .onb .welcome__title { font-size: 24px; font-weight: 600; line-height: 29px; }
   .onb .welcome__subtitle { font-size: 14px; font-weight: 500; line-height: 17px; }
   @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } }
-  .onb .chat { margin: 0 calc(16px - var(--page-gutter)); display: flex; flex-direction: column; gap: 4px; }
-  .onb .msg { opacity: 0; display: flex; align-items: flex-end; gap: 8px; transition: opacity .3s ease-out, transform .44s cubic-bezier(.34,1.42,.6,1); }
-  .onb .msg-r { justify-content: flex-end; transform-origin: 100% 100%; transform: translateY(10px) scale(.8); }
-  .onb .msg-l { justify-content: flex-start; transform-origin: 0 100%; transform: translateY(10px) scale(.8); }
-  .onb .msg.in { opacity: 1; transform: none; }
-  .onb .msg--group-start { margin-top: 16px; }
-  .onb .bubble { text-wrap: pretty; border-radius: 20px; max-width: 250px; padding: 10px 18px; font-size: 14px; font-weight: 500; line-height: 1.35; }
-  .onb .bubble--wide { max-width: 260px; }
-  .onb .bubble--one-line { white-space: nowrap; max-width: none; }
-  .onb .bubble--r { color: #1b1b2e; background: #e7e8fd; border-radius: 20px 20px 6px; }
-  .onb .bubble--l { color: #121212; background: #ececec; }
-  .onb .bubble--l.bubble--tail { border-radius: 20px 20px 20px 6px; }
-  .onb .chat-avatar { width: 34px; height: 34px; border-radius: 999px; object-fit: cover; flex: none; display: block; }
-  .onb .chat-avatar-space { width: 34px; flex: none; }
   .onb .phone { display: flex; flex-direction: column; gap: 25px; margin-top: 90px; }
   .onb .phone__title { margin: 0; text-align: center; font-size: 14px; font-weight: 500; line-height: 17px; }
   .onb .phone__stack { display: flex; flex-direction: column; gap: 12px; }
@@ -167,30 +146,19 @@
   .onb .phone-field input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; padding: 0; font: inherit; color: inherit; }
   .onb .phone-field input::placeholder { color: var(--color-placeholder); }
   .onb .phone__error { margin: 0; color: #d92d20; text-align: center; font-size: 13px; font-weight: 500; line-height: 17px; }
-  @media (height <= 740px) { .onb .screen--scroll .screen__body { padding-block: 16px 8px; } .onb .msg--group-start { margin-top: 12px; } }
-  @media (prefers-reduced-motion: reduce) { .onb .splash-logo, .onb .welcome__intro > * { animation-duration: 1ms; } .onb .msg { opacity: 1; transition: none; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .onb .welcome__intro > * { animation-duration: 1ms; } }
   .toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); background: #121212; color: #fff; padding: 9px 16px; border-radius: 999px; font-size: 14px; z-index: 30; opacity: 0; transition: opacity .2s; pointer-events: none; }
   .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
 <div class="onb" id="onb">
-  <!-- Splash -->
-  <section class="screen" data-step="splash">
-    <div class="screen__body"><div class="splash-logo" id="splashLogo"><img src="/campaigns/pickme/pickme-logo.png" alt="PickMe"></div></div>
-    <footer class="screen__footer"><p class="powered-by">Powered by Polysocial</p></footer>
-  </section>
   <!-- Welcome -->
-  <section class="screen" data-step="welcome" hidden>
+  <section class="screen" data-step="welcome">
     <div class="screen__body"><div class="welcome"><div class="welcome__intro">
       <h1 class="welcome__title">Welcome!</h1>
       <p class="welcome__subtitle">Join the PickMe Creator community!</p>
     </div></div></div>
-    <footer class="screen__footer"><div class="screen__bottom"><button type="button" class="btn" data-next="how">Continue</button></div><p class="powered-by">Powered by Polysocial</p></footer>
-  </section>
-  <!-- How it works -->
-  <section class="screen screen--scroll" data-step="how" hidden>
-    <div class="screen__body"><div class="chat" id="chat"></div></div>
     <footer class="screen__footer"><div class="screen__bottom"><button type="button" class="btn" data-next="phone">Continue</button></div><p class="powered-by">Powered by Polysocial</p></footer>
   </section>
   <!-- Phone number -->
@@ -353,50 +321,14 @@
   $("briefShort").textContent = BRIEF;
   $("briefFull").textContent = BRIEF;
 
-  // Onboarding: splash -> welcome -> how it works -> phone number -> campaign page.
-  var CHAT = [
-    { side: "r", text: "How does it work?", start: true, end: true },
-    { side: "l", text: "Go to the campaign", start: true },
-    { side: "l", text: "Create content as mentioned in the campaign", wide: true },
-    { side: "l", text: "Submit your content", end: true },
-    { side: "r", text: "How much can I earn?", start: true, end: true },
-    { side: "l", text: "Earn up to Rs. 100,000 per content", start: true, oneLine: true },
-    { side: "l", text: "You get paid based on the reach of your content, at the end of the campaign", end: true, wide: true }
-  ];
-  var CHAT_IMG = "/campaigns/pickme/chat/";
-  $("chat").innerHTML = CHAT.map(function (m, i) {
-    var bubble = '<div class="bubble bubble--' + m.side + (m.end ? " bubble--tail" : "") + (m.wide ? " bubble--wide" : "") + (m.oneLine ? " bubble--one-line" : "") + '"></div>';
-    var av = m.side === "l"
-      ? (m.end ? '<img class="chat-avatar" src="' + CHAT_IMG + 'polysocial.svg" alt="Polysocial">' : '<div class="chat-avatar-space"></div>')
-      : '<picture><source type="image/avif" srcset="' + CHAT_IMG + 'user-avatar.avif"><source type="image/webp" srcset="' + CHAT_IMG + 'user-avatar.webp"><img class="chat-avatar" src="' + CHAT_IMG + 'user-avatar.png" alt="" width="120" height="120"></picture>';
-    return '<div class="msg msg-' + m.side + (m.start && i > 0 ? " msg--group-start" : "") + '">' + (m.side === "l" ? av + bubble : bubble + av) + "</div>";
-  }).join("");
-  $("chat").querySelectorAll(".bubble").forEach(function (b, i) { b.textContent = CHAT[i].text; });
-
-  function revealChat() {
-    var msgs = Array.prototype.slice.call(document.querySelectorAll("#chat .msg"));
-    if ((window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) || !("IntersectionObserver" in window)) {
-      msgs.forEach(function (m) { m.classList.add("in"); }); return;
-    }
-    var foot = document.querySelector('[data-step="how"] .screen__footer');
-    var io = new IntersectionObserver(function (entries) {
-      entries.filter(function (e) { return e.isIntersecting; }).forEach(function (e, i) {
-        e.target.style.transitionDelay = i * 140 + "ms"; e.target.classList.add("in"); io.unobserve(e.target);
-      });
-    }, { threshold: 0.35, rootMargin: "0px 0px -" + Math.round(innerHeight * 0.08 + (foot ? foot.offsetHeight : 0)) + "px 0px" });
-    msgs.forEach(function (m) { io.observe(m); });
-  }
-
+  // Onboarding: welcome -> phone number -> campaign page.
   function step(name) {
     if (name === "campaign") { $("onb").hidden = true; $("app").hidden = false; route(); return; }
     document.querySelectorAll("#onb [data-step]").forEach(function (el) { el.hidden = el.dataset.step !== name; });
     window.scrollTo(0, 0);
-    if (name === "how") revealChat();
     if (name === "phone") setTimeout(function () { $("phone").focus(); }, 50);
   }
   document.querySelectorAll("#onb [data-next]").forEach(function (b) { b.addEventListener("click", function () { step(b.dataset.next); }); });
-  setTimeout(function () { $("splashLogo").classList.add("leaving"); }, 1800);
-  setTimeout(function () { step("welcome"); }, 2200);
 
   // Views: #about shows the campaign details, anything else the campaign page.
   function route() {
