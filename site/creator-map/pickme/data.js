@@ -34,9 +34,30 @@
  */
 window.CREATOR_MAP = {
   brand: "PickMe",
-  updated: "October 2026",
-  filterPersonas: ["Momfluencer", "Dadfluencer", "Social runner", "Lifestyle runner", "Fitness coach"],
+  updated: "November 2026",
+  filterPersonas: ["Momfluencer", "Dadfluencer", "Social runner", "Lifestyle runner", "Fitness coach", "Pilates creator", "Gymfluencer", "Travel Influencer"],
   creators: [
+    {
+      name: "André Hamann",
+      handle: "andrehamann",
+      photo: "avatars/andre-hamann.webp",
+      platform: "Instagram",
+      followers: 840000,
+      cost: 670000,
+      personas: ["Pilates creator", "Fitness coach", "Gymfluencer", "Travel Influencer", "Lifestyle UGC creator", "Consumer UGC creator"],
+      reels: "reels/andre-hamann.md",
+      styles: null,
+      community: "German-speaking fitness and wellness fans following a Munich Pilates coach's move to the south coast of Sri Lanka: reformer Pilates, gym training, beach life and retreats",
+      age: "25–44",
+      lifestyle: "Premium",
+      location: "Diaspora",
+      gender: "Mostly women",
+      language: "German"
+    }
+  ],
+  // Off the map for now but kept for later. The page only reads `creators`;
+  // to bring someone back, move their entry into that list.
+  parked: [
     {
       name: "Radeesha De Silva",
       handle: "radeeshaa",
@@ -311,8 +332,5 @@ window.CREATOR_MAP = {
       gender: "Mostly women",
       language: "English"
     }
-  ],
-  // Off the map for now but kept for later. The page only reads `creators`;
-  // to bring someone back, move their entry into that list.
-  parked: []
+  ]
 };
