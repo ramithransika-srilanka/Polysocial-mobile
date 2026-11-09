@@ -49,8 +49,8 @@ window.CREATOR_MAP = {
       styles: null,
       community: "German-speaking fitness and wellness fans following a Munich Pilates coach's move to the south coast of Sri Lanka: reformer Pilates, gym training, beach life and retreats",
       age: "25–44",
-      lifestyle: "Premium",
-      location: "Diaspora",
+      lifestyle: ["Premium", "Upper-middle"],
+      location: "Overseas",
       gender: "Mostly women",
       language: "German"
     }
