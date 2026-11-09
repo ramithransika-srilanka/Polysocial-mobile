@@ -43,7 +43,7 @@ window.CREATOR_MAP = {
       photo: "avatars/andre-hamann.webp",
       platform: "Instagram",
       followers: 840000,
-      cost: 670000,
+      cost: 788235,
       personas: ["Pilates creator", "Fitness coach", "Gymfluencer", "Travel Influencer", "Lifestyle UGC creator", "Consumer UGC creator"],
       reels: "reels/andre-hamann.md",
       styles: null,
