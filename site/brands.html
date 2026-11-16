@@ -730,8 +730,9 @@
           #coCard.noteMore .coNoteMore { grid-template-rows: 1fr; }
           .coNoteMore .coNoteInner { opacity: 0; transform: translateY(-4px); transition: opacity 0.3s var(--co-ease), transform 0.3s var(--co-ease); }
           #coCard.noteMore .coNoteMore .coNoteInner { opacity: 1; transform: none; transition-delay: 0.12s; }
-          .coReward { display: flex; gap: 8px; margin: 12px 0 0; }
-          .coReward span { flex: 1; padding: 9px 10px; border-radius: 14px; background: rgba(118,118,128,0.10); font-size: 11px; font-weight: 500; color: #6C6C70; line-height: 1.25; }
+          .coReward { display: flex; gap: 6px; margin: 12px 0 0; }
+          .coReward span:first-child { flex: 1.35; }
+          .coReward span { flex: 1; min-width: 0; white-space: nowrap; padding: 9px 10px; border-radius: 14px; background: rgba(118,118,128,0.10); font-size: 11px; font-weight: 500; color: #6C6C70; line-height: 1.25; }
           .coReward b { display: block; margin-top: 2px; font-size: 15px; font-weight: 600; color: #121212; letter-spacing: -0.01em; }
           .coAccept { position: relative; height: 42px; margin-top: 10px; border-radius: 999px; background: #1548EB; color: #FFFFFF; font-size: 14px; font-weight: 600; transition: transform 0.16s var(--co-ease), background-color 0.3s var(--co-ease); }
           .coAccept.press { transform: scale(0.97); }
@@ -766,10 +767,10 @@
 
           <div class="coGrid">
             <!-- Product tiles: image placeholders for now -->
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">$18</p></div>
-            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">$24</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">$32</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">$12</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,800</p></div>
+            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 2,400</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 3,200</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,200</p></div>
           </div>
 
           <div class="coScrim"></div>
@@ -778,7 +779,7 @@
             <div class="coGrab"></div>
             <div class="coItem">
               <div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-              <div><b>Product name</b><span>$24 each</span></div>
+              <div><b>Product name</b><span>LKR 2,400 each</span></div>
             </div>
             <div class="coRow">
               <span>Quantity</span>
@@ -790,10 +791,10 @@
             </div>
             <div class="coRow total">
               <span>Total</span>
-              <span class="coRoll coTotal" data-roll="total"><span>$24</span></span>
+              <span class="coRoll coTotal" data-roll="total"><span>LKR 2,400</span></span>
             </div>
             <div class="coPay">
-              <span data-pay="label" style="gap: 5px;">Pay<span class="coRoll" data-roll="pay" style="position: static; display: inline-grid;"><span>$24</span></span></span>
+              <span data-pay="label" style="gap: 5px;">Pay<span class="coRoll" data-roll="pay" style="position: static; display: inline-grid;"><span>LKR 2,400</span></span></span>
               <span data-pay="busy" class="hide"><i class="coSpin"></i></span>
               <span data-pay="done" class="hide"><svg class="coCheck" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Paid</span>
             </div>
@@ -814,7 +815,7 @@
             </div>
             <div class="coNoteMore"><div><div class="coNoteInner">
               <div class="coReward">
-                <span>You earn<b>$30</b></span>
+                <span>You earn<b>LKR 3,000</b></span>
                 <span>Post<b>1 Reel</b></span>
                 <span>Deadline<b>7 days</b></span>
               </div>
@@ -847,7 +848,7 @@
           var badge=card.querySelector('.coBadge'), steps=sec.querySelectorAll('[data-step]');
           var accept=card.querySelector('.coAccept'), accLabel=accept.querySelector('[data-acc="label"]'), accDone=accept.querySelector('[data-acc="done"]');
           var payParts={ label:pay.querySelector('[data-pay="label"]'), busy:pay.querySelector('[data-pay="busy"]'), done:pay.querySelector('[data-pay="done"]') };
-          var PRICE=24, run=0, shown=0, want=0, busy=false;
+          var PRICE=2400, lkr=function(n){ return 'LKR '+n.toLocaleString('en-US'); }, run=0, shown=0, want=0, busy=false;
 
           function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej('stop'); }, reduce?Math.min(ms,120):ms); }); }
           function step(n){ steps.forEach(function(s){ s.classList.toggle('on', +s.getAttribute('data-step')===n); }); }
@@ -860,7 +861,7 @@
               if(old){ old.className='out'; setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); },340); }
             });
           }
-          function setQty(q,instant){ roll('qty',''+q,instant); roll('total','$'+q*PRICE,instant); roll('pay','$'+q*PRICE,instant); }
+          function setQty(q,instant){ roll('qty',''+q,instant); roll('total',lkr(q*PRICE),instant); roll('pay',lkr(q*PRICE),instant); }
           function showPay(which){ Object.keys(payParts).forEach(function(k){ payParts[k].classList.toggle('hide', k!==which); }); pay.classList.toggle('done', which==='done'); }
           function moveTo(el){
             var c=card.getBoundingClientRect(), r=el.getBoundingClientRect(), k=c.width/card.offsetWidth||1;
