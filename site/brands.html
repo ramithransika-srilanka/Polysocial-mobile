@@ -461,6 +461,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#FF6B4A">
+<style>.dBr { display: none; }</style>
 <style id="desktop-view">
 /* =====================================================================
    DESKTOP / TABLET VIEW  (For Brands)
@@ -509,26 +510,6 @@
   #top a[href="brand-access.html"] { height: 40px !important; padding: 0 6px 0 20px !important; font-size: 14px !important; letter-spacing: -0.01em !important; gap: 8px !important; }
   #top a[href="brand-access.html"] > span { width: 28px !important; height: 28px !important; }
 
-  /* ============ SPONSORED AD → landscape card ============
-     The card becomes a 16:9 landscape block (max 1024px wide), centred and
-     vertically centred in the viewport. The JS lock reads this card's
-     resolved sticky `top`, so 576px here stays in sync automatically.
-     The vertical clip is hidden and the landscape clip shown. */
-  #start { padding: 0 var(--edge) !important; }
-  #start > div {
-    width: min(100%, 1024px) !important;
-    height: 576px !important;
-    margin: 0 auto !important;
-    top: max(16px, calc((100dvh - 576px) / 2)) !important;
-  }
-  #adVideo { display: none !important; }
-  #adVideoDesk { display: block !important; }
-  /* Poll takeover: hold heading + options in a centred column on the wide card. */
-  #start #adPoll { padding: 48px 24px !important; justify-content: center !important; }
-  #start #adPoll > #pollBackBtn { position: absolute !important; top: 20px !important; left: 20px !important; }
-  #start #adPoll > h3 { max-width: 720px !important; width: 100% !important; margin: 0 auto !important; font-size: 28px !important; text-align: center !important; }
-  #start #adPoll > div { max-width: 520px !important; width: 100% !important; margin: 0 auto !important; }
-
   /* ============ AGREEMENT OVERLAY (full-bleed) ============
      Fixed overlay (position:fixed, left:50%, translateX(-50%)) — widening it
      to 100% makes it span the whole viewport while keeping the slide-up
@@ -537,8 +518,10 @@
 
   /* Agreement payoff panel */
   #agreePanel { padding: clamp(72px, 10vw, 120px) var(--edge) !important; }
-  #agreePanel .ov-reveal { width: 100% !important; max-width: 900px !important; gap: 40px !important; }
-  #agreePanel p { width: 100% !important; max-width: 820px !important; font-size: clamp(30px, 3.4vw, 42px) !important; }
+  #agreePanel .ov-reveal { width: 100% !important; max-width: 1000px !important; }
+  #agreePanel { min-height: 100dvh !important; }
+  #agreePanel .dBr { display: inline !important; }
+  #agreePanel p { width: 100% !important; max-width: none !important; text-wrap: wrap !important; margin: 0 auto !important; font-size: clamp(36px, 4.6vw, 60px) !important; line-height: 1.18 !important; }
 
   /* Community */
   #agreeScreen section[data-screen-label="Community"] { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
@@ -587,11 +570,6 @@
   #agreeScreen footer img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
   #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
 
-  /* Disagree modal — a touch larger and more spacious on desktop */
-  #disagreeModalCard { max-width: 440px !important; padding: 48px 44px 32px !important; border-radius: 28px !important; }
-  #disagreeModalCard h3 { font-size: 20px !important; }
-  #disagreeModalCard p { font-size: 16px !important; }
-  #disagreeModalCard button#disagreeRetry { height: 56px !important; font-size: 17px !important; }
 }
 
 </style>
@@ -654,64 +632,11 @@
       </span>
     </div>
 
-    <!-- Sponsored ad video (sticky: pins centered, independent of page scroll) -->
-    <section id="start" data-screen-label="Sponsored ad" style="position: relative; padding: 0 16px; height: 100dvh;">
-      <div style="position: sticky; top: max(16px, calc((100dvh - 616px) / 2)); width: 100%; height: 616px; border-radius: 28px; overflow: hidden; background: #000000; box-shadow: 0 16px 40px rgba(18,31,96,0.16);">
-        <video id="adVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/brand-sponsored-ad.poster.7cb4a77698.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><source src="assets/video/brand-sponsored-ad.35acbfe3d2.webm" type="video/webm"><source src="assets/video/brand-sponsored-ad.87f52e1988.mp4" type="video/mp4"></video>
-        <!-- Desktop landscape ad (shown at >=768px; the vertical clip above is hidden there) -->
-        <video id="adVideoDesk" muted loop playsinline preload="none" poster="assets/video/brand-sponsored-ad-landscape.poster.567b66a740.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none;"><source src="assets/video/brand-sponsored-ad-landscape.936602de95.webm" type="video/webm"><source src="assets/video/brand-sponsored-ad-landscape.741706c795.mp4" type="video/mp4"></video>
-        <div aria-hidden="true" style="position: absolute; top: 0; left: 0; right: 0; height: 96px; background: linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
-        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 140px; background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
-        <span style="position: absolute; top: 18px; left: 18px; color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 20px; text-shadow: 0 1px 6px rgba(0,0,0,0.55);">Sponsored Ad</span>
-        <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 18px; display: flex; flex-direction: column; gap: 14px;">
-          <div style="display: flex; justify-content: flex-end;">
-            <button id="skipAdBtn" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: none; border-radius: 999px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.28s cubic-bezier(0.23,1,0.32,1), transform 0.28s cubic-bezier(0.23,1,0.32,1); pointer-events: none;">
-              Skip Ad
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M17 5V19M6 10.5713V13.4287C6 15.2557 6 16.1693 6.38355 16.6958C6.71806 17.1549 7.23174 17.4496 7.79688 17.5073C8.44484 17.5733 9.23434 17.113 10.8125 16.1924L13.2617 14.7637L13.2701 14.7588C14.8216 13.8537 15.5979 13.4009 15.8595 12.8105C16.0881 12.2946 16.0881 11.7062 15.8595 11.1902C15.5974 10.5988 14.8188 10.1446 13.2617 9.2363L10.8125 7.80762C9.23434 6.88702 8.44484 6.42651 7.79688 6.49256C7.23174 6.55017 6.71806 6.84556 6.38355 7.30469C6 7.83111 6 8.74424 6 10.5713Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </button>
-          </div>
-          <div style="height: 4px; border-radius: 999px; background: rgba(255,255,255,0.3); overflow: hidden;">
-            <div id="adProgress" style="height: 100%; width: 0%; background: #FFD22D; border-radius: 999px; transition: width 0.12s linear;"></div>
-          </div>
-        </div>
-
-        <!-- Poll takeover (appears after Skip Ad) -->
-        <div id="adPoll" style="position: absolute; inset: 0; z-index: 5; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; gap: 20px; background: linear-gradient(160deg, rgba(20,12,8,0.32) 0%, rgba(20,12,8,0.52) 100%); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); opacity: 0; visibility: hidden; transform: scale(1.02); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), transform 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s; pointer-events: none;">
-          <button id="pollBackBtn" aria-label="Back to video" style="align-self: flex-start; width: 36px; height: 36px; border: none; border-radius: 999px; background: rgba(0,0,0,0.42); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out;" style-hover="background: rgba(0,0,0,0.6);" style-active="transform: scale(0.94);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M15 5l-7 7 7 7" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </button>
-          <h3 style="margin: 0; color: #FFFFFF; font-weight: 600; font-size: 24px; line-height: 1.32; letter-spacing: -0.01em; text-wrap: pretty; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">Do you think paid ads are enough to get attention, or is the market clearly shifting toward organic growth?</h3>
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-                          <button class="pollOpt" data-idx="0" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Strongly disagree</button>
-              <button class="pollOpt" data-idx="1" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Disagree</button>
-              <button class="pollOpt" data-idx="2" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Neutral</button>
-              <button class="pollOpt" data-idx="3" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Agree</button>
-              <button class="pollOpt" data-idx="4" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Strongly Agree</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Disagree modal (shown when user picks Strongly disagree / Disagree) -->
-    <div id="disagreeModal" role="dialog" aria-modal="true" aria-labelledby="disagreeModalTitle" style="position: fixed; inset: 0; z-index: 400; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(10,10,10,0.55); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); opacity: 0; transition: opacity 0.28s cubic-bezier(0.23,1,0.32,1);">
-      <div id="disagreeModalCard" style="position: relative; width: 100%; max-width: 380px; padding: 40px 32px 28px; background: #F1F1F1; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); text-align: center; transform: scale(0.9); opacity: 0; transition: transform 0.36s cubic-bezier(0.22,1.2,0.36,1), opacity 0.28s cubic-bezier(0.23,1,0.32,1);">
-        <svg width="76" height="76" viewBox="0 0 76 76" fill="none" aria-hidden="true" style="display: block; margin: 0 auto 22px;">
-          <path d="M35.1 7.2 L4.1 61.2 C2.7 63.7 4.5 66.8 7.4 66.8 H68.6 C71.5 66.8 73.3 63.7 71.9 61.2 L40.9 7.2 C39.6 4.9 36.4 4.9 35.1 7.2 Z" fill="#E63946"/>
-          <rect x="35" y="24" width="6" height="22" rx="3" fill="#FFFFFF"/>
-          <rect x="35" y="51" width="6" height="6" rx="3" fill="#FFFFFF"/>
-        </svg>
-        <h3 id="disagreeModalTitle" style="margin: 0 0 12px; font-weight: 700; font-size: 18px; line-height: 1.35; color: #121212;">Uh oh! Something went wrong.</h3>
-        <p style="margin: 0 0 26px; font-weight: 400; font-size: 16px; line-height: 1.45; color: #2A2A2A; text-wrap: pretty;">We strongly believe that every brand should have its own organic marketing mechanism to connect with its customers.</p>
-        <button id="disagreeRetry" type="button" style="appearance: none; width: 100%; height: 52px; border: none; border-radius: 999px; background: #7A7A7A; color: #FFFFFF; font-family: inherit; font-weight: 500; font-size: 16px; cursor: pointer; transition: background 0.16s ease, transform 0.12s ease-out;">Retry</button>
-      </div>
-    </div>
-
-    <!-- Agreement payoff screen (overlay above the video: slides up partially, then scrolls to its end) -->
-    <div id="agreeScreen" data-screen-label="Agreement" style="position: fixed; top: 0; bottom: 0; left: 50%; width: 393px; max-width: 100%; z-index: 200; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; transform: translate(-50%, 100%); transition: transform 0.82s cubic-bezier(0.32,0.72,0,1); pointer-events: none;">
-      <div style="height: 40dvh;"></div>
-      <div id="agreePanel" style="position: relative; min-height: max(530px, 66dvh); display: flex; align-items: center; justify-content: center; padding: var(--sp-panel) 30px; background: #F6F6F6; overflow: hidden;">
-        <div class="ov-reveal" style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 30px;">
-          <p style="width: 323px; max-width: 100%; margin: 0; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 28px; line-height: normal; letter-spacing: 0; text-align: center; color: #000000;"><span style="color: #717171;">We couldn't </span><span style="color: #000000;">agree more. </span><span style="color: #717171;">Brand budgets are shifting toward </span><span style="color: #000000;">creating more organic content. </span><span style="color: #717171;">What could be more organic than</span><span style="color: #000000;"> user-generated content?</span></p>
+    <!-- Statement + rest of the page (normal flow) -->
+    <div id="agreeScreen" data-screen-label="Statement" style="position: relative; width: 100%;">
+      <div id="agreePanel" style="position: relative; min-height: 88dvh; display: flex; align-items: center; justify-content: center; padding: var(--sp-panel) 30px; background: #FFFFFF; overflow: hidden;">
+        <div class="ov-reveal" style="width: 333px; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
+          <p style="margin: 0; font-weight: 600; font-size: 28px; line-height: 1.25; letter-spacing: -0.01em; text-align: center; text-wrap: balance; color: #717171;">Every customer who loves<br class="dBr"> your product is a <span style="color: #000000;">creator<br class="dBr"> waiting to be activated</span> &mdash; with<br class="dBr"> an audience your ads never<br class="dBr"> reach.</p>
         </div>
       </div>
 
@@ -1200,7 +1125,7 @@
       if(!els.length) return;
       var io=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-      },{ root: overlay, threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+      },{ root: null, threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
       els.forEach(function(el){ io.observe(el); });
     };
 
@@ -1244,7 +1169,7 @@
         }
       }
       function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(apply); } }
-      overlay.addEventListener('scroll',onScroll,{ passive:true });
+      window.addEventListener('scroll',onScroll,{ passive:true });
       window.addEventListener('resize',onScroll,{ passive:true });
       apply();
     };
@@ -1338,7 +1263,7 @@
       }
       var warmIO=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ warmImages(); warmIO.disconnect(); } });
-      },{ root: overlay, threshold: 0, rootMargin: '0px 0px 150% 0px' });
+      },{ root: null, threshold: 0, rootMargin: '0px 0px 150% 0px' });
       warmIO.observe(grid);
       var popped=false;
       function popCascade(){
@@ -1520,7 +1445,7 @@
       }
       var popIO=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
-      },{ root: overlay, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      },{ root: null, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
       popIO.observe(grid);
     };
 
@@ -1687,8 +1612,8 @@
       // "delay"), only smoothing jitter and giving a whisper of settle when the scroll stops.
       var spring={ value:0, target:0, vel:0 }, K=320, C=30, Mmass=1;
       function progress(){
-        var oh=overlay.clientHeight, tr=track.getBoundingClientRect(), orc=overlay.getBoundingClientRect();
-        var top=tr.top-orc.top, span=track.offsetHeight-oh;
+        var oh=window.innerHeight||document.documentElement.clientHeight, tr=track.getBoundingClientRect();
+        var top=tr.top, span=track.offsetHeight-oh;
         // Start the transition as the section ENTERS (its top ~40% down the viewport, i.e. the
         // moment the dome becomes visible) and finish a touch before the pin releases. This
         // removes the dead pre-pin scroll — every bit of scroll moves the animation, no delay.
@@ -1773,125 +1698,10 @@
       requestAnimationFrame(frame);
     };
 
-    api._armAdVideo = function(tries){
-      tries=tries||0;
-      // Pick whichever ad clip is actually visible: the desktop landscape one
-      // at >=768px, else the mobile vertical one (offsetParent is null when
-      // display:none, so a hidden clip is never selected).
-      var vDesk=document.getElementById('adVideoDesk'), vMob=document.getElementById('adVideo');
-      var v=(vDesk && vDesk.offsetParent!==null) ? vDesk : vMob;
-      var bar=document.getElementById('adProgress'), skip=document.getElementById('skipAdBtn');
-      if(!v||!bar||!skip){ if(tries<40) setTimeout(function(){api._armAdVideo(tries+1);},60); return; }
-      var shown=false;
-      function showSkip(){ if(shown) return; shown=true; skip.style.opacity='1'; skip.style.visibility='visible'; skip.style.transform='translateY(0)'; skip.style.pointerEvents='auto'; }
-      v.addEventListener('timeupdate',function(){
-        if(!v.duration||!isFinite(v.duration)) return;
-        var p=v.currentTime/v.duration;
-        bar.style.width=(p*100).toFixed(2)+'%';
-        if(p>=0.8) showSkip();
-      });
-      skip.addEventListener('click',function(e){
-        e.stopPropagation();
-        var poll=document.getElementById('adPoll');
-        if(poll){ poll.style.opacity='1'; poll.style.visibility='visible'; poll.style.transform='scale(1)'; poll.style.pointerEvents='auto'; }
-        v.pause();
-      });
-      var pollBack=document.getElementById('pollBackBtn');
-      if(pollBack) pollBack.addEventListener('click',function(e){
-        e.stopPropagation();
-        var poll=document.getElementById('adPoll');
-        if(poll){ poll.style.opacity='0'; poll.style.visibility='hidden'; poll.style.transform='scale(1.02)'; poll.style.pointerEvents='none'; }
-        tryPlay();
-      });
-
-      var section=v.closest('section');
-      var card=v.parentNode; // the sticky card that holds the video + overlays
-      var released=false;
-      // Read the card's resolved sticky `top` (px) instead of hardcoding the
-      // mobile 616px height, so the lock point stays correct for the landscape
-      // desktop card too.
-      function lockTarget(){ var stickyTop=parseFloat(getComputedStyle(card).top)||Math.max(16,(window.innerHeight-616)/2); var topAbs=section.getBoundingClientRect().top+window.scrollY; return topAbs-stickyTop; }
-      function clampScroll(){ if(released||!section) return; var target=lockTarget(); if(window.scrollY>=target-1){ if(window.scrollY>target) window.scrollTo(0,target); } }
-
-      // Always silent — the ad never plays sound.
-      v.muted=true; v.volume=0; v.removeAttribute('controls');
-      function tryPlay(){ v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
-      var playing=false;
-      function check(){
-        var r=v.getBoundingClientRect();
-        var vh=window.innerHeight||document.documentElement.clientHeight;
-        var center=r.top+r.height/2;
-        var centered=center>vh*0.32 && center<vh*0.68;
-        if(centered&&!playing){ playing=true; tryPlay(); }
-        else if(!centered&&playing){ playing=false; v.pause(); }
-      }
-      var ticking=false;
-      function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(function(){ clampScroll(); check(); ticking=false; }); }
-
-      var opts=document.querySelectorAll('.pollOpt');
-      var agree=document.getElementById('agreeScreen');
-      var agreeShown=false, hasAnswered=false;
-      var OPEN_EASE='transform 0.62s cubic-bezier(0.32,0.72,0,1)';
-      var CLOSE_EASE='transform 0.44s cubic-bezier(0.32,0.72,0,1)';
-      function showAgree(){ if(!agree||agreeShown) return; agreeShown=true; agree.scrollTop=0; agree.style.pointerEvents='auto'; agree.style.transition=OPEN_EASE; requestAnimationFrame(function(){ agree.style.transform='translate(-50%, 0)'; }); released=true; }
-      function hideAgree(){ if(!agree||!agreeShown) return; agreeShown=false; agree.style.transition=CLOSE_EASE; agree.style.pointerEvents='none'; agree.style.transform='translate(-50%, 100%)'; }
-      if(agree){
-        agree.addEventListener('wheel',function(e){ if(agreeShown&&e.deltaY<0&&agree.scrollTop<=0) hideAgree(); },{ passive:true });
-        var ty=null;
-        agree.addEventListener('touchstart',function(e){ ty=e.touches[0].clientY; },{ passive:true });
-        agree.addEventListener('touchmove',function(e){ if(agreeShown&&ty!=null&&e.touches[0].clientY-ty>24&&agree.scrollTop<=0) hideAgree(); },{ passive:true });
-        window.addEventListener('wheel',function(e){ if(hasAnswered&&!agreeShown&&e.deltaY>0&&window.scrollY>=lockTarget()-2) showAgree(); },{ passive:true });
-        var wy=null;
-        window.addEventListener('touchstart',function(e){ wy=e.touches[0].clientY; },{ passive:true });
-        window.addEventListener('touchmove',function(e){ if(hasAnswered&&!agreeShown&&wy!=null&&wy-e.touches[0].clientY>24&&window.scrollY>=lockTarget()-2) showAgree(); },{ passive:true });
-      }
-      function resetPollOpts(){
-        opts.forEach(function(o){ o.style.background='rgba(0,0,0,0.42)'; o.style.color='#FFFFFF'; o.style.boxShadow='none'; });
-      }
-      var dModal=document.getElementById('disagreeModal');
-      var dCard=document.getElementById('disagreeModalCard');
-      var dRetry=document.getElementById('disagreeRetry');
-      function showDisagree(){
-        if(!dModal) return;
-        dModal.style.display='flex';
-        // Force layout so the transition runs from the initial state.
-        void dModal.offsetWidth;
-        dModal.style.opacity='1';
-        dCard.style.transform='scale(1)';
-        dCard.style.opacity='1';
-      }
-      function hideDisagree(){
-        if(!dModal) return;
-        dModal.style.opacity='0';
-        dCard.style.transform='scale(0.9)';
-        dCard.style.opacity='0';
-        setTimeout(function(){ dModal.style.display='none'; },300);
-      }
-      if(dRetry){ dRetry.addEventListener('click',function(){ hideDisagree(); resetPollOpts(); }); }
-      if(dModal){
-        dModal.addEventListener('click',function(e){ if(e.target===dModal) hideDisagree(); });
-        document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&dModal.style.display==='flex') hideDisagree(); });
-      }
-      opts.forEach(function(b){ b.addEventListener('click',function(){
-        if(agreeShown) return;
-        var idx=parseInt(b.getAttribute('data-idx'),10);
-        resetPollOpts();
-        b.style.background='#FFFFFF'; b.style.color='#1548EB'; b.style.boxShadow='0 6px 18px rgba(0,0,0,0.28)';
-        if(idx<2){ showDisagree(); return; }
-        hasAnswered=true; showAgree();
-      }); });
-      window.addEventListener('scroll',onScroll,{ passive:true });
-      window.addEventListener('resize',onScroll);
-      check();
-
-      // Keep it muted even if something toggles it (defensive).
-      v.addEventListener('volumechange',function(){ if(!v.muted) v.muted=true; });
-    };
-
     function boot(){
       var root=document.getElementById('appRoot'); if(root) root.classList.add('loaded');
       var safe=function(fn){ try{ fn(); }catch(e){ console.warn('init',e); } };
-      safe(api._armMenu); safe(api._armAdVideo); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armHowToStart); safe(api._armCallFocus); safe(api._armGrowGL);
+      safe(api._armMenu); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armHowToStart); safe(api._armCallFocus); safe(api._armGrowGL);
     }
     if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
     else boot();
