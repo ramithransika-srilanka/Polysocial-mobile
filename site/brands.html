@@ -641,9 +641,11 @@
       </div>
 
       <!-- Checkout micro-animation: select a product -> add units -> pay. Loops while on screen. -->
-      <section id="coSection" data-screen-label="Checkout" style="position: relative; padding: var(--sp-panel) 24px; background: #F6F6F6; overflow: hidden;">
+      <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 300vh; background: #F6F6F6;">
         <style>
           #coSection { --co-ease: cubic-bezier(0.23,1,0.32,1); --co-move: cubic-bezier(0.77,0,0.175,1); --co-sheet: cubic-bezier(0.32,0.72,0,1); }
+          #coPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
+          #coStage { width: 100%; transform-origin: 50% 50%; }
           #coSection .coHead { margin: 0 0 32px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           #coCard { position: relative; width: 100%; max-width: 345px; height: 470px; margin: 0 auto; border-radius: 32px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(18,18,18,0.04), 0 18px 48px rgba(18,31,96,0.10); overflow: hidden; isolation: isolate; -webkit-user-select: none; user-select: none; }
 
@@ -717,6 +719,8 @@
           }
         </style>
 
+        <div id="coPin">
+        <div id="coStage">
         <h2 class="coHead ov-reveal">It starts at checkout</h2>
 
         <div id="coCard" class="ov-reveal" aria-hidden="true">
@@ -769,21 +773,25 @@
         <div class="coSteps ov-reveal" aria-hidden="true">
           <span data-step="0">Select</span><span data-step="1">Add units</span><span data-step="2">Pay</span>
         </div>
+        </div>
+        </div>
 
         <script>
+        /* Checkout micro-animation. Scroll position only TRIGGERS each step
+           (select -> add units -> pay); once triggered, the step plays out on
+           its own timing. Scrolling back up returns the card to the earlier step. */
         (function(){
-          var card=document.getElementById('coCard'); if(!card) return;
+          var sec=document.getElementById('coSection'), card=document.getElementById('coCard'), stage=document.getElementById('coStage');
+          if(!sec||!card) return;
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           var touch=card.querySelector('.coTouch'), pick=card.querySelector('[data-pick]');
           var plus=card.querySelector('[data-plus]'), pay=card.querySelector('.coPay');
-          var badge=card.querySelector('.coBadge'), steps=document.querySelectorAll('#coSection [data-step]');
+          var badge=card.querySelector('.coBadge'), steps=sec.querySelectorAll('[data-step]');
           var payParts={ label:pay.querySelector('[data-pay="label"]'), busy:pay.querySelector('[data-pay="busy"]'), done:pay.querySelector('[data-pay="done"]') };
-          var PRICE=24, run=0;
+          var PRICE=24, run=0, shown=0, want=0, busy=false;
 
-          function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej('stop'); },ms); }); }
+          function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej('stop'); }, reduce?Math.min(ms,120):ms); }); }
           function step(n){ steps.forEach(function(s){ s.classList.toggle('on', +s.getAttribute('data-step')===n); }); }
-
-          // Swap a rolling number: the old value leaves upward, the new one rises in.
           function roll(name,text,instant){
             card.querySelectorAll('[data-roll="'+name+'"]').forEach(function(box){
               var old=box.lastElementChild; if(old && old.textContent===text) return;
@@ -793,61 +801,83 @@
               if(old){ old.className='out'; setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); },340); }
             });
           }
+          function setQty(q,instant){ roll('qty',''+q,instant); roll('total','$'+q*PRICE,instant); roll('pay','$'+q*PRICE,instant); }
           function showPay(which){ Object.keys(payParts).forEach(function(k){ payParts[k].classList.toggle('hide', k!==which); }); pay.classList.toggle('done', which==='done'); }
-
-          // Move the touch indicator to the centre of an element (card-relative).
           function moveTo(el){
-            var c=card.getBoundingClientRect(), r=el.getBoundingClientRect();
-            touch.style.transform='translate('+(r.left-c.left+r.width/2)+'px,'+(r.top-c.top+r.height/2)+'px)';
+            var c=card.getBoundingClientRect(), r=el.getBoundingClientRect(), k=c.width/card.offsetWidth||1;
+            touch.style.transform='translate('+((r.left-c.left+r.width/2)/k)+'px,'+((r.top-c.top+r.height/2)/k)+'px)';
           }
           function tap(el,id){
             touch.classList.add('press'); el.classList.add('press');
             return wait(170,id).then(function(){ touch.classList.remove('press'); el.classList.remove('press'); });
           }
-          function reset(){
-            card.classList.remove('sheetOpen'); pick.classList.remove('sel');
-            badge.classList.remove('on'); badge.textContent='';
-            roll('qty','1',true); roll('total','$'+PRICE,true); roll('pay','$'+PRICE,true);
-            showPay('label'); step(-1);
-            touch.style.transition='none'; touch.style.opacity='0';
-            var c=card.getBoundingClientRect(); touch.style.transform='translate('+(c.width*0.5)+'px,'+(c.height*0.98)+'px)';
-            void touch.offsetWidth; touch.style.transition='';
+          function hideTouch(){ touch.style.opacity='0'; }
+
+          // Settled look of each step (used when scrolling back up).
+          function settle(n){
+            hideTouch();
+            card.classList.toggle('sheetOpen', n>=1); pick.classList.toggle('sel', n>=1);
+            setQty(n>=2?3:1);
+            showPay(n>=3?'done':'label');
+            badge.classList.toggle('on', n>=3); if(n>=3) badge.textContent='3';
+            step(n-1);
           }
 
-          function loop(id){
-            var qty=1;
-            reset();
-            return wait(500,id)
-            // 1. Select a product
-            .then(function(){ step(0); touch.style.opacity='1'; moveTo(pick); return wait(800,id); })
-            .then(function(){ return tap(pick,id); })
-            .then(function(){ pick.classList.add('sel'); return wait(260,id); })
-            .then(function(){ card.classList.add('sheetOpen'); return wait(650,id); })
-            // 2. Add units
-            .then(function(){ step(1); moveTo(plus); return wait(760,id); })
-            .then(function addOne(){
-              return tap(plus,id).then(function(){
-                qty++; roll('qty',''+qty); roll('total','$'+qty*PRICE); roll('pay','$'+qty*PRICE);
-                return wait(380,id);
-              }).then(function(){ return qty<3 ? addOne() : null; });
-            })
-            // 3. Pay
-            .then(function(){ step(2); moveTo(pay); return wait(760,id); })
-            .then(function(){ return tap(pay,id); })
-            .then(function(){ showPay('busy'); touch.style.opacity='0'; return wait(1000,id); })
-            .then(function(){ showPay('done'); badge.textContent=''+qty; badge.classList.add('on'); return wait(1800,id); })
-            .then(function(){ card.classList.remove('sheetOpen'); pick.classList.remove('sel'); step(-1); return wait(900,id); })
-            .then(function(){ return loop(id); });
+          // Forward plays: each starts from the previous step's settled state.
+          var plays=[null,
+            function(id){ // 1. Select a product
+              step(0); touch.style.opacity='1'; moveTo(pick);
+              return wait(760,id).then(function(){ return tap(pick,id); })
+                .then(function(){ pick.classList.add('sel'); return wait(240,id); })
+                .then(function(){ card.classList.add('sheetOpen'); hideTouch(); return wait(560,id); });
+            },
+            function(id){ // 2. Add units
+              step(1); touch.style.opacity='1'; moveTo(plus); var q=1;
+              return wait(720,id).then(function addOne(){
+                return tap(plus,id).then(function(){ q++; setQty(q); return wait(360,id); })
+                  .then(function(){ return q<3 ? addOne() : null; });
+              }).then(function(){ hideTouch(); return wait(200,id); });
+            },
+            function(id){ // 3. Pay
+              step(2); touch.style.opacity='1'; moveTo(pay);
+              return wait(720,id).then(function(){ return tap(pay,id); })
+                .then(function(){ showPay('busy'); hideTouch(); return wait(950,id); })
+                .then(function(){ showPay('done'); badge.textContent='3'; badge.classList.add('on'); return wait(300,id); });
+            }];
+
+          // Play forward one step at a time until we reach the step the scroll asks for.
+          function pump(){
+            if(busy) return;
+            if(want<shown){ run++; shown=want; settle(shown); return; }
+            if(want===shown) return;
+            busy=true; var id=++run, next=shown+1;
+            plays[next](id).then(function(){ shown=next; busy=false; pump(); },
+                                 function(){ busy=false; });
           }
 
-          var inView=false;
-          function start(){ if(!inView||document.hidden) return; var id=++run; loop(id).catch(function(){}); }
-          function stop(){ run++; reset(); }
-          if('IntersectionObserver' in window){
-            new IntersectionObserver(function(es){ es.forEach(function(e){ inView=e.isIntersecting; inView ? start() : stop(); }); },{ threshold: 0.45 }).observe(card);
-          } else { inView=true; start(); }
-          document.addEventListener('visibilitychange',function(){ document.hidden ? stop() : start(); });
-          reset();
+          // Scroll position -> requested step (thresholds only; no scrubbing).
+          function onScroll(){
+            var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+            var span=sec.offsetHeight-vh, p=span>0 ? -r.top/span : 0;
+            var w = r.top > vh*0.35 ? 0 : p<0.22 ? 1 : p<0.55 ? 2 : 3;
+            if(w!==want){
+              want=w;
+              if(want<shown || (busy && want<=shown)){ run++; busy=false; shown=want; settle(shown); }
+              pump();
+            }
+          }
+          // Keep the whole stage on short phones.
+          function fit(){
+            stage.style.transform='';
+            var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-72;
+            if(h>room) stage.style.transform='scale('+(room/h).toFixed(3)+')';
+          }
+          var ticking=false;
+          window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
+          window.addEventListener('resize',function(){ fit(); onScroll(); });
+          var c0=card.getBoundingClientRect();
+          touch.style.transform='translate('+(card.offsetWidth*0.5)+'px,'+(card.offsetHeight*0.98)+'px)';
+          settle(0); fit(); onScroll();
         })();
         </script>
       </section>
