@@ -143,6 +143,8 @@
   /* Totals for the creators on the chart, between the slider and the plot. */
   /* Same grey boxes as the stat tiles at the top of the page (.cmStat). */
   .costSum { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 28px 0 36px; }
+  /* Individual creator prices are blurred; the real figure is never put in the page. */
+  .blurred { filter: blur(5px); user-select: none; -webkit-user-select: none; }
   .costNote { margin: 20px 0 0; color: var(--muted); font-size: var(--fs-sub); font-weight: 500; font-style: italic; }
   .costAxis { grid-column: 2; padding-top: 8px; text-align: center; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
 
@@ -677,6 +679,9 @@
     return String(n);
   }
   function fmtRs(n) { return "Rs. " + Number(n || 0).toLocaleString("en-US"); }
+  // A single creator's price is never shown: a blurred placeholder takes its place.
+  var PRICE_MASK = "Rs. 00.0K";
+  function blurPrice(text) { return '<span class="blurred" aria-hidden="true">' + (text || PRICE_MASK) + '</span>'; }
   // Round axis steps (1, 2, 2.5, 5 x 10^k) giving at most five gridlines.
   function niceStep(max) {
     var raw = max / 5, p = Math.pow(10, Math.floor(Math.log10(raw || 1)));
@@ -696,7 +701,7 @@
     var sum = rows.reduce(function (s, c) { return s + c.cost; }, 0);
     $("costSum").innerHTML = '<div class="cmStat"><b>' + fmtRs(sum) + '</b><span>Total for one reel from each of ' + rows.length + (rows.length === 1 ? ' creator' : ' creators') + (missing ? ' (' + missing + ' without a cost left out)' : '') + '</span></div>'
       + '<div class="cmStat"><b>Rs. ' + fmtK(Math.round(sum / rows.length)) + '</b><span>Average per reel</span></div>'
-      + '<div class="cmStat"><b>Rs. ' + fmtK(Math.min.apply(null, rows.map(function (c) { return c.cost; }))) + '–' + fmtK(Math.max.apply(null, rows.map(function (c) { return c.cost; }))) + '</b><span>Cheapest to priciest</span></div>';
+      + '<div class="cmStat"><b>' + blurPrice("Rs. 00.0K–00.0K") + '</b><span>Cheapest to priciest</span></div>';
     var costs = rows.map(function (c) { return c.cost; }), hi = Math.max.apply(null, costs), lo = Math.min.apply(null, costs);
     var step = niceStep(hi), top = Math.ceil(hi / step) * step, ticks = [];
     if (hi / top > 0.9) top += step; // headroom for the top point's label
@@ -704,7 +709,7 @@
     var sorted = rows.map(function (c) { return c.cost; }).sort(function (a, b) { return a - b; }), m = sorted.length;
     var median = m % 2 ? sorted[(m - 1) / 2] : (sorted[m / 2 - 1] + sorted[m / 2]) / 2;
 
-    el.innerHTML = '<div class="costY">' + ticks.map(function (t) { return '<span style="bottom:' + (t / top * 100) + '%">' + (t ? "Rs. " + fmtK(t) : "0") + '</span>'; }).join("") + '</div>'
+    el.innerHTML = '<div class="costY">' + ticks.map(function (t) { return '<span style="bottom:' + (t / top * 100) + '%">' + (t ? blurPrice() : "0") + '</span>'; }).join("") + '</div>'
       + '<div class="costPlot" id="costPlot"></div>'
       + '<div class="costX">' + rows.map(function (c) { return '<span class="' + (selected === c.id ? 'on' : '') + '" title="' + esc(nameOf(c)) + '">' + esc(nameOf(c).split(" ")[0]) + '</span>'; }).join("") + '</div>'
       + '<div class="costAxis">Creators</div>';
@@ -735,26 +740,28 @@
     }
     var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
     var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">'
+      + '<defs><filter id="priceBlur" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="3"/></filter></defs>'
       + ticks.slice(1).map(function (t) { return '<line class="gl" x1="0" x2="' + W + '" y1="' + Y(t) + '" y2="' + Y(t) + '"/>'; }).join("")
       + '<line class="med" x1="0" x2="' + W + '" y1="' + Y(median) + '" y2="' + Y(median) + '"/>'
       + '<path class="ln" d="' + line + '"/>'
-      + '<text class="medl" x="' + medX + '" y="' + (Y(median) - 6) + '" text-anchor="middle">Median ' + "Rs. " + fmtK(median) + '</text>'
+      + '<text class="medl" x="' + (medX - 2) + '" y="' + (Y(median) - 6) + '" text-anchor="end">Median</text>'
+      + '<text class="medl" x="' + (medX + 2) + '" y="' + (Y(median) - 6) + '" filter="url(#priceBlur)">' + PRICE_MASK + '</text>'
       + rows.map(function (c, k) {
         var on = selected === c.id, lab = c.cost === hi || c.cost === lo || on;
         return '<circle class="pt' + (on ? ' on' : '') + '" cx="' + pts[k][0] + '" cy="' + pts[k][1] + '" r="' + (on ? 6 : 4.5) + '"/>'
-          + (lab ? '<text class="pv" x="' + pts[k][0] + '" y="' + labelY(k) + '" text-anchor="middle">Rs. ' + fmtK(c.cost) + '</text>' : '');
+          + (lab ? '<text class="pv" x="' + pts[k][0] + '" y="' + labelY(k) + '" text-anchor="middle" filter="url(#priceBlur)">' + PRICE_MASK + '</text>' : '');
       }).join("")
       + '</svg>';
     // One invisible full-height hit column per creator: easier to hover than the dot.
     plot.innerHTML = svg + '<div class="costHits">' + rows.map(function (c) {
-      return '<button type="button" class="ch" data-id="' + c.id + '" aria-label="' + esc(nameOf(c)) + ', ' + fmtRs(c.cost) + ' per reel"></button>';
+      return '<button type="button" class="ch" data-id="' + c.id + '" aria-label="' + esc(nameOf(c)) + '"></button>';
     }).join("") + '</div>';
 
     plot.querySelectorAll(".ch").forEach(function (b) {
       var c = rows.find(function (r) { return r.id === b.dataset.id; });
       b.onclick = function () { select(c.id); };
       b.onmousemove = function (e) {
-        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + fmtRs(c.cost) + ' per reel<br>' + dots([c.platform, fmtK(c.followers) + ' followers', tierOf(c.followers).name]);
+        tipEl.innerHTML = '<b>' + esc(nameOf(c)) + '</b><br>' + blurPrice() + ' per reel<br>' + dots([c.platform, fmtK(c.followers) + ' followers', tierOf(c.followers).name]);
         tipEl.style.opacity = 1;
         var box = el.parentElement.getBoundingClientRect();
         var left = e.clientX - box.left + 14, topPx = e.clientY - box.top + 14;
@@ -1018,7 +1025,7 @@
     $("profile").innerHTML = '<div class="who">' + avatar(s, "xl") + '<p class="h">' + esc(nameOf(s)) + '</p><p class="t">' + dots([tierOf(s.followers).name + ' tier', s.platform]) + '</p></div>'
       + '<div class="sec"><h3>Social profiles</h3><p class="social">' + IG_ICON + '<b>' + fmtK(s.followers) + '</b> Followers'
       + (h ? ' &middot; <a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener noreferrer">@' + esc(h) + '</a>' : '') + '</p></div>'
-      + '<div class="sec stats"><div><b>' + (s.cost > 0 ? "Rs. " + fmtK(s.cost) : "–") + '</b><span>Cost per reel</span></div><div><b>' + esc(s.age) + '</b><span>Audience age</span></div></div>'
+      + '<div class="sec stats"><div><b>' + (s.cost > 0 ? blurPrice() : "–") + '</b><span>Cost per reel</span></div><div><b>' + esc(s.age) + '</b><span>Audience age</span></div></div>'
       + '<div class="sec"><h3>Audience</h3><dl>'
       + '<dt>Personas</dt><dd>' + tagList(personasOf(s)) + '</dd>'
       + (stylesOf(s).length ? '<dt>Content style</dt><dd>' + tagList(stylesOf(s)) + '</dd>' : '')
