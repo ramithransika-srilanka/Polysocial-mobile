@@ -38,40 +38,6 @@ window.CREATOR_MAP = {
   filterPersonas: ["Dadfluencer", "Social runner", "Lifestyle runner", "Fitness coach"],
   creators: [
     {
-      name: "Dithmini De Silva",
-      handle: "dithiiiii",
-      photo: "avatars/dithmini-de-silva.webp",
-      platform: "Instagram",
-      followers: 5900,
-      cost: 17647,
-      personas: ["Travel Influencer", "Consumer UGC creator", "Lifestyle UGC creator", "Social runner"],
-      reels: "reels/dithmini-de-silva.md",
-      styles: null,
-      community: "Young women in Colombo interested in travel diaries, restaurant finds and lifestyle moments",
-      age: "25–34",
-      lifestyle: "Middle-income",
-      location: "Colombo city",
-      gender: "Mostly women",
-      language: "English"
-    },
-    {
-      name: "Kyle",
-      handle: "_kyloooo_",
-      photo: "avatars/kyle.webp",
-      platform: "Instagram",
-      followers: 5100,
-      cost: 11765,
-      personas: ["Social runner", "Lifestyle runner", "Lifestyle UGC creator"],
-      reels: "reels/kyle.md",
-      styles: null,
-      community: "Young runners in Colombo interested in community runs, run clubs and run-rave culture",
-      age: "18–34",
-      lifestyle: "Middle-income",
-      location: "Colombo city",
-      gender: "Mostly men",
-      language: "English"
-    },
-    {
       name: "Belinda Seneviratne",
       handle: "belinda_seneviratne",
       photo: "avatars/belinda-seneviratne.webp",
@@ -162,6 +128,40 @@ window.CREATOR_MAP = {
   // Off the map for now but kept for later. The page only reads `creators`;
   // to bring someone back, move their entry into that list.
   parked: [
+    {
+      name: "Kyle",
+      handle: "_kyloooo_",
+      photo: "avatars/kyle.webp",
+      platform: "Instagram",
+      followers: 5100,
+      cost: 11765,
+      personas: ["Social runner", "Lifestyle runner", "Lifestyle UGC creator"],
+      reels: "reels/kyle.md",
+      styles: null,
+      community: "Young runners in Colombo interested in community runs, run clubs and run-rave culture",
+      age: "18–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly men",
+      language: "English"
+    },
+    {
+      name: "Dithmini De Silva",
+      handle: "dithiiiii",
+      photo: "avatars/dithmini-de-silva.webp",
+      platform: "Instagram",
+      followers: 5900,
+      cost: 17647,
+      personas: ["Travel Influencer", "Consumer UGC creator", "Lifestyle UGC creator", "Social runner"],
+      reels: "reels/dithmini-de-silva.md",
+      styles: null,
+      community: "Young women in Colombo interested in travel diaries, restaurant finds and lifestyle moments",
+      age: "25–34",
+      lifestyle: "Middle-income",
+      location: "Colombo city",
+      gender: "Mostly women",
+      language: "English"
+    },
     {
       name: "Lelumi Jagoda",
       handle: "le.lumii",
