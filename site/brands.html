@@ -1132,6 +1132,7 @@
           .rvCard.no .rvStamp { background: #E5484D; }
           .rvCard.ok .rvStamp, .rvCard.no .rvStamp { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 
+          @media (min-width: 768px) { .rvBr { display: none; } }
           .rvGuard { max-width: 300px; margin: 32px auto 0; font-size: 10px; line-height: 1.4; font-style: italic; font-weight: 500; color: #8A8A8E; text-align: center; }
 
           @media (prefers-reduced-motion: reduce) {
@@ -1148,7 +1149,7 @@
           <div class="rvDeck"></div>
         </div>
 
-        <p class="rvGuard ov-reveal">*Content that breaks your brand guidelines is auto-rejected.</p>
+        <p class="rvGuard ov-reveal">*Content that breaks your brand<br class="rvBr"> guidelines is auto-rejected.</p>
 
         <script>
         /* Content review, swipe style (plays only while on screen).
