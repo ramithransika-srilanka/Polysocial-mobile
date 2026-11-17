@@ -466,7 +466,7 @@
   /* Phones: every section is one screen tall with its content centred
      (the sticky nav is accounted for at the top). */
   @media (max-width: 767px) {
-    #rvSection, #agreeScreen section[data-screen-label="Community"], #agreeScreen section[data-screen-label="How to start"],
+    #rvSection, #agreeScreen section[data-screen-label="Community"],
     #brandsForSection, #agreeScreen section[data-screen-label="Supplementary services"], #talkSection {
       min-height: 100vh; min-height: 100dvh; box-sizing: border-box;
       display: flex; flex-direction: column; justify-content: center;
@@ -552,11 +552,6 @@
   .clMob { display: none !important; }
   .clDesk { display: block !important; }
 
-  /* How to start */
-  #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #htsStepper { margin: 0 var(--edge) 40px !important; }
-  #htsTrack { gap: 22px !important; padding-top: 4px !important; padding-bottom: 8px !important; }
-  #htsTrack .htsCard { width: 340px !important; max-width: 340px !important; }
 
   /* Who it's for */
   #brandsForSection { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
@@ -1359,71 +1354,6 @@
         </div>
       </section>
 
-      <!-- 3. How to start -->
-      <section data-screen-label="How to start" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 0; background: #F6F6F6; overflow: hidden;">
-
-        <h2 class="ov-reveal" style="margin: 0 28px 26px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; transition-delay: 0.05s;">You can start<br>right away</h2>
-
-        <!-- Stepper -->
-        <div id="htsStepper" class="ov-reveal" role="tablist" aria-label="Steps" style="display: flex; align-items: center; justify-content: center; margin: 0 28px 34px; transition-delay: 0.1s;">
-          <button type="button" class="htsStep" data-step="0" role="tab" aria-label="Step 1" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #1548EB; color: #FFFFFF; box-shadow: 0 6px 18px rgba(21,72,235,0.28); transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: none;">1</span><span class="htsWord" style="display: inline; padding: 0 18px; font-size: 14px; font-weight: 500">Start</span>
-          </button>
-          <span class="htsLine" aria-hidden="true" style="flex: none; width: 26px; height: 2px; background: #D6D6D6;"></span>
-          <button type="button" class="htsStep" data-step="1" role="tab" aria-label="Step 2" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #E4E4E4; color: #8A8A8A; box-shadow: none; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: inline;">2</span><span class="htsWord" style="display: none; padding: 0 18px;">Then</span>
-          </button>
-          <span class="htsLine" aria-hidden="true" style="flex: none; width: 26px; height: 2px; background: #D6D6D6;"></span>
-          <button type="button" class="htsStep" data-step="2" role="tab" aria-label="Step 3" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #E4E4E4; color: #8A8A8A; box-shadow: none; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: inline;">3</span><span class="htsWord" style="display: none; padding: 0 18px;">Almost</span>
-          </button>
-          <span class="htsLine" aria-hidden="true" style="flex: none; width: 26px; height: 2px; background: #D6D6D6;"></span>
-          <button type="button" class="htsStep" data-step="3" role="tab" aria-label="Step 4" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #E4E4E4; color: #8A8A8A; box-shadow: none; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: inline;">4</span><span class="htsWord" style="display: none; padding: 0 18px;">Done</span>
-          </button>
-        </div>
-
-        <!-- Horizontal card slider -->
-        <div id="htsTrack" class="noScrollbar ov-reveal" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 28px 8px; transition-delay: 0.16s;">
-          <div class="htsCard" data-card="0" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-1.720w.c45b08746e.avif"><source type="image/webp" srcset="assets/img/brand-start-1.720w.e8d598c7bc.webp"><img src="assets/img/brand-start-1.fallback.9f51c1d154.png" alt="Create Campaign" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Create Campaign</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Tell us your goal, budget, and target audience. Be specific about your requirements.</p>
-            </div>
-          </div>
-          <div class="htsCard" data-card="1" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-2.720w.4093cc4a95.avif"><source type="image/webp" srcset="assets/img/brand-start-2.720w.67400516d6.webp"><img src="assets/img/brand-start-2.fallback.69072b6341.png" alt="Creators Come to You" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Creators Come to You</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Your community of creators will create content based on your requirements and submit it for your review.</p>
-            </div>
-          </div>
-          <div class="htsCard" data-card="2" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-3.720w.9850263204.avif"><source type="image/webp" srcset="assets/img/brand-start-3.720w.d584244e4f.webp"><img src="assets/img/brand-start-3.fallback.4c22a97b1d.png" alt="Approve Content" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Approve Content</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Approve the content that matches your requirements, or request revisions.</p>
-            </div>
-          </div>
-          <div class="htsCard" data-card="3" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-4.720w.730cd0e546.avif"><source type="image/webp" srcset="assets/img/brand-start-4.720w.99e3bdafca.webp"><img src="assets/img/brand-start-4.fallback.1c300f85dd.png" alt="Let the Campaign Run" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Let the Campaign Run</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Your campaign message will reach your customers through your creator community.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- 4. This is for (styled like the creators page's "We are calling for") -->
       <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 24px; background: #F6F6F6; text-align: center;">
         <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212;">This call is for</h2>
@@ -1840,58 +1770,6 @@
       window.addEventListener('scroll',onScroll,{ passive:true });
       window.addEventListener('resize',onScroll,{ passive:true });
       apply();
-    };
-
-    api._armHowToStart = function(tries){
-      tries=tries||0;
-      var stepper=document.getElementById('htsStepper'), track=document.getElementById('htsTrack');
-      if(!stepper||!track){ if(tries<60) setTimeout(function(){api._armHowToStart(tries+1);},80); return; }
-      var steps=[].slice.call(stepper.querySelectorAll('.htsStep'));
-      var cards=[].slice.call(track.querySelectorAll('.htsCard'));
-      if(!steps.length||!cards.length) return;
-      var active=0;
-      // Symmetric side padding so the FIRST and LAST cards can actually reach
-      // the centre of the track (scroll-snap-align: center needs room on both
-      // ends). Recomputed on resize since card + track widths change between
-      // the mobile and desktop layouts.
-      function pad(){
-        var cw=cards[0].offsetWidth;
-        var side=Math.max(0,(track.clientWidth-cw)/2);
-        track.style.paddingLeft=side+'px';
-        track.style.paddingRight=side+'px';
-      }
-      // Scroll so card i sits centred in the track.
-      function centerOn(i,smooth){
-        var card=cards[i];
-        var left=card.offsetLeft-track.offsetLeft-(track.clientWidth-card.offsetWidth)/2;
-        track.scrollTo({ left: left, behavior: smooth?'smooth':'auto' });
-      }
-      function paint(i){
-        steps.forEach(function(btn,idx){
-          var on=idx===i, num=btn.querySelector('.htsNum'), word=btn.querySelector('.htsWord');
-          btn.style.background=on?'#1548EB':'#E4E4E4';
-          btn.style.color=on?'#FFFFFF':'#8A8A8A';
-          btn.style.boxShadow=on?'0 6px 18px rgba(21,72,235,0.28)':'none';
-          if(num) num.style.display=on?'none':'inline';
-          if(word) word.style.display=on?'inline':'none';
-          btn.setAttribute('aria-selected',on?'true':'false');
-        });
-      }
-      steps.forEach(function(btn,idx){ btn.addEventListener('click',function(){
-        active=idx; paint(active); centerOn(active,true);
-      }); });
-      var raf=null;
-      track.addEventListener('scroll',function(){
-        if(raf) return;
-        raf=requestAnimationFrame(function(){
-          raf=null;
-          var mid=track.scrollLeft+track.clientWidth/2, best=0, bd=Infinity;
-          cards.forEach(function(c,idx){ var cm=c.offsetLeft-track.offsetLeft+c.offsetWidth/2, d=Math.abs(cm-mid); if(d<bd){bd=d;best=idx;} });
-          if(best!==active){ active=best; paint(active); }
-        });
-      },{ passive:true });
-      window.addEventListener('resize',function(){ pad(); centerOn(active,false); });
-      pad(); paint(0); centerOn(0,false);
     };
 
     api._armCommunityMorph = function(tries){
@@ -2369,7 +2247,7 @@
     function boot(){
       var root=document.getElementById('appRoot'); if(root) root.classList.add('loaded');
       var safe=function(fn){ try{ fn(); }catch(e){ console.warn('init',e); } };
-      safe(api._armMenu); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armHowToStart); safe(api._armCallFocus); safe(api._armGrowGL);
+      safe(api._armMenu); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armCallFocus); safe(api._armGrowGL);
     }
     if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
     else boot();
