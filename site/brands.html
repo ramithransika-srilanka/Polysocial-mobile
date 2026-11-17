@@ -651,17 +651,17 @@
           #coPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
           #coStage { width: 100%; transform-origin: 50% 50%; }
           /* Pager-style control pinned to the bottom of the stage */
-          .coCtl { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: flex; align-items: center; gap: 10px; transform: translateX(-50%); transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
-          .coProg { position: relative; width: 168px; height: 44px; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
-          .coProg::before, .coProg i { content: ""; position: absolute; left: 22px; right: 22px; top: 50%; height: 6px; margin-top: -3px; border-radius: 999px; }
+          .coCtl { display: flex; width: max-content; align-items: center; gap: 8px; margin: 24px auto 0; transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
+          .coProg { position: relative; width: 132px; height: 36px; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
+          .coProg::before, .coProg i { content: ""; position: absolute; left: 16px; right: 16px; top: 50%; height: 5px; margin-top: -2.5px; border-radius: 999px; }
           .coProg::before { background: rgba(60,60,67,0.18); }
           .coProg i { display: block; background: #3C3C43; clip-path: inset(0 100% 0 0 round 999px); }
-          .coSkip { appearance: none; width: 44px; height: 44px; border: 0; padding: 0; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s var(--co-ease), background-color 0.2s ease; }
+          .coSkip { appearance: none; width: 36px; height: 36px; border: 0; padding: 0; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s var(--co-ease), background-color 0.2s ease; }
           .coSkip:active { transform: scale(0.92); }
           @media (hover: hover) and (pointer: fine) { .coSkip:hover { background: rgba(118,118,128,0.2); } }
           .coSkip:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
           /* Not needed once the story has reached the quote */
-          #coSection.coFinal .coCtl { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
+          #coSection.coFinal .coCtl { opacity: 0; transform: translateY(8px); pointer-events: none; }
           #coSection .coHead { margin: 0 0 32px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           #coCard { position: relative; width: 100%; max-width: 345px; height: 470px; margin: 0 auto; border-radius: 32px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(18,18,18,0.04), 0 18px 48px rgba(18,31,96,0.10); overflow: hidden; isolation: isolate; -webkit-user-select: none; user-select: none; }
 
@@ -792,13 +792,6 @@
         </style>
 
         <div id="coPin">
-        <!-- Progress through the checkout story + skip straight to the quote -->
-        <div class="coCtl" id="coCtl">
-          <div class="coProg" role="progressbar" aria-label="Checkout story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="coBarFill"></i></div>
-          <button type="button" class="coSkip" id="coSkip" aria-label="Skip to the end">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#121212" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
         <div id="coStage">
         <h2 class="coHead ov-reveal">It starts<br>at checkout</h2>
 
@@ -883,6 +876,13 @@
             <p class="coSub">Every customer is personally invited to join your creator community. We identify each buyer and reach them openly, through various channels.</p>
           </div>
         </div>
+        </div>
+        <!-- Progress through the checkout story + skip straight to the quote -->
+        <div class="coCtl" id="coCtl">
+          <div class="coProg" role="progressbar" aria-label="Checkout story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="coBarFill"></i></div>
+          <button type="button" class="coSkip" id="coSkip" aria-label="Skip to the end">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#121212" stroke-width="2.4" transform="translate(12 12) scale(0.85) translate(-12 -12)" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
 
         </div>
@@ -1012,9 +1012,9 @@
           // Keep the whole stage on short phones.
           function fit(){
             stage.style.transform='';
-            var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-156;
+            var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-80;
             if(h>room) stage.style.transform='scale('+(room/h).toFixed(3)+')';
-            var hd=sec.querySelector('.coHead'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0; sec.style.setProperty('--co-head-shift', ((hd.offsetHeight+m)/2)+'px'); }
+            var hd=sec.querySelector('.coHead'), ct=document.getElementById('coCtl'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0, below=ct?(ct.offsetHeight+(parseFloat(getComputedStyle(ct).marginTop)||0)):0; sec.style.setProperty('--co-head-shift', (((hd.offsetHeight+m)-below)/2)+'px'); }
           }
           var ticking=false;
           window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
