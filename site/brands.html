@@ -1304,67 +1304,72 @@
       </section>
 
       <!-- Community: a ring cluster of creators. Faces pop in from the centre out, then each ring drifts slowly. -->
-      <section id="commSection" data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 24px; background: #FFFFFF; overflow: hidden; text-align: center;">
+      <section id="commSection" data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 24px; background: #FFFFFF; overflow: visible; text-align: center;">
         <style>
-          #commSection { --cm-out: cubic-bezier(0.23,1,0.32,1); --cm-pop: cubic-bezier(0.34,1.45,0.64,1); }
-          .cmCluster { position: relative; width: min(340px, 100%); aspect-ratio: 1; margin: 0 auto 40px; }
-          .cmRing { position: absolute; inset: 0; }
-          .cmFace { position: absolute; left: 50%; top: 50%; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); }
-          .cmFace i { display: block; width: 100%; height: 100%; border-radius: 999px; background: #E9E9EC center / cover no-repeat; box-shadow: 0 0 0 2px #FFFFFF, 0 4px 12px rgba(18,31,96,0.10);
-                      opacity: 0; transform: scale(0.6); transition: opacity 0.35s var(--cm-out), transform 0.55s var(--cm-pop); transition-delay: var(--d, 0s); }
-          #commSection.in .cmFace i { opacity: 1; transform: scale(1); }
-          /* Slow, opposite drifts once everyone is in; faces counter-turn to stay upright */
-          @keyframes cmSpin { to { transform: rotate(360deg); } }
-          @keyframes cmUnspin { to { transform: rotate(-360deg); } }
-          #commSection.drift .cmRing { animation: cmSpin var(--t) linear infinite; animation-direction: var(--dir); }
-          #commSection.drift .cmRing .cmFace > span { display: block; width: 100%; height: 100%; animation: cmUnspin var(--t) linear infinite; animation-direction: var(--dir); }
-          .cmFace > span { display: block; width: 100%; height: 100%; }
+          .cmCluster { position: relative; width: min(360px, 100%); aspect-ratio: 1; margin: 0 auto 40px; }
+          .cmFace { position: absolute; left: 50%; top: 50%; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); border-radius: 999px; background: #E9E9EC center / cover no-repeat; box-shadow: 0 0 0 2px #FFFFFF, 0 4px 12px rgba(18,31,96,0.10); will-change: transform, opacity; }
           #commSection h2 { margin: 0 auto; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-wrap: balance; }
           #commSection h2 .mute { color: #ADADAD; }
-          @media (prefers-reduced-motion: reduce) {
-            .cmFace i { transform: none; transition: opacity 0.4s ease; }
-            #commSection.drift .cmRing, #commSection.drift .cmRing .cmFace > span { animation: none; }
-          }
         </style>
 
         <div class="cmCluster" aria-hidden="true"></div>
         <h2 class="ov-reveal"><span class="mute">Build a community of</span> content creators <span class="mute">around your brand.</span></h2>
 
         <script>
+        /* Community cluster: three rings of creators (no centre face). Scroll drives a
+           zoom-out: while the section comes into view the cluster starts zoomed in,
+           faces large and pushed past the screen edges, and gathers into its rings as
+           you scroll. The scroll value is smoothed so the motion glides, and faces
+           fade in on the way so none pop out of nowhere. Scrolling back zooms in. */
         (function(){
           var sec=document.getElementById('commSection'); if(!sec) return;
           var box=sec.querySelector('.cmCluster');
-          // Rings as % of the cluster: radius, face size, count, start angle, drift seconds, direction
-          var RINGS=[
-            { r:0,  s:11, n:1, a:0,   t:0,   dir:'normal' },
-            { r:14, s:10, n:6, a:15,  t:90,  dir:'normal' },
-            { r:28, s:14, n:8, a:0,   t:120, dir:'reverse' },
-            { r:42, s:16, n:9, a:10,  t:150, dir:'normal' }
-          ];
-          var k=0, ringIndex=0;
-          RINGS.forEach(function(R){
-            var ring=document.createElement('div'); ring.className='cmRing';
-            ring.style.setProperty('--t',(R.t||1)+'s'); ring.style.setProperty('--dir',R.dir);
+          var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          // radius and face size as % of the cluster, count, start angle
+          var RINGS=[ { r:15, s:9, n:7, a:-90 }, { r:29, s:12, n:11, a:-75 }, { r:43, s:13.5, n:15, a:-90 } ];
+          var faces=[], k=0;
+          RINGS.forEach(function(R,ri){
             for(var i=0;i<R.n;i++){
               var ang=(R.a+360*i/R.n)*Math.PI/180;
-              var f=document.createElement('div'); f.className='cmFace';
-              f.style.setProperty('--s',R.s+'%');
-              f.style.transform='translate('+(Math.cos(ang)*R.r/R.s*100)+'%,'+(Math.sin(ang)*R.r/R.s*100)+'%)';
-              k++; var img='assets/img/brands-comm-'+k+'.webp';
-              f.innerHTML='<span><i style="background-image:url('+img+'); --d:'+(ringIndex*0.12+i*0.035).toFixed(3)+'s"></i></span>';
-              ring.appendChild(f);
+              var jit=((i*37+ri*11)%7-3)*0.35;          // small organic wobble in radius
+              var el=document.createElement('div'); el.className='cmFace';
+              el.style.setProperty('--s',R.s+'%');
+              el.style.backgroundImage='url(assets/img/brands-comm-'+((k++%24)+1)+'.webp)';
+              box.appendChild(el);
+              faces.push({ el:el, ux:Math.cos(ang), uy:Math.sin(ang), r:R.r+jit, ring:ri });
             }
-            if(!R.t) ring.style.animation='none';
-            box.appendChild(ring); ringIndex++;
           });
-          var t;
-          function enter(){ sec.classList.add('in'); clearTimeout(t); t=setTimeout(function(){ sec.classList.add('drift'); },1100); }
-          function leave(){ clearTimeout(t); sec.classList.remove('in','drift'); }
-          if('IntersectionObserver' in window){
-            new IntersectionObserver(function(es){ es.forEach(function(e){
-              if(e.isIntersecting) enter(); else if(e.boundingClientRect.top>0) leave();
-            }); },{ threshold: 0.35 }).observe(box);
-          } else enter();
+
+          var size=0;
+          function measure(){ size=box.offsetWidth; }
+          function ease(x){ return 1-Math.pow(1-x,3); }
+          function render(p){
+            var e=ease(p);
+            for(var i=0;i<faces.length;i++){
+              var f=faces[i], spread=1+(1-e)*(1.6+f.ring*0.35);   // outer rings travel farther
+              var d=f.r/100*size*spread, sc=1+(1-e)*0.9;
+              f.el.style.transform='translate('+(f.ux*d).toFixed(1)+'px,'+(f.uy*d).toFixed(1)+'px) scale('+sc.toFixed(3)+')';
+              f.el.style.opacity=Math.min(1, 0.15+e*1.4).toFixed(3);
+            }
+          }
+          function target(){
+            var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+            var p=(vh*0.55 - r.top)/(vh*0.55);               // zooms while the cluster is on screen; settled once the section fills it
+            return p<0?0:p>1?1:p;
+          }
+          measure();
+          if(reduce){ render(1); return; }
+          var cur=target(), raf=0;
+          render(cur);
+          function tick(){
+            var t=target(); cur+= (t-cur)*0.14;
+            if(Math.abs(t-cur)<0.001) cur=t;
+            render(cur);
+            raf = (cur===t) ? 0 : requestAnimationFrame(tick);
+          }
+          function kick(){ if(!raf) raf=requestAnimationFrame(tick); }
+          window.addEventListener('scroll',kick,{ passive:true });
+          window.addEventListener('resize',function(){ measure(); render(cur); kick(); });
         })();
         </script>
       </section>
