@@ -751,8 +751,15 @@
           .coBack p { opacity: 0; transform: translateY(8px); filter: blur(4px); transition: opacity 0.2s var(--co-ease), transform 0.2s var(--co-ease), filter 0.2s var(--co-ease); }
           #coFlip.flipped .coBack p { opacity: 1; transform: none; filter: blur(0); transition: opacity 0.5s var(--co-ease) 0.6s, transform 0.6s var(--co-ease) 0.6s, filter 0.5s var(--co-ease) 0.6s; }
 
+          /* Final text: the heading steps away and the text recentres in the screen */
+          #coSection .coHead.in, #coFlipWrap.in { transition: opacity 0.45s var(--co-ease), transform 0.6s var(--co-move), filter 0.45s var(--co-ease); }
+          #coSection.coFinal .coHead.in { opacity: 0; transform: translateY(-10px); filter: blur(4px); }
+          #coSection.coFinal #coFlipWrap.in { transform: translateY(calc(-1 * var(--co-head-shift, 36px))); }
+
           @media (prefers-reduced-motion: reduce) {
             .coTouch { display: none; }
+            #coSection.coFinal .coHead.in { transform: none; filter: none; }
+            #coSection.coFinal #coFlipWrap.in { transform: none; }
             .coSheet { transform: none; opacity: 0; transition: opacity 0.3s ease; }
             #coCard.sheetOpen .coSheet { opacity: 1; }
             .coGrid, #coCard.sheetOpen .coGrid { transform: none; }
@@ -900,7 +907,7 @@
             badge.classList.toggle('on', n>=3); if(n>=3) badge.textContent='3';
             card.classList.toggle('noteOpen', n>=4); card.classList.toggle('noteMore', n>=4);
             accepted(n>=4);
-            flip.classList.toggle('flipped', n>=5);
+            flip.classList.toggle('flipped', n>=5); sec.classList.toggle('coFinal', n>=5);
             step(Math.min(n,4)-1);
           }
           function accepted(on){ accLabel.classList.toggle('hide',on); accDone.classList.toggle('hide',!on); accept.classList.toggle('done',on); }
@@ -935,7 +942,7 @@
                 .then(function(){ accepted(true); hideTouch(); return wait(300,id); });
             },
             function(id){ // 5. Flip the whole card to the text-only back
-              hideTouch(); flip.classList.add('flipped');
+              hideTouch(); flip.classList.add('flipped'); sec.classList.add('coFinal');
               return wait(1100,id);
             }];
 
@@ -965,6 +972,7 @@
             stage.style.transform='';
             var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-72;
             if(h>room) stage.style.transform='scale('+(room/h).toFixed(3)+')';
+            var hd=sec.querySelector('.coHead'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0; sec.style.setProperty('--co-head-shift', ((hd.offsetHeight+m)/2)+'px'); }
           }
           var ticking=false;
           window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
