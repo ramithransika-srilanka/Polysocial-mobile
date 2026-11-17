@@ -1303,55 +1303,70 @@
         </script>
       </section>
 
-      <!-- 2. Community -->
-      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 12px 12px var(--sp-panel); background: #F6F6F6; overflow: hidden;">
-        <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
-             see the 768px block below); the title sits in a reserved top band
-             and #clGrid fills the lower part right down to the card's bottom
-             edge. The two bubble sets (.clMob / .clDesk) are real gravity-jammed
-             circle packings: every circle rests tangent to a neighbour (no
-             overlaps), the bottom row touches the card's bottom edge, and a few
-             circles bleed past the left/right edges to crop on the rounded
-             corner (overflow:hidden). Coordinates are % of #clGrid's box, so the
-             pack scales cleanly with the card. -->
-        <div id="clBox" class="ov-reveal" style="position: relative; width: 100%; aspect-ratio: 1000 / 1513; border-radius: clamp(24px, 6vw, 40px); background: #141414; overflow: hidden;">
-          <div id="clTitle" style="position: absolute; top: 0; left: 0; right: 0; height: 26%; display: flex; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; z-index: 200; pointer-events: none;">
-            <h2 style="margin: 0; font-weight: 600; font-size: clamp(26px, 5.4vw, 34px); line-height: 1.16; letter-spacing: -0.02em; color: #FFFFFF; text-align: center; text-wrap: balance;">Your community<br>is your <span class="clBrandWord" style="display: none;">brand&rsquo;s </span>vibe</h2>
-          </div>
-          <div id="clGrid" style="position: absolute; top: 26%; left: 0; right: 0; bottom: 0;">
-            <div class="cl-tile clMob" style="position:absolute; left:-7.000%; top:14.909%; width:34.000%; aspect-ratio:1/1; z-index:1; border-radius:999px; overflow:hidden; transition-delay:0.000s;"><img src="assets/img/community-secondary/s2.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:73.000%; top:15.775%; width:34.000%; aspect-ratio:1/1; z-index:2; border-radius:999px; overflow:hidden; transition-delay:0.018s;"><img src="assets/img/community-secondary/s1.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:26.915%; top:21.364%; width:15.434%; aspect-ratio:1/1; z-index:3; border-radius:999px; overflow:hidden; transition-delay:0.036s;"><img src="assets/img/community-primary/p7.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:39.889%; top:22.673%; width:34.000%; aspect-ratio:1/1; z-index:4; border-radius:999px; overflow:hidden; transition-delay:0.054s;"><img src="assets/img/community-primary/p3.jpg" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:19.296%; top:39.255%; width:15.238%; aspect-ratio:1/1; z-index:5; border-radius:999px; overflow:hidden; transition-delay:0.072s;"><img src="assets/img/community-primary/p6.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:79.966%; top:47.857%; width:27.034%; aspect-ratio:1/1; z-index:6; border-radius:999px; overflow:hidden; transition-delay:0.090s;"><img src="assets/img/community-secondary/s3.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:26.407%; top:48.700%; width:27.743%; aspect-ratio:1/1; z-index:7; border-radius:999px; overflow:hidden; transition-delay:0.108s;"><img src="assets/img/community-primary/p4.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:60.682%; top:50.464%; width:19.304%; aspect-ratio:1/1; z-index:8; border-radius:999px; overflow:hidden; transition-delay:0.126s;"><img src="assets/img/community-primary/p5.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:-4.653%; top:50.622%; width:31.325%; aspect-ratio:1/1; z-index:9; border-radius:999px; overflow:hidden; transition-delay:0.144s;"><img src="assets/img/community-primary/p10.jpg" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:45.031%; top:66.070%; width:31.664%; aspect-ratio:1/1; z-index:10; border-radius:999px; overflow:hidden; transition-delay:0.162s;"><img src="assets/img/community-primary/p8.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:16.788%; top:72.137%; width:28.716%; aspect-ratio:1/1; z-index:11; border-radius:999px; overflow:hidden; transition-delay:0.180s;"><img src="assets/img/community-primary/p9.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:75.980%; top:72.303%; width:31.020%; aspect-ratio:1/1; z-index:12; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><img src="assets/img/community-secondary/s4.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clMob" style="position:absolute; left:-7.000%; top:78.379%; width:24.216%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><img src="assets/img/community-secondary/s5.jpg" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+      <!-- Community: a ring cluster of creators. Faces pop in from the centre out, then each ring drifts slowly. -->
+      <section id="commSection" data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-panel) 24px; background: #FFFFFF; overflow: hidden; text-align: center;">
+        <style>
+          #commSection { --cm-out: cubic-bezier(0.23,1,0.32,1); --cm-pop: cubic-bezier(0.34,1.45,0.64,1); }
+          .cmCluster { position: relative; width: min(340px, 100%); aspect-ratio: 1; margin: 0 auto 40px; }
+          .cmRing { position: absolute; inset: 0; }
+          .cmFace { position: absolute; left: 50%; top: 50%; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); }
+          .cmFace i { display: block; width: 100%; height: 100%; border-radius: 999px; background: #E9E9EC center / cover no-repeat; box-shadow: 0 0 0 2px #FFFFFF, 0 4px 12px rgba(18,31,96,0.10);
+                      opacity: 0; transform: scale(0.6); transition: opacity 0.35s var(--cm-out), transform 0.55s var(--cm-pop); transition-delay: var(--d, 0s); }
+          #commSection.in .cmFace i { opacity: 1; transform: scale(1); }
+          /* Slow, opposite drifts once everyone is in; faces counter-turn to stay upright */
+          @keyframes cmSpin { to { transform: rotate(360deg); } }
+          @keyframes cmUnspin { to { transform: rotate(-360deg); } }
+          #commSection.drift .cmRing { animation: cmSpin var(--t) linear infinite; animation-direction: var(--dir); }
+          #commSection.drift .cmRing .cmFace > span { display: block; width: 100%; height: 100%; animation: cmUnspin var(--t) linear infinite; animation-direction: var(--dir); }
+          .cmFace > span { display: block; width: 100%; height: 100%; }
+          #commSection h2 { margin: 0 auto; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-wrap: balance; }
+          #commSection h2 .mute { color: #ADADAD; }
+          @media (prefers-reduced-motion: reduce) {
+            .cmFace i { transform: none; transition: opacity 0.4s ease; }
+            #commSection.drift .cmRing, #commSection.drift .cmRing .cmFace > span { animation: none; }
+          }
+        </style>
 
-            <div class="cl-tile clDesk" style="position:absolute; left:38.775%; top:2.525%; width:20.816%; aspect-ratio:1/1; z-index:1; border-radius:999px; overflow:hidden; transition-delay:0.000s;"><img src="assets/img/community-primary/p9.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:-5.000%; top:5.045%; width:16.567%; aspect-ratio:1/1; z-index:2; border-radius:999px; overflow:hidden; transition-delay:0.018s;"><img src="assets/img/community-secondary/s10.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:89.495%; top:9.335%; width:15.505%; aspect-ratio:1/1; z-index:3; border-radius:999px; overflow:hidden; transition-delay:0.036s;"><img src="assets/img/community-secondary/s9.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:10.489%; top:20.744%; width:15.823%; aspect-ratio:1/1; z-index:4; border-radius:999px; overflow:hidden; transition-delay:0.054s;"><img src="assets/img/community-primary/p10.jpg" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:67.184%; top:23.418%; width:20.069%; aspect-ratio:1/1; z-index:5; border-radius:999px; overflow:hidden; transition-delay:0.072s;"><img src="assets/img/community-primary/p7.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:26.310%; top:23.553%; width:13.046%; aspect-ratio:1/1; z-index:6; border-radius:999px; overflow:hidden; transition-delay:0.090s;"><img src="assets/img/community-primary/p6.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:58.945%; top:28.906%; width:8.680%; aspect-ratio:1/1; z-index:7; border-radius:999px; overflow:hidden; transition-delay:0.108s;"><img src="assets/img/community-primary/p5.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:-5.000%; top:47.174%; width:20.800%; aspect-ratio:1/1; z-index:8; border-radius:999px; overflow:hidden; transition-delay:0.126s;"><img src="assets/img/community-secondary/s7.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:84.641%; top:48.294%; width:20.359%; aspect-ratio:1/1; z-index:9; border-radius:999px; overflow:hidden; transition-delay:0.144s;"><img src="assets/img/community-secondary/s8.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:50.330%; top:50.066%; width:19.662%; aspect-ratio:1/1; z-index:10; border-radius:999px; overflow:hidden; transition-delay:0.162s;"><img src="assets/img/community-primary/p3.jpg" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:31.188%; top:51.383%; width:19.143%; aspect-ratio:1/1; z-index:11; border-radius:999px; overflow:hidden; transition-delay:0.180s;"><img src="assets/img/community-primary/p4.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:15.617%; top:60.266%; width:15.645%; aspect-ratio:1/1; z-index:12; border-radius:999px; overflow:hidden; transition-delay:0.198s;"><img src="assets/img/community-primary/p8.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-            <div class="cl-tile clDesk" style="position:absolute; left:70.019%; top:76.097%; width:9.412%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><img src="assets/img/community-secondary/s6.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
-          </div>
-        </div>
-        <div class="ov-reveal" style="margin: 20px auto 0; max-width: 44ch; padding: 0 24px; text-align: center; transition-delay: 0.5s;">
-          <h3 style="margin: 0; font-weight: 600; font-size: clamp(20px, 4.4vw, 24px); line-height: 1.2; letter-spacing: -0.02em; color: #121212; text-wrap: balance;">Build a community<br>around your brand</h3>
-          <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.55; font-weight: 500; color: #717171; text-wrap: pretty;">In a crowded market, customers have endless brands to choose from. Build a creator community that helps your brand stand out, build trust, and connect with customers on a deeper level.</p>
-        </div>
+        <div class="cmCluster" aria-hidden="true"></div>
+        <h2 class="ov-reveal"><span class="mute">Build a community of</span> content creators <span class="mute">around your brand.</span></h2>
+
+        <script>
+        (function(){
+          var sec=document.getElementById('commSection'); if(!sec) return;
+          var box=sec.querySelector('.cmCluster');
+          // Rings as % of the cluster: radius, face size, count, start angle, drift seconds, direction
+          var RINGS=[
+            { r:0,  s:11, n:1, a:0,   t:0,   dir:'normal' },
+            { r:14, s:10, n:6, a:15,  t:90,  dir:'normal' },
+            { r:28, s:14, n:8, a:0,   t:120, dir:'reverse' },
+            { r:42, s:16, n:9, a:10,  t:150, dir:'normal' }
+          ];
+          var k=0, ringIndex=0;
+          RINGS.forEach(function(R){
+            var ring=document.createElement('div'); ring.className='cmRing';
+            ring.style.setProperty('--t',(R.t||1)+'s'); ring.style.setProperty('--dir',R.dir);
+            for(var i=0;i<R.n;i++){
+              var ang=(R.a+360*i/R.n)*Math.PI/180;
+              var f=document.createElement('div'); f.className='cmFace';
+              f.style.setProperty('--s',R.s+'%');
+              f.style.transform='translate('+(Math.cos(ang)*R.r/R.s*100)+'%,'+(Math.sin(ang)*R.r/R.s*100)+'%)';
+              k++; var img='assets/img/brands-comm-'+k+'.webp';
+              f.innerHTML='<span><i style="background-image:url('+img+'); --d:'+(ringIndex*0.12+i*0.035).toFixed(3)+'s"></i></span>';
+              ring.appendChild(f);
+            }
+            if(!R.t) ring.style.animation='none';
+            box.appendChild(ring); ringIndex++;
+          });
+          var t;
+          function enter(){ sec.classList.add('in'); clearTimeout(t); t=setTimeout(function(){ sec.classList.add('drift'); },1100); }
+          function leave(){ clearTimeout(t); sec.classList.remove('in','drift'); }
+          if('IntersectionObserver' in window){
+            new IntersectionObserver(function(es){ es.forEach(function(e){
+              if(e.isIntersecting) enter(); else if(e.boundingClientRect.top>0) leave();
+            }); },{ threshold: 0.35 }).observe(box);
+          } else enter();
+        })();
+        </script>
       </section>
 
       <!-- 4. This is for (styled like the creators page's "We are calling for") -->
@@ -1772,237 +1787,6 @@
       apply();
     };
 
-    api._armCommunityMorph = function(tries){
-      tries=tries||0;
-      var overlay=document.getElementById('agreeScreen'), grid=document.getElementById('clGrid');
-      if(!overlay||!grid){ if(tries<60) setTimeout(function(){api._armCommunityMorph(tries+1);},80); return; }
-
-      // Pop-in cascade in true vertical order. The first time the cluster
-      // scrolls into view, each circle pops from the top of the grid downward —
-      // a short per-item stagger reads as the faces "raining" into place. After
-      // that each tile just keeps wobbling in place (see .cl-tile img / clWobble).
-      var allTiles=[].slice.call(grid.querySelectorAll('.cl-tile'));
-      var byTop=allTiles.slice().sort(function(a,b){
-        var at=(parseFloat(a.style.top)||0)+(parseFloat(a.style.height)||0)/2;
-        var bt=(parseFloat(b.style.top)||0)+(parseFloat(b.style.height)||0)/2;
-        return at-bt;
-      });
-
-      // Warm every community image (all static tiles in both breakpoints, plus
-      // the two emerging pebbles) ahead of the cascade. The tile <img decoding="async" loading="lazy">s are
-      // loading="lazy", so on their own the browser wouldn't fetch them until
-      // the grid is nearly on-screen — the same moment the pop-cascade runs,
-      // which made the faces fade in a beat after their circles popped. A
-      // preload observer with a generous bottom margin starts the fetch while
-      // the section is still ~1.5 screens away, so the images are decoded and
-      // cached by the time each circle animates in.
-      var warmed=false;
-      function warmImages(){
-        if(warmed) return; warmed=true;
-        var srcs={};
-        allTiles.forEach(function(el){
-          var img=el.querySelector('img'); if(img && img.getAttribute('src')) srcs[img.getAttribute('src')]=1;
-        });
-        srcs['assets/img/community-primary/p1.png']=1;
-        srcs['assets/img/community-primary/p2.png']=1;
-        Object.keys(srcs).forEach(function(src){ var im=new Image(); im.src=src; });
-      }
-      var warmIO=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ warmImages(); warmIO.disconnect(); } });
-      },{ root: null, threshold: 0, rootMargin: '0px 0px 150% 0px' });
-      warmIO.observe(grid);
-      var popped=false;
-      function popCascade(){
-        if(popped) return; popped=true;
-        // 55ms per tile stagger — with ~15 tiles this gives a ~800ms cascade,
-        // long enough to read as an entrance animation rather than a flash.
-        byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*55); });
-        // Two pebbles emerge in sequence after the cascade — a 100px one
-        // 2s after cascade end, then an 80px one 2s after that, each from a
-        // different intersection near the middle. Time-based physics, not
-        // stop-motion — the emergence and the neighbour displacements run in
-        // the same rAF loop with continuous separation, so each pop reads as
-        // one smooth, elastic ripple through the pack.
-        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if(reduce) return;
-        // Warm the two pebble images now, at cascade start, so they are decoded
-        // and cached well before each pebble is inserted 2s/4s later — otherwise
-        // the lazily-fetched image only appears after the grow animation.
-        ['assets/img/community-primary/p1.png','assets/img/community-primary/p2.png']
-          .forEach(function(src){ var im=new Image(); im.src=src; });
-        var cascadeMs = byTop.length*55 + 680; // last tile + one full transition
-        setTimeout(function(){ pebbleEmerge(50, 'assets/img/community-primary/p1.png'); }, cascadeMs + 2000); // 100px
-        setTimeout(function(){ pebbleEmerge(40, 'assets/img/community-primary/p2.png'); }, cascadeMs + 4000); // 80px
-      }
-
-      // Pebble images load eagerly (not lazy): the pebble is inserted at a
-      // precise, scripted moment, so its image must already be ready to paint.
-      function pebbleImageHTML(src){
-        return '<img loading="lazy" src="'+src+'" alt="" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;">';
-      }
-      // Extract the translate() already baked into a tile from a prior
-      // emergence, so the next one continues from wherever the previous
-      // ripple left it (instead of snapping the tile back to authored).
-      function priorTranslate(el){
-        var m=/translate\(\s*([-\d.]+)px\s*,\s*([-\d.]+)px/.exec(el.style.transform||'');
-        return m ? { x:parseFloat(m[1]), y:parseFloat(m[2]) } : { x:0, y:0 };
-      }
-
-      // Spawn points already used — the next emergence scores its candidates
-      // to be far from these, so the second pebble surfaces from a different
-      // crevice than the first.
-      var priorSpawns=[];
-
-      function pebbleEmerge(TARGET_R, imgSrc){
-        // Only the currently-visible layout participates in the physics; the
-        // other (display:none) breakpoint's tiles have zero box dimensions.
-        // Any previously-emerged pebble (also .cl-tile) is included, so it
-        // gets displaced by the newcomer just like an original tile.
-        var tiles=[].slice.call(grid.querySelectorAll('.cl-tile')).filter(function(el){
-          return el.offsetWidth > 0;
-        });
-        if(!tiles.length) return;
-        var gr=grid.getBoundingClientRect();
-        var W=gr.width, H=gr.height;
-        if(W<10||H<10) return;
-
-        var bodies=tiles.map(function(el){
-          var r=el.getBoundingClientRect();
-          var cx=r.left+r.width/2-gr.left, cy=r.top+r.height/2-gr.top;
-          // cx/cy IS the tile's live centre (getBoundingClientRect includes
-          // any translate already baked in), so physics continues from
-          // wherever the previous ripple left it. baseTx/baseTy remember
-          // that pre-existing translate so when this frame writes a new
-          // transform, we add ONTO it instead of overwriting it and
-          // snapping the tile back to its authored position.
-          var pt=priorTranslate(el);
-          return { el:el, x0:cx, y0:cy, x:cx, y:cy, r:r.width/2, spawn:false, baseTx:pt.x, baseTy:pt.y };
-        });
-
-        // Find a spawn point near the vertical middle that sits at a natural
-        // crevice — the point where the K nearest circles are closest to
-        // being tangent to a small disk placed there. We score candidates by
-        // how many existing circles would be lightly displaced (many is
-        // good — that reads as "emerging from an intersection"), penalise
-        // sitting deep inside any single circle, and penalise proximity to
-        // any previously-used spawn point so successive emergences pick
-        // visually distinct locations.
-        var best={x:W*0.5,y:H*0.6,score:-Infinity};
-        for(var sx=W*0.2; sx<=W*0.8; sx+=W*0.03){
-          for(var sy=H*0.28; sy<=H*0.78; sy+=H*0.04){
-            var deepest=-Infinity, contacts=0, sumOv=0;
-            for(var i=0;i<bodies.length;i++){
-              var b=bodies[i];
-              var d=Math.hypot(sx-b.x,sy-b.y);
-              var into=b.r - d;                    // >0 means inside body i
-              if(into>deepest) deepest=into;
-              var overlap=(b.r+TARGET_R)-d;        // overlap when spawn is inserted
-              if(overlap>0){ contacts++; sumOv+=overlap; }
-            }
-            var farBonus=0;
-            for(var p=0;p<priorSpawns.length;p++){
-              var pd=Math.hypot(sx-priorSpawns[p].x, sy-priorSpawns[p].y);
-              // Reward candidates well clear of prior spawn points; the
-              // reward saturates once we're a couple of pebble-diameters away.
-              farBonus += Math.min(pd, TARGET_R*4);
-            }
-            var score = contacts*8 - sumOv*0.25 - Math.max(0,deepest)*4 + farBonus*0.15;
-            if(score>best.score) best={x:sx,y:sy,score:score};
-          }
-        }
-        priorSpawns.push({x:best.x, y:best.y});
-
-        // Insert the pebble as a real DOM tile so it participates in the
-        // wobble animation once physics settles.
-        var pebble=document.createElement('div');
-        pebble.className='cl-tile cl-pebble pop';
-        pebble.innerHTML=pebbleImageHTML(imgSrc);
-        pebble.style.cssText='position:absolute; left:0; top:0; width:'+(TARGET_R*2)+'px; height:'+(TARGET_R*2)+'px; border-radius:999px; overflow:hidden; z-index:120; opacity:0; transition:none; transform: translate('+(best.x-TARGET_R)+'px, '+(best.y-TARGET_R)+'px) scale(0); transform-origin: center center;';
-        grid.appendChild(pebble);
-        // Force reflow so the transition below is honored on the opacity fade.
-        void pebble.offsetWidth;
-        pebble.style.transition='opacity 0.24s ease-out';
-        pebble.style.opacity='1';
-
-        var spawnBody={ el:pebble, x0:best.x, y0:best.y, x:best.x, y:best.y, r:0.0001, spawn:true, target:TARGET_R };
-        bodies.push(spawnBody);
-
-        // Clear any leftover CSS transition on displaced tiles — this loop
-        // drives their transforms directly every frame, and a CSS transition
-        // would fight rAF for who owns the value.
-        bodies.forEach(function(b){ if(!b.spawn){ b.el.style.transition='transform 0s'; } });
-
-        var t0=performance.now();
-        var GROW_MS=680;   // 0 -> 40px over ~0.7s
-        var SETTLE_MS=1200;// physics keeps easing beyond growth to remove residual overlap
-        function easeOut(t){ return 1 - Math.pow(1-t, 3); }
-
-        function frame(now){
-          var t=now-t0;
-          // Grow the spawn (ease-out for a natural "pop" feel).
-          var g=Math.min(1,t/GROW_MS);
-          spawnBody.r = easeOut(g) * spawnBody.target;
-
-          // Separation: several passes per frame so the ripple propagates
-          // quickly enough to keep up with the pebble's growth rate.
-          for(var pass=0; pass<4; pass++){
-            for(var i=0;i<bodies.length;i++){
-              for(var j=i+1;j<bodies.length;j++){
-                var a=bodies[i], b=bodies[j];
-                var dx=b.x-a.x, dy=b.y-a.y;
-                var d=Math.hypot(dx,dy)||0.0001;
-                var minD=a.r+b.r;
-                if(d<minD){
-                  var push=(minD-d), nx=dx/d, ny=dy/d;
-                  // The spawn stays put — its whole point is to emerge from
-                  // its chosen crevice, so displaced neighbours take the
-                  // whole push (any drift away from centre would look wrong).
-                  if(a.spawn){ b.x+=nx*push; b.y+=ny*push; }
-                  else if(b.spawn){ a.x-=nx*push; a.y-=ny*push; }
-                  else { a.x-=nx*push*0.5; a.y-=ny*push*0.5; b.x+=nx*push*0.5; b.y+=ny*push*0.5; }
-                }
-              }
-            }
-            // Keep every displaced circle inside the vertical bounds; sides
-            // are open (they can crop on the box edge just like the pack).
-            for(var k=0;k<bodies.length;k++){
-              var c=bodies[k]; if(c.spawn) continue;
-              if(c.y+c.r>H) c.y = H-c.r;
-              if(c.y-c.r<0) c.y =   c.r;
-            }
-          }
-
-          // Commit transforms.
-          for(var m=0;m<bodies.length;m++){
-            var bd=bodies[m];
-            if(bd.spawn){
-              var sc = bd.r / bd.target;
-              bd.el.style.transform='translate('+(bd.x-bd.target)+'px, '+(bd.y-bd.target)+'px) scale('+sc.toFixed(3)+')';
-            } else {
-              var ddx = (bd.x - bd.x0) + bd.baseTx;
-              var ddy = (bd.y - bd.y0) + bd.baseTy;
-              bd.el.style.transform='translate('+ddx.toFixed(2)+'px, '+ddy.toFixed(2)+'px)';
-            }
-          }
-
-          if(t < GROW_MS + SETTLE_MS){ requestAnimationFrame(frame); }
-        }
-        requestAnimationFrame(frame);
-      }
-      var popIO=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
-      },{ root: null, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-      popIO.observe(grid);
-    };
-
-    /* "Grow your brand with us" — a WebGL "liquid glass" lens. A huge dome rises
-       from the bottom of the pinned screen and shrinks to a centred circle as the
-       section scrolls. A scroll-spring (stiffness 120, damping 20, mass 1) smooths
-       the progress — visuals are never bound 1:1 to scroll — and its velocity
-       drives droplet squash-and-stretch. Refraction/dispersion bite hardest at the
-       rim; directional light (−45°) drives the bevel + chromatic rim; the five text
-       lines are rendered to a texture, refracted behind the lens, and revealed
-       top-first (Emil cascade) as the glass settles. */
     api._armGrowGL = function(tries){
       tries=tries||0;
       var overlay=document.getElementById('agreeScreen');
@@ -2247,7 +2031,7 @@
     function boot(){
       var root=document.getElementById('appRoot'); if(root) root.classList.add('loaded');
       var safe=function(fn){ try{ fn(); }catch(e){ console.warn('init',e); } };
-      safe(api._armMenu); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armCallFocus); safe(api._armGrowGL);
+      safe(api._armMenu); safe(api._armOverlayReveals); safe(api._armCallFocus); safe(api._armGrowGL);
     }
     if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
     else boot();
