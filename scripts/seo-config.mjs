@@ -79,6 +79,13 @@ export const SITEMAP_EXTRA = [
   { path: "/terms",         file: "terms.html",         priority: 0.3 },
   { path: "/support",       file: "support.html",       priority: 0.3 },
   { path: "/data-deletion", file: "data-deletion.html", priority: 0.3 },
+  // Public landing and form pages (own canonical URL, no noindex).
+  { path: "/partner-with-polysocial", file: "partner-with-polysocial.html", priority: 0.5 },
+  { path: "/brand-access",            file: "brand-access.html",            priority: 0.5 },
+  { path: "/request-access",          file: "request-access.html",          priority: 0.5 },
+  { path: "/campaigns/celeste",       file: "campaigns/celeste/index.html", priority: 0.4 },
+  { path: "/campaigns/carnage",       file: "campaigns/carnage/index.html", priority: 0.4 },
+  { path: "/campaigns/pickme",        file: "campaigns/pickme/index.html",  priority: 0.4 },
 ];
 
 // JSON-LD Organization structured data (emitted on the homepage only).
