@@ -1220,15 +1220,18 @@
           var sec=document.getElementById('rvSection'); if(!sec) return;
           var deck=sec.querySelector('.rvDeck');
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var IMG='assets/img/brands-ugc-', OUT='cubic-bezier(0.23,1,0.32,1)';
+          var IMG='assets/img/brands-ugc2-', OUT='cubic-bezier(0.23,1,0.32,1)';
           var POOL=[
-            { img:1, who:'@nethmi.cooks', kind:'Reel · 0:24', p:'tt' },
-            { img:2, who:'@dinu.daily', kind:'Story', p:'ig' },
-            { img:7, who:'@kasun.vibes', kind:'Reel · 0:31', p:'ig', reject:true },
-            { img:3, who:'@sachi.styles', kind:'Reel · 0:18', p:'ig' },
-            { img:4, who:'@ravi.reacts', kind:'Video · 0:42', p:'tt', reject:true },
-            { img:5, who:'@amaya.home', kind:'Post', p:'ig' },
-            { img:6, who:'@pink.passion', kind:'Reel · 0:27', p:'tt' }
+            { img:1,  who:'@ishara.eats',    kind:'Reel · 0:24',  p:'tt' },
+            { img:2,  who:'@dilini.glow',    kind:'Reel · 0:18',  p:'ig' },
+            { img:3,  who:'@kavin.drives',   kind:'Vlog · 0:52',  p:'tt', reject:true },   // filmed while driving
+            { img:4,  who:'@amaya.cooks',    kind:'Reel · 0:31',  p:'ig' },
+            { img:5,  who:'@tharu.treats',   kind:'Story',        p:'ig' },
+            { img:6,  who:'@nethmi.bites',   kind:'Video · 0:42', p:'tt' },
+            { img:7,  who:'@sachi.mirror',   kind:'Story',        p:'ig', reject:true },   // blurry, low quality
+            { img:8,  who:'@ruvi.beauty',    kind:'Reel · 0:27',  p:'ig' },
+            { img:9,  who:'@hiru.skin',      kind:'Post',         p:'ig' },
+            { img:10, who:'@minu.morning',   kind:'Reel · 0:22',  p:'tt' }
           ];
           var ICON={
             tt:'<svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7Z"/></svg>',
