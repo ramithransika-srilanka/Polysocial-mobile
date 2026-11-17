@@ -1194,96 +1194,71 @@
         </script>
       </section>
 
-      <!-- Payments: a monthly budget, paid out as a flat fee or by performance (CPM). -->
-      <section id="paySection" data-screen-label="Payments" style="position: relative; padding: var(--sp-panel) 24px; background: #FFFFFF; overflow: hidden;">
+      <!-- Payments: one full-screen section. Donut, headline, two plain rows. -->
+      <section id="paySection" data-screen-label="Payments" style="position: relative; min-height: 100vh; min-height: 100dvh; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 72px 24px; background: #FFFFFF; text-align: center; overflow: hidden;">
         <style>
           #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); }
-          #paySection h2 { margin: 0 auto 14px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
-          .payLead { margin: 0 auto; max-width: 320px; font-size: 17px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: #6C6C70; text-align: center; text-wrap: pretty; }
-          .payWrap { max-width: 345px; margin: 34px auto 0; display: grid; gap: 10px; }
-          .payCard { border-radius: 24px; background: #F6F6F6; padding: 20px; }
-          .payLabel { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 500; color: #6C6C70; }
-          .payLabel i { font-style: normal; height: 24px; padding: 0 10px; display: inline-flex; align-items: center; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #121212; box-shadow: inset 0 0 0 1px #E9E9EC; }
-          .payBig { margin: 6px 0 0; font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; color: #121212; font-variant-numeric: tabular-nums; }
-          .payBig small { font-size: 17px; font-weight: 600; color: #8A8A8E; letter-spacing: -0.01em; margin-right: 4px; }
-          .payBar { position: relative; height: 10px; margin-top: 18px; border-radius: 999px; background: #E6E6EA; overflow: hidden; }
-          .payBar i { position: absolute; inset: 0; border-radius: inherit; background: #1548EB; transform-origin: 0 50%; transform: scaleX(0); transition: transform 1.3s var(--pay-out); }
-          .payCard.go .payBar i { transform: scaleX(var(--fill, 0.62)); }
-          .payNums { display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px; font-weight: 500; color: #6C6C70; font-variant-numeric: tabular-nums; }
-          .payNums b { font-weight: 600; color: #121212; }
-          .payNote { margin: 14px 0 0; padding-top: 14px; border-top: 1px solid #E6E6EA; font-size: 13px; line-height: 1.4; color: #6C6C70; }
-
-          .payOpts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-          .payOpt { padding: 16px; }
-          .payOpt .ic { width: 34px; height: 34px; border-radius: 11px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 1px #E9E9EC; }
-          .payOpt h3 { margin: 14px 0 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: #121212; }
-          .payOpt p { margin: 3px 0 0; font-size: 12px; line-height: 1.35; color: #6C6C70; }
-          .payOpt .payPrice { margin: 14px 0 0; font-size: 20px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; color: #121212; white-space: nowrap; font-variant-numeric: tabular-nums; }
-          .payOpt .payPrice small { display: block; margin-top: 2px; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #6C6C70; }
-          .payEg { margin-top: 12px; padding: 9px 10px; border-radius: 12px; background: #FFFFFF; font-size: 11px; line-height: 1.3; font-weight: 500; color: #6C6C70; font-variant-numeric: tabular-nums; }
-          .payEg b { display: block; margin-top: 2px; font-size: 14px; color: #1548EB; font-weight: 600; letter-spacing: -0.01em; }
-          .payOpt { display: flex; flex-direction: column; }
-          .payOpt .payEg { margin-top: auto; }
-          .payOpt .payPrice { margin-bottom: 0; }
-
-          @media (prefers-reduced-motion: reduce) { .payBar i { transition: none; } }
+          .payPie { display: block; width: 64px; height: 64px; margin: 0 auto 26px; transform: rotate(-90deg); }
+          .payPie circle { fill: none; stroke-width: 11; }
+          .payPie .trk { stroke: #EEEEF0; }
+          .payPie .a, .payPie .b { stroke-dasharray: 0 100; transition: stroke-dasharray 1s var(--pay-out); }
+          .payPie .a { stroke: #1548EB; }
+          .payPie .b { stroke: #121212; transition-delay: 0.45s; transition-duration: 0.8s; }
+          #paySection.go .payPie .a { stroke-dasharray: 58 100; }
+          #paySection.go .payPie .b { stroke-dasharray: 26 100; }
+          /* Same type as the hero headline */
+          .payHead { margin: 0; font-weight: 600; font-size: 42px; line-height: 1.06; letter-spacing: -0.02em; text-wrap: balance; }
+          .payHead span { display: block; }
+          .payRows { width: 100%; max-width: 320px; margin: 56px auto 0; }
+          .payRow + .payRow { margin-top: 36px; padding-top: 36px; border-top: 1px solid #EEEEF0; }
+          .payIcons { display: flex; justify-content: center; gap: 14px; margin-bottom: 14px; }
+          .payIcons svg { display: block; width: 22px; height: 22px; }
+          .payRow h3 { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0; font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
+          .payRow h3 i { width: 8px; height: 8px; border-radius: 999px; flex: none; }
+          .payRow p { margin: 8px 0 0; font-size: 15px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-wrap: balance; }
+          @media (prefers-reduced-motion: reduce) { .payPie .a, .payPie .b { transition: none; } }
         </style>
 
-        <h2 class="ov-reveal">Set a monthly budget. Pay from it.</h2>
-        <p class="payLead ov-reveal">Pay a flat fee, or pay by views.</p>
+        <svg class="payPie ov-reveal" viewBox="0 0 64 64" aria-hidden="true">
+          <circle class="trk" cx="32" cy="32" r="15.9155" pathLength="100"/>
+          <circle class="a" cx="32" cy="32" r="15.9155" pathLength="100"/>
+          <circle class="b" cx="32" cy="32" r="15.9155" pathLength="100" stroke-dashoffset="-58"/>
+        </svg>
+        <h2 class="payHead">
+          <span data-anim="" class="ov-reveal"><span style="display: inline; color: #ADADAD;">Set your</span> <span style="display: inline; color: #1548EB;">budget.</span></span>
+          <span data-anim="" class="ov-reveal" style="color: #121212; transition-delay: 0.07s;">Pay from it.</span>
+        </h2>
 
-        <div class="payWrap">
-          <div class="payCard ov-reveal" id="payBudget">
-            <div class="payLabel">Monthly budget</div>
-            <p class="payBig"><small>LKR</small>500,000</p>
-            <div class="payBar"><i></i></div>
-            <div class="payNums"><span><b data-pay="spent">LKR 0</b> spent</span><span><b data-pay="left">LKR 500,000</b> left</span></div>
+        <div class="payRows">
+          <div class="payRow ov-reveal">
+            <div class="payIcons" aria-label="Facebook, Instagram, TikTok and YouTube" role="img">
+              <svg viewBox="0 0 24 24" fill="#121212"><path d="M13.5 21.5v-7.6h2.6l.4-3h-3V9c0-.9.3-1.5 1.5-1.5h1.6V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6v7.6h3.1Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="0.5" fill="#121212"/></svg>
+              <svg viewBox="0 0 24 24" fill="#121212"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#121212"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.3.4-2.5.4-3.8s-.1-2.5-.4-3.8ZM10 15.1V8.9l5.2 3.1L10 15.1Z"/></svg>
+            </div>
+            <h3><i style="background: #1548EB;"></i>Pay for performance</h3>
+            <p>Payouts based on CPM, the price per 1,000 views, on any platform.</p>
           </div>
-
-          <div class="payOpts">
-            <div class="payCard payOpt ov-reveal">
-              <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="#121212" stroke-width="1.8"/><path d="M4 10h16" stroke="#121212" stroke-width="1.8"/></svg></div>
-              <h3>Flat fee</h3>
-              <p class="payPrice">LKR 25,000<small>per content</small></p>
+          <div class="payRow ov-reveal">
+            <div class="payIcons" aria-label="Photos, videos and reels" role="img">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="m4 18 5-5 3.5 3.5L15 14l5 5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="13" height="14" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="3.5"/><path d="m10.5 9.5 4 2.5-4 2.5v-5Z" fill="#121212"/></svg>
             </div>
-            <div class="payCard payOpt ov-reveal">
-              <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="#121212" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#121212" stroke-width="1.8"/></svg></div>
-              <h3>Performance</h3>
-              <p class="payPrice">LKR 2,000<small>per 1K views</small></p>
-            </div>
+            <h3><i style="background: #121212;"></i>Pay a flat fee</h3>
+            <p>One fixed price for every piece of content you approve.</p>
           </div>
         </div>
 
         <script>
-        /* When the budget card comes into view: the bar fills and the numbers count
-           up with it (same ease-out, same duration). The CPM example counts its
-           views and cost together. Plays once per arrival; resets when scrolled
-           back below. */
+        /* The donut draws its two slices when the section is reached;
+           resets when scrolled back above so it plays again. */
         (function(){
-          var sec=document.getElementById('paySection'); if(!sec) return;
-          var card=document.getElementById('payBudget');
-          var spentEl=sec.querySelector('[data-pay="spent"]'), leftEl=sec.querySelector('[data-pay="left"]');
-          var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var BUDGET=500000, SPENT=312000, VIEWS=48500, CPM=2000, raf=0;
-          var fmt=function(n){ return Math.round(n).toLocaleString('en-US'); };
-          card.style.setProperty('--fill', (SPENT/BUDGET).toFixed(3));
-          function draw(t){
-            spentEl.textContent='LKR '+fmt(SPENT*t); leftEl.textContent='LKR '+fmt(BUDGET-SPENT*t);
-          }
-          function play(){
-            card.classList.add('go'); if(reduce){ draw(1); return; }
-            var t0=performance.now(), D=1300;
-            var ease=function(x){ return 1-Math.pow(1-x,4); }; // close to the bar's ease-out curve
-            cancelAnimationFrame(raf);
-            (function step(now){ var x=Math.min(1,(now-t0)/D); draw(ease(x)); if(x<1) raf=requestAnimationFrame(step); })(t0);
-          }
-          function reset(){ cancelAnimationFrame(raf); card.classList.remove('go'); draw(0); }
-          draw(0);
-          if('IntersectionObserver' in window){
-            new IntersectionObserver(function(es){ es.forEach(function(e){
-              if(e.isIntersecting) play(); else if(e.boundingClientRect.top>0) reset();
-            }); },{ threshold: 0.6 }).observe(card);
-          } else draw(1);
+          var sec=document.getElementById('paySection'); if(!sec||!('IntersectionObserver' in window)){ if(sec) sec.classList.add('go'); return; }
+          new IntersectionObserver(function(es){ es.forEach(function(e){
+            if(e.isIntersecting) sec.classList.add('go'); else if(e.boundingClientRect.top>0) sec.classList.remove('go');
+          }); },{ rootMargin: '0px 0px -30% 0px', threshold: 0 }).observe(sec.querySelector('.payPie'));
         })();
         </script>
       </section>
