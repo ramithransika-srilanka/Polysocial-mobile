@@ -468,8 +468,8 @@
      (the sticky nav is accounted for at the top). */
   @media (max-width: 767px) {
     #rvSection, #agreeScreen section[data-screen-label="Community"],
-    #brandsForSection, #talkSection {
-      min-height: 100vh; min-height: 100dvh; box-sizing: border-box;
+    #brandsForSection {
+      min-height: 100vh; min-height: 100svh; box-sizing: border-box;
       display: flex; flex-direction: column; justify-content: center;
       padding-top: calc(var(--nav-h, 52px) + 24px) !important; padding-bottom: 24px !important;
     }
@@ -577,9 +577,56 @@
 }
 
 </style>
+<style id="desktop-flow">
+/* =====================================================================
+   DESKTOP (>=768px) for the new brands flow. Mobile is untouched.
+   Every section is one screen; headings use the desktop heading scale.
+   ===================================================================== */
+@media (min-width: 768px) {
+  /* Statement: the wide photo fills the screen; text sits in its open floor */
+  #agreePanel { padding: 0 !important; min-height: 100vh !important; aspect-ratio: auto !important;
+                background: #EEEEEE url('assets/img/brands-statement-people-wide.webp') center / cover no-repeat !important; }
+  #agreePanel .ov-reveal { width: 40cqw !important; max-width: 640px !important; }
+  #agreePanel .dBr { display: none !important; }
+  #agreePanel p { max-width: none !important; font-size: clamp(30px, 3.1cqw, 50px) !important; line-height: 1.2 !important; text-wrap: balance !important; }
+
+  /* Checkout: title on one line; the stage scales up a little (see fit()) */
+  #coSection .coHead { font-size: 40px !important; }
+  #coSection .coHead br { display: none; }
+
+  /* Campaign: bigger heading and phone */
+  #campSection { --pw: 380px; padding-top: var(--nav-h, 58px) !important; }
+  #campSection h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 760px !important; margin-bottom: 40px !important; }
+
+  /* Content review: two-line heading, larger cards, readable footnote */
+  #rvSection { min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--nav-h, 58px) + 24px) var(--edge) 32px !important; }
+  #rvSection h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 760px !important; }
+  #rvSection .rvDeck { width: 280px !important; height: 460px !important; }
+  #rvSection .rvGuard { font-size: 12px !important; max-width: none !important; }
+
+  /* Payments: hero-sized headline, larger flip text and donut */
+  #paySection .payHead { font-size: clamp(56px, 6vw, 84px) !important; }
+  #paySection .payFace h3 { font-size: clamp(40px, 4.2vw, 56px) !important; }
+  #paySection .payFace p { font-size: 19px !important; max-width: 460px !important; }
+  #paySection .payIcons svg { width: 28px !important; height: 28px !important; }
+  #paySection .payFlip { max-width: 900px !important; height: 230px !important; }
+  #paySection .payPie { width: 128px !important; height: 128px !important; margin-left: -64px !important; }
+  #paySection .payPie { transform: translateY(6px) !important; }
+  #paySection[data-step="0"] .payPie { transform: translateY(2px) !important; }
+
+  /* Community: bubbles may run past the content edges instead of being cut */
+  #clBox { overflow: visible !important; border-radius: 0 !important; }
+
+  /* "This call is for" runs straight into "Grow your brand" */
+  #brandsForSection { min-height: 100vh; box-sizing: border-box; padding-bottom: 0 !important; }
+
+  /* Pull 'Interested? Let's talk' up over the empty bottom of the Grow pin */
+  #talkSection { margin-top: -12vh !important; }
+}
+</style>
 </head>
 <body>
-<div style="min-height:100dvh;display:flex;justify-content:center;background:#EDEDED;">
+<div style="min-height:100vh;min-height:100svh;display:flex;justify-content:center;background:#EDEDED;">
   <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;overflow-x:clip;">
 
     <div class="navScope" style="position:relative;">
@@ -618,7 +665,7 @@
     </div>
 
 <!-- 2. Hero -->
-    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100dvh - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100vh - var(--nav-h, 52px)); min-height: calc(100svh - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
       
       <h1 style="margin: 0; font-weight: 600; font-size: 48px; line-height: 1.06; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
         <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">Turn your</span></span>
@@ -638,7 +685,7 @@
 
     <!-- Statement + rest of the page (normal flow) -->
     <div id="agreeScreen" data-screen-label="Statement" style="position: relative; width: 100%;">
-      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
+      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
         <div class="ov-reveal" style="width: 64cqw; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
           <p style="margin: 0; font-weight: 600; font-size: 6.4cqw; line-height: 1.2; letter-spacing: -0.01em; text-align: center; text-wrap: balance; color: #717171;">Every customer who loves<br class="dBr"> your product is a <span style="color: #000000;">creator<br class="dBr"> waiting to be activated</span> &mdash; with<br class="dBr"> an audience your ads never<br class="dBr"> reach.</p>
         </div>
@@ -648,20 +695,20 @@
       <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 480vh; background: #F6F6F6;">
         <style>
           #coSection { --co-ease: cubic-bezier(0.23,1,0.32,1); --co-move: cubic-bezier(0.77,0,0.175,1); --co-sheet: cubic-bezier(0.32,0.72,0,1); }
-          #coPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
+          #coPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
           #coStage { width: 100%; transform-origin: 50% 50%; }
           /* Pager-style control pinned to the bottom of the stage */
-          .coCtl { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: flex; align-items: center; gap: 10px; transform: translateX(-50%); transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
-          .coProg { position: relative; width: 168px; height: 44px; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
-          .coProg::before, .coProg i { content: ""; position: absolute; left: 22px; right: 22px; top: 50%; height: 6px; margin-top: -3px; border-radius: 999px; }
+          .coCtl { display: flex; width: max-content; align-items: center; gap: 8px; margin: 24px auto 0; transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
+          .coProg { position: relative; width: 132px; height: 36px; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
+          .coProg::before, .coProg i { content: ""; position: absolute; left: 16px; right: 16px; top: 50%; height: 5px; margin-top: -2.5px; border-radius: 999px; }
           .coProg::before { background: rgba(60,60,67,0.18); }
           .coProg i { display: block; background: #3C3C43; clip-path: inset(0 100% 0 0 round 999px); }
-          .coSkip { appearance: none; width: 44px; height: 44px; border: 0; padding: 0; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s var(--co-ease), background-color 0.2s ease; }
+          .coSkip { appearance: none; width: 36px; height: 36px; border: 0; padding: 0; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s var(--co-ease), background-color 0.2s ease; }
           .coSkip:active { transform: scale(0.92); }
           @media (hover: hover) and (pointer: fine) { .coSkip:hover { background: rgba(118,118,128,0.2); } }
           .coSkip:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
           /* Not needed once the story has reached the quote */
-          #coSection.coFinal .coCtl { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
+          #coSection.coFinal .coCtl { opacity: 0; transform: translateY(8px); pointer-events: none; }
           #coSection .coHead { margin: 0 0 32px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           #coCard { position: relative; width: 100%; max-width: 345px; height: 470px; margin: 0 auto; border-radius: 32px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(18,18,18,0.04), 0 18px 48px rgba(18,31,96,0.10); overflow: hidden; isolation: isolate; -webkit-user-select: none; user-select: none; }
 
@@ -792,15 +839,8 @@
         </style>
 
         <div id="coPin">
-        <!-- Progress through the checkout story + skip straight to the quote -->
-        <div class="coCtl" id="coCtl">
-          <div class="coProg" role="progressbar" aria-label="Checkout story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="coBarFill"></i></div>
-          <button type="button" class="coSkip" id="coSkip" aria-label="Skip to the end">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#121212" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
         <div id="coStage">
-        <h2 class="coHead ov-reveal">It starts<br>at checkout</h2>
+        <h2 class="coHead ov-reveal">It starts <br>at checkout</h2>
 
         <div id="coFlipWrap" class="ov-reveal">
         <div id="coFlip">
@@ -883,6 +923,13 @@
             <p class="coSub">Every customer is personally invited to join your creator community. We identify each buyer and reach them openly, through various channels.</p>
           </div>
         </div>
+        </div>
+        <!-- Progress through the checkout story + skip straight to the quote -->
+        <div class="coCtl" id="coCtl">
+          <div class="coProg" role="progressbar" aria-label="Checkout story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="coBarFill"></i></div>
+          <button type="button" class="coSkip" id="coSkip" aria-label="Skip to the end">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#121212" stroke-width="2.4" transform="translate(12 12) scale(0.85) translate(-12 -12)" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
 
         </div>
@@ -1012,13 +1059,15 @@
           // Keep the whole stage on short phones.
           function fit(){
             stage.style.transform='';
-            var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-156;
-            if(h>room) stage.style.transform='scale('+(room/h).toFixed(3)+')';
-            var hd=sec.querySelector('.coHead'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0; sec.style.setProperty('--co-head-shift', ((hd.offsetHeight+m)/2)+'px'); }
+            var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-80;
+            var k=room/h; if(window.innerWidth>=768) k=Math.min(k,1.2); else k=Math.min(k,1);
+            if(k!==1) stage.style.transform='scale('+k.toFixed(3)+')';
+            var hd=sec.querySelector('.coHead'), ct=document.getElementById('coCtl'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0, below=ct?(ct.offsetHeight+(parseFloat(getComputedStyle(ct).marginTop)||0)):0; sec.style.setProperty('--co-head-shift', (((hd.offsetHeight+m)-below)/2)+'px'); }
           }
           var ticking=false;
           window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
-          window.addEventListener('resize',function(){ fit(); onScroll(); });
+          var lastW=window.innerWidth;
+          window.addEventListener('resize',function(){ if(window.innerWidth!==lastW){ lastW=window.innerWidth; fit(); } onScroll(); });
           var c0=card.getBoundingClientRect();
           touch.style.transform='translate('+(card.offsetWidth*0.5)+'px,'+(card.offsetHeight*0.98)+'px)';
           settle(0); fit(); onScroll();
@@ -1027,11 +1076,11 @@
       </section>
 
       <!-- Campaign card: every customer gets their own campaign. Normal scroll. -->
-      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100dvh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
+      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100svh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
         <style>
           #campSection h2 { align-self: end; margin: 0 auto 32px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           /* Only the top of the phone shows (just past the card details): the section's bottom edge cuts it cleanly. */
-          .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.30 * 300px * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
+          .campPhone { position: relative; width: var(--pw, 300px); max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.30 * var(--pw, 300px) * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
           /* Slides up from below the fold when the section is reached (iOS sheet curve);
              resets once the section is scrolled back out below the viewport. */
           .campPhone { transform: translateY(80%); transition: transform 1.05s cubic-bezier(0.32,0.72,0,1); will-change: transform; }
@@ -1111,15 +1160,12 @@
       <section id="rvSection" data-screen-label="Content review" style="position: relative; padding: var(--sp-panel) 24px; background: #F6F6F6; overflow: hidden;">
         <style>
           #rvSection { --rv-out: cubic-bezier(0.23,1,0.32,1); --rv-move: cubic-bezier(0.77,0,0.175,1); --rv-pop: cubic-bezier(0.34,1.45,0.64,1); }
-          #rvSection h2 { margin: 0 auto 16px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
-          .rvLead { margin: 0 auto; max-width: 330px; font-size: 17px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: #6C6C70; text-align: center; text-wrap: pretty; }
+          #rvSection h2 { margin: 0 auto 32px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
 
-          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 40px auto 0; overflow: visible; }
-          .rvDeck { position: relative; width: 232px; height: 310px; margin: 30px auto 0; touch-action: pan-y; }
+          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 0 auto; overflow: visible; }
+          .rvDeck { position: relative; width: 232px; height: 380px; margin: 30px auto 0; touch-action: pan-y; }
           .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.5s var(--rv-out), opacity 0.4s var(--rv-out), filter 0.4s var(--rv-out); }
           .rvCard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); box-shadow: inset 0 0 0 0 transparent; transition: box-shadow 0.25s var(--rv-out); }
-          .rvCard.ok::after { box-shadow: inset 0 0 0 3px #1548EB; }
-          .rvCard.no::after { box-shadow: inset 0 0 0 3px #E5484D; }
           .rvCard[data-pos="0"] { transform: translateY(0) scale(1); opacity: 1; z-index: 4; }
           .rvCard[data-pos="1"] { transform: translateY(-15px) scale(0.93); opacity: 1; z-index: 3; }
           .rvCard[data-pos="2"] { transform: translateY(-28px) scale(0.86); opacity: 0.85; z-index: 2; }
@@ -1134,8 +1180,8 @@
           .rvCard.no .rvStamp { background: #E5484D; }
           .rvCard.ok .rvStamp, .rvCard.no .rvStamp { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 
-          .rvGuard { display: flex; align-items: center; justify-content: center; gap: 8px; max-width: 300px; margin: 40px auto 0; font-size: 14px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-align: center; text-wrap: balance; }
-          .rvGuard svg { flex: none; margin-top: 1px; }
+          @media (min-width: 768px) { .rvBr { display: none; } }
+          .rvGuard { max-width: 300px; margin: 32px auto 0; font-size: 10px; line-height: 1.4; font-style: italic; font-weight: 500; color: #8A8A8E; text-align: center; }
 
           @media (prefers-reduced-motion: reduce) {
             .rvCard { transition: opacity 0.35s ease; }
@@ -1146,16 +1192,12 @@
         </style>
 
         <h2 class="ov-reveal">Hundreds of pieces of content, coming your way every week</h2>
-        <p class="rvLead ov-reveal">Approve the best. Use it as raw content or post it on creators&rsquo; handles.</p>
 
         <div class="rvStage ov-reveal" aria-hidden="true">
           <div class="rvDeck"></div>
         </div>
 
-        <p class="rvGuard ov-reveal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#6C6C70" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2.2 2.2L15.5 10" stroke="#6C6C70" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Content that breaks your brand guidelines is auto-rejected.</span>
-        </p>
+        <p class="rvGuard ov-reveal">*Content that breaks your brand<br class="rvBr"> guidelines is auto-rejected.</p>
 
         <script>
         /* Content review, swipe style (plays only while on screen).
@@ -1236,10 +1278,13 @@
       <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; background: #FFFFFF;">
         <style>
           #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); --pay-move: cubic-bezier(0.77,0,0.175,1); }
-          .payPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 24px 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
+          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
 
           /* Donut: two slices with gaps and rounded ends, no track */
-          .payPie { display: block; width: 96px; height: 96px; margin: 0 auto 32px; overflow: visible; }
+          .payPie { position: absolute; left: 50%; bottom: calc(100% + 8px); width: 96px; height: 96px; margin-left: -48px; overflow: visible; }
+          /* Keep a steady 24px between the donut and whichever text is showing */
+          .payPie { transform: translateY(-9px); transition: transform 0.5s var(--pay-out); }
+          #paySection[data-step="0"] .payPie { transform: translateY(14px); }
           .payPie g { transform-origin: 48px 48px; transform: rotate(-90deg); transition: transform 0.85s var(--pay-move); }
           .payPie circle { fill: none; stroke-width: 15; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1s var(--pay-out), opacity 0.4s var(--pay-out), stroke-width 0.4s var(--pay-out); }
           .payPie .a { stroke: #1548EB; }
@@ -1252,7 +1297,7 @@
           #paySection[data-step="1"] .payPie .a, #paySection[data-step="2"] .payPie .b { stroke-width: 17; }
 
           /* The flipping centre: three faces in one spot */
-          .payFlip { position: relative; width: 100%; max-width: 345px; height: 190px; perspective: 900px; }
+          .payFlip { position: relative; width: 100%; max-width: 345px; height: 150px; perspective: 900px; }
           .payFace { position: absolute; left: 0; right: 0; top: 50%; transform-origin: 50% 50%; backface-visibility: hidden; -webkit-backface-visibility: hidden;
                      transform: translateY(-50%) rotateX(-80deg) translateZ(30px); opacity: 0; filter: blur(4px);
                      transition: transform 0.6s var(--pay-out), opacity 0.35s var(--pay-out), filter 0.35s var(--pay-out); }
@@ -1272,17 +1317,17 @@
         </style>
 
         <div class="payPin">
-          <svg class="payPie" viewBox="0 0 96 96" aria-hidden="true">
+
+          <div class="payFlip">
+            <svg class="payPie" viewBox="0 0 96 96" aria-hidden="true">
             <g>
               <circle class="a" cx="48" cy="48" r="34" pathLength="100"/>
               <circle class="b" cx="48" cy="48" r="34" pathLength="100" stroke-dashoffset="-66"/>
             </g>
           </svg>
-
-          <div class="payFlip">
             <div class="payFace on" data-face="0">
               <h2 class="payHead">
-                <span><span style="display: inline; color: #ADADAD;">Set your</span> <span style="display: inline; color: #1548EB;">budget.</span></span>
+                <span><span style="display: inline; color: #ADADAD;">Set your</span> <span style="display: inline; color: #121212;">budget.</span></span>
                 <span style="color: #121212;">Pay from it.</span>
               </h2>
             </div>
@@ -1334,7 +1379,7 @@
       </section>
 
       <!-- 2. Community (bubble cascade, on the page background) -->
-      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 12px 0 var(--sp-panel); background: #FFFFFF; overflow: hidden;">
+      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 12px 0 var(--sp-panel); background: #F6F6F6; overflow: hidden;">
         <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
              see the 768px block below); the title sits in a reserved top band
              and #clGrid fills the lower part right down to the card's bottom
@@ -1547,7 +1592,7 @@
           .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
       </style>
-      <section id="talkSection" style="position: relative; background: #161616; padding: 26px 24px calc(var(--sp-section) + 25px); text-align: center;">
+      <section id="talkSection" style="position: relative; background: #161616; padding: 26px 24px calc(var(--sp-section) + 25px); text-align: center; margin-top: -14vh; margin-top: -14svh;">
         <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
           <span style="display: block; color: #ADADAD;">Interested?</span>
           <span style="display: block; color: #FFFFFF;">Let&rsquo;s talk</span>
