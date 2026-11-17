@@ -1230,10 +1230,10 @@
       <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; background: #FFFFFF;">
         <style>
           #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); --pay-move: cubic-bezier(0.77,0,0.175,1); }
-          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 24px 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
+          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
 
           /* Donut: two slices with gaps and rounded ends, no track */
-          .payPie { display: block; width: 96px; height: 96px; margin: 0 auto 32px; overflow: visible; }
+          .payPie { position: absolute; left: 50%; bottom: calc(100% + 8px); width: 96px; height: 96px; margin-left: -48px; overflow: visible; }
           .payPie g { transform-origin: 48px 48px; transform: rotate(-90deg); transition: transform 0.85s var(--pay-move); }
           .payPie circle { fill: none; stroke-width: 15; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1s var(--pay-out), opacity 0.4s var(--pay-out), stroke-width 0.4s var(--pay-out); }
           .payPie .a { stroke: #1548EB; }
@@ -1266,17 +1266,17 @@
         </style>
 
         <div class="payPin">
-          <svg class="payPie" viewBox="0 0 96 96" aria-hidden="true">
+
+          <div class="payFlip">
+            <svg class="payPie" viewBox="0 0 96 96" aria-hidden="true">
             <g>
               <circle class="a" cx="48" cy="48" r="34" pathLength="100"/>
               <circle class="b" cx="48" cy="48" r="34" pathLength="100" stroke-dashoffset="-66"/>
             </g>
           </svg>
-
-          <div class="payFlip">
             <div class="payFace on" data-face="0">
               <h2 class="payHead">
-                <span><span style="display: inline; color: #ADADAD;">Set your</span> <span style="display: inline; color: #1548EB;">budget.</span></span>
+                <span><span style="display: inline; color: #ADADAD;">Set your</span> <span style="display: inline; color: #121212;">budget.</span></span>
                 <span style="color: #121212;">Pay from it.</span>
               </h2>
             </div>
@@ -1328,7 +1328,7 @@
       </section>
 
       <!-- 2. Community (bubble cascade, on the page background) -->
-      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 12px 0 var(--sp-panel); background: #FFFFFF; overflow: hidden;">
+      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 12px 0 var(--sp-panel); background: #F6F6F6; overflow: hidden;">
         <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
              see the 768px block below); the title sits in a reserved top band
              and #clGrid fills the lower part right down to the card's bottom
