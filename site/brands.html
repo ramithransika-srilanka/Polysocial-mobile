@@ -1112,15 +1112,12 @@
       <section id="rvSection" data-screen-label="Content review" style="position: relative; padding: var(--sp-panel) 24px; background: #F6F6F6; overflow: hidden;">
         <style>
           #rvSection { --rv-out: cubic-bezier(0.23,1,0.32,1); --rv-move: cubic-bezier(0.77,0,0.175,1); --rv-pop: cubic-bezier(0.34,1.45,0.64,1); }
-          #rvSection h2 { margin: 0 auto 16px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
-          .rvLead { margin: 0 auto; max-width: 330px; font-size: 17px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: #6C6C70; text-align: center; text-wrap: pretty; }
+          #rvSection h2 { margin: 0 auto 32px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
 
-          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 40px auto 0; overflow: visible; }
-          .rvDeck { position: relative; width: 232px; height: 310px; margin: 30px auto 0; touch-action: pan-y; }
+          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 0 auto; overflow: visible; }
+          .rvDeck { position: relative; width: 232px; height: 380px; margin: 30px auto 0; touch-action: pan-y; }
           .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.5s var(--rv-out), opacity 0.4s var(--rv-out), filter 0.4s var(--rv-out); }
           .rvCard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); box-shadow: inset 0 0 0 0 transparent; transition: box-shadow 0.25s var(--rv-out); }
-          .rvCard.ok::after { box-shadow: inset 0 0 0 3px #1548EB; }
-          .rvCard.no::after { box-shadow: inset 0 0 0 3px #E5484D; }
           .rvCard[data-pos="0"] { transform: translateY(0) scale(1); opacity: 1; z-index: 4; }
           .rvCard[data-pos="1"] { transform: translateY(-15px) scale(0.93); opacity: 1; z-index: 3; }
           .rvCard[data-pos="2"] { transform: translateY(-28px) scale(0.86); opacity: 0.85; z-index: 2; }
@@ -1135,8 +1132,7 @@
           .rvCard.no .rvStamp { background: #E5484D; }
           .rvCard.ok .rvStamp, .rvCard.no .rvStamp { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 
-          .rvGuard { display: flex; align-items: center; justify-content: center; gap: 8px; max-width: 300px; margin: 40px auto 0; font-size: 14px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-align: center; text-wrap: balance; }
-          .rvGuard svg { flex: none; margin-top: 1px; }
+          .rvGuard { max-width: 300px; margin: 32px auto 0; font-size: 10px; line-height: 1.4; font-style: italic; font-weight: 500; color: #8A8A8E; text-align: center; }
 
           @media (prefers-reduced-motion: reduce) {
             .rvCard { transition: opacity 0.35s ease; }
@@ -1147,16 +1143,12 @@
         </style>
 
         <h2 class="ov-reveal">Hundreds of pieces of content, coming your way every week</h2>
-        <p class="rvLead ov-reveal">Approve the best. Use it as raw content or post it on creators&rsquo; handles.</p>
 
         <div class="rvStage ov-reveal" aria-hidden="true">
           <div class="rvDeck"></div>
         </div>
 
-        <p class="rvGuard ov-reveal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#6C6C70" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2.2 2.2L15.5 10" stroke="#6C6C70" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Content that breaks your brand guidelines is auto-rejected.</span>
-        </p>
+        <p class="rvGuard ov-reveal">*Content that breaks your brand guidelines is auto-rejected.</p>
 
         <script>
         /* Content review, swipe style (plays only while on screen).
