@@ -1078,8 +1078,8 @@
           .rvLead { margin: 0 auto; max-width: 330px; font-size: 17px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: #6C6C70; text-align: center; text-wrap: pretty; }
           .rvLead b { font-weight: 600; color: #121212; }
 
-          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 34px auto 0; }
-          .rvDeck { position: relative; width: 232px; height: 310px; margin: 30px auto 0; }
+          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 34px auto 0; overflow: visible; }
+          .rvDeck { position: relative; width: 232px; height: 310px; margin: 30px auto 0; touch-action: pan-y; }
           .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.5s var(--rv-out), opacity 0.4s var(--rv-out), filter 0.4s var(--rv-out); }
           .rvCard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); box-shadow: inset 0 0 0 0 transparent; transition: box-shadow 0.25s var(--rv-out); }
           .rvCard.ok::after { box-shadow: inset 0 0 0 3px #1548EB; }
@@ -1098,20 +1098,7 @@
           .rvCard.no .rvStamp { background: #E5484D; }
           .rvCard.ok .rvStamp, .rvCard.no .rvStamp { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 
-          /* Two trays the approved pieces collect into */
-          .rvTrays { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
-          .rvTray { padding: 12px 12px 12px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #ECECEF; transition: box-shadow 0.3s var(--rv-out); }
-          .rvTray.got { box-shadow: inset 0 0 0 1.5px #1548EB; }
-          .rvTrayHead { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #121212; letter-spacing: -0.01em; white-space: nowrap; }
-          .rvTrayHead b { margin-left: auto; display: inline-grid; overflow: hidden; height: 1.3em; line-height: 1.3em; color: #6C6C70; font-weight: 600; font-variant-numeric: tabular-nums; }
-          .rvTrayHead b span { grid-area: 1 / 1; transition: transform 0.3s var(--rv-out), opacity 0.3s var(--rv-out), filter 0.3s var(--rv-out); }
-          .rvTrayHead b span.out { transform: translateY(-80%); opacity: 0; filter: blur(2px); }
-          .rvTrayHead b span.pre { transform: translateY(80%); opacity: 0; filter: blur(2px); transition: none; }
-          .rvThumbs { position: relative; height: 40px; margin-top: 10px; }
-          .rvThumb { position: absolute; left: 0; top: 0; width: 30px; height: 40px; border-radius: 8px; background: #DADADF center / cover no-repeat; box-shadow: 0 0 0 2px #FFFFFF, 0 2px 6px rgba(18,18,18,0.12); transition: transform 0.45s var(--rv-out), opacity 0.3s var(--rv-out); }
-          .rvThumb.enter { opacity: 0; }
-
-          .rvGuard { display: flex; align-items: flex-start; justify-content: center; gap: 10px; max-width: 320px; margin: 30px auto 0; font-size: 14px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-align: left; }
+          .rvGuard { display: flex; align-items: center; justify-content: center; gap: 8px; max-width: 300px; margin: 36px auto 0; font-size: 14px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-align: center; text-wrap: balance; }
           .rvGuard svg { flex: none; margin-top: 1px; }
 
           @media (prefers-reduced-motion: reduce) {
@@ -1119,7 +1106,6 @@
             .rvCard[data-pos] { transform: none; }
             .rvCard[data-pos="1"], .rvCard[data-pos="2"], .rvCard[data-pos="3"] { opacity: 0; }
             .rvStamp, .rvCard.ok .rvStamp, .rvCard.no .rvStamp { transform: translateX(-50%); }
-            .rvThumb { transition: opacity 0.3s ease; }
           }
         </style>
 
@@ -1128,41 +1114,29 @@
 
         <div class="rvStage ov-reveal" aria-hidden="true">
           <div class="rvDeck"></div>
-          <div class="rvTrays">
-            <div class="rvTray" data-bin="raw">
-              <div class="rvTrayHead"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Raw content<b><span>12</span></b></div>
-              <div class="rvThumbs"></div>
-            </div>
-            <div class="rvTray" data-bin="handle">
-              <div class="rvTrayHead"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.6" stroke="#121212" stroke-width="2"/><path d="M15.6 12v1.4a2.6 2.6 0 0 0 5.2 0V12A8.8 8.8 0 1 0 17 19.2" stroke="#121212" stroke-width="2" stroke-linecap="round"/></svg>Creator handles<b><span>9</span></b></div>
-              <div class="rvThumbs"></div>
-            </div>
-          </div>
         </div>
 
         <p class="rvGuard ov-reveal">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#6C6C70" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2.2 2.2L15.5 10" stroke="#6C6C70" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Polysocial automatically rejects content that directly violates your brand guidelines.</span>
+          <span>Content that breaks your brand guidelines is auto-rejected.</span>
         </p>
 
         <script>
-        /* Content review loop (plays only while on screen).
-           Approve: blue ring + stamp, the card tilts toward its tray and shrinks
-           into the first thumbnail slot while the others slide over to make room.
-           Reject: red ring + stamp, a short "no" shake, then it blurs and drops.
-           The stack moves up quickly (ease-out) while the card leaves. */
+        /* Content review, swipe style (plays only while on screen).
+           The front card gets its decision, leans a little that way, then is
+           flicked off: approved to the right, rejected to the left. The stack
+           moves up while it goes. */
         (function(){
           var sec=document.getElementById('rvSection'); if(!sec) return;
           var deck=sec.querySelector('.rvDeck');
-          var trays={ raw:sec.querySelector('[data-bin="raw"]'), handle:sec.querySelector('[data-bin="handle"]') };
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var IMG='assets/img/brands-ugc-', MOVE='cubic-bezier(0.77,0,0.175,1)', OUT='cubic-bezier(0.23,1,0.32,1)';
+          var IMG='assets/img/brands-ugc-', OUT='cubic-bezier(0.23,1,0.32,1)';
           var POOL=[
             { img:1, who:'@nethmi.cooks', kind:'Reel · 0:24', p:'tt' },
             { img:2, who:'@dinu.daily', kind:'Story', p:'ig' },
             { img:7, who:'@kasun.vibes', kind:'Reel · 0:31', p:'ig', reject:true },
             { img:3, who:'@sachi.styles', kind:'Reel · 0:18', p:'ig' },
-            { img:4, who:'@ravi.reacts', kind:'Video · 0:42', p:'tt' },
+            { img:4, who:'@ravi.reacts', kind:'Video · 0:42', p:'tt', reject:true },
             { img:5, who:'@amaya.home', kind:'Post', p:'ig' },
             { img:6, who:'@pink.passion', kind:'Reel · 0:27', p:'tt' }
           ];
@@ -1171,89 +1145,46 @@
             ig:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="0.6" fill="#fff"/></svg>'
           };
           var CHECK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-          var SHIELD='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><path d="m9.5 9.5 5 5m0-5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
-          var STEP=19, MAXT=5;
+          var CROSS='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7 7 17" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/></svg>';
 
-          var next=0, approvals=0, run=0, cards=[];
+          var next=0, run=0, cards=[];
           function fill(card){
             var d=POOL[next++ % POOL.length]; card._d=d;
             card.style.backgroundImage='url('+IMG+d.img+'.webp)';
             card.innerHTML='<div class="rvWho"><span style="background-image:url('+IMG+d.img+'.webp)"></span>'+d.who+'</div>'+
               '<div class="rvMeta"><em>'+ICON[d.p]+d.kind+'</em></div>'+
-              '<div class="rvStamp">'+(d.reject ? SHIELD+'Auto-rejected' : CHECK+'Approved')+'</div>';
+              '<div class="rvStamp">'+(d.reject ? CROSS+'Rejected' : CHECK+'Approved')+'</div>';
           }
           for(var i=0;i<4;i++){ var c=document.createElement('div'); c.className='rvCard'; c.setAttribute('data-pos',i); fill(c); deck.appendChild(c); cards.push(c); }
 
-          // Thumbnails are absolutely placed by index so making room animates.
-          function layout(box){ [].forEach.call(box.children,function(t,i){ t.style.transform='translateX('+(i*STEP)+'px)'; t.style.zIndex=MAXT-i; }); }
-          function addThumb(box,img,hidden){
-            var t=document.createElement('div'); t.className='rvThumb'+(hidden?' enter':''); t.style.backgroundImage='url('+IMG+img+'.webp)';
-            box.insertBefore(t,box.firstChild); layout(box);
-            while(box.children.length>MAXT){ var last=box.lastElementChild; box.removeChild(last); }
-            return t;
-          }
-          [[3,6,2],[5,4,1]].forEach(function(set,k){ var box=(k?trays.handle:trays.raw).querySelector('.rvThumbs'); set.forEach(function(n){ addThumb(box,n,false); }); });
-
-          function roll(el,val){
-            var old=el.lastElementChild; if(reduce){ el.innerHTML='<span>'+val+'</span>'; return; }
-            var nu=document.createElement('span'); nu.textContent=val; nu.className='pre'; el.appendChild(nu); void nu.offsetWidth; nu.className='';
-            if(old){ old.className='out'; setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); },320); }
-          }
           function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej(); },ms); }); }
-          function advance(){ for(var k=1;k<cards.length;k++) cards[k].setAttribute('data-pos',k-1); }
+          function set(el,tr,tf,op){ el.style.transition=tr; el.style.transform=tf; if(op!=null) el.style.opacity=op; }
 
           function cycle(id){
-            var front=cards[0], d=front._d, tray=null, thumb=null;
+            var front=cards[0], d=front._d, dir=d.reject?-1:1;
+            front.style.transformOrigin='50% 100%';
             front.classList.add(d.reject?'no':'ok');
+            // lean toward the decision, as if a thumb had started the swipe
+            if(!reduce) set(front,'transform 0.32s '+OUT,'translateX('+(dir*16)+'px) rotate('+(dir*3)+'deg)');
             return wait(reduce?800:900,id).then(function(){
-              if(d.reject){
-                var exit=function(){
-                  front.style.transition='transform 0.38s '+OUT+', opacity 0.3s '+OUT+', filter 0.3s '+OUT;
-                  front.style.transform=reduce?'none':'translateY(34px) scale(0.95)'; front.style.opacity='0'; front.style.filter='blur(6px)';
-                  advance();
-                };
-                if(reduce||!front.animate){ exit(); return wait(420,id); }
-                // a short, decaying "no" before it leaves
-                front.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(7px)'},{transform:'translateX(-4px)'},{transform:'translateX(2px)'},{transform:'translateX(0)'}],{duration:380,easing:'ease-out'});
-                return wait(400,id).then(function(){ exit(); return wait(420,id); });
-              }
-              tray=(approvals++ % 2) ? trays.handle : trays.raw;
-              var box=tray.querySelector('.rvThumbs');
-              thumb=addThumb(box,d.img,true);
-              var fr=front.getBoundingClientRect(), tr=thumb.getBoundingClientRect();
-              var tx=tr.left + (thumb.offsetWidth/2), ty=tr.top + (thumb.offsetHeight/2);
-              // the new slot sits at index 0 (translateX 0) once laid out
-              tx=box.getBoundingClientRect().left+thumb.offsetWidth/2; ty=box.getBoundingClientRect().top+thumb.offsetHeight/2;
-              var dx=tx-(fr.left+fr.width/2), dy=ty-(fr.top+fr.height/2), sc=thumb.offsetWidth/fr.width, rot=(tray===trays.raw?-9:9);
-              advance();
-              if(reduce||!front.animate){ front.style.opacity='0'; thumb.classList.remove('enter'); return wait(450,id); }
-              front.style.transformOrigin='50% 50%'; front.style.transition='none';
-              var anim=front.animate([
-                { transform:'translate(0,0) rotate(0deg) scale(1)', borderRadius:'22px', opacity:1 },
-                { transform:'translate('+dx*0.45+'px,'+(dy*0.45-26)+'px) rotate('+rot+'deg) scale('+(0.62)+')', borderRadius:'20px', opacity:1, offset:0.45 },
-                { transform:'translate('+dx+'px,'+dy+'px) rotate(0deg) scale('+sc+')', borderRadius:'40px', opacity:1 }
-              ],{ duration:720, easing:MOVE, fill:'forwards' });
-              return wait(690,id).then(function(){
-                thumb.classList.remove('enter'); front.style.opacity='0';
-                var b=tray.querySelector('b'); roll(b, +b.lastElementChild.textContent+1);
-                tray.classList.add('got'); setTimeout(function(){ tray.classList.remove('got'); },420);
-                return wait(60,id).then(function(){ anim.cancel(); });
-              });
+              // flick it off, carrying on in the same direction
+              if(reduce) set(front,'opacity 0.3s ease','none','0');
+              else set(front,'transform 0.5s '+OUT+', opacity 0.4s '+OUT,'translateX('+(dir*140)+'%) rotate('+(dir*16)+'deg)','0');
+              for(var k=1;k<cards.length;k++) cards[k].setAttribute('data-pos',k-1);
+              return wait(reduce?350:520,id);
             }).then(function(){
               cards.push(cards.shift());
-              front.style.transition='none'; front.style.transform=''; front.style.opacity=''; front.style.filter=''; front.style.transformOrigin='';
+              front.style.transition='none'; front.style.transform=''; front.style.opacity=''; front.style.transformOrigin='';
               front.classList.remove('ok','no'); front.setAttribute('data-pos',3); fill(front);
               void front.offsetWidth; front.style.transition='';
-              return wait(reduce?900:650,id);
+              return wait(reduce?900:500,id);
             }).then(function(){ return cycle(id); });
           }
 
-          var inView=false, playing=false;
-          // If the loop was stopped mid-move, put every card back to a clean resting state.
           function tidy(){
-            cards.forEach(function(c,i){ c.getAnimations && c.getAnimations().forEach(function(an){ an.cancel(); }); c.style.transition='none'; c.style.transform=''; c.style.opacity=''; c.style.filter=''; c.style.transformOrigin=''; c.classList.remove('ok','no'); c.setAttribute('data-pos',i); void c.offsetWidth; c.style.transition=''; });
-            [].forEach.call(sec.querySelectorAll('.rvThumb.enter'),function(t){ var box=t.parentNode; box.removeChild(t); layout(box); });
+            cards.forEach(function(c,i){ c.style.transition='none'; c.style.transform=''; c.style.opacity=''; c.style.transformOrigin=''; c.classList.remove('ok','no'); c.setAttribute('data-pos',i); void c.offsetWidth; c.style.transition=''; });
           }
+          var inView=false, playing=false;
           function start(){ if(playing||!inView||document.hidden) return; playing=true; tidy(); var id=++run; wait(400,id).then(function(){ return cycle(id); }).catch(function(){}); }
           function stop(){ playing=false; run++; }
           if('IntersectionObserver' in window){
