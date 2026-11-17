@@ -436,6 +436,7 @@
     .cReveal { opacity: 0; transform: translateY(26px); transition: opacity 0.62s cubic-bezier(0.23,1,0.32,1), transform 0.62s cubic-bezier(0.23,1,0.32,1); will-change: transform, opacity; }
     .cReveal.in { opacity: 1; transform: translateY(0); }
     .callItem { position: relative; padding: 22px 2px; }
+    #brandsForSection .callLine { background: rgba(255,255,255,0.14) !important; }
     .callItem[data-foc] { transform-origin: center center; will-change: transform, opacity; transition: transform 0.34s cubic-bezier(0.23,1,0.32,1), opacity 0.34s cubic-bezier(0.23,1,0.32,1); }
     .callLine { position: absolute; left: 0; width: 100%; height: 1px; background: #E4E4E4; transform: scaleX(0); transform-origin: center; transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
     .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1), color 0.3s ease; }
@@ -1350,33 +1351,6 @@
         </div>
       </section>
 
-      <!-- 4. This is for (styled like the creators page's "We are calling for") -->
-      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 24px; background: #F6F6F6; text-align: center;">
-        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212;">This call is for</h2>
-        <div style="max-width: 340px; width: 100%; margin: 0 auto;">
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Commercial brands</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Corporates</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Organizations</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Events</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Public figures</span></span>
-          </div>
-          <span class="callLine callItem" style="position: relative; display: block; top: 0;"></span>
-        </div>
-      </section>
 
 
       
@@ -1450,6 +1424,33 @@
           .growHint { display: none; }
         }
       </style>
+      <!-- This call is for: dark, flowing straight into "Grow your brand with us" below (one merged dark block) -->
+      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 24px 0; background: #161616; text-align: center;">
+        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF;">This call is for</h2>
+        <div style="max-width: 340px; width: 100%; margin: 0 auto;">
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Commercial brands</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Corporates</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Organizations</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Events</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Public figures</span></span>
+          </div>
+          <span class="callLine callItem" style="position: relative; display: block; top: 0;"></span>
+        </div>
+      </section>
       <section data-screen-label="Grow your brand" style="position: relative; background: #161616;">
         <div id="growTrack" class="growTrack">
           <div class="growPin">
@@ -1736,7 +1737,7 @@
       var items=[].slice.call(section.querySelectorAll('.callItem')).filter(function(el){ return el.querySelector('.callWord'); });
       if(!items.length) return;
       items.forEach(function(el){ el.setAttribute('data-foc',''); });
-      var CENTER_SCALE=1.06, FAR_SCALE=0.945, CENTER_OP=1, FAR_OP=0.34, HL_BLUE='#1548EB', INK='#121212';
+      var CENTER_SCALE=1.06, FAR_SCALE=0.945, CENTER_OP=1, FAR_OP=0.34, HL_BLUE='#5B85FF', INK='#FFFFFF';
       var words=items.map(function(el){ return el.querySelector('.callWord'); });
       var ticking=false;
       function apply(){
