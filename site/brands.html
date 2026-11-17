@@ -432,10 +432,11 @@
 
     /* "This is for" — same design + focus-lens highlighting as the creators page's
        "We are calling for" section. */
-    :root { --sp-section: clamp(40px, 9vw, 52px); --sp-heading: clamp(30px, 7vw, 40px); --sp-panel: clamp(44px, 11vw, 76px); }
+    :root { --sp-section: clamp(40px, 9vw, 52px); --sp-heading: clamp(32px, 8vw, 40px); --sp-panel: clamp(80px, 21vw, 112px); }
     .cReveal { opacity: 0; transform: translateY(26px); transition: opacity 0.62s cubic-bezier(0.23,1,0.32,1), transform 0.62s cubic-bezier(0.23,1,0.32,1); will-change: transform, opacity; }
     .cReveal.in { opacity: 1; transform: translateY(0); }
     .callItem { position: relative; padding: 22px 2px; }
+    #brandsForSection .callLine { background: rgba(255,255,255,0.14) !important; }
     .callItem[data-foc] { transform-origin: center center; will-change: transform, opacity; transition: transform 0.34s cubic-bezier(0.23,1,0.32,1), opacity 0.34s cubic-bezier(0.23,1,0.32,1); }
     .callLine { position: absolute; left: 0; width: 100%; height: 1px; background: #E4E4E4; transform: scaleX(0); transform-origin: center; transition: transform 0.72s cubic-bezier(0.23,1,0.32,1); }
     .callWord { display: inline-block; transform: translateY(115%); transition: transform 0.72s cubic-bezier(0.23,1,0.32,1), color 0.3s ease; }
@@ -461,6 +462,19 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#FF6B4A">
+<style>.dBr { display: none; }</style>
+<style>
+  /* Phones: every section is one screen tall with its content centred
+     (the sticky nav is accounted for at the top). */
+  @media (max-width: 767px) {
+    #rvSection, #agreeScreen section[data-screen-label="Community"],
+    #brandsForSection, #talkSection {
+      min-height: 100vh; min-height: 100dvh; box-sizing: border-box;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: calc(var(--nav-h, 52px) + 24px) !important; padding-bottom: 24px !important;
+    }
+  }
+</style>
 <style id="desktop-view">
 /* =====================================================================
    DESKTOP / TABLET VIEW  (For Brands)
@@ -504,30 +518,10 @@
     margin-top: calc(-1 * var(--nav-h)) !important;
     gap: clamp(28px, 3.2vw, 44px) !important;
   }
-  #top > h1 { font-size: clamp(56px, 7.2vw, 92px) !important; }
+  #top > h1 { font-size: clamp(62px, 8.4vw, 96px) !important; line-height: 1.06 !important; }
   /* CTA kept at a compact 14px on desktop; the pill + arrow circle are sized to it. */
   #top a[href="brand-access.html"] { height: 40px !important; padding: 0 6px 0 20px !important; font-size: 14px !important; letter-spacing: -0.01em !important; gap: 8px !important; }
   #top a[href="brand-access.html"] > span { width: 28px !important; height: 28px !important; }
-
-  /* ============ SPONSORED AD → landscape card ============
-     The card becomes a 16:9 landscape block (max 1024px wide), centred and
-     vertically centred in the viewport. The JS lock reads this card's
-     resolved sticky `top`, so 576px here stays in sync automatically.
-     The vertical clip is hidden and the landscape clip shown. */
-  #start { padding: 0 var(--edge) !important; }
-  #start > div {
-    width: min(100%, 1024px) !important;
-    height: 576px !important;
-    margin: 0 auto !important;
-    top: max(16px, calc((100dvh - 576px) / 2)) !important;
-  }
-  #adVideo { display: none !important; }
-  #adVideoDesk { display: block !important; }
-  /* Poll takeover: hold heading + options in a centred column on the wide card. */
-  #start #adPoll { padding: 48px 24px !important; justify-content: center !important; }
-  #start #adPoll > #pollBackBtn { position: absolute !important; top: 20px !important; left: 20px !important; }
-  #start #adPoll > h3 { max-width: 720px !important; width: 100% !important; margin: 0 auto !important; font-size: 28px !important; text-align: center !important; }
-  #start #adPoll > div { max-width: 520px !important; width: 100% !important; margin: 0 auto !important; }
 
   /* ============ AGREEMENT OVERLAY (full-bleed) ============
      Fixed overlay (position:fixed, left:50%, translateX(-50%)) — widening it
@@ -537,8 +531,10 @@
 
   /* Agreement payoff panel */
   #agreePanel { padding: clamp(72px, 10vw, 120px) var(--edge) !important; }
-  #agreePanel .ov-reveal { width: 100% !important; max-width: 900px !important; gap: 40px !important; }
-  #agreePanel p { width: 100% !important; max-width: 820px !important; font-size: clamp(30px, 3.4vw, 42px) !important; }
+  #agreePanel .ov-reveal { width: 100% !important; max-width: 1000px !important; }
+  #agreePanel { min-height: 100dvh !important; aspect-ratio: auto !important; background-size: auto 100% !important; }
+  #agreePanel .dBr { display: inline !important; }
+  #agreePanel p { width: 100% !important; max-width: none !important; text-wrap: wrap !important; margin: 0 auto !important; font-size: clamp(36px, 4.6vw, 60px) !important; line-height: 1.18 !important; }
 
   /* Community */
   #agreeScreen section[data-screen-label="Community"] { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
@@ -557,11 +553,6 @@
   .clMob { display: none !important; }
   .clDesk { display: block !important; }
 
-  /* How to start */
-  #agreeScreen section[data-screen-label="How to start"] > h2 { margin: 0 var(--edge) 30px !important; font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #htsStepper { margin: 0 var(--edge) 40px !important; }
-  #htsTrack { gap: 22px !important; padding-top: 4px !important; padding-bottom: 8px !important; }
-  #htsTrack .htsCard { width: 340px !important; max-width: 340px !important; }
 
   /* Who it's for */
   #brandsForSection { padding: clamp(72px, 10vw, 110px) var(--edge) !important; }
@@ -569,10 +560,6 @@
   #brandsForSection > div[style*="max-width: 340px"] { max-width: 640px !important; }
   #brandsForSection .callWord { font-size: clamp(28px, 3.4vw, 40px) !important; }
 
-  /* Supplementary services */
-  #agreeScreen section[data-screen-label="Supplementary services"] > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] > div { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; justify-content: center !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] article { width: 320px !important; max-width: 320px !important; }
 
   /* Grow your brand (WebGL): full-bleed already; only the fallback type grows. */
   .growFallback { font-size: clamp(72px, 12vw, 140px) !important; }
@@ -587,11 +574,6 @@
   #agreeScreen footer img[alt="polysocial"] { width: 152px !important; height: 28px !important; }
   #agreeScreen footer div[style*="font-size:10px"] { max-width: 780px !important; font-size: 12px !important; }
 
-  /* Disagree modal — a touch larger and more spacious on desktop */
-  #disagreeModalCard { max-width: 440px !important; padding: 48px 44px 32px !important; border-radius: 28px !important; }
-  #disagreeModalCard h3 { font-size: 20px !important; }
-  #disagreeModalCard p { font-size: 16px !important; }
-  #disagreeModalCard button#disagreeRetry { height: 56px !important; font-size: 17px !important; }
 }
 
 </style>
@@ -636,13 +618,13 @@
     </div>
 
 <!-- 2. Hero -->
-    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: 88dvh; margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100dvh - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
       
-      <h1 style="margin: 0; font-weight: 600; font-size: 40px; line-height: 1.08; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
-        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">We can</span> <span style="color: #121212;">run</span></span>
-        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.21s;"><span style="color: #1548EB;">million</span> <span style="color: #121212;">creator</span></span>
-        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.28s;"><span style="color: #121212;">campaigns</span> <span style="color: #ADADAD;">at any</span></span>
-        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.35s;"><span style="color: #ADADAD;">given</span> <span style="color: #121212;">moment.</span></span>
+      <h1 style="margin: 0; font-weight: 600; font-size: 48px; line-height: 1.06; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
+        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">Turn your</span></span>
+        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.21s;"><span style="color: #1548EB;">customers</span></span>
+        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.28s;"><span style="color: #ADADAD;">into</span> <span style="color: #121212;">content</span></span>
+        <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.35s;"><span style="color: #121212;">creators.</span></span>
       </h1>
       <span data-anim="" style="animation: riseIn 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.52s;">
         <a href="brand-access.html" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 6px 0 18px; background: #FFFFFF; color: #1548EB; border: 1.5px solid #1548EB; border-radius: 100px; font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; transition: transform 0.16s cubic-bezier(0.23,1,0.32,1); border-width: 2px" style-active="transform: scale(0.97);">
@@ -654,69 +636,705 @@
       </span>
     </div>
 
-    <!-- Sponsored ad video (sticky: pins centered, independent of page scroll) -->
-    <section id="start" data-screen-label="Sponsored ad" style="position: relative; padding: 0 16px; height: 100dvh;">
-      <div style="position: sticky; top: max(16px, calc((100dvh - 616px) / 2)); width: 100%; height: 616px; border-radius: 28px; overflow: hidden; background: #000000; box-shadow: 0 16px 40px rgba(18,31,96,0.16);">
-        <video id="adVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/brand-sponsored-ad.poster.7cb4a77698.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><source src="assets/video/brand-sponsored-ad.35acbfe3d2.webm" type="video/webm"><source src="assets/video/brand-sponsored-ad.87f52e1988.mp4" type="video/mp4"></video>
-        <!-- Desktop landscape ad (shown at >=768px; the vertical clip above is hidden there) -->
-        <video id="adVideoDesk" muted loop playsinline preload="none" poster="assets/video/brand-sponsored-ad-landscape.poster.567b66a740.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none;"><source src="assets/video/brand-sponsored-ad-landscape.936602de95.webm" type="video/webm"><source src="assets/video/brand-sponsored-ad-landscape.741706c795.mp4" type="video/mp4"></video>
-        <div aria-hidden="true" style="position: absolute; top: 0; left: 0; right: 0; height: 96px; background: linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
-        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 140px; background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%); pointer-events: none;"></div>
-        <span style="position: absolute; top: 18px; left: 18px; color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 20px; text-shadow: 0 1px 6px rgba(0,0,0,0.55);">Sponsored Ad</span>
-        <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 18px; display: flex; flex-direction: column; gap: 14px;">
-          <div style="display: flex; justify-content: flex-end;">
-            <button id="skipAdBtn" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: none; border-radius: 999px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.28s cubic-bezier(0.23,1,0.32,1), transform 0.28s cubic-bezier(0.23,1,0.32,1); pointer-events: none;">
-              Skip Ad
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M17 5V19M6 10.5713V13.4287C6 15.2557 6 16.1693 6.38355 16.6958C6.71806 17.1549 7.23174 17.4496 7.79688 17.5073C8.44484 17.5733 9.23434 17.113 10.8125 16.1924L13.2617 14.7637L13.2701 14.7588C14.8216 13.8537 15.5979 13.4009 15.8595 12.8105C16.0881 12.2946 16.0881 11.7062 15.8595 11.1902C15.5974 10.5988 14.8188 10.1446 13.2617 9.2363L10.8125 7.80762C9.23434 6.88702 8.44484 6.42651 7.79688 6.49256C7.23174 6.55017 6.71806 6.84556 6.38355 7.30469C6 7.83111 6 8.74424 6 10.5713Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </button>
-          </div>
-          <div style="height: 4px; border-radius: 999px; background: rgba(255,255,255,0.3); overflow: hidden;">
-            <div id="adProgress" style="height: 100%; width: 0%; background: #FFD22D; border-radius: 999px; transition: width 0.12s linear;"></div>
-          </div>
+    <!-- Statement + rest of the page (normal flow) -->
+    <div id="agreeScreen" data-screen-label="Statement" style="position: relative; width: 100%;">
+      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
+        <div class="ov-reveal" style="width: 64cqw; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
+          <p style="margin: 0; font-weight: 600; font-size: 6.4cqw; line-height: 1.2; letter-spacing: -0.01em; text-align: center; text-wrap: balance; color: #717171;">Every customer who loves<br class="dBr"> your product is a <span style="color: #000000;">creator<br class="dBr"> waiting to be activated</span> &mdash; with<br class="dBr"> an audience your ads never<br class="dBr"> reach.</p>
         </div>
+      </div>
 
-        <!-- Poll takeover (appears after Skip Ad) -->
-        <div id="adPoll" style="position: absolute; inset: 0; z-index: 5; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; gap: 20px; background: linear-gradient(160deg, rgba(20,12,8,0.32) 0%, rgba(20,12,8,0.52) 100%); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); opacity: 0; visibility: hidden; transform: scale(1.02); transition: opacity 0.4s cubic-bezier(0.23,1,0.32,1), transform 0.4s cubic-bezier(0.23,1,0.32,1), visibility 0.4s; pointer-events: none;">
-          <button id="pollBackBtn" aria-label="Back to video" style="align-self: flex-start; width: 36px; height: 36px; border: none; border-radius: 999px; background: rgba(0,0,0,0.42); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out;" style-hover="background: rgba(0,0,0,0.6);" style-active="transform: scale(0.94);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: block; flex: none;"><path d="M15 5l-7 7 7 7" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <!-- Checkout micro-animation: select a product -> add units -> pay. Loops while on screen. -->
+      <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 480vh; background: #F6F6F6;">
+        <style>
+          #coSection { --co-ease: cubic-bezier(0.23,1,0.32,1); --co-move: cubic-bezier(0.77,0,0.175,1); --co-sheet: cubic-bezier(0.32,0.72,0,1); }
+          #coPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
+          #coStage { width: 100%; transform-origin: 50% 50%; }
+          /* Pager-style control pinned to the bottom of the stage */
+          .coCtl { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: flex; align-items: center; gap: 10px; transform: translateX(-50%); transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
+          .coProg { position: relative; width: 168px; height: 44px; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
+          .coProg::before, .coProg i { content: ""; position: absolute; left: 22px; right: 22px; top: 50%; height: 6px; margin-top: -3px; border-radius: 999px; }
+          .coProg::before { background: rgba(60,60,67,0.18); }
+          .coProg i { display: block; background: #3C3C43; clip-path: inset(0 100% 0 0 round 999px); }
+          .coSkip { appearance: none; width: 44px; height: 44px; border: 0; padding: 0; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s var(--co-ease), background-color 0.2s ease; }
+          .coSkip:active { transform: scale(0.92); }
+          @media (hover: hover) and (pointer: fine) { .coSkip:hover { background: rgba(118,118,128,0.2); } }
+          .coSkip:focus-visible { outline: 2px solid #1548EB; outline-offset: 3px; }
+          /* Not needed once the story has reached the quote */
+          #coSection.coFinal .coCtl { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
+          #coSection .coHead { margin: 0 0 32px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
+          #coCard { position: relative; width: 100%; max-width: 345px; height: 470px; margin: 0 auto; border-radius: 32px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(18,18,18,0.04), 0 18px 48px rgba(18,31,96,0.10); overflow: hidden; isolation: isolate; -webkit-user-select: none; user-select: none; }
+
+          /* Store screen */
+          .coBar { display: flex; align-items: center; justify-content: space-between; padding: 22px 22px 14px; }
+          .coBar b { font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: #121212; }
+          .coCart { position: relative; width: 36px; height: 36px; border-radius: 999px; background: #F2F2F4; display: flex; align-items: center; justify-content: center; }
+          .coBadge { position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 999px; background: #1548EB; color: #FFFFFF; font-size: 11px; font-weight: 600; line-height: 18px; text-align: center; opacity: 0; transform: scale(0.6); transition: opacity 0.2s var(--co-ease), transform 0.35s cubic-bezier(0.34,1.4,0.64,1); }
+          .coBadge.on { opacity: 1; transform: scale(1); }
+          .coGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; transition: transform 0.5s var(--co-sheet), filter 0.5s var(--co-sheet); transform-origin: 50% 0; }
+          #coCard.sheetOpen .coGrid { transform: scale(0.94); filter: brightness(0.92); }
+          .coTile { position: relative; border-radius: 20px; padding: 6px 6px 10px; background: #FFFFFF; transition: transform 0.16s var(--co-ease), box-shadow 0.25s var(--co-ease); box-shadow: inset 0 0 0 1px #EEEEF0; }
+          .coTile.press { transform: scale(0.96); }
+          .coTile.sel { box-shadow: inset 0 0 0 2px #1548EB; }
+          .coImg { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 0.86; border-radius: 15px; background: #F2F2F4; }
+          .coName { margin: 9px 6px 0; font-size: 13px; font-weight: 500; color: #121212; letter-spacing: -0.01em; }
+          .coPrice { margin: 2px 6px 0; font-size: 12px; font-weight: 500; color: #8A8A8E; }
+
+          /* Bottom sheet */
+          .coScrim { position: absolute; inset: 0; background: rgba(18,18,18,0.18); opacity: 0; transition: opacity 0.5s var(--co-sheet); pointer-events: none; }
+          #coCard.sheetOpen .coScrim { opacity: 1; }
+          .coSheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 20px 20px; border-radius: 28px 28px 32px 32px; background: #FFFFFF; box-shadow: 0 -10px 30px rgba(18,18,18,0.10); transform: translateY(104%); transition: transform 0.55s var(--co-sheet); }
+          #coCard.sheetOpen .coSheet { transform: translateY(0); }
+          .coGrab { width: 36px; height: 5px; margin: 0 auto 16px; border-radius: 999px; background: #E2E2E5; }
+          .coItem { display: flex; align-items: center; gap: 14px; }
+          .coItem .coImg { width: 72px; aspect-ratio: 1; border-radius: 16px; flex: none; }
+          .coItem b { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
+          .coItem span { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: #8A8A8E; }
+          .coRow { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; font-size: 15px; font-weight: 500; color: #121212; }
+          .coRow.total { margin-top: 16px; padding-top: 16px; border-top: 1px solid #EFEFF1; }
+          .coRow.total > span:first-child { color: #8A8A8E; }
+          .coStep { display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 999px; background: #F2F2F4; }
+          .coStep button { appearance: none; width: 32px; height: 32px; border: 0; padding: 0; border-radius: 999px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.16s var(--co-ease); pointer-events: none; }
+          .coStep button.press { transform: scale(0.88); }
+
+          /* Rolling numbers: old value leaves upward, new one rises in (blur bridges the swap). */
+          .coRoll { position: relative; display: inline-grid; overflow: hidden; height: 1.3em; line-height: 1.3em; font-variant-numeric: tabular-nums; text-align: center; }
+          .coRoll > span { grid-area: 1 / 1; transition: transform 0.32s var(--co-ease), opacity 0.32s var(--co-ease), filter 0.32s var(--co-ease); }
+          .coRoll > span.out { transform: translateY(-70%); opacity: 0; filter: blur(2px); }
+          .coRoll > span.pre { transform: translateY(70%); opacity: 0; filter: blur(2px); transition: none; }
+          .coQty { min-width: 26px; font-size: 16px; font-weight: 600; }
+          .coTotal { font-weight: 600; }
+
+          /* Pay button morph: label -> spinner -> done */
+          .coPay { position: relative; display: block; width: 100%; height: 52px; margin-top: 18px; border-radius: 999px; background: #121212; color: #FFFFFF; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; transition: transform 0.16s var(--co-ease), background-color 0.35s var(--co-ease); }
+          .coPay.press { transform: scale(0.97); }
+          .coPay.done { background: #1548EB; }
+          .coPay > span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.22s var(--co-ease), transform 0.3s var(--co-ease), filter 0.22s var(--co-ease); }
+          .coPay > span.hide { opacity: 0; transform: scale(0.9); filter: blur(3px); }
+          .coSpin { width: 20px; height: 20px; border-radius: 999px; border: 2.5px solid rgba(255,255,255,0.28); border-top-color: #FFFFFF; animation: coSpin 0.7s linear infinite; }
+          @keyframes coSpin { to { transform: rotate(360deg); } }
+          .coCheck path { stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset 0.4s var(--co-ease) 0.08s; }
+          .coPay.done .coCheck path { stroke-dashoffset: 0; }
+
+          /* The "finger": a soft touch indicator that travels to each target. */
+          .coTouch { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 999px; background: rgba(18,18,18,0.16); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.75), 0 4px 14px rgba(18,18,18,0.18); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); opacity: 0; z-index: 10; pointer-events: none; transition: transform 0.7s var(--co-move), opacity 0.3s var(--co-ease); }
+          .coTouch i { position: absolute; inset: 0; border-radius: inherit; transition: transform 0.16s var(--co-ease); }
+          .coTouch.press i { transform: scale(0.8); background: rgba(18,18,18,0.12); }
+
+
+          /* Step 4: Polysocial notification overlay */
+          .coNoteDim { position: absolute; inset: 0; z-index: 6; background: rgba(18,18,18,0.28); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; transition: opacity 0.45s var(--co-ease); pointer-events: none; }
+          #coCard.noteOpen .coNoteDim { opacity: 1; }
+          .coNote { position: absolute; top: 10px; left: 10px; right: 10px; z-index: 8; padding: 12px 12px 12px; border-radius: 24px; background: rgba(250,250,252,0.82); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.7), 0 12px 32px rgba(18,18,18,0.22); transform: translateY(-130%) scale(0.96); opacity: 0; filter: blur(6px); transition: transform 0.38s var(--co-ease), opacity 0.25s var(--co-ease), filter 0.25s var(--co-ease); }
+          /* Arrival uses a gentle spring-like overshoot; leaving retraces the same path, faster. */
+          #coCard.noteOpen .coNote { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); transition: transform 0.62s cubic-bezier(0.34,1.32,0.64,1), opacity 0.3s var(--co-ease), filter 0.35s var(--co-ease); }
+          .coNoteHead { display: flex; gap: 11px; align-items: flex-start; }
+          .coNoteIcon { flex: none; width: 38px; height: 38px; border-radius: 10px; background: #FF6B49; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.06); }
+          .coNoteMain { flex: 1; min-width: 0; }
+          .coNoteTop { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; line-height: 1.2; }
+          .coNoteTop b { font-weight: 600; color: #121212; letter-spacing: -0.01em; }
+          .coNoteTop span { color: #8A8A8E; font-size: 12px; }
+          .coNoteTitle { margin: 3px 0 0; font-size: 14px; line-height: 1.3; font-weight: 600; color: #121212; letter-spacing: -0.01em; }
+          .coNoteText { margin: 2px 0 0; font-size: 13px; line-height: 1.35; color: #3C3C43; }
+          /* Expanded details unfold after the banner lands */
+          .coNoteMore { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s var(--co-sheet); }
+          .coNoteMore > div { overflow: hidden; min-height: 0; }
+          #coCard.noteMore .coNoteMore { grid-template-rows: 1fr; }
+          .coNoteMore .coNoteInner { opacity: 0; transform: translateY(-4px); transition: opacity 0.3s var(--co-ease), transform 0.3s var(--co-ease); }
+          #coCard.noteMore .coNoteMore .coNoteInner { opacity: 1; transform: none; transition-delay: 0.12s; }
+          .coReward { display: flex; gap: 6px; margin: 12px 0 0; }
+          .coReward span:first-child { flex: 1.35; }
+          .coReward span { flex: 1; min-width: 0; white-space: nowrap; padding: 9px 10px; border-radius: 14px; background: rgba(118,118,128,0.10); font-size: 11px; font-weight: 500; color: #6C6C70; line-height: 1.25; }
+          .coReward b { display: block; margin-top: 2px; font-size: 15px; font-weight: 600; color: #121212; letter-spacing: -0.01em; }
+          .coAccept { position: relative; height: 42px; margin-top: 10px; border-radius: 999px; background: #1548EB; color: #FFFFFF; font-size: 14px; font-weight: 600; transition: transform 0.16s var(--co-ease), background-color 0.3s var(--co-ease); }
+          .coAccept.press { transform: scale(0.97); }
+          .coAccept > span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.22s var(--co-ease), transform 0.3s var(--co-ease), filter 0.22s var(--co-ease); }
+          .coAccept > span.hide { opacity: 0; transform: scale(0.9); filter: blur(3px); }
+          .coAccept.done { background: #121212; }
+          .coAccept .coCheck path { stroke-dashoffset: 24; }
+          .coAccept.done .coCheck path { stroke-dashoffset: 0; }
+
+          /* Step 5: the whole card flips to a text-only back */
+          #coFlipWrap { perspective: 1400px; }
+          #coFlip { position: relative; max-width: 345px; margin: 0 auto; transform-style: preserve-3d; transition: transform 0.95s cubic-bezier(0.77,0,0.175,1); }
+          #coFlip.flipped { transform: rotateY(180deg); }
+          #coFlip #coCard, .coBack { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+          .coBack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 0 6px; box-sizing: border-box; background: transparent; transform: rotateY(180deg); text-align: center; }
+          .coQuoteMark { display: block; width: 38px; height: 30px; }
+          .coQuote { margin: 0; font-weight: 600; font-size: 29px; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; color: #121212; }
+          .coQuote span { white-space: nowrap; }
+          .coSub { margin: 0; max-width: 300px; font-weight: 500; font-size: 16px; line-height: 1.45; letter-spacing: -0.01em; text-wrap: pretty; color: #6C6C70; }
+          /* Each line settles in just after the turn completes, one after another */
+          .coBack > * { opacity: 0; transform: translateY(8px); filter: blur(4px); transition: opacity 0.2s var(--co-ease), transform 0.2s var(--co-ease), filter 0.2s var(--co-ease); }
+          #coFlip.flipped .coBack > * { opacity: 1; transform: none; filter: blur(0); transition: opacity 0.5s var(--co-ease) var(--d,0.6s), transform 0.6s var(--co-ease) var(--d,0.6s), filter 0.5s var(--co-ease) var(--d,0.6s); }
+          #coFlip.flipped .coBack > .coQuote { --d: 0.68s; }
+          #coFlip.flipped .coBack > .coSub { --d: 0.8s; }
+
+          /* Final text: the heading steps away and the text recentres in the screen */
+          #coSection .coHead.in, #coFlipWrap.in { transition: opacity 0.45s var(--co-ease), transform 0.6s var(--co-move), filter 0.45s var(--co-ease); }
+          #coSection.coFinal .coHead.in { opacity: 0; transform: translateY(-10px); filter: blur(4px); }
+          #coSection.coFinal #coFlipWrap.in { transform: translateY(calc(-1 * var(--co-head-shift, 36px))); }
+
+          @media (prefers-reduced-motion: reduce) {
+            .coTouch { display: none; }
+            #coSection.coFinal .coHead.in { transform: none; filter: none; }
+            #coSection.coFinal #coFlipWrap.in { transform: none; }
+            .coSheet { transform: none; opacity: 0; transition: opacity 0.3s ease; }
+            #coCard.sheetOpen .coSheet { opacity: 1; }
+            .coGrid, #coCard.sheetOpen .coGrid { transform: none; }
+            .coRoll > span.out, .coRoll > span.pre { transform: none; }
+            .coNote, #coCard.noteOpen .coNote { transform: none; filter: none; }
+            #coFlip, #coFlip.flipped { transform: none; }
+            .coBack { transform: none; opacity: 0; transition: opacity 0.3s ease; }
+            #coFlip.flipped .coBack { opacity: 1; }
+            #coFlip.flipped #coCard { opacity: 0; transition: opacity 0.3s ease; }
+          }
+        </style>
+
+        <div id="coPin">
+        <!-- Progress through the checkout story + skip straight to the quote -->
+        <div class="coCtl" id="coCtl">
+          <div class="coProg" role="progressbar" aria-label="Checkout story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="coBarFill"></i></div>
+          <button type="button" class="coSkip" id="coSkip" aria-label="Skip to the end">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#121212" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <h3 style="margin: 0; color: #FFFFFF; font-weight: 600; font-size: 24px; line-height: 1.32; letter-spacing: -0.01em; text-wrap: pretty; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">Do you think paid ads are enough to get attention, or is the market clearly shifting toward organic growth?</h3>
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-                          <button class="pollOpt" data-idx="0" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Strongly disagree</button>
-              <button class="pollOpt" data-idx="1" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Disagree</button>
-              <button class="pollOpt" data-idx="2" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Neutral</button>
-              <button class="pollOpt" data-idx="3" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Agree</button>
-              <button class="pollOpt" data-idx="4" style="display: flex; align-items: center; width: 100%; height: 54px; padding: 0 20px; border: none; border-radius: 14px; background: rgba(0,0,0,0.42); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1; text-align: left; cursor: pointer; transition: background 0.16s ease, transform 0.16s ease-out, box-shadow 0.2s ease;">Strongly Agree</button>
+        </div>
+        <div id="coStage">
+        <h2 class="coHead ov-reveal">It starts<br>at checkout</h2>
+
+        <div id="coFlipWrap" class="ov-reveal">
+        <div id="coFlip">
+        <div id="coCard" aria-hidden="true">
+          <div class="coBar">
+            <b>Store</b>
+            <div class="coCart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 7h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 7Z" stroke="#121212" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="#121212" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <span class="coBadge"></span>
+            </div>
+          </div>
+
+          <div class="coGrid">
+            <!-- Product tiles: image placeholders for now -->
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,800</p></div>
+            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 2,400</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 3,200</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,200</p></div>
+          </div>
+
+          <div class="coScrim"></div>
+
+          <div class="coSheet">
+            <div class="coGrab"></div>
+            <div class="coItem">
+              <div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+              <div><b>Product name</b><span>LKR 2,400 each</span></div>
+            </div>
+            <div class="coRow">
+              <span>Quantity</span>
+              <div class="coStep">
+                <button type="button" tabindex="-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12h12" stroke="#121212" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+                <span class="coRoll coQty" data-roll="qty"><span>1</span></span>
+                <button type="button" tabindex="-1" data-plus><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 6v12M6 12h12" stroke="#121212" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+              </div>
+            </div>
+            <div class="coRow total">
+              <span>Total</span>
+              <span class="coRoll coTotal" data-roll="total"><span>LKR 2,400</span></span>
+            </div>
+            <div class="coPay">
+              <span data-pay="label" style="gap: 5px;">Pay<span class="coRoll" data-roll="pay" style="position: static; display: inline-grid;"><span>LKR 2,400</span></span></span>
+              <span data-pay="busy" class="hide"><i class="coSpin"></i></span>
+              <span data-pay="done" class="hide"><svg class="coCheck" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Paid</span>
+            </div>
+          </div>
+
+          <div class="coNoteDim"></div>
+          <div class="coNote">
+            <div class="coNoteHead">
+              <div class="coNoteIcon"><svg width="22" height="15" viewBox="0 0 269 184" fill="none" aria-hidden="true">
+                <path d="M121.556 4.06404C141.556 -7.48297 166.556 6.9505 166.556 30.0445C166.556 31.0921 165.899 32.0212 164.936 32.4319C152.062 37.9179 143.037 50.6867 143.037 65.564V116.564C143.037 131.086 151.636 143.598 164.02 149.29C165.519 149.979 166.556 151.435 166.556 153.085C166.555 176.178 141.556 190.612 121.556 179.065L15 117.545C-5 105.998 -5 77.1306 15 65.5836L121.556 4.06404Z" fill="#FFFFFF"></path>
+                <path d="M227.969 0.278931C250.418 0.27893 268.617 18.478 268.617 40.9274V140.409C268.617 162.858 250.418 181.056 227.969 181.056C210.666 181.056 195.891 170.245 190.025 155.01C189.233 152.955 190.505 150.769 192.546 149.942C205.734 144.6 215.037 131.669 215.037 116.564V65.5641C215.037 50.3684 205.621 37.3734 192.306 32.0911C190.279 31.2867 188.994 29.1414 189.737 27.0903C195.397 11.453 210.378 0.278951 227.969 0.278931Z" fill="#FFFFFF"></path>
+              </svg></div>
+              <div class="coNoteMain">
+                <div class="coNoteTop"><b>Polysocial</b><span>now</span></div>
+                <p class="coNoteTitle">Earn LKR 50,000 by creating content</p>
+                <p class="coNoteText">Store invited you to share your order on your socials.</p>
+              </div>
+            </div>
+            <div class="coNoteMore"><div><div class="coNoteInner">
+              <div class="coReward">
+                <span>You earn<b>LKR 50,000</b></span>
+                <span>Post<b>1 Reel</b></span>
+                <span>Deadline<b>7 days</b></span>
+              </div>
+              <div class="coAccept">
+                <span data-acc="label">Accept invitation</span>
+                <span data-acc="done" class="hide"><svg class="coCheck" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>You're in</span>
+              </div>
+            </div></div></div>
+          </div>
+
+          <div class="coTouch"><i></i></div>
+        </div>
+          <!-- Back of the card: no surface, so the text sits on the section background -->
+          <div class="coBack">
+            <svg class="coQuoteMark" viewBox="0 0 38 30" fill="#121212" aria-hidden="true"><path d="M0 30V18.6C0 8.4 5 2.2 15 0l1.8 4.2C11 6 8.2 9.6 7.8 14.6H15V30H0Zm22.4 0V18.6C22.4 8.4 27.4 2.2 37.4 0l1.8 4.2c-5.8 1.8-8.6 5.4-9 10.4h7.2V30h-15Z"/></svg>
+            <p class="coQuote">&ldquo;Create an authentic review of your purchase and earn up to <span>LKR&nbsp;100,000.</span>&rdquo;</p>
+            <p class="coSub">Every customer is personally invited to join your creator community. We identify each buyer and reach them openly, through various channels.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Disagree modal (shown when user picks Strongly disagree / Disagree) -->
-    <div id="disagreeModal" role="dialog" aria-modal="true" aria-labelledby="disagreeModalTitle" style="position: fixed; inset: 0; z-index: 400; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(10,10,10,0.55); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); opacity: 0; transition: opacity 0.28s cubic-bezier(0.23,1,0.32,1);">
-      <div id="disagreeModalCard" style="position: relative; width: 100%; max-width: 380px; padding: 40px 32px 28px; background: #F1F1F1; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); text-align: center; transform: scale(0.9); opacity: 0; transition: transform 0.36s cubic-bezier(0.22,1.2,0.36,1), opacity 0.28s cubic-bezier(0.23,1,0.32,1);">
-        <svg width="76" height="76" viewBox="0 0 76 76" fill="none" aria-hidden="true" style="display: block; margin: 0 auto 22px;">
-          <path d="M35.1 7.2 L4.1 61.2 C2.7 63.7 4.5 66.8 7.4 66.8 H68.6 C71.5 66.8 73.3 63.7 71.9 61.2 L40.9 7.2 C39.6 4.9 36.4 4.9 35.1 7.2 Z" fill="#E63946"/>
-          <rect x="35" y="24" width="6" height="22" rx="3" fill="#FFFFFF"/>
-          <rect x="35" y="51" width="6" height="6" rx="3" fill="#FFFFFF"/>
-        </svg>
-        <h3 id="disagreeModalTitle" style="margin: 0 0 12px; font-weight: 700; font-size: 18px; line-height: 1.35; color: #121212;">Uh oh! Something went wrong.</h3>
-        <p style="margin: 0 0 26px; font-weight: 400; font-size: 16px; line-height: 1.45; color: #2A2A2A; text-wrap: pretty;">We strongly believe that every brand should have its own organic marketing mechanism to connect with its customers.</p>
-        <button id="disagreeRetry" type="button" style="appearance: none; width: 100%; height: 52px; border: none; border-radius: 999px; background: #7A7A7A; color: #FFFFFF; font-family: inherit; font-weight: 500; font-size: 16px; cursor: pointer; transition: background 0.16s ease, transform 0.12s ease-out;">Retry</button>
-      </div>
-    </div>
-
-    <!-- Agreement payoff screen (overlay above the video: slides up partially, then scrolls to its end) -->
-    <div id="agreeScreen" data-screen-label="Agreement" style="position: fixed; top: 0; bottom: 0; left: 50%; width: 393px; max-width: 100%; z-index: 200; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; transform: translate(-50%, 100%); transition: transform 0.82s cubic-bezier(0.32,0.72,0,1); pointer-events: none;">
-      <div style="height: 40dvh;"></div>
-      <div id="agreePanel" style="position: relative; min-height: max(530px, 66dvh); display: flex; align-items: center; justify-content: center; padding: var(--sp-panel) 30px; background: #F6F6F6; overflow: hidden;">
-        <div class="ov-reveal" style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 30px;">
-          <p style="width: 323px; max-width: 100%; margin: 0; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 28px; line-height: normal; letter-spacing: 0; text-align: center; color: #000000;"><span style="color: #717171;">We couldn't </span><span style="color: #000000;">agree more. </span><span style="color: #717171;">Brand budgets are shifting toward </span><span style="color: #000000;">creating more organic content. </span><span style="color: #717171;">What could be more organic than</span><span style="color: #000000;"> user-generated content?</span></p>
         </div>
-      </div>
 
-      <!-- 2. Community -->
-      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 12px var(--sp-panel); background: #F6F6F6; overflow: hidden;">
+        </div>
+        </div>
+
+        <script>
+        /* Checkout micro-animation. Scroll position only TRIGGERS each step
+           (select -> add units -> pay); once triggered, the step plays out on
+           its own timing. Scrolling back up returns the card to the earlier step. */
+        (function(){
+          var sec=document.getElementById('coSection'), card=document.getElementById('coCard'), flip=document.getElementById('coFlip'), stage=document.getElementById('coStage');
+          if(!sec||!card) return;
+          var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var touch=card.querySelector('.coTouch'), pick=card.querySelector('[data-pick]');
+          var plus=card.querySelector('[data-plus]'), pay=card.querySelector('.coPay');
+          var badge=card.querySelector('.coBadge'), steps=sec.querySelectorAll('[data-step]');
+          var accept=card.querySelector('.coAccept'), accLabel=accept.querySelector('[data-acc="label"]'), accDone=accept.querySelector('[data-acc="done"]');
+          var payParts={ label:pay.querySelector('[data-pay="label"]'), busy:pay.querySelector('[data-pay="busy"]'), done:pay.querySelector('[data-pay="done"]') };
+          var PRICE=2400, lkr=function(n){ return 'LKR '+n.toLocaleString('en-US'); }, run=0, shown=0, want=0, busy=false;
+          // One bar for the whole story: each step fills its fifth over that step's play time.
+          var barFill=document.getElementById('coBarFill'), barEl=barFill&&barFill.parentNode, STEPS=5, PLAY_MS=[0,2400,2600,2100,3500,1100];
+          function bar(n,ms){ if(!barFill) return; var pct=n/STEPS*100; barFill.style.transition='clip-path '+(ms||0)+'ms linear'; barFill.style.clipPath='inset(0 '+(100-pct).toFixed(2)+'% 0 0 round 999px)'; barEl.setAttribute('aria-valuenow',Math.round(pct)); }
+
+          function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej('stop'); }, reduce?Math.min(ms,120):ms); }); }
+          function step(n){ steps.forEach(function(s){ s.classList.toggle('on', +s.getAttribute('data-step')===n); }); }
+          function roll(name,text,instant){
+            card.querySelectorAll('[data-roll="'+name+'"]').forEach(function(box){
+              var old=box.lastElementChild; if(old && old.textContent===text) return;
+              if(instant || reduce){ box.innerHTML='<span>'+text+'</span>'; return; }
+              var nu=document.createElement('span'); nu.textContent=text; nu.className='pre'; box.appendChild(nu);
+              void nu.offsetWidth; nu.className='';
+              if(old){ old.className='out'; setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); },340); }
+            });
+          }
+          function setQty(q,instant){ roll('qty',''+q,instant); roll('total',lkr(q*PRICE),instant); roll('pay',lkr(q*PRICE),instant); }
+          function showPay(which){ Object.keys(payParts).forEach(function(k){ payParts[k].classList.toggle('hide', k!==which); }); pay.classList.toggle('done', which==='done'); }
+          function moveTo(el){
+            var c=card.getBoundingClientRect(), r=el.getBoundingClientRect(), k=c.width/card.offsetWidth||1;
+            touch.style.transform='translate('+((r.left-c.left+r.width/2)/k)+'px,'+((r.top-c.top+r.height/2)/k)+'px)';
+          }
+          function tap(el,id){
+            touch.classList.add('press'); el.classList.add('press');
+            return wait(170,id).then(function(){ touch.classList.remove('press'); el.classList.remove('press'); });
+          }
+          function hideTouch(){ touch.style.opacity='0'; }
+
+          // Settled look of each step (used when scrolling back up).
+          function settle(n){
+            bar(n,0);
+            hideTouch();
+            card.classList.toggle('sheetOpen', n>=1); pick.classList.toggle('sel', n>=1);
+            setQty(n>=2?3:1);
+            showPay(n>=3?'done':'label');
+            badge.classList.toggle('on', n>=3); if(n>=3) badge.textContent='3';
+            card.classList.toggle('noteOpen', n>=4); card.classList.toggle('noteMore', n>=4);
+            accepted(n>=4);
+            flip.classList.toggle('flipped', n>=5); sec.classList.toggle('coFinal', n>=5);
+            step(Math.min(n,4)-1);
+          }
+          function accepted(on){ accLabel.classList.toggle('hide',on); accDone.classList.toggle('hide',!on); accept.classList.toggle('done',on); }
+
+          // Forward plays: each starts from the previous step's settled state.
+          var plays=[null,
+            function(id){ // 1. Select a product
+              step(0); touch.style.opacity='1'; moveTo(pick);
+              return wait(760,id).then(function(){ return tap(pick,id); })
+                .then(function(){ pick.classList.add('sel'); return wait(240,id); })
+                .then(function(){ card.classList.add('sheetOpen'); hideTouch(); return wait(560,id); });
+            },
+            function(id){ // 2. Add units
+              step(1); touch.style.opacity='1'; moveTo(plus); var q=1;
+              return wait(720,id).then(function addOne(){
+                return tap(plus,id).then(function(){ q++; setQty(q); return wait(360,id); })
+                  .then(function(){ return q<3 ? addOne() : null; });
+              }).then(function(){ hideTouch(); return wait(200,id); });
+            },
+            function(id){ // 3. Pay
+              step(2); touch.style.opacity='1'; moveTo(pay);
+              return wait(720,id).then(function(){ return tap(pay,id); })
+                .then(function(){ showPay('busy'); hideTouch(); return wait(950,id); })
+                .then(function(){ showPay('done'); badge.textContent='3'; badge.classList.add('on'); return wait(300,id); });
+            },
+            function(id){ // 4. Polysocial invitation arrives over the store
+              step(3); hideTouch();
+              return wait(250,id).then(function(){ card.classList.add('noteOpen'); return wait(1100,id); })
+                .then(function(){ card.classList.add('noteMore'); return wait(900,id); })
+                .then(function(){ touch.style.opacity='1'; moveTo(accept); return wait(760,id); })
+                .then(function(){ return tap(accept,id); })
+                .then(function(){ accepted(true); hideTouch(); return wait(300,id); });
+            },
+            function(id){ // 5. Flip the whole card to the text-only back
+              hideTouch(); flip.classList.add('flipped'); sec.classList.add('coFinal');
+              return wait(1100,id);
+            }];
+
+          // Play forward one step at a time until we reach the step the scroll asks for.
+          function pump(){
+            if(busy) return;
+            if(want<shown){ run++; shown=want; settle(shown); return; }
+            if(want===shown) return;
+            busy=true; var id=++run, next=shown+1;
+            bar(next, reduce?0:PLAY_MS[next]);
+            plays[next](id).then(function(){ shown=next; busy=false; pump(); },
+                                 function(){ busy=false; });
+          }
+
+          // Scroll position -> requested step (thresholds only; no scrubbing).
+          function onScroll(){
+            var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+            var span=sec.offsetHeight-vh, p=span>0 ? -r.top/span : 0;
+            var w = r.top > vh*0.35 ? 0 : p<0.13 ? 1 : p<0.32 ? 2 : p<0.51 ? 3 : p<0.72 ? 4 : 5;
+            if(w!==want){
+              want=w;
+              if(want<shown || (busy && want<=shown)){ run++; busy=false; shown=want; settle(shown); }
+              pump();
+            }
+          }
+          // Skip: for someone in a hurry. Flip straight to the quote and move the
+          // scroll to the quote step (inside the pinned range, so nothing visibly jumps).
+          var skipBtn=document.getElementById('coSkip');
+          if(skipBtn) skipBtn.addEventListener('click',function(){
+            run++; busy=false; want=shown=5; settle(5);
+            var vh=window.innerHeight||document.documentElement.clientHeight, span=sec.offsetHeight-vh;
+            var top=sec.getBoundingClientRect().top+window.scrollY;
+            window.scrollTo({ top: Math.round(top+span*0.84), behavior: 'instant' });
+          });
+          // Keep the whole stage on short phones.
+          function fit(){
+            stage.style.transform='';
+            var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-156;
+            if(h>room) stage.style.transform='scale('+(room/h).toFixed(3)+')';
+            var hd=sec.querySelector('.coHead'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0; sec.style.setProperty('--co-head-shift', ((hd.offsetHeight+m)/2)+'px'); }
+          }
+          var ticking=false;
+          window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
+          window.addEventListener('resize',function(){ fit(); onScroll(); });
+          var c0=card.getBoundingClientRect();
+          touch.style.transform='translate('+(card.offsetWidth*0.5)+'px,'+(card.offsetHeight*0.98)+'px)';
+          settle(0); fit(); onScroll();
+        })();
+        </script>
+      </section>
+
+      <!-- Campaign card: every customer gets their own campaign. Normal scroll. -->
+      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100dvh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
+        <style>
+          #campSection h2 { align-self: end; margin: 0 auto 32px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
+          /* Only the top of the phone shows (just past the card details): the section's bottom edge cuts it cleanly. */
+          .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.30 * 300px * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
+          /* Slides up from below the fold when the section is reached (iOS sheet curve);
+             resets once the section is scrolled back out below the viewport. */
+          .campPhone { transform: translateY(80%); transition: transform 1.05s cubic-bezier(0.32,0.72,0,1); will-change: transform; }
+          .campPhone.up { transform: translateY(0); }
+          @media (prefers-reduced-motion: reduce) {
+            .campPhone { transform: none; opacity: 0; transition: opacity 0.4s ease; }
+            .campPhone.up { opacity: 1; }
+          }
+          .campPhone > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 2; pointer-events: none; }
+          /* Screen sits behind the frame's transparent glass (measured from the frame art). */
+          .campScreen { position: absolute; left: 4.22%; top: 2.17%; width: 89.33%; height: 95%; border-radius: 13.5% / 6.2%; overflow: hidden; background: #F6F6F6; container-type: inline-size; }
+          /* App chrome, measured from the app screen (all sizes in % of screen width) */
+          .campStatus { position: absolute; left: 13.4cqw; right: 8.6cqw; top: 3.6cqw; height: 5cqw; display: flex; align-items: center; justify-content: space-between; color: #000; }
+          .campStatus b { font-size: 3.9cqw; font-weight: 600; letter-spacing: -0.01em; }
+          .campStatus span { display: flex; align-items: center; gap: 1.3cqw; }
+          .campStatus svg { display: block; height: 3.1cqw; width: auto; }
+          .campNav { position: absolute; left: 8.6cqw; right: 8.6cqw; top: 13.2cqw; height: 6.2cqw; display: flex; align-items: center; justify-content: space-between; }
+          .campNav svg { display: block; width: 5.4cqw; height: 5.4cqw; }
+          .campNav .r { display: flex; gap: 3.4cqw; }
+          .campBal { position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 6.2cqw; display: flex; align-items: center; gap: 2cqw; padding: 0 3.2cqw 0 0.55cqw; border-radius: 999px; background: #1548EB; box-shadow: 0 0 0 0.25cqw #2B5CF0 inset; color: #FFFFFF; font-size: 3.6cqw; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+          .campBal img { width: 5.1cqw; height: 5.1cqw; border-radius: 50%; box-shadow: 0 0 0 0.3cqw #FFFFFF; display: block; }
+          .campHead { position: absolute; left: 8.4cqw; top: 21.6cqw; margin: 0; font-size: 7cqw; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; color: #000; }
+          .campCard { position: absolute; left: 3%; top: 35cqw; width: 94%; border-radius: 5.6cqw; overflow: hidden; }
+          .campCard img { display: block; width: 100%; height: auto; transform: scale(1.012); }
+          .campInfo { position: absolute; left: 7.2%; right: 7%; top: 107cqw; }
+          .campTitle { margin: 0; font-size: 4.1cqw; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: #121212; }
+          .campMeta { margin: 2.2cqw 0 0; font-size: 3cqw; font-weight: 500; color: #8A8A8E; }
+          .campBar { height: 1.3cqw; margin-top: 3cqw; border-radius: 999px; background: #E6E6E8; overflow: hidden; }
+          .campBar i { display: block; width: 8%; height: 100%; border-radius: inherit; background: #D6157F; }
+        </style>
+
+        <h2 class="ov-reveal">A unique campaign is created for every customer</h2>
+
+        <div class="campPhone" role="img" aria-label="Polysocial app showing a personal campaign: Patty Pop BBQ Napoleon Chicken burger launch campaign, Rs. 100K flat, on TikTok and Instagram">
+          <div class="campScreen">
+            <div class="campStatus">
+              <b>11:11</b>
+              <span>
+                <svg viewBox="0 0 18 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+                <svg viewBox="0 0 16 12" fill="#000"><path d="M8 2.2c2.4 0 4.6.9 6.2 2.5l1.3-1.4C13.5 1.3 10.9.2 8 .2S2.5 1.3.5 3.3l1.3 1.4C3.4 3.1 5.6 2.2 8 2.2Zm0 3.6c1.4 0 2.7.5 3.6 1.5l1.3-1.4C11.6 4.6 9.9 3.8 8 3.8s-3.6.8-4.9 2.1l1.3 1.4c.9-1 2.2-1.5 3.6-1.5Zm0 3.6c.5 0 1 .2 1.3.6L8 11.5 6.7 10c.3-.4.8-.6 1.3-.6Z"/></svg>
+                <svg viewBox="0 0 27 13" fill="none"><rect x="0.6" y="0.6" width="22.8" height="11.8" rx="3.6" stroke="#000" stroke-opacity="0.4" stroke-width="1.1"/><rect x="2.2" y="2.2" width="19.6" height="8.6" rx="2.2" fill="#000"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="#000" fill-opacity="0.4"/></svg>
+              </span>
+            </div>
+            <div class="campNav">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18M3 12h18M3 17.5h18" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
+              <div class="campBal"><img src="assets/img/brands-app-avatar.webp" width="68" height="68" alt="" loading="lazy" decoding="async">Rs. 12,688</div>
+              <div class="r">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="7" stroke="#000" stroke-width="2.2"/><path d="m16 16 5 5" stroke="#000" stroke-width="2.2" stroke-linecap="round"/></svg>
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15L6 17Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <p class="campHead">Campaigns</p>
+            <div class="campCard"><img src="assets/img/brands-campaign-card.webp" width="868" height="630" alt="" loading="lazy" decoding="async"></div>
+            <div class="campInfo">
+              <p class="campTitle">Patty Pop BBQ Napoleon Chicken burger launch campaign</p>
+              <p class="campMeta">1 min ago &nbsp;&middot;&nbsp; 10 d left</p>
+              <div class="campBar"><i></i></div>
+            </div>
+          </div>
+          <img src="assets/img/brands-phone-frame.webp" width="700" height="1431" alt="" loading="lazy" decoding="async">
+        </div>
+        <script>
+        (function(){
+          var sec=document.getElementById('campSection'), phone=sec&&sec.querySelector('.campPhone');
+          if(!phone) return;
+          if(!('IntersectionObserver' in window)){ phone.classList.add('up'); return; }
+          // Trigger: the section's top has climbed into the lower part of the screen.
+          new IntersectionObserver(function(es){ es.forEach(function(e){
+            if(e.isIntersecting) phone.classList.add('up');
+            else if(e.boundingClientRect.top>0) phone.classList.remove('up'); // scrolled back above it
+          }); },{ rootMargin: '0px 0px -55% 0px', threshold: 0 }).observe(sec);
+        })();
+        </script>
+      </section>
+
+      <!-- Content review: hundreds of pieces arrive every week; approve the best, guideline breaks are auto-rejected. -->
+      <section id="rvSection" data-screen-label="Content review" style="position: relative; padding: var(--sp-panel) 24px; background: #F6F6F6; overflow: hidden;">
+        <style>
+          #rvSection { --rv-out: cubic-bezier(0.23,1,0.32,1); --rv-move: cubic-bezier(0.77,0,0.175,1); --rv-pop: cubic-bezier(0.34,1.45,0.64,1); }
+          #rvSection h2 { margin: 0 auto 16px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
+          .rvLead { margin: 0 auto; max-width: 330px; font-size: 17px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: #6C6C70; text-align: center; text-wrap: pretty; }
+
+          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 40px auto 0; overflow: visible; }
+          .rvDeck { position: relative; width: 232px; height: 310px; margin: 30px auto 0; touch-action: pan-y; }
+          .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.5s var(--rv-out), opacity 0.4s var(--rv-out), filter 0.4s var(--rv-out); }
+          .rvCard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); box-shadow: inset 0 0 0 0 transparent; transition: box-shadow 0.25s var(--rv-out); }
+          .rvCard.ok::after { box-shadow: inset 0 0 0 3px #1548EB; }
+          .rvCard.no::after { box-shadow: inset 0 0 0 3px #E5484D; }
+          .rvCard[data-pos="0"] { transform: translateY(0) scale(1); opacity: 1; z-index: 4; }
+          .rvCard[data-pos="1"] { transform: translateY(-15px) scale(0.93); opacity: 1; z-index: 3; }
+          .rvCard[data-pos="2"] { transform: translateY(-28px) scale(0.86); opacity: 0.85; z-index: 2; }
+          .rvCard[data-pos="3"] { transform: translateY(-36px) scale(0.8); opacity: 0; z-index: 1; }
+          .rvCard[data-pos="1"]::before, .rvCard[data-pos="2"]::before { content: ""; position: absolute; inset: 0; z-index: 3; background: rgba(246,246,246,0.35); }
+          .rvWho { position: absolute; z-index: 2; top: 12px; left: 12px; right: 12px; display: flex; align-items: center; gap: 7px; color: #FFFFFF; font-size: 12px; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+          .rvWho span { width: 24px; height: 24px; border-radius: 999px; background: center 22% / 260% no-repeat; box-shadow: 0 0 0 1.5px #FFFFFF; flex: none; }
+          .rvMeta { position: absolute; z-index: 2; left: 12px; bottom: 12px; color: #FFFFFF; font-size: 12px; font-weight: 600; }
+          .rvMeta em { font-style: normal; display: flex; align-items: center; gap: 5px; height: 24px; padding: 0 9px; border-radius: 999px; background: rgba(255,255,255,0.22); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+          .rvStamp { position: absolute; z-index: 5; left: 50%; bottom: 46px; display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px 0 11px; border-radius: 999px; color: #FFFFFF; font-size: 13px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 8px 22px rgba(0,0,0,0.22); opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.92); transition: opacity 0.18s var(--rv-out), transform 0.32s var(--rv-pop); }
+          .rvCard.ok .rvStamp { background: #1548EB; }
+          .rvCard.no .rvStamp { background: #E5484D; }
+          .rvCard.ok .rvStamp, .rvCard.no .rvStamp { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+
+          .rvGuard { display: flex; align-items: center; justify-content: center; gap: 8px; max-width: 300px; margin: 40px auto 0; font-size: 14px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-align: center; text-wrap: balance; }
+          .rvGuard svg { flex: none; margin-top: 1px; }
+
+          @media (prefers-reduced-motion: reduce) {
+            .rvCard { transition: opacity 0.35s ease; }
+            .rvCard[data-pos] { transform: none; }
+            .rvCard[data-pos="1"], .rvCard[data-pos="2"], .rvCard[data-pos="3"] { opacity: 0; }
+            .rvStamp, .rvCard.ok .rvStamp, .rvCard.no .rvStamp { transform: translateX(-50%); }
+          }
+        </style>
+
+        <h2 class="ov-reveal">Hundreds of pieces of content, coming your way every week</h2>
+        <p class="rvLead ov-reveal">Approve the best. Use it as raw content or post it on creators&rsquo; handles.</p>
+
+        <div class="rvStage ov-reveal" aria-hidden="true">
+          <div class="rvDeck"></div>
+        </div>
+
+        <p class="rvGuard ov-reveal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#6C6C70" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2.2 2.2L15.5 10" stroke="#6C6C70" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Content that breaks your brand guidelines is auto-rejected.</span>
+        </p>
+
+        <script>
+        /* Content review, swipe style (plays only while on screen).
+           The front card gets its decision, leans a little that way, then is
+           flicked off: approved to the right, rejected to the left. The stack
+           moves up while it goes. */
+        (function(){
+          var sec=document.getElementById('rvSection'); if(!sec) return;
+          var deck=sec.querySelector('.rvDeck');
+          var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var IMG='assets/img/brands-ugc-', OUT='cubic-bezier(0.23,1,0.32,1)';
+          var POOL=[
+            { img:1, who:'@nethmi.cooks', kind:'Reel · 0:24', p:'tt' },
+            { img:2, who:'@dinu.daily', kind:'Story', p:'ig' },
+            { img:7, who:'@kasun.vibes', kind:'Reel · 0:31', p:'ig', reject:true },
+            { img:3, who:'@sachi.styles', kind:'Reel · 0:18', p:'ig' },
+            { img:4, who:'@ravi.reacts', kind:'Video · 0:42', p:'tt', reject:true },
+            { img:5, who:'@amaya.home', kind:'Post', p:'ig' },
+            { img:6, who:'@pink.passion', kind:'Reel · 0:27', p:'tt' }
+          ];
+          var ICON={
+            tt:'<svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7Z"/></svg>',
+            ig:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="0.6" fill="#fff"/></svg>'
+          };
+          var CHECK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          var CROSS='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7 7 17" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/></svg>';
+
+          var next=0, run=0, cards=[];
+          function fill(card){
+            var d=POOL[next++ % POOL.length]; card._d=d;
+            card.style.backgroundImage='url('+IMG+d.img+'.webp)';
+            card.innerHTML='<div class="rvWho"><span style="background-image:url('+IMG+d.img+'.webp)"></span>'+d.who+'</div>'+
+              '<div class="rvMeta"><em>'+ICON[d.p]+d.kind+'</em></div>'+
+              '<div class="rvStamp">'+(d.reject ? CROSS+'Rejected' : CHECK+'Approved')+'</div>';
+          }
+          for(var i=0;i<4;i++){ var c=document.createElement('div'); c.className='rvCard'; c.setAttribute('data-pos',i); fill(c); deck.appendChild(c); cards.push(c); }
+
+          function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej(); },ms); }); }
+          function set(el,tr,tf,op){ el.style.transition=tr; el.style.transform=tf; if(op!=null) el.style.opacity=op; }
+
+          function cycle(id){
+            var front=cards[0], d=front._d, dir=d.reject?-1:1;
+            front.style.transformOrigin='50% 100%';
+            front.classList.add(d.reject?'no':'ok');
+            // lean toward the decision, as if a thumb had started the swipe
+            if(!reduce) set(front,'transform 0.32s '+OUT,'translateX('+(dir*16)+'px) rotate('+(dir*3)+'deg)');
+            return wait(reduce?800:900,id).then(function(){
+              // flick it off, carrying on in the same direction
+              if(reduce) set(front,'opacity 0.3s ease','none','0');
+              else set(front,'transform 0.5s '+OUT+', opacity 0.4s '+OUT,'translateX('+(dir*140)+'%) rotate('+(dir*16)+'deg)','0');
+              for(var k=1;k<cards.length;k++) cards[k].setAttribute('data-pos',k-1);
+              return wait(reduce?350:520,id);
+            }).then(function(){
+              cards.push(cards.shift());
+              front.style.transition='none'; front.style.transform=''; front.style.opacity=''; front.style.transformOrigin='';
+              front.classList.remove('ok','no'); front.setAttribute('data-pos',3); fill(front);
+              void front.offsetWidth; front.style.transition='';
+              return wait(reduce?900:500,id);
+            }).then(function(){ return cycle(id); });
+          }
+
+          function tidy(){
+            cards.forEach(function(c,i){ c.style.transition='none'; c.style.transform=''; c.style.opacity=''; c.style.transformOrigin=''; c.classList.remove('ok','no'); c.setAttribute('data-pos',i); void c.offsetWidth; c.style.transition=''; });
+          }
+          var inView=false, playing=false;
+          function start(){ if(playing||!inView||document.hidden) return; playing=true; tidy(); var id=++run; wait(400,id).then(function(){ return cycle(id); }).catch(function(){}); }
+          function stop(){ playing=false; run++; }
+          if('IntersectionObserver' in window){
+            new IntersectionObserver(function(es){ es.forEach(function(e){ inView=e.isIntersecting; inView ? start() : stop(); }); },{ threshold: 0.5 }).observe(deck);
+          } else { inView=true; start(); }
+          document.addEventListener('visibilitychange',function(){ document.hidden ? stop() : start(); });
+        })();
+        </script>
+      </section>
+
+      <!-- Payments: pinned while it scrolls. The centre flips title -> performance -> flat fee;
+           the donut turns to the slice being described. Steps are triggered by scroll, then play. -->
+      <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; background: #FFFFFF;">
+        <style>
+          #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); --pay-move: cubic-bezier(0.77,0,0.175,1); }
+          .payPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 24px 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
+
+          /* Donut: two slices with gaps and rounded ends, no track */
+          .payPie { display: block; width: 96px; height: 96px; margin: 0 auto 32px; overflow: visible; }
+          .payPie g { transform-origin: 48px 48px; transform: rotate(-90deg); transition: transform 0.85s var(--pay-move); }
+          .payPie circle { fill: none; stroke-width: 15; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1s var(--pay-out), opacity 0.4s var(--pay-out), stroke-width 0.4s var(--pay-out); }
+          .payPie .a { stroke: #1548EB; }
+          .payPie .b { stroke: #121212; transition-delay: 0.35s, 0s, 0s; }
+          #paySection.in .payPie .a { stroke-dasharray: 58 100; }
+          #paySection.in .payPie .b { stroke-dasharray: 26 100; }
+          #paySection[data-step="1"] .payPie g { transform: rotate(-194deg); }
+          #paySection[data-step="2"] .payPie g { transform: rotate(-342deg); }
+          #paySection[data-step="1"] .payPie .b, #paySection[data-step="2"] .payPie .a { stroke-width: 6; }
+          #paySection[data-step="1"] .payPie .a, #paySection[data-step="2"] .payPie .b { stroke-width: 17; }
+
+          /* The flipping centre: three faces in one spot */
+          .payFlip { position: relative; width: 100%; max-width: 345px; height: 190px; perspective: 900px; }
+          .payFace { position: absolute; left: 0; right: 0; top: 50%; transform-origin: 50% 50%; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+                     transform: translateY(-50%) rotateX(-80deg) translateZ(30px); opacity: 0; filter: blur(4px);
+                     transition: transform 0.6s var(--pay-out), opacity 0.35s var(--pay-out), filter 0.35s var(--pay-out); }
+          .payFace.on { transform: translateY(-50%) rotateX(0deg) translateZ(0); opacity: 1; filter: blur(0); }
+          .payFace.past { transform: translateY(-50%) rotateX(80deg) translateZ(30px); opacity: 0; filter: blur(4px); }
+          .payHead { margin: 0; font-weight: 600; font-size: 42px; line-height: 1.06; letter-spacing: -0.02em; }
+          .payHead span { display: block; }
+          .payIcons { display: flex; justify-content: center; gap: 14px; margin-bottom: 16px; }
+          .payIcons svg { display: block; width: 24px; height: 24px; }
+          .payFace h3 { margin: 0; font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
+          .payFace p { margin: 10px auto 0; max-width: 300px; font-size: 17px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-wrap: balance; }
+
+          @media (prefers-reduced-motion: reduce) {
+            .payFace, .payFace.on, .payFace.past { transform: translateY(-50%); filter: none; transition: opacity 0.3s ease; }
+            .payPie g, .payPie circle { transition: none; }
+          }
+        </style>
+
+        <div class="payPin">
+          <svg class="payPie" viewBox="0 0 96 96" aria-hidden="true">
+            <g>
+              <circle class="a" cx="48" cy="48" r="34" pathLength="100"/>
+              <circle class="b" cx="48" cy="48" r="34" pathLength="100" stroke-dashoffset="-66"/>
+            </g>
+          </svg>
+
+          <div class="payFlip">
+            <div class="payFace on" data-face="0">
+              <h2 class="payHead">
+                <span><span style="display: inline; color: #ADADAD;">Set your</span> <span style="display: inline; color: #1548EB;">budget.</span></span>
+                <span style="color: #121212;">Pay from it.</span>
+              </h2>
+            </div>
+            <div class="payFace" data-face="1" aria-hidden="true">
+              <div class="payIcons" aria-label="Facebook, Instagram, TikTok and YouTube" role="img">
+              <svg viewBox="0 0 24 24" fill="#121212"><path d="M13.5 21.5v-7.6h2.6l.4-3h-3V9c0-.9.3-1.5 1.5-1.5h1.6V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6v7.6h3.1Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="0.5" fill="#121212"/></svg>
+              <svg viewBox="0 0 24 24" fill="#121212"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#121212"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.3.4-2.5.4-3.8s-.1-2.5-.4-3.8ZM10 15.1V8.9l5.2 3.1L10 15.1Z"/></svg>
+            </div>
+              <h3>Pay for performance</h3>
+              <p>Payouts based on CPM, the price per 1,000 views, on any platform.</p>
+            </div>
+            <div class="payFace" data-face="2" aria-hidden="true">
+              <div class="payIcons" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="m4 18 5-5 3.5 3.5L15 14l5 5"/></svg>
+              </div>
+              <h3>Pay a flat fee</h3>
+              <p>One fixed price for every piece of content you approve.</p>
+            </div>
+          </div>
+        </div>
+
+        <script>
+        /* Scroll position only picks the step (0 title, 1 performance, 2 flat fee);
+           each change then plays as a flip. Scrolling back flips back. */
+        (function(){
+          var sec=document.getElementById('paySection'); if(!sec) return;
+          var faces=sec.querySelectorAll('.payFace'), step=-1;
+          function show(n){
+            if(n===step) return; step=n; sec.setAttribute('data-step',n);
+            faces.forEach(function(f,i){
+              f.classList.toggle('on',i===n); f.classList.toggle('past',i<n);
+              f.setAttribute('aria-hidden', i===n?'false':'true');
+            });
+          }
+          function onScroll(){
+            var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+            if(r.top < vh*0.6) sec.classList.add('in'); else sec.classList.remove('in');
+            var span=sec.offsetHeight-vh, p=span>0 ? -r.top/span : 0;
+            show(p<0.3 ? 0 : p<0.66 ? 1 : 2);
+          }
+          var ticking=false;
+          window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
+          window.addEventListener('resize',onScroll);
+          onScroll();
+        })();
+        </script>
+      </section>
+
+      <!-- 2. Community (bubble cascade, on the page background) -->
+      <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 12px 0 var(--sp-panel); background: #FFFFFF; overflow: hidden;">
         <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
              see the 768px block below); the title sits in a reserved top band
              and #clGrid fills the lower part right down to the card's bottom
@@ -726,9 +1344,9 @@
              circles bleed past the left/right edges to crop on the rounded
              corner (overflow:hidden). Coordinates are % of #clGrid's box, so the
              pack scales cleanly with the card. -->
-        <div id="clBox" class="ov-reveal" style="position: relative; width: 100%; aspect-ratio: 1000 / 1513; border-radius: clamp(24px, 6vw, 40px); background: #141414; overflow: hidden;">
+        <div id="clBox" class="ov-reveal" style="position: relative; width: 100%; aspect-ratio: 1000 / 1513; border-radius: 0; background: transparent; overflow-x: clip; overflow-y: visible;">
           <div id="clTitle" style="position: absolute; top: 0; left: 0; right: 0; height: 26%; display: flex; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; z-index: 200; pointer-events: none;">
-            <h2 style="margin: 0; font-weight: 600; font-size: clamp(26px, 5.4vw, 34px); line-height: 1.16; letter-spacing: -0.02em; color: #FFFFFF; text-align: center; text-wrap: balance;">Your community<br>is your <span class="clBrandWord" style="display: none;">brand&rsquo;s </span>vibe</h2>
+            <h2 style="margin: 0; max-width: 330px; font-weight: 600; font-size: clamp(26px, 8.6vw, 34px); line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance;"><span style="color: #ADADAD;">Build a community of</span> content creators <span style="color: #ADADAD;">around your brand.</span></h2>
           </div>
           <div id="clGrid" style="position: absolute; top: 26%; left: 0; right: 0; bottom: 0;">
             <div class="cl-tile clMob" style="position:absolute; left:-7.000%; top:14.909%; width:34.000%; aspect-ratio:1/1; z-index:1; border-radius:999px; overflow:hidden; transition-delay:0.000s;"><img src="assets/img/community-secondary/s2.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
@@ -760,132 +1378,12 @@
             <div class="cl-tile clDesk" style="position:absolute; left:70.019%; top:76.097%; width:9.412%; aspect-ratio:1/1; z-index:13; border-radius:999px; overflow:hidden; transition-delay:0.216s;"><img src="assets/img/community-secondary/s6.png" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
           </div>
         </div>
-        <div class="ov-reveal" style="margin: 20px auto 0; max-width: 44ch; padding: 0 24px; text-align: center; transition-delay: 0.5s;">
-          <h3 style="margin: 0; font-weight: 600; font-size: clamp(20px, 4.4vw, 24px); line-height: 1.2; letter-spacing: -0.02em; color: #121212; text-wrap: balance;">Build a community<br>around your brand</h3>
-          <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.55; font-weight: 500; color: #717171; text-wrap: pretty;">In a crowded market, customers have endless brands to choose from. Build a creator community that helps your brand stand out, build trust, and connect with customers on a deeper level.</p>
-        </div>
       </section>
 
-      <!-- 3. How to start -->
-      <section data-screen-label="How to start" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 0; background: #F6F6F6; overflow: hidden;">
-
-        <h2 class="ov-reveal" style="margin: 0 28px 26px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; transition-delay: 0.05s;">You can start<br>right away</h2>
-
-        <!-- Stepper -->
-        <div id="htsStepper" class="ov-reveal" role="tablist" aria-label="Steps" style="display: flex; align-items: center; justify-content: center; margin: 0 28px 34px; transition-delay: 0.1s;">
-          <button type="button" class="htsStep" data-step="0" role="tab" aria-label="Step 1" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #1548EB; color: #FFFFFF; box-shadow: 0 6px 18px rgba(21,72,235,0.28); transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: none;">1</span><span class="htsWord" style="display: inline; padding: 0 18px; font-size: 14px; font-weight: 500">Start</span>
-          </button>
-          <span class="htsLine" aria-hidden="true" style="flex: none; width: 26px; height: 2px; background: #D6D6D6;"></span>
-          <button type="button" class="htsStep" data-step="1" role="tab" aria-label="Step 2" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #E4E4E4; color: #8A8A8A; box-shadow: none; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: inline;">2</span><span class="htsWord" style="display: none; padding: 0 18px;">Then</span>
-          </button>
-          <span class="htsLine" aria-hidden="true" style="flex: none; width: 26px; height: 2px; background: #D6D6D6;"></span>
-          <button type="button" class="htsStep" data-step="2" role="tab" aria-label="Step 3" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #E4E4E4; color: #8A8A8A; box-shadow: none; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: inline;">3</span><span class="htsWord" style="display: none; padding: 0 18px;">Almost</span>
-          </button>
-          <span class="htsLine" aria-hidden="true" style="flex: none; width: 26px; height: 2px; background: #D6D6D6;"></span>
-          <button type="button" class="htsStep" data-step="3" role="tab" aria-label="Step 4" style="appearance: none; border: none; cursor: pointer; flex: none; height: 40px; min-width: 40px; padding: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; font-size: 16px; background: #E4E4E4; color: #8A8A8A; box-shadow: none; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;">
-            <span class="htsNum" style="display: inline;">4</span><span class="htsWord" style="display: none; padding: 0 18px;">Done</span>
-          </button>
-        </div>
-
-        <!-- Horizontal card slider -->
-        <div id="htsTrack" class="noScrollbar ov-reveal" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 28px 8px; transition-delay: 0.16s;">
-          <div class="htsCard" data-card="0" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-1.720w.c45b08746e.avif"><source type="image/webp" srcset="assets/img/brand-start-1.720w.e8d598c7bc.webp"><img src="assets/img/brand-start-1.fallback.9f51c1d154.png" alt="Create Campaign" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Create Campaign</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Tell us your goal, budget, and target audience. Be specific about your requirements.</p>
-            </div>
-          </div>
-          <div class="htsCard" data-card="1" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-2.720w.4093cc4a95.avif"><source type="image/webp" srcset="assets/img/brand-start-2.720w.67400516d6.webp"><img src="assets/img/brand-start-2.fallback.69072b6341.png" alt="Creators Come to You" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Creators Come to You</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Your community of creators will create content based on your requirements and submit it for your review.</p>
-            </div>
-          </div>
-          <div class="htsCard" data-card="2" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-3.720w.9850263204.avif"><source type="image/webp" srcset="assets/img/brand-start-3.720w.d584244e4f.webp"><img src="assets/img/brand-start-3.fallback.4c22a97b1d.png" alt="Approve Content" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Approve Content</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Approve the content that matches your requirements, or request revisions.</p>
-            </div>
-          </div>
-          <div class="htsCard" data-card="3" style="scroll-snap-align: center; flex: none; width: min(300px, 82vw);">
-            <div style="width: 100%; aspect-ratio: 1080 / 1350; border-radius: 14px; overflow: hidden; background: #ECECEC;">
-              <picture><source type="image/avif" srcset="assets/img/brand-start-4.720w.730cd0e546.avif"><source type="image/webp" srcset="assets/img/brand-start-4.720w.99e3bdafca.webp"><img src="assets/img/brand-start-4.fallback.1c300f85dd.png" alt="Let the Campaign Run" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></picture>
-            </div>
-            <div style="padding: 16px 2px 0;">
-              <div style="font-weight: 600; font-size: 18px; line-height: 1.25; color: #121212;">Let the Campaign Run</div>
-              <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #717171;">Your campaign message will reach your customers through your creator community.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. This is for (styled like the creators page's "We are calling for") -->
-      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 24px; background: #F6F6F6; text-align: center;">
-        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212;">This call is for</h2>
-        <div style="max-width: 340px; width: 100%; margin: 0 auto;">
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Commercial brands</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Corporates</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Organizations</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Events</span></span>
-          </div>
-          <div class="callItem">
-            <span class="callLine" style="top: 0;"></span>
-            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #121212;">Public figures</span></span>
-          </div>
-          <span class="callLine callItem" style="position: relative; display: block; top: 0;"></span>
-        </div>
-      </section>
 
 
       
 
-      <!-- 5. Supplementary services (dark) — simple horizontal slider of cards -->
-      <section data-screen-label="Supplementary services" style="position: relative; background: #161616; padding: var(--sp-panel) 0;">
-        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); padding: 0 24px; text-align: center; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF;">Supplementary<br>services</h2>
-        <div class="noScrollbar ov-reveal" style="display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 24px 8px; scroll-padding-left: 24px; -webkit-overflow-scrolling: touch; transition-delay: 0.12s;">
-          <article style="scroll-snap-align: start; flex: none; width: 296px; max-width: 82%;">
-            <div style="width: 100%; aspect-ratio: 300 / 360; border-radius: 20px; overflow: hidden; background: #FFFFFF;">
-              <img src="assets/img/supplementary-social-listening.png" alt="Social platform icons arranged in a ring" loading="lazy" decoding="async" style="display: block; width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 18px 2px 0;">
-              <div style="font-weight: 600; font-size: 19px; line-height: 1.25; color: #FFFFFF;">Aggregated analytics</div>
-              <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #B4B4B4;">View all your social media analytics in one place. Fine-tune your UGC campaign strategy based on these insights.</p>
-            </div>
-          </article>
-          <article style="scroll-snap-align: start; flex: none; width: 296px; max-width: 82%;">
-            <div style="width: 100%; aspect-ratio: 300 / 360; border-radius: 20px; overflow: hidden; background: #FFFFFF;">
-              <img src="assets/img/supplementary-content-library.png" alt="Creative team working together at a shared desk" loading="lazy" decoding="async" style="display: block; width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 18px 2px 0;">
-              <div style="font-weight: 600; font-size: 19px; line-height: 1.25; color: #FFFFFF;">Creator studio partners</div>
-              <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #B4B4B4;">Marketing is more than just numbers. Our creative studio partners help you create more impactful and effective campaigns.</p>
-            </div>
-          </article>
-        </div>
-      </section>
 
       <!-- 6. Grow your brand with us — scroll-driven glass circle that rises and shrinks -->
       <style>
@@ -931,6 +1429,33 @@
           .growHint { display: none; }
         }
       </style>
+      <!-- This call is for: dark, flowing straight into "Grow your brand with us" below (one merged dark block) -->
+      <section id="brandsForSection" data-screen-label="Who it's for" style="position: relative; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-panel) 24px 0; background: #161616; text-align: center;">
+        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF;">This call is for</h2>
+        <div style="max-width: 340px; width: 100%; margin: 0 auto;">
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Commercial brands</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Corporates</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Organizations</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Events</span></span>
+          </div>
+          <div class="callItem">
+            <span class="callLine" style="top: 0;"></span>
+            <span style="display: block; overflow: hidden; padding: 2px 0;"><span class="callWord" style="font-weight: 600; font-size: 26px; line-height: 1.12; letter-spacing: -0.015em; color: #FFFFFF;">Public figures</span></span>
+          </div>
+          <span class="callLine callItem" style="position: relative; display: block; top: 0;"></span>
+        </div>
+      </section>
       <section data-screen-label="Grow your brand" style="position: relative; background: #161616;">
         <div id="growTrack" class="growTrack">
           <div class="growPin">
@@ -1200,7 +1725,7 @@
       if(!els.length) return;
       var io=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-      },{ root: overlay, threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+      },{ root: null, threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
       els.forEach(function(el){ io.observe(el); });
     };
 
@@ -1217,7 +1742,7 @@
       var items=[].slice.call(section.querySelectorAll('.callItem')).filter(function(el){ return el.querySelector('.callWord'); });
       if(!items.length) return;
       items.forEach(function(el){ el.setAttribute('data-foc',''); });
-      var CENTER_SCALE=1.06, FAR_SCALE=0.945, CENTER_OP=1, FAR_OP=0.34, HL_BLUE='#1548EB', INK='#121212';
+      var CENTER_SCALE=1.06, FAR_SCALE=0.945, CENTER_OP=1, FAR_OP=0.34, HL_BLUE='#5B85FF', INK='#FFFFFF';
       var words=items.map(function(el){ return el.querySelector('.callWord'); });
       var ticking=false;
       function apply(){
@@ -1244,61 +1769,9 @@
         }
       }
       function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(apply); } }
-      overlay.addEventListener('scroll',onScroll,{ passive:true });
+      window.addEventListener('scroll',onScroll,{ passive:true });
       window.addEventListener('resize',onScroll,{ passive:true });
       apply();
-    };
-
-    api._armHowToStart = function(tries){
-      tries=tries||0;
-      var stepper=document.getElementById('htsStepper'), track=document.getElementById('htsTrack');
-      if(!stepper||!track){ if(tries<60) setTimeout(function(){api._armHowToStart(tries+1);},80); return; }
-      var steps=[].slice.call(stepper.querySelectorAll('.htsStep'));
-      var cards=[].slice.call(track.querySelectorAll('.htsCard'));
-      if(!steps.length||!cards.length) return;
-      var active=0;
-      // Symmetric side padding so the FIRST and LAST cards can actually reach
-      // the centre of the track (scroll-snap-align: center needs room on both
-      // ends). Recomputed on resize since card + track widths change between
-      // the mobile and desktop layouts.
-      function pad(){
-        var cw=cards[0].offsetWidth;
-        var side=Math.max(0,(track.clientWidth-cw)/2);
-        track.style.paddingLeft=side+'px';
-        track.style.paddingRight=side+'px';
-      }
-      // Scroll so card i sits centred in the track.
-      function centerOn(i,smooth){
-        var card=cards[i];
-        var left=card.offsetLeft-track.offsetLeft-(track.clientWidth-card.offsetWidth)/2;
-        track.scrollTo({ left: left, behavior: smooth?'smooth':'auto' });
-      }
-      function paint(i){
-        steps.forEach(function(btn,idx){
-          var on=idx===i, num=btn.querySelector('.htsNum'), word=btn.querySelector('.htsWord');
-          btn.style.background=on?'#1548EB':'#E4E4E4';
-          btn.style.color=on?'#FFFFFF':'#8A8A8A';
-          btn.style.boxShadow=on?'0 6px 18px rgba(21,72,235,0.28)':'none';
-          if(num) num.style.display=on?'none':'inline';
-          if(word) word.style.display=on?'inline':'none';
-          btn.setAttribute('aria-selected',on?'true':'false');
-        });
-      }
-      steps.forEach(function(btn,idx){ btn.addEventListener('click',function(){
-        active=idx; paint(active); centerOn(active,true);
-      }); });
-      var raf=null;
-      track.addEventListener('scroll',function(){
-        if(raf) return;
-        raf=requestAnimationFrame(function(){
-          raf=null;
-          var mid=track.scrollLeft+track.clientWidth/2, best=0, bd=Infinity;
-          cards.forEach(function(c,idx){ var cm=c.offsetLeft-track.offsetLeft+c.offsetWidth/2, d=Math.abs(cm-mid); if(d<bd){bd=d;best=idx;} });
-          if(best!==active){ active=best; paint(active); }
-        });
-      },{ passive:true });
-      window.addEventListener('resize',function(){ pad(); centerOn(active,false); });
-      pad(); paint(0); centerOn(0,false);
     };
 
     api._armCommunityMorph = function(tries){
@@ -1338,7 +1811,7 @@
       }
       var warmIO=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ warmImages(); warmIO.disconnect(); } });
-      },{ root: overlay, threshold: 0, rootMargin: '0px 0px 150% 0px' });
+      },{ root: null, threshold: 0, rootMargin: '0px 0px 150% 0px' });
       warmIO.observe(grid);
       var popped=false;
       function popCascade(){
@@ -1520,7 +1993,7 @@
       }
       var popIO=new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
-      },{ root: overlay, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      },{ root: null, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
       popIO.observe(grid);
     };
 
@@ -1620,7 +2093,7 @@
       var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
       var FINAL_DIA=583.2;        // settled circle diameter (px) — scaled +20%; wider than the phone, so the settled circle crops on the left/right (still a perfect circle)
       var TEXT_PX=115.2;          // on-screen letter size at the settled circle (Inter SemiBold) — scaled +20% in step with the circle
-      var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
+      var BG=[0x16/255,0x16/255,0x16/255];   // matches the dark section background (#161616)
 
       // ---- text texture ----
       var LINES=['Grow','your','brand','with','us'], BRAND=2, TEX=1024;
@@ -1687,8 +2160,8 @@
       // "delay"), only smoothing jitter and giving a whisper of settle when the scroll stops.
       var spring={ value:0, target:0, vel:0 }, K=320, C=30, Mmass=1;
       function progress(){
-        var oh=overlay.clientHeight, tr=track.getBoundingClientRect(), orc=overlay.getBoundingClientRect();
-        var top=tr.top-orc.top, span=track.offsetHeight-oh;
+        var oh=window.innerHeight||document.documentElement.clientHeight, tr=track.getBoundingClientRect();
+        var top=tr.top, span=track.offsetHeight-oh;
         // Start the transition as the section ENTERS (its top ~40% down the viewport, i.e. the
         // moment the dome becomes visible) and finish a touch before the pin releases. This
         // removes the dead pre-pin scroll — every bit of scroll moves the animation, no delay.
@@ -1773,125 +2246,10 @@
       requestAnimationFrame(frame);
     };
 
-    api._armAdVideo = function(tries){
-      tries=tries||0;
-      // Pick whichever ad clip is actually visible: the desktop landscape one
-      // at >=768px, else the mobile vertical one (offsetParent is null when
-      // display:none, so a hidden clip is never selected).
-      var vDesk=document.getElementById('adVideoDesk'), vMob=document.getElementById('adVideo');
-      var v=(vDesk && vDesk.offsetParent!==null) ? vDesk : vMob;
-      var bar=document.getElementById('adProgress'), skip=document.getElementById('skipAdBtn');
-      if(!v||!bar||!skip){ if(tries<40) setTimeout(function(){api._armAdVideo(tries+1);},60); return; }
-      var shown=false;
-      function showSkip(){ if(shown) return; shown=true; skip.style.opacity='1'; skip.style.visibility='visible'; skip.style.transform='translateY(0)'; skip.style.pointerEvents='auto'; }
-      v.addEventListener('timeupdate',function(){
-        if(!v.duration||!isFinite(v.duration)) return;
-        var p=v.currentTime/v.duration;
-        bar.style.width=(p*100).toFixed(2)+'%';
-        if(p>=0.8) showSkip();
-      });
-      skip.addEventListener('click',function(e){
-        e.stopPropagation();
-        var poll=document.getElementById('adPoll');
-        if(poll){ poll.style.opacity='1'; poll.style.visibility='visible'; poll.style.transform='scale(1)'; poll.style.pointerEvents='auto'; }
-        v.pause();
-      });
-      var pollBack=document.getElementById('pollBackBtn');
-      if(pollBack) pollBack.addEventListener('click',function(e){
-        e.stopPropagation();
-        var poll=document.getElementById('adPoll');
-        if(poll){ poll.style.opacity='0'; poll.style.visibility='hidden'; poll.style.transform='scale(1.02)'; poll.style.pointerEvents='none'; }
-        tryPlay();
-      });
-
-      var section=v.closest('section');
-      var card=v.parentNode; // the sticky card that holds the video + overlays
-      var released=false;
-      // Read the card's resolved sticky `top` (px) instead of hardcoding the
-      // mobile 616px height, so the lock point stays correct for the landscape
-      // desktop card too.
-      function lockTarget(){ var stickyTop=parseFloat(getComputedStyle(card).top)||Math.max(16,(window.innerHeight-616)/2); var topAbs=section.getBoundingClientRect().top+window.scrollY; return topAbs-stickyTop; }
-      function clampScroll(){ if(released||!section) return; var target=lockTarget(); if(window.scrollY>=target-1){ if(window.scrollY>target) window.scrollTo(0,target); } }
-
-      // Always silent — the ad never plays sound.
-      v.muted=true; v.volume=0; v.removeAttribute('controls');
-      function tryPlay(){ v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
-      var playing=false;
-      function check(){
-        var r=v.getBoundingClientRect();
-        var vh=window.innerHeight||document.documentElement.clientHeight;
-        var center=r.top+r.height/2;
-        var centered=center>vh*0.32 && center<vh*0.68;
-        if(centered&&!playing){ playing=true; tryPlay(); }
-        else if(!centered&&playing){ playing=false; v.pause(); }
-      }
-      var ticking=false;
-      function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(function(){ clampScroll(); check(); ticking=false; }); }
-
-      var opts=document.querySelectorAll('.pollOpt');
-      var agree=document.getElementById('agreeScreen');
-      var agreeShown=false, hasAnswered=false;
-      var OPEN_EASE='transform 0.62s cubic-bezier(0.32,0.72,0,1)';
-      var CLOSE_EASE='transform 0.44s cubic-bezier(0.32,0.72,0,1)';
-      function showAgree(){ if(!agree||agreeShown) return; agreeShown=true; agree.scrollTop=0; agree.style.pointerEvents='auto'; agree.style.transition=OPEN_EASE; requestAnimationFrame(function(){ agree.style.transform='translate(-50%, 0)'; }); released=true; }
-      function hideAgree(){ if(!agree||!agreeShown) return; agreeShown=false; agree.style.transition=CLOSE_EASE; agree.style.pointerEvents='none'; agree.style.transform='translate(-50%, 100%)'; }
-      if(agree){
-        agree.addEventListener('wheel',function(e){ if(agreeShown&&e.deltaY<0&&agree.scrollTop<=0) hideAgree(); },{ passive:true });
-        var ty=null;
-        agree.addEventListener('touchstart',function(e){ ty=e.touches[0].clientY; },{ passive:true });
-        agree.addEventListener('touchmove',function(e){ if(agreeShown&&ty!=null&&e.touches[0].clientY-ty>24&&agree.scrollTop<=0) hideAgree(); },{ passive:true });
-        window.addEventListener('wheel',function(e){ if(hasAnswered&&!agreeShown&&e.deltaY>0&&window.scrollY>=lockTarget()-2) showAgree(); },{ passive:true });
-        var wy=null;
-        window.addEventListener('touchstart',function(e){ wy=e.touches[0].clientY; },{ passive:true });
-        window.addEventListener('touchmove',function(e){ if(hasAnswered&&!agreeShown&&wy!=null&&wy-e.touches[0].clientY>24&&window.scrollY>=lockTarget()-2) showAgree(); },{ passive:true });
-      }
-      function resetPollOpts(){
-        opts.forEach(function(o){ o.style.background='rgba(0,0,0,0.42)'; o.style.color='#FFFFFF'; o.style.boxShadow='none'; });
-      }
-      var dModal=document.getElementById('disagreeModal');
-      var dCard=document.getElementById('disagreeModalCard');
-      var dRetry=document.getElementById('disagreeRetry');
-      function showDisagree(){
-        if(!dModal) return;
-        dModal.style.display='flex';
-        // Force layout so the transition runs from the initial state.
-        void dModal.offsetWidth;
-        dModal.style.opacity='1';
-        dCard.style.transform='scale(1)';
-        dCard.style.opacity='1';
-      }
-      function hideDisagree(){
-        if(!dModal) return;
-        dModal.style.opacity='0';
-        dCard.style.transform='scale(0.9)';
-        dCard.style.opacity='0';
-        setTimeout(function(){ dModal.style.display='none'; },300);
-      }
-      if(dRetry){ dRetry.addEventListener('click',function(){ hideDisagree(); resetPollOpts(); }); }
-      if(dModal){
-        dModal.addEventListener('click',function(e){ if(e.target===dModal) hideDisagree(); });
-        document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&dModal.style.display==='flex') hideDisagree(); });
-      }
-      opts.forEach(function(b){ b.addEventListener('click',function(){
-        if(agreeShown) return;
-        var idx=parseInt(b.getAttribute('data-idx'),10);
-        resetPollOpts();
-        b.style.background='#FFFFFF'; b.style.color='#1548EB'; b.style.boxShadow='0 6px 18px rgba(0,0,0,0.28)';
-        if(idx<2){ showDisagree(); return; }
-        hasAnswered=true; showAgree();
-      }); });
-      window.addEventListener('scroll',onScroll,{ passive:true });
-      window.addEventListener('resize',onScroll);
-      check();
-
-      // Keep it muted even if something toggles it (defensive).
-      v.addEventListener('volumechange',function(){ if(!v.muted) v.muted=true; });
-    };
-
     function boot(){
       var root=document.getElementById('appRoot'); if(root) root.classList.add('loaded');
       var safe=function(fn){ try{ fn(); }catch(e){ console.warn('init',e); } };
-      safe(api._armMenu); safe(api._armAdVideo); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armHowToStart); safe(api._armCallFocus); safe(api._armGrowGL);
+      safe(api._armMenu); safe(api._armOverlayReveals); safe(api._armCommunityMorph); safe(api._armCallFocus); safe(api._armGrowGL);
     }
     if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
     else boot();
