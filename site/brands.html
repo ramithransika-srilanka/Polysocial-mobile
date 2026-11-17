@@ -1039,6 +1039,8 @@
             if(busy) return;
             if(want<shown){ run++; shown=want; settle(shown); return; }
             if(want===shown) return;
+            // Scrolled ahead by more than a step: jump to the step before and play only the latest
+            if(want-shown>1){ shown=want-1; settle(shown); }
             busy=true; var id=++run, next=shown+1;
             bar(next, reduce?0:PLAY_MS[next]);
             plays[next](id).then(function(){ shown=next; busy=false; pump(); },
@@ -1049,10 +1051,11 @@
           function onScroll(){
             var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
             var span=sec.offsetHeight-vh, p=span>0 ? -r.top/span : 0;
-            var w = r.top > vh*0.35 ? 0 : p<0.13 ? 1 : p<0.32 ? 2 : p<0.51 ? 3 : p<0.72 ? 4 : 5;
+            var w = r.top > vh*0.35 ? 0 : p<0.10 ? 1 : p<0.24 ? 2 : p<0.38 ? 3 : p<0.53 ? 4 : 5;   // quote holds for the last ~47%
             if(w!==want){
               want=w;
               if(want<shown || (busy && want<=shown)){ run++; busy=false; shown=want; settle(shown); }
+              else if(busy && want-shown>1){ run++; busy=false; }   // far ahead: stop the step in progress and catch up
               pump();
             }
           }
