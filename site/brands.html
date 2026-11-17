@@ -743,8 +743,8 @@
           #coFlip { position: relative; max-width: 345px; margin: 0 auto; transform-style: preserve-3d; transition: transform 0.95s cubic-bezier(0.77,0,0.175,1); }
           #coFlip.flipped { transform: rotateY(180deg); }
           #coFlip #coCard, .coBack { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-          .coBack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 36px 30px; box-sizing: border-box; border-radius: 32px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(18,18,18,0.04), 0 18px 48px rgba(18,31,96,0.10); transform: rotateY(180deg); }
-          .coBack p { margin: 0; font-weight: 600; font-size: 30px; line-height: 1.22; letter-spacing: -0.02em; text-align: center; text-wrap: balance; color: #8A8A8E; }
+          .coBack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 6px; box-sizing: border-box; background: transparent; transform: rotateY(180deg); }
+          .coBack p { margin: 0; font-weight: 600; font-size: 32px; line-height: 1.2; letter-spacing: -0.02em; text-align: center; text-wrap: balance; color: #8A8A8E; }
           .coBack .ink { color: #121212; }
           .coBack .blue { color: #1548EB; white-space: nowrap; }
           /* The words settle in just after the turn completes */
@@ -843,7 +843,7 @@
 
           <div class="coTouch"><i></i></div>
         </div>
-          <!-- Back of the card: text only -->
+          <!-- Back of the card: no surface, so the text sits on the section background -->
           <div class="coBack">
             <p>Create an <span class="ink">authentic review</span> of your purchase and earn up to <span class="blue">LKR&nbsp;100,000.</span></p>
           </div>
