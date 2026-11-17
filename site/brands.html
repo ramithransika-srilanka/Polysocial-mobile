@@ -577,6 +577,50 @@
 }
 
 </style>
+<style id="desktop-flow">
+/* =====================================================================
+   DESKTOP (>=768px) for the new brands flow. Mobile is untouched.
+   Every section is one screen; headings use the desktop heading scale.
+   ===================================================================== */
+@media (min-width: 768px) {
+  /* Statement: the wide photo fills the screen; text sits in its open floor */
+  #agreePanel { padding: 0 !important; min-height: 100vh !important; aspect-ratio: auto !important;
+                background: #EEEEEE url('assets/img/brands-statement-people-wide.webp') center / cover no-repeat !important; }
+  #agreePanel .ov-reveal { width: 40cqw !important; max-width: 640px !important; }
+  #agreePanel .dBr { display: none !important; }
+  #agreePanel p { max-width: none !important; font-size: clamp(30px, 3.1cqw, 50px) !important; line-height: 1.2 !important; text-wrap: balance !important; }
+
+  /* Checkout: title on one line; the stage scales up a little (see fit()) */
+  #coSection .coHead { font-size: 40px !important; }
+  #coSection .coHead br { display: none; }
+
+  /* Campaign: bigger heading and phone */
+  #campSection { --pw: 380px; padding-top: var(--nav-h, 58px) !important; }
+  #campSection h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 760px !important; margin-bottom: 40px !important; }
+
+  /* Content review: two-line heading, larger cards, readable footnote */
+  #rvSection { min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--nav-h, 58px) + 24px) var(--edge) 32px !important; }
+  #rvSection h2 { font-size: clamp(34px, 4.2vw, 52px) !important; max-width: 760px !important; }
+  #rvSection .rvDeck { width: 280px !important; height: 460px !important; }
+  #rvSection .rvGuard { font-size: 12px !important; max-width: none !important; }
+
+  /* Payments: hero-sized headline, larger flip text and donut */
+  #paySection .payHead { font-size: clamp(56px, 6vw, 84px) !important; }
+  #paySection .payFace h3 { font-size: clamp(40px, 4.2vw, 56px) !important; }
+  #paySection .payFace p { font-size: 19px !important; max-width: 460px !important; }
+  #paySection .payIcons svg { width: 28px !important; height: 28px !important; }
+  #paySection .payFlip { max-width: 900px !important; height: 230px !important; }
+  #paySection .payPie { width: 128px !important; height: 128px !important; margin-left: -64px !important; }
+  #paySection .payPie { transform: translateY(6px) !important; }
+  #paySection[data-step="0"] .payPie { transform: translateY(2px) !important; }
+
+  /* Community: bubbles may run past the content edges instead of being cut */
+  #clBox { overflow: visible !important; border-radius: 0 !important; }
+
+  /* "This call is for" runs straight into "Grow your brand" */
+  #brandsForSection { min-height: 100vh; box-sizing: border-box; padding-bottom: 0 !important; }
+}
+</style>
 </head>
 <body>
 <div style="min-height:100vh;min-height:100svh;display:flex;justify-content:center;background:#EDEDED;">
@@ -793,7 +837,7 @@
 
         <div id="coPin">
         <div id="coStage">
-        <h2 class="coHead ov-reveal">It starts<br>at checkout</h2>
+        <h2 class="coHead ov-reveal">It starts <br>at checkout</h2>
 
         <div id="coFlipWrap" class="ov-reveal">
         <div id="coFlip">
@@ -1013,7 +1057,8 @@
           function fit(){
             stage.style.transform='';
             var vh=window.innerHeight||document.documentElement.clientHeight, h=stage.offsetHeight, room=vh-80;
-            if(h>room) stage.style.transform='scale('+(room/h).toFixed(3)+')';
+            var k=room/h; if(window.innerWidth>=768) k=Math.min(k,1.2); else k=Math.min(k,1);
+            if(k!==1) stage.style.transform='scale('+k.toFixed(3)+')';
             var hd=sec.querySelector('.coHead'), ct=document.getElementById('coCtl'); if(hd){ var m=parseFloat(getComputedStyle(hd).marginBottom)||0, below=ct?(ct.offsetHeight+(parseFloat(getComputedStyle(ct).marginTop)||0)):0; sec.style.setProperty('--co-head-shift', (((hd.offsetHeight+m)-below)/2)+'px'); }
           }
           var ticking=false;
@@ -1032,7 +1077,7 @@
         <style>
           #campSection h2 { align-self: end; margin: 0 auto 32px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           /* Only the top of the phone shows (just past the card details): the section's bottom edge cuts it cleanly. */
-          .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.30 * 300px * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
+          .campPhone { position: relative; width: var(--pw, 300px); max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.30 * var(--pw, 300px) * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
           /* Slides up from below the fold when the section is reached (iOS sheet curve);
              resets once the section is scrolled back out below the viewport. */
           .campPhone { transform: translateY(80%); transition: transform 1.05s cubic-bezier(0.32,0.72,0,1); will-change: transform; }
