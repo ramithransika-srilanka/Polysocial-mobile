@@ -743,13 +743,16 @@
           #coFlip { position: relative; max-width: 345px; margin: 0 auto; transform-style: preserve-3d; transition: transform 0.95s cubic-bezier(0.77,0,0.175,1); }
           #coFlip.flipped { transform: rotateY(180deg); }
           #coFlip #coCard, .coBack { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-          .coBack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 6px; box-sizing: border-box; background: transparent; transform: rotateY(180deg); }
-          .coBack p { margin: 0; font-weight: 600; font-size: 32px; line-height: 1.2; letter-spacing: -0.02em; text-align: center; text-wrap: balance; color: #8A8A8E; }
-          .coBack .ink { color: #121212; }
-          .coBack .blue { color: #1548EB; white-space: nowrap; }
-          /* The words settle in just after the turn completes */
-          .coBack p { opacity: 0; transform: translateY(8px); filter: blur(4px); transition: opacity 0.2s var(--co-ease), transform 0.2s var(--co-ease), filter 0.2s var(--co-ease); }
-          #coFlip.flipped .coBack p { opacity: 1; transform: none; filter: blur(0); transition: opacity 0.5s var(--co-ease) 0.6s, transform 0.6s var(--co-ease) 0.6s, filter 0.5s var(--co-ease) 0.6s; }
+          .coBack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 0 6px; box-sizing: border-box; background: transparent; transform: rotateY(180deg); text-align: center; }
+          .coQuoteMark { display: block; width: 38px; height: 30px; }
+          .coQuote { margin: 0; font-weight: 600; font-size: 29px; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; color: #121212; }
+          .coQuote span { white-space: nowrap; }
+          .coSub { margin: 0; max-width: 300px; font-weight: 500; font-size: 16px; line-height: 1.45; letter-spacing: -0.01em; text-wrap: pretty; color: #6C6C70; }
+          /* Each line settles in just after the turn completes, one after another */
+          .coBack > * { opacity: 0; transform: translateY(8px); filter: blur(4px); transition: opacity 0.2s var(--co-ease), transform 0.2s var(--co-ease), filter 0.2s var(--co-ease); }
+          #coFlip.flipped .coBack > * { opacity: 1; transform: none; filter: blur(0); transition: opacity 0.5s var(--co-ease) var(--d,0.6s), transform 0.6s var(--co-ease) var(--d,0.6s), filter 0.5s var(--co-ease) var(--d,0.6s); }
+          #coFlip.flipped .coBack > .coQuote { --d: 0.68s; }
+          #coFlip.flipped .coBack > .coSub { --d: 0.8s; }
 
           /* Final text: the heading steps away and the text recentres in the screen */
           #coSection .coHead.in, #coFlipWrap.in { transition: opacity 0.45s var(--co-ease), transform 0.6s var(--co-move), filter 0.45s var(--co-ease); }
@@ -852,7 +855,9 @@
         </div>
           <!-- Back of the card: no surface, so the text sits on the section background -->
           <div class="coBack">
-            <p>Create an <span class="ink">authentic review</span> of your purchase and earn up to <span class="blue">LKR&nbsp;100,000.</span></p>
+            <svg class="coQuoteMark" viewBox="0 0 38 30" fill="#121212" aria-hidden="true"><path d="M0 30V18.6C0 8.4 5 2.2 15 0l1.8 4.2C11 6 8.2 9.6 7.8 14.6H15V30H0Zm22.4 0V18.6C22.4 8.4 27.4 2.2 37.4 0l1.8 4.2c-5.8 1.8-8.6 5.4-9 10.4h7.2V30h-15Z"/></svg>
+            <p class="coQuote">&ldquo;Create an authentic review of your purchase and earn up to <span>LKR&nbsp;100,000.</span>&rdquo;</p>
+            <p class="coSub">Every customer is personally invited to join your creator community. We identify each buyer and reach them openly, through the channels they already use.</p>
           </div>
         </div>
         </div>
