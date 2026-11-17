@@ -468,7 +468,7 @@
      (the sticky nav is accounted for at the top). */
   @media (max-width: 767px) {
     #rvSection, #agreeScreen section[data-screen-label="Community"],
-    #brandsForSection, #agreeScreen section[data-screen-label="Supplementary services"], #talkSection {
+    #brandsForSection, #talkSection {
       min-height: 100vh; min-height: 100dvh; box-sizing: border-box;
       display: flex; flex-direction: column; justify-content: center;
       padding-top: calc(var(--nav-h, 52px) + 24px) !important; padding-bottom: 24px !important;
@@ -560,10 +560,6 @@
   #brandsForSection > div[style*="max-width: 340px"] { max-width: 640px !important; }
   #brandsForSection .callWord { font-size: clamp(28px, 3.4vw, 40px) !important; }
 
-  /* Supplementary services */
-  #agreeScreen section[data-screen-label="Supplementary services"] > h2 { font-size: clamp(34px, 4.2vw, 52px) !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] > div { gap: 22px !important; padding: 4px var(--edge) 8px !important; scroll-padding-left: var(--edge) !important; justify-content: center !important; }
-  #agreeScreen section[data-screen-label="Supplementary services"] article { width: 320px !important; max-width: 320px !important; }
 
   /* Grow your brand (WebGL): full-bleed already; only the fallback type grows. */
   .growFallback { font-size: clamp(72px, 12vw, 140px) !important; }
@@ -1355,30 +1351,6 @@
 
       
 
-      <!-- 5. Supplementary services (dark) — simple horizontal slider of cards -->
-      <section data-screen-label="Supplementary services" style="position: relative; background: #161616; padding: var(--sp-panel) 0;">
-        <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); padding: 0 24px; text-align: center; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF;">Supplementary<br>services</h2>
-        <div class="noScrollbar ov-reveal" style="display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 24px 8px; scroll-padding-left: 24px; -webkit-overflow-scrolling: touch; transition-delay: 0.12s;">
-          <article style="scroll-snap-align: start; flex: none; width: 296px; max-width: 82%;">
-            <div style="width: 100%; aspect-ratio: 300 / 360; border-radius: 20px; overflow: hidden; background: #FFFFFF;">
-              <img src="assets/img/supplementary-social-listening.png" alt="Social platform icons arranged in a ring" loading="lazy" decoding="async" style="display: block; width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 18px 2px 0;">
-              <div style="font-weight: 600; font-size: 19px; line-height: 1.25; color: #FFFFFF;">Aggregated analytics</div>
-              <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #B4B4B4;">View all your social media analytics in one place. Fine-tune your UGC campaign strategy based on these insights.</p>
-            </div>
-          </article>
-          <article style="scroll-snap-align: start; flex: none; width: 296px; max-width: 82%;">
-            <div style="width: 100%; aspect-ratio: 300 / 360; border-radius: 20px; overflow: hidden; background: #FFFFFF;">
-              <img src="assets/img/supplementary-content-library.png" alt="Creative team working together at a shared desk" loading="lazy" decoding="async" style="display: block; width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 18px 2px 0;">
-              <div style="font-weight: 600; font-size: 19px; line-height: 1.25; color: #FFFFFF;">Creator studio partners</div>
-              <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #B4B4B4;">Marketing is more than just numbers. Our creative studio partners help you create more impactful and effective campaigns.</p>
-            </div>
-          </article>
-        </div>
-      </section>
 
       <!-- 6. Grow your brand with us — scroll-driven glass circle that rises and shrinks -->
       <style>
@@ -2088,7 +2060,7 @@
       var P={ refraction:100, depth:41, dispersion:55, frost:2, splay:56, blur:0, specular:0, tint:0, lineGap:82, lightAngle:-45, light:20 };
       var FINAL_DIA=583.2;        // settled circle diameter (px) — scaled +20%; wider than the phone, so the settled circle crops on the left/right (still a perfect circle)
       var TEXT_PX=115.2;          // on-screen letter size at the settled circle (Inter SemiBold) — scaled +20% in step with the circle
-      var BG=[0x16/255,0x16/255,0x16/255];   // matches the Supplementary services section (#161616)
+      var BG=[0x16/255,0x16/255,0x16/255];   // matches the dark section background (#161616)
 
       // ---- text texture ----
       var LINES=['Grow','your','brand','with','us'], BRAND=2, TEX=1024;
