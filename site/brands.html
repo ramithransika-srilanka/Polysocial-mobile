@@ -1073,74 +1073,69 @@
       <!-- Content review: hundreds of pieces arrive every week; approve the best, guideline breaks are auto-rejected. -->
       <section id="rvSection" data-screen-label="Content review" style="position: relative; padding: var(--sp-panel) 24px; background: #F6F6F6; overflow: hidden;">
         <style>
-          #rvSection { --rv-out: cubic-bezier(0.23,1,0.32,1); --rv-move: cubic-bezier(0.77,0,0.175,1); }
-          .rvLive { display: flex; width: max-content; align-items: center; gap: 8px; margin: 0 auto 18px; height: 32px; padding: 0 14px 0 12px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E9E9EC; font-size: 13px; font-weight: 500; color: #3C3C43; }
-          .rvLive i { width: 8px; height: 8px; border-radius: 999px; background: #1548EB; box-shadow: 0 0 0 0 rgba(21,72,235,0.45); animation: rvPulse 2s var(--rv-out) infinite; }
-          @keyframes rvPulse { 0% { box-shadow: 0 0 0 0 rgba(21,72,235,0.45); } 70%, 100% { box-shadow: 0 0 0 7px rgba(21,72,235,0); } }
-          .rvLive b { display: inline-grid; overflow: hidden; height: 1.3em; line-height: 1.3em; font-weight: 600; color: #121212; font-variant-numeric: tabular-nums; }
-          .rvLive b span, .rvBin b span { grid-area: 1 / 1; transition: transform 0.3s var(--rv-out), opacity 0.3s var(--rv-out), filter 0.3s var(--rv-out); }
-          .rvLive b span.out, .rvBin b span.out { transform: translateY(-80%); opacity: 0; filter: blur(2px); }
-          .rvLive b span.pre, .rvBin b span.pre { transform: translateY(80%); opacity: 0; filter: blur(2px); transition: none; }
+          #rvSection { --rv-out: cubic-bezier(0.23,1,0.32,1); --rv-move: cubic-bezier(0.77,0,0.175,1); --rv-pop: cubic-bezier(0.34,1.45,0.64,1); }
           #rvSection h2 { margin: 0 auto 14px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           .rvLead { margin: 0 auto; max-width: 330px; font-size: 17px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; color: #6C6C70; text-align: center; text-wrap: pretty; }
           .rvLead b { font-weight: 600; color: #121212; }
 
-          /* Stage: a stack of incoming content with two destinations below it */
-          .rvStage { position: relative; width: 100%; max-width: 345px; height: 452px; margin: 34px auto 0; }
-          .rvDeck { position: absolute; left: 50%; top: 34px; width: 232px; height: 310px; margin-left: -116px; }
-          .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.55s var(--rv-move), opacity 0.45s var(--rv-out), filter 0.45s var(--rv-out); }
-          .rvCard::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); }
+          .rvStage { position: relative; width: 100%; max-width: 345px; margin: 34px auto 0; }
+          .rvDeck { position: relative; width: 232px; height: 310px; margin: 30px auto 0; }
+          .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.5s var(--rv-out), opacity 0.4s var(--rv-out), filter 0.4s var(--rv-out); }
+          .rvCard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); box-shadow: inset 0 0 0 0 transparent; transition: box-shadow 0.25s var(--rv-out); }
+          .rvCard.ok::after { box-shadow: inset 0 0 0 3px #1548EB; }
+          .rvCard.no::after { box-shadow: inset 0 0 0 3px #E5484D; }
           .rvCard[data-pos="0"] { transform: translateY(0) scale(1); opacity: 1; z-index: 4; }
           .rvCard[data-pos="1"] { transform: translateY(-15px) scale(0.93); opacity: 1; z-index: 3; }
           .rvCard[data-pos="2"] { transform: translateY(-28px) scale(0.86); opacity: 0.85; z-index: 2; }
-          .rvCard[data-pos="3"] { transform: translateY(-38px) scale(0.8); opacity: 0; z-index: 1; }
+          .rvCard[data-pos="3"] { transform: translateY(-36px) scale(0.8); opacity: 0; z-index: 1; }
           .rvCard[data-pos="1"]::before, .rvCard[data-pos="2"]::before { content: ""; position: absolute; inset: 0; z-index: 3; background: rgba(246,246,246,0.35); }
           .rvWho { position: absolute; z-index: 2; top: 12px; left: 12px; right: 12px; display: flex; align-items: center; gap: 7px; color: #FFFFFF; font-size: 12px; font-weight: 600; letter-spacing: -0.01em; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
           .rvWho span { width: 24px; height: 24px; border-radius: 999px; background: center 22% / 260% no-repeat; box-shadow: 0 0 0 1.5px #FFFFFF; flex: none; }
-          .rvMeta { position: absolute; z-index: 2; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; justify-content: space-between; color: #FFFFFF; font-size: 12px; font-weight: 600; }
+          .rvMeta { position: absolute; z-index: 2; left: 12px; bottom: 12px; color: #FFFFFF; font-size: 12px; font-weight: 600; }
           .rvMeta em { font-style: normal; display: flex; align-items: center; gap: 5px; height: 24px; padding: 0 9px; border-radius: 999px; background: rgba(255,255,255,0.22); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-          .rvMeta svg { display: block; }
+          .rvStamp { position: absolute; z-index: 5; left: 50%; bottom: 46px; display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px 0 11px; border-radius: 999px; color: #FFFFFF; font-size: 13px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 8px 22px rgba(0,0,0,0.22); opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.92); transition: opacity 0.18s var(--rv-out), transform 0.32s var(--rv-pop); }
+          .rvCard.ok .rvStamp { background: #1548EB; }
+          .rvCard.no .rvStamp { background: #E5484D; }
+          .rvCard.ok .rvStamp, .rvCard.no .rvStamp { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 
-          /* Decision stamp */
-          .rvStamp { position: absolute; z-index: 5; top: 50%; left: 50%; display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px 0 12px; border-radius: 999px; color: #FFFFFF; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.22); opacity: 0; transform: translate(-50%,-50%) scale(0.9); transition: opacity 0.2s var(--rv-out), transform 0.3s cubic-bezier(0.34,1.4,0.64,1); }
-          .rvStamp.ok { background: #1548EB; }
-          .rvStamp.no { background: #E5484D; }
-          .rvCard.stamped .rvStamp { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-
-          /* Destinations */
-          .rvBins { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 8px; }
-          .rvBin { display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 7px 0 12px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E9E9EC, 0 2px 8px rgba(18,31,96,0.05); white-space: nowrap; font-size: 13px; font-weight: 600; color: #121212; letter-spacing: -0.01em; transition: transform 0.35s cubic-bezier(0.34,1.5,0.64,1), box-shadow 0.3s var(--rv-out); }
-          .rvBin.bump { transform: scale(1.06); box-shadow: inset 0 0 0 1.5px #1548EB, 0 6px 16px rgba(21,72,235,0.16); }
-          .rvBin svg { flex: none; }
-          .rvBin b { min-width: 28px; height: 28px; padding: 0 8px; box-sizing: border-box; border-radius: 999px; background: #F2F2F4; display: inline-grid; place-items: center; overflow: hidden; font-size: 13px; font-variant-numeric: tabular-nums; }
+          /* Two trays the approved pieces collect into */
+          .rvTrays { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+          .rvTray { padding: 12px 12px 12px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #ECECEF; transition: box-shadow 0.3s var(--rv-out); }
+          .rvTray.got { box-shadow: inset 0 0 0 1.5px #1548EB; }
+          .rvTrayHead { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #121212; letter-spacing: -0.01em; white-space: nowrap; }
+          .rvTrayHead b { margin-left: auto; display: inline-grid; overflow: hidden; height: 1.3em; line-height: 1.3em; color: #6C6C70; font-weight: 600; font-variant-numeric: tabular-nums; }
+          .rvTrayHead b span { grid-area: 1 / 1; transition: transform 0.3s var(--rv-out), opacity 0.3s var(--rv-out), filter 0.3s var(--rv-out); }
+          .rvTrayHead b span.out { transform: translateY(-80%); opacity: 0; filter: blur(2px); }
+          .rvTrayHead b span.pre { transform: translateY(80%); opacity: 0; filter: blur(2px); transition: none; }
+          .rvThumbs { position: relative; height: 40px; margin-top: 10px; }
+          .rvThumb { position: absolute; left: 0; top: 0; width: 30px; height: 40px; border-radius: 8px; background: #DADADF center / cover no-repeat; box-shadow: 0 0 0 2px #FFFFFF, 0 2px 6px rgba(18,18,18,0.12); transition: transform 0.45s var(--rv-out), opacity 0.3s var(--rv-out); }
+          .rvThumb.enter { opacity: 0; }
 
           .rvGuard { display: flex; align-items: flex-start; justify-content: center; gap: 10px; max-width: 320px; margin: 30px auto 0; font-size: 14px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-align: left; }
           .rvGuard svg { flex: none; margin-top: 1px; }
 
           @media (prefers-reduced-motion: reduce) {
-            .rvLive i { animation: none; }
             .rvCard { transition: opacity 0.35s ease; }
             .rvCard[data-pos] { transform: none; }
             .rvCard[data-pos="1"], .rvCard[data-pos="2"], .rvCard[data-pos="3"] { opacity: 0; }
-            .rvStamp, .rvCard.stamped .rvStamp { transform: translate(-50%,-50%); }
-            .rvBin, .rvBin.bump { transform: none; }
+            .rvStamp, .rvCard.ok .rvStamp, .rvCard.no .rvStamp { transform: translateX(-50%); }
+            .rvThumb { transition: opacity 0.3s ease; }
           }
         </style>
 
-        <div class="rvLive ov-reveal"><i></i><b data-rv="week"><span>126</span></b> new pieces this week</div>
         <h2 class="ov-reveal">Hundreds of pieces of content, coming your way every week</h2>
         <p class="rvLead ov-reveal">Approve the ones you love. Use them as <b>raw content</b>, or have creators post them on <b>their own social handles</b> to promote your brand.</p>
 
         <div class="rvStage ov-reveal" aria-hidden="true">
           <div class="rvDeck"></div>
-          <div class="rvBins">
-            <div class="rvBin" data-bin="raw">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Raw content <b><span>12</span></b>
+          <div class="rvTrays">
+            <div class="rvTray" data-bin="raw">
+              <div class="rvTrayHead"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Raw content<b><span>12</span></b></div>
+              <div class="rvThumbs"></div>
             </div>
-            <div class="rvBin" data-bin="handle">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.6" stroke="#121212" stroke-width="2"/><path d="M15.6 12v1.4a2.6 2.6 0 0 0 5.2 0V12A8.8 8.8 0 1 0 17 19.2" stroke="#121212" stroke-width="2" stroke-linecap="round"/></svg>
-              Creator handles <b><span>9</span></b>
+            <div class="rvTray" data-bin="handle">
+              <div class="rvTrayHead"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.6" stroke="#121212" stroke-width="2"/><path d="M15.6 12v1.4a2.6 2.6 0 0 0 5.2 0V12A8.8 8.8 0 1 0 17 19.2" stroke="#121212" stroke-width="2" stroke-linecap="round"/></svg>Creator handles<b><span>9</span></b></div>
+              <div class="rvThumbs"></div>
             </div>
           </div>
         </div>
@@ -1151,19 +1146,21 @@
         </p>
 
         <script>
-        /* Content review loop. Plays while the stage is on screen: the front piece
-           gets a decision, approved pieces fly into one of the two destinations,
-           guideline breaks are auto-rejected and drop away, the stack moves up. */
+        /* Content review loop (plays only while on screen).
+           Approve: blue ring + stamp, the card tilts toward its tray and shrinks
+           into the first thumbnail slot while the others slide over to make room.
+           Reject: red ring + stamp, a short "no" shake, then it blurs and drops.
+           The stack moves up quickly (ease-out) while the card leaves. */
         (function(){
           var sec=document.getElementById('rvSection'); if(!sec) return;
-          var deck=sec.querySelector('.rvDeck'), weekEl=sec.querySelector('[data-rv="week"]');
-          var bins={ raw:sec.querySelector('[data-bin="raw"]'), handle:sec.querySelector('[data-bin="handle"]') };
+          var deck=sec.querySelector('.rvDeck');
+          var trays={ raw:sec.querySelector('[data-bin="raw"]'), handle:sec.querySelector('[data-bin="handle"]') };
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var IMG='assets/img/brands-ugc-';
+          var IMG='assets/img/brands-ugc-', MOVE='cubic-bezier(0.77,0,0.175,1)', OUT='cubic-bezier(0.23,1,0.32,1)';
           var POOL=[
             { img:1, who:'@nethmi.cooks', kind:'Reel · 0:24', p:'tt' },
             { img:2, who:'@dinu.daily', kind:'Story', p:'ig' },
-            { img:7, who:'@kasun.vibes', kind:'Reel · 0:31', p:'ig', reject:'Off-brand' },
+            { img:7, who:'@kasun.vibes', kind:'Reel · 0:31', p:'ig', reject:true },
             { img:3, who:'@sachi.styles', kind:'Reel · 0:18', p:'ig' },
             { img:4, who:'@ravi.reacts', kind:'Video · 0:42', p:'tt' },
             { img:5, who:'@amaya.home', kind:'Post', p:'ig' },
@@ -1173,18 +1170,29 @@
             tt:'<svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7Z"/></svg>',
             ig:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="0.6" fill="#fff"/></svg>'
           };
-          var CHECK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-          var SHIELD='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><path d="m9.5 9.5 5 5m0-5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
+          var CHECK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          var SHIELD='<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><path d="m9.5 9.5 5 5m0-5-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
+          var STEP=19, MAXT=5;
 
-          var next=0, week=126, approvals=0, run=0, cards=[];
+          var next=0, approvals=0, run=0, cards=[];
           function fill(card){
             var d=POOL[next++ % POOL.length]; card._d=d;
             card.style.backgroundImage='url('+IMG+d.img+'.webp)';
             card.innerHTML='<div class="rvWho"><span style="background-image:url('+IMG+d.img+'.webp)"></span>'+d.who+'</div>'+
               '<div class="rvMeta"><em>'+ICON[d.p]+d.kind+'</em></div>'+
-              (d.reject ? '<div class="rvStamp no">'+SHIELD+'Auto-rejected</div>' : '<div class="rvStamp ok">'+CHECK+'Approved</div>');
+              '<div class="rvStamp">'+(d.reject ? SHIELD+'Auto-rejected' : CHECK+'Approved')+'</div>';
           }
           for(var i=0;i<4;i++){ var c=document.createElement('div'); c.className='rvCard'; c.setAttribute('data-pos',i); fill(c); deck.appendChild(c); cards.push(c); }
+
+          // Thumbnails are absolutely placed by index so making room animates.
+          function layout(box){ [].forEach.call(box.children,function(t,i){ t.style.transform='translateX('+(i*STEP)+'px)'; t.style.zIndex=MAXT-i; }); }
+          function addThumb(box,img,hidden){
+            var t=document.createElement('div'); t.className='rvThumb'+(hidden?' enter':''); t.style.backgroundImage='url('+IMG+img+'.webp)';
+            box.insertBefore(t,box.firstChild); layout(box);
+            while(box.children.length>MAXT){ var last=box.lastElementChild; box.removeChild(last); }
+            return t;
+          }
+          [[3,6,2],[5,4,1]].forEach(function(set,k){ var box=(k?trays.handle:trays.raw).querySelector('.rvThumbs'); set.forEach(function(n){ addThumb(box,n,false); }); });
 
           function roll(el,val){
             var old=el.lastElementChild; if(reduce){ el.innerHTML='<span>'+val+'</span>'; return; }
@@ -1192,36 +1200,61 @@
             if(old){ old.className='out'; setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); },320); }
           }
           function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej(); },ms); }); }
+          function advance(){ for(var k=1;k<cards.length;k++) cards[k].setAttribute('data-pos',k-1); }
 
           function cycle(id){
-            var front=cards[0], d=front._d, bin=null;
-            front.classList.add('stamped');
-            return wait(reduce?700:850,id).then(function(){
+            var front=cards[0], d=front._d, tray=null, thumb=null;
+            front.classList.add(d.reject?'no':'ok');
+            return wait(reduce?800:900,id).then(function(){
               if(d.reject){
-                front.style.transition='transform 0.45s var(--rv-out), opacity 0.35s var(--rv-out), filter 0.35s var(--rv-out)';
-                front.style.transform=reduce?'none':'translateY(36px) scale(0.94)'; front.style.opacity='0'; front.style.filter='blur(6px)';
-              } else {
-                bin = (approvals++ % 2) ? bins.handle : bins.raw;
-                var fr=front.getBoundingClientRect(), br=bin.getBoundingClientRect();
-                var dx=(br.left+br.width/2)-(fr.left+fr.width/2), dy=(br.top+br.height/2)-(fr.top+fr.height);
-                front.style.transform=reduce?'none':'translate('+dx+'px,'+dy+'px) scale(0.12)'; front.style.opacity='0';
+                var exit=function(){
+                  front.style.transition='transform 0.38s '+OUT+', opacity 0.3s '+OUT+', filter 0.3s '+OUT;
+                  front.style.transform=reduce?'none':'translateY(34px) scale(0.95)'; front.style.opacity='0'; front.style.filter='blur(6px)';
+                  advance();
+                };
+                if(reduce||!front.animate){ exit(); return wait(420,id); }
+                // a short, decaying "no" before it leaves
+                front.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(7px)'},{transform:'translateX(-4px)'},{transform:'translateX(2px)'},{transform:'translateX(0)'}],{duration:380,easing:'ease-out'});
+                return wait(400,id).then(function(){ exit(); return wait(420,id); });
               }
-              // the rest of the stack moves up
-              for(var k=1;k<cards.length;k++) cards[k].setAttribute('data-pos',k-1);
-              week+=1+Math.floor(Math.random()*3); roll(weekEl,week);
-              return wait(reduce?350:520,id);
+              tray=(approvals++ % 2) ? trays.handle : trays.raw;
+              var box=tray.querySelector('.rvThumbs');
+              thumb=addThumb(box,d.img,true);
+              var fr=front.getBoundingClientRect(), tr=thumb.getBoundingClientRect();
+              var tx=tr.left + (thumb.offsetWidth/2), ty=tr.top + (thumb.offsetHeight/2);
+              // the new slot sits at index 0 (translateX 0) once laid out
+              tx=box.getBoundingClientRect().left+thumb.offsetWidth/2; ty=box.getBoundingClientRect().top+thumb.offsetHeight/2;
+              var dx=tx-(fr.left+fr.width/2), dy=ty-(fr.top+fr.height/2), sc=thumb.offsetWidth/fr.width, rot=(tray===trays.raw?-9:9);
+              advance();
+              if(reduce||!front.animate){ front.style.opacity='0'; thumb.classList.remove('enter'); return wait(450,id); }
+              front.style.transformOrigin='50% 50%'; front.style.transition='none';
+              var anim=front.animate([
+                { transform:'translate(0,0) rotate(0deg) scale(1)', borderRadius:'22px', opacity:1 },
+                { transform:'translate('+dx*0.45+'px,'+(dy*0.45-26)+'px) rotate('+rot+'deg) scale('+(0.62)+')', borderRadius:'20px', opacity:1, offset:0.45 },
+                { transform:'translate('+dx+'px,'+dy+'px) rotate(0deg) scale('+sc+')', borderRadius:'40px', opacity:1 }
+              ],{ duration:720, easing:MOVE, fill:'forwards' });
+              return wait(690,id).then(function(){
+                thumb.classList.remove('enter'); front.style.opacity='0';
+                var b=tray.querySelector('b'); roll(b, +b.lastElementChild.textContent+1);
+                tray.classList.add('got'); setTimeout(function(){ tray.classList.remove('got'); },420);
+                return wait(60,id).then(function(){ anim.cancel(); });
+              });
             }).then(function(){
-              if(bin){ var b=bin.querySelector('b'); roll(b, +b.lastElementChild.textContent+1); bin.classList.add('bump'); setTimeout(function(){ bin.classList.remove('bump'); },260); }
-              // recycle the card to the back of the stack, without animating
               cards.push(cards.shift());
-              front.style.transition='none'; front.style.transform=''; front.style.opacity=''; front.style.filter='';
-              front.classList.remove('stamped'); front.setAttribute('data-pos',3); fill(front);
+              front.style.transition='none'; front.style.transform=''; front.style.opacity=''; front.style.filter=''; front.style.transformOrigin='';
+              front.classList.remove('ok','no'); front.setAttribute('data-pos',3); fill(front);
               void front.offsetWidth; front.style.transition='';
-              return wait(reduce?900:700,id);
+              return wait(reduce?900:650,id);
             }).then(function(){ return cycle(id); });
           }
+
           var inView=false, playing=false;
-          function start(){ if(playing||!inView||document.hidden) return; playing=true; var id=++run; wait(400,id).then(function(){ return cycle(id); }).catch(function(){}); }
+          // If the loop was stopped mid-move, put every card back to a clean resting state.
+          function tidy(){
+            cards.forEach(function(c,i){ c.getAnimations && c.getAnimations().forEach(function(an){ an.cancel(); }); c.style.transition='none'; c.style.transform=''; c.style.opacity=''; c.style.filter=''; c.style.transformOrigin=''; c.classList.remove('ok','no'); c.setAttribute('data-pos',i); void c.offsetWidth; c.style.transition=''; });
+            [].forEach.call(sec.querySelectorAll('.rvThumb.enter'),function(t){ var box=t.parentNode; box.removeChild(t); layout(box); });
+          }
+          function start(){ if(playing||!inView||document.hidden) return; playing=true; tidy(); var id=++run; wait(400,id).then(function(){ return cycle(id); }).catch(function(){}); }
           function stop(){ playing=false; run++; }
           if('IntersectionObserver' in window){
             new IntersectionObserver(function(es){ es.forEach(function(e){ inView=e.isIntersecting; inView ? start() : stop(); }); },{ threshold: 0.5 }).observe(deck);
