@@ -655,7 +655,7 @@
           .coProg { position: relative; width: 168px; height: 44px; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
           .coProg::before, .coProg i { content: ""; position: absolute; left: 22px; right: 22px; top: 50%; height: 6px; margin-top: -3px; border-radius: 999px; }
           .coProg::before { background: rgba(60,60,67,0.18); }
-          .coProg i { display: block; background: #3C3C43; transform-origin: 0 50%; transform: scaleX(0); transition: transform 0s linear; }
+          .coProg i { display: block; background: #3C3C43; clip-path: inset(0 100% 0 0 round 999px); }
           .coSkip { appearance: none; width: 44px; height: 44px; border: 0; padding: 0; border-radius: 999px; background: rgba(118,118,128,0.12); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.16s var(--co-ease), background-color 0.2s ease; }
           .coSkip:active { transform: scale(0.92); }
           @media (hover: hover) and (pointer: fine) { .coSkip:hover { background: rgba(118,118,128,0.2); } }
@@ -904,7 +904,7 @@
           var PRICE=2400, lkr=function(n){ return 'LKR '+n.toLocaleString('en-US'); }, run=0, shown=0, want=0, busy=false;
           // One bar for the whole story: each step fills its fifth over that step's play time.
           var barFill=document.getElementById('coBarFill'), barEl=barFill&&barFill.parentNode, STEPS=5, PLAY_MS=[0,2400,2600,2100,3500,1100];
-          function bar(n,ms){ if(!barFill) return; barFill.style.transition='transform '+(ms||0)+'ms '+(ms?'linear':''); barFill.style.transform='scaleX('+(n/STEPS)+')'; barEl.setAttribute('aria-valuenow',Math.round(n/STEPS*100)); }
+          function bar(n,ms){ if(!barFill) return; var pct=n/STEPS*100; barFill.style.transition='clip-path '+(ms||0)+'ms linear'; barFill.style.clipPath='inset(0 '+(100-pct).toFixed(2)+'% 0 0 round 999px)'; barEl.setAttribute('aria-valuenow',Math.round(pct)); }
 
           function wait(ms,id){ return new Promise(function(res,rej){ setTimeout(function(){ id===run?res():rej('stop'); }, reduce?Math.min(ms,120):ms); }); }
           function step(n){ steps.forEach(function(s){ s.classList.toggle('on', +s.getAttribute('data-step')===n); }); }
