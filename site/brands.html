@@ -467,14 +467,23 @@
   /* Phones: every section is one screen tall with its content centred
      (the sticky nav is accounted for at the top). */
   @media (max-width: 767px) {
+    #clBox { width: min(100%, calc((var(--vh, 1svh) * 100 - 100px) * 1000 / 1513)) !important; overflow-x: visible !important; }
     #rvSection, #agreeScreen section[data-screen-label="Community"],
     #brandsForSection {
-      min-height: 100vh; min-height: 100svh; box-sizing: border-box;
+      min-height: 100vh; min-height: 100svh; min-height: calc(var(--vh, 1svh) * 100); box-sizing: border-box;
       display: flex; flex-direction: column; justify-content: center;
       padding-top: calc(var(--nav-h, 52px) + 24px) !important; padding-bottom: 24px !important;
     }
   }
 </style>
+<script>
+  (function(){
+    var d=document.documentElement, w=0;
+    function set(){ var vw=window.innerWidth; if(vw===w) return; w=vw; d.style.setProperty('--vh', (window.innerHeight/100)+'px'); }
+    set(); window.addEventListener('resize',set,{ passive:true });
+    window.addEventListener('orientationchange',function(){ w=0; setTimeout(set,250); });
+  })();
+</script>
 <style id="desktop-view">
 /* =====================================================================
    DESKTOP / TABLET VIEW  (For Brands)
@@ -626,7 +635,7 @@
 </style>
 </head>
 <body>
-<div style="min-height:100vh;min-height:100svh;display:flex;justify-content:center;background:#EDEDED;">
+<div style="min-height:100vh;min-height:100svh;min-height:calc(var(--vh, 1svh) * 100);display:flex;justify-content:center;background:#EDEDED;">
   <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;overflow-x:clip;">
 
     <div class="navScope" style="position:relative;">
@@ -665,7 +674,7 @@
     </div>
 
 <!-- 2. Hero -->
-    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100vh - var(--nav-h, 52px)); min-height: calc(100svh - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100vh - var(--nav-h, 52px)); min-height: calc(100svh - var(--nav-h, 52px)); min-height: calc(var(--vh, 1svh) * 100 - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
       
       <h1 style="margin: 0; font-weight: 600; font-size: 48px; line-height: 1.06; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
         <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">Turn your</span></span>
@@ -685,17 +694,17 @@
 
     <!-- Statement + rest of the page (normal flow) -->
     <div id="agreeScreen" data-screen-label="Statement" style="position: relative; width: 100%;">
-      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
+      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100svh; min-height: calc(var(--vh, 1svh) * 100); display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
         <div class="ov-reveal" style="width: 64cqw; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
           <p style="margin: 0; font-weight: 600; font-size: 6.4cqw; line-height: 1.2; letter-spacing: -0.01em; text-align: center; text-wrap: balance; color: #717171;">Every customer who loves<br class="dBr"> your product is a <span style="color: #000000;">creator<br class="dBr"> waiting to be activated</span> &mdash; with<br class="dBr"> an audience your ads never<br class="dBr"> reach.</p>
         </div>
       </div>
 
       <!-- Checkout micro-animation: select a product -> add units -> pay. Loops while on screen. -->
-      <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 480vh; background: #F6F6F6;">
+      <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 480vh; height: calc(var(--vh, 1vh) * 480); background: #F6F6F6;">
         <style>
           #coSection { --co-ease: cubic-bezier(0.23,1,0.32,1); --co-move: cubic-bezier(0.77,0,0.175,1); --co-sheet: cubic-bezier(0.32,0.72,0,1); }
-          #coPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
+          #coPin { position: sticky; top: 0; height: 100vh; height: 100svh; height: calc(var(--vh, 1svh) * 100); display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
           #coStage { width: 100%; transform-origin: 50% 50%; }
           /* Pager-style control pinned to the bottom of the stage */
           .coCtl { display: flex; width: max-content; align-items: center; gap: 8px; margin: 24px auto 0; transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
@@ -723,8 +732,8 @@
           .coTile { position: relative; border-radius: 20px; padding: 6px 6px 10px; background: #FFFFFF; transition: transform 0.16s var(--co-ease), box-shadow 0.25s var(--co-ease); box-shadow: inset 0 0 0 1px #EEEEF0; }
           .coTile.press { transform: scale(0.96); }
           .coTile.sel { box-shadow: inset 0 0 0 2px #1548EB; }
-          .coImg { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 0.86; border-radius: 15px; background: #F2F2F4; }
-          .coName { margin: 9px 6px 0; font-size: 13px; font-weight: 500; color: #121212; letter-spacing: -0.01em; }
+          .coImg { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 0.86; border-radius: 15px; background: #F1ECEA center / cover no-repeat; }
+          .coName { margin: 9px 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 500; color: #121212; letter-spacing: -0.01em; }
           .coPrice { margin: 2px 6px 0; font-size: 12px; font-weight: 500; color: #8A8A8E; }
 
           /* Bottom sheet */
@@ -734,7 +743,7 @@
           #coCard.sheetOpen .coSheet { transform: translateY(0); }
           .coGrab { width: 36px; height: 5px; margin: 0 auto 16px; border-radius: 999px; background: #E2E2E5; }
           .coItem { display: flex; align-items: center; gap: 14px; }
-          .coItem .coImg { width: 72px; aspect-ratio: 1; border-radius: 16px; flex: none; }
+          .coItem .coImg { width: 72px; aspect-ratio: 1; border-radius: 16px; flex: none; background-size: 150%; background-position: center 45%; }
           .coItem b { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
           .coItem span { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: #8A8A8E; }
           .coRow { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; font-size: 15px; font-weight: 500; color: #121212; }
@@ -846,7 +855,7 @@
         <div id="coFlip">
         <div id="coCard" aria-hidden="true">
           <div class="coBar">
-            <b>Store</b>
+            <b>Luna Glow</b>
             <div class="coCart">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 7h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 7Z" stroke="#121212" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="#121212" stroke-width="1.8" stroke-linecap="round"/></svg>
               <span class="coBadge"></span>
@@ -855,10 +864,10 @@
 
           <div class="coGrid">
             <!-- Product tiles: image placeholders for now -->
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,800</p></div>
-            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 2,400</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 3,200</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,200</p></div>
+            <div class="coTile"><div class="coImg" style="background-image: url('assets/img/brands-prod-lip-tint.webp');" role="img" aria-label="Velvet Lip Tint"></div><p class="coName">Velvet Lip Tint</p><p class="coPrice">LKR 1,800</p></div>
+            <div class="coTile" data-pick><div class="coImg" style="background-image: url('assets/img/brands-prod-serum.webp');" role="img" aria-label="Vitamin C Serum"></div><p class="coName">Vitamin C Serum</p><p class="coPrice">LKR 2,400</p></div>
+            <div class="coTile"><div class="coImg" style="background-image: url('assets/img/brands-prod-sunscreen.webp');" role="img" aria-label="SPF 50 Sunscreen"></div><p class="coName">SPF 50 Sunscreen</p><p class="coPrice">LKR 3,200</p></div>
+            <div class="coTile"><div class="coImg" style="background-image: url('assets/img/brands-prod-face-wash.webp');" role="img" aria-label="Gentle Face Wash"></div><p class="coName">Gentle Face Wash</p><p class="coPrice">LKR 1,200</p></div>
           </div>
 
           <div class="coScrim"></div>
@@ -866,8 +875,8 @@
           <div class="coSheet">
             <div class="coGrab"></div>
             <div class="coItem">
-              <div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-              <div><b>Product name</b><span>LKR 2,400 each</span></div>
+              <div class="coImg" style="background-image: url('assets/img/brands-prod-serum.webp');" role="img" aria-label="Vitamin C Glow Serum"></div>
+              <div><b>Vitamin C Glow Serum</b><span>LKR 2,400 each</span></div>
             </div>
             <div class="coRow">
               <span>Quantity</span>
@@ -898,7 +907,7 @@
               <div class="coNoteMain">
                 <div class="coNoteTop"><b>Polysocial</b><span>now</span></div>
                 <p class="coNoteTitle">Earn LKR 50,000 by creating content</p>
-                <p class="coNoteText">Store invited you to share your order on your socials.</p>
+                <p class="coNoteText">Luna Glow invited you to share your order on your socials.</p>
               </div>
             </div>
             <div class="coNoteMore"><div><div class="coNoteInner">
@@ -1030,6 +1039,8 @@
             if(busy) return;
             if(want<shown){ run++; shown=want; settle(shown); return; }
             if(want===shown) return;
+            // Scrolled ahead by more than a step: jump to the step before and play only the latest
+            if(want-shown>1){ shown=want-1; settle(shown); }
             busy=true; var id=++run, next=shown+1;
             bar(next, reduce?0:PLAY_MS[next]);
             plays[next](id).then(function(){ shown=next; busy=false; pump(); },
@@ -1040,10 +1051,11 @@
           function onScroll(){
             var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
             var span=sec.offsetHeight-vh, p=span>0 ? -r.top/span : 0;
-            var w = r.top > vh*0.35 ? 0 : p<0.13 ? 1 : p<0.32 ? 2 : p<0.51 ? 3 : p<0.72 ? 4 : 5;
+            var w = r.top > vh*0.35 ? 0 : p<0.10 ? 1 : p<0.24 ? 2 : p<0.38 ? 3 : p<0.53 ? 4 : 5;   // quote holds for the last ~47%
             if(w!==want){
               want=w;
               if(want<shown || (busy && want<=shown)){ run++; busy=false; shown=want; settle(shown); }
+              else if(busy && want-shown>1){ run++; busy=false; }   // far ahead: stop the step in progress and catch up
               pump();
             }
           }
@@ -1076,7 +1088,7 @@
       </section>
 
       <!-- Campaign card: every customer gets their own campaign. Normal scroll. -->
-      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100svh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
+      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100svh; height: calc(var(--vh, 1svh) * 100); box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
         <style>
           #campSection h2 { align-self: end; margin: 0 auto 32px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           /* Only the top of the phone shows (just past the card details): the section's bottom edge cuts it cleanly. */
@@ -1091,55 +1103,14 @@
           }
           .campPhone > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 2; pointer-events: none; }
           /* Screen sits behind the frame's transparent glass (measured from the frame art). */
-          .campScreen { position: absolute; left: 4.22%; top: 2.17%; width: 89.33%; height: 95%; border-radius: 13.5% / 6.2%; overflow: hidden; background: #F6F6F6; container-type: inline-size; }
-          /* App chrome, measured from the app screen (all sizes in % of screen width) */
-          .campStatus { position: absolute; left: 13.4cqw; right: 8.6cqw; top: 3.6cqw; height: 5cqw; display: flex; align-items: center; justify-content: space-between; color: #000; }
-          .campStatus b { font-size: 3.9cqw; font-weight: 600; letter-spacing: -0.01em; }
-          .campStatus span { display: flex; align-items: center; gap: 1.3cqw; }
-          .campStatus svg { display: block; height: 3.1cqw; width: auto; }
-          .campNav { position: absolute; left: 8.6cqw; right: 8.6cqw; top: 13.2cqw; height: 6.2cqw; display: flex; align-items: center; justify-content: space-between; }
-          .campNav svg { display: block; width: 5.4cqw; height: 5.4cqw; }
-          .campNav .r { display: flex; gap: 3.4cqw; }
-          .campBal { position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 6.2cqw; display: flex; align-items: center; gap: 2cqw; padding: 0 3.2cqw 0 0.55cqw; border-radius: 999px; background: #1548EB; box-shadow: 0 0 0 0.25cqw #2B5CF0 inset; color: #FFFFFF; font-size: 3.6cqw; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
-          .campBal img { width: 5.1cqw; height: 5.1cqw; border-radius: 50%; box-shadow: 0 0 0 0.3cqw #FFFFFF; display: block; }
-          .campHead { position: absolute; left: 8.4cqw; top: 21.6cqw; margin: 0; font-size: 7cqw; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; color: #000; }
-          .campCard { position: absolute; left: 3%; top: 35cqw; width: 94%; border-radius: 5.6cqw; overflow: hidden; }
-          .campCard img { display: block; width: 100%; height: auto; transform: scale(1.012); }
-          .campInfo { position: absolute; left: 7.2%; right: 7%; top: 107cqw; }
-          .campTitle { margin: 0; font-size: 4.1cqw; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: #121212; }
-          .campMeta { margin: 2.2cqw 0 0; font-size: 3cqw; font-weight: 500; color: #8A8A8E; }
-          .campBar { height: 1.3cqw; margin-top: 3cqw; border-radius: 999px; background: #E6E6E8; overflow: hidden; }
-          .campBar i { display: block; width: 8%; height: 100%; border-radius: inherit; background: #D6157F; }
+          .campScreen { position: absolute; left: 4.22%; top: 2.17%; width: 89.33%; height: 95%; border-radius: 13.5% / 6.2%; overflow: hidden; background: #FFFFFF; container-type: inline-size; }
+          .campScreen > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
         </style>
 
         <h2 class="ov-reveal">A unique campaign is created for every customer</h2>
 
-        <div class="campPhone" role="img" aria-label="Polysocial app showing a personal campaign: Patty Pop BBQ Napoleon Chicken burger launch campaign, Rs. 100K flat, on TikTok and Instagram">
-          <div class="campScreen">
-            <div class="campStatus">
-              <b>11:11</b>
-              <span>
-                <svg viewBox="0 0 18 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
-                <svg viewBox="0 0 16 12" fill="#000"><path d="M8 2.2c2.4 0 4.6.9 6.2 2.5l1.3-1.4C13.5 1.3 10.9.2 8 .2S2.5 1.3.5 3.3l1.3 1.4C3.4 3.1 5.6 2.2 8 2.2Zm0 3.6c1.4 0 2.7.5 3.6 1.5l1.3-1.4C11.6 4.6 9.9 3.8 8 3.8s-3.6.8-4.9 2.1l1.3 1.4c.9-1 2.2-1.5 3.6-1.5Zm0 3.6c.5 0 1 .2 1.3.6L8 11.5 6.7 10c.3-.4.8-.6 1.3-.6Z"/></svg>
-                <svg viewBox="0 0 27 13" fill="none"><rect x="0.6" y="0.6" width="22.8" height="11.8" rx="3.6" stroke="#000" stroke-opacity="0.4" stroke-width="1.1"/><rect x="2.2" y="2.2" width="19.6" height="8.6" rx="2.2" fill="#000"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="#000" fill-opacity="0.4"/></svg>
-              </span>
-            </div>
-            <div class="campNav">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18M3 12h18M3 17.5h18" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
-              <div class="campBal"><img src="assets/img/brands-app-avatar.webp" width="68" height="68" alt="" loading="lazy" decoding="async">Rs. 12,688</div>
-              <div class="r">
-                <svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="7" stroke="#000" stroke-width="2.2"/><path d="m16 16 5 5" stroke="#000" stroke-width="2.2" stroke-linecap="round"/></svg>
-                <svg viewBox="0 0 24 24" fill="none"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15L6 17Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
-              </div>
-            </div>
-            <p class="campHead">Campaigns</p>
-            <div class="campCard"><img src="assets/img/brands-campaign-card.webp" width="868" height="630" alt="" loading="lazy" decoding="async"></div>
-            <div class="campInfo">
-              <p class="campTitle">Patty Pop BBQ Napoleon Chicken burger launch campaign</p>
-              <p class="campMeta">1 min ago &nbsp;&middot;&nbsp; 10 d left</p>
-              <div class="campBar"><i></i></div>
-            </div>
-          </div>
+        <div class="campPhone" role="img" aria-label="Polysocial app showing a personal campaign: Loved your Luna Glow Vitamin C Serum? Share your honest 7-day review. Rs. 2,000 per 1K views on TikTok and Instagram, 20+ joined.">
+          <div class="campScreen"><img src="assets/img/brands-app-campaigns.webp" width="923" height="2000" alt="" loading="lazy" decoding="async"></div>
           <img src="assets/img/brands-phone-frame.webp" width="700" height="1431" alt="" loading="lazy" decoding="async">
         </div>
         <script>
@@ -1163,7 +1134,7 @@
           #rvSection h2 { margin: 0 auto 32px; max-width: 340px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
 
           .rvStage { position: relative; width: 100%; max-width: 345px; margin: 0 auto; overflow: visible; }
-          .rvDeck { position: relative; width: 232px; height: 380px; margin: 30px auto 0; touch-action: pan-y; }
+          .rvDeck { position: relative; width: 232px; height: clamp(260px, calc(var(--vh, 1svh) * 100 - 334px), 380px); margin: 30px auto 0; touch-action: pan-y; }
           .rvCard { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: #DADADF center / cover no-repeat; box-shadow: 0 1px 2px rgba(18,18,18,0.06), 0 14px 34px rgba(18,31,96,0.14); transform-origin: 50% 0; will-change: transform, opacity; transition: transform 0.5s var(--rv-out), opacity 0.4s var(--rv-out), filter 0.4s var(--rv-out); }
           .rvCard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.5) 100%); box-shadow: inset 0 0 0 0 transparent; transition: box-shadow 0.25s var(--rv-out); }
           .rvCard[data-pos="0"] { transform: translateY(0) scale(1); opacity: 1; z-index: 4; }
@@ -1208,15 +1179,18 @@
           var sec=document.getElementById('rvSection'); if(!sec) return;
           var deck=sec.querySelector('.rvDeck');
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var IMG='assets/img/brands-ugc-', OUT='cubic-bezier(0.23,1,0.32,1)';
+          var IMG='assets/img/brands-ugc2-', OUT='cubic-bezier(0.23,1,0.32,1)';
           var POOL=[
-            { img:1, who:'@nethmi.cooks', kind:'Reel · 0:24', p:'tt' },
-            { img:2, who:'@dinu.daily', kind:'Story', p:'ig' },
-            { img:7, who:'@kasun.vibes', kind:'Reel · 0:31', p:'ig', reject:true },
-            { img:3, who:'@sachi.styles', kind:'Reel · 0:18', p:'ig' },
-            { img:4, who:'@ravi.reacts', kind:'Video · 0:42', p:'tt', reject:true },
-            { img:5, who:'@amaya.home', kind:'Post', p:'ig' },
-            { img:6, who:'@pink.passion', kind:'Reel · 0:27', p:'tt' }
+            { img:1,  who:'@ishara.eats',    kind:'Reel · 0:24',  p:'tt' },
+            { img:2,  who:'@dilini.glow',    kind:'Reel · 0:18',  p:'ig' },
+            { img:3,  who:'@kavin.drives',   kind:'Vlog · 0:52',  p:'tt', reject:true },   // filmed while driving
+            { img:4,  who:'@amaya.cooks',    kind:'Reel · 0:31',  p:'ig' },
+            { img:5,  who:'@tharu.treats',   kind:'Story',        p:'ig' },
+            { img:6,  who:'@nethmi.bites',   kind:'Video · 0:42', p:'tt' },
+            { img:7,  who:'@sachi.mirror',   kind:'Story',        p:'ig', reject:true },   // blurry, low quality
+            { img:8,  who:'@ruvi.beauty',    kind:'Reel · 0:27',  p:'ig' },
+            { img:9,  who:'@hiru.skin',      kind:'Post',         p:'ig' },
+            { img:10, who:'@minu.morning',   kind:'Reel · 0:22',  p:'tt' }
           ];
           var ICON={
             tt:'<svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7Z"/></svg>',
@@ -1275,10 +1249,10 @@
 
       <!-- Payments: pinned while it scrolls. The centre flips title -> performance -> flat fee;
            the donut turns to the slice being described. Steps are triggered by scroll, then play. -->
-      <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; background: #FFFFFF;">
+      <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; height: calc(var(--vh, 1vh) * 300); background: #FFFFFF;">
         <style>
           #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); --pay-move: cubic-bezier(0.77,0,0.175,1); }
-          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
+          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; height: calc(var(--vh, 1svh) * 100); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
 
           /* Donut: two slices with gaps and rounded ends, no track */
           .payPie { position: absolute; left: 50%; bottom: calc(100% + 8px); width: 96px; height: 96px; margin-left: -48px; overflow: visible; }
@@ -1436,8 +1410,8 @@
            to a centred circle as the section scrolls. The lens (refraction,
            dispersion, directional light, chromatic rim) and the top-first text
            reveal are all rendered in a fragment shader, driven by a scroll-spring. */
-        .growTrack { position: relative; height: 138vh; background: #161616; }
-        .growPin { position: sticky; top: 0; height: 100vh; min-height: 560px; overflow: hidden; background: #161616; }
+        .growTrack { position: relative; height: 138vh; height: calc(var(--vh, 1vh) * 138); background: #161616; }
+        .growPin { position: sticky; top: 0; height: 100vh; height: calc(var(--vh, 1vh) * 100); min-height: 560px; overflow: hidden; background: #161616; }
         .growGL { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
         /* Scroll hint — fades as the glass starts to move */
         .growHint {
@@ -1858,12 +1832,20 @@
         entries.forEach(function(e){ if(e.isIntersecting){ warmImages(); warmIO.disconnect(); } });
       },{ root: null, threshold: 0, rootMargin: '0px 0px 150% 0px' });
       warmIO.observe(grid);
-      var popped=false;
+      var popped=false, gen=0, timers=[];
+      function later(fn,ms){ var g=gen; timers.push(setTimeout(function(){ if(g===gen) fn(); },ms)); }
+      // Back to the resting state so the cascade can play again next time.
+      function resetCascade(){
+        gen++; popped=false; priorSpawns=[];
+        timers.forEach(clearTimeout); timers=[];
+        [].forEach.call(grid.querySelectorAll('.cl-pebble'),function(p){ p.parentNode.removeChild(p); });
+        allTiles.forEach(function(el){ el.classList.remove('pop'); el.style.transform=''; el.style.transition=''; });
+      }
       function popCascade(){
         if(popped) return; popped=true;
         // 55ms per tile stagger — with ~15 tiles this gives a ~800ms cascade,
         // long enough to read as an entrance animation rather than a flash.
-        byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*55); });
+        byTop.forEach(function(el,i){ later(function(){ el.classList.add('pop'); }, i*55); });
         // Two pebbles emerge in sequence after the cascade — a 100px one
         // 2s after cascade end, then an 80px one 2s after that, each from a
         // different intersection near the middle. Time-based physics, not
@@ -1878,8 +1860,8 @@
         ['assets/img/community-primary/p1.png','assets/img/community-primary/p2.png']
           .forEach(function(src){ var im=new Image(); im.src=src; });
         var cascadeMs = byTop.length*55 + 680; // last tile + one full transition
-        setTimeout(function(){ pebbleEmerge(50, 'assets/img/community-primary/p1.png'); }, cascadeMs + 2000); // 100px
-        setTimeout(function(){ pebbleEmerge(40, 'assets/img/community-primary/p2.png'); }, cascadeMs + 4000); // 80px
+        later(function(){ pebbleEmerge(50, 'assets/img/community-primary/p1.png'); }, cascadeMs + 2000); // 100px
+        later(function(){ pebbleEmerge(40, 'assets/img/community-primary/p2.png'); }, cascadeMs + 4000); // 80px
       }
 
       // Pebble images load eagerly (not lazy): the pebble is inserted at a
@@ -1979,12 +1961,13 @@
         // would fight rAF for who owns the value.
         bodies.forEach(function(b){ if(!b.spawn){ b.el.style.transition='transform 0s'; } });
 
-        var t0=performance.now();
+        var t0=performance.now(), myGen=gen;
         var GROW_MS=680;   // 0 -> 40px over ~0.7s
         var SETTLE_MS=1200;// physics keeps easing beyond growth to remove residual overlap
         function easeOut(t){ return 1 - Math.pow(1-t, 3); }
 
         function frame(now){
+          if(myGen!==gen) return;
           var t=now-t0;
           // Grow the spawn (ease-out for a natural "pop" feel).
           var g=Math.min(1,t/GROW_MS);
@@ -2037,8 +2020,11 @@
         requestAnimationFrame(frame);
       }
       var popIO=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
-      },{ root: null, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        entries.forEach(function(e){
+          if(e.isIntersecting) popCascade();
+          else if(e.boundingClientRect.top>0) resetCascade();   // scrolled back above: play again next time
+        });
+      },{ root: null, threshold: 0.5 });
       popIO.observe(grid);
     };
 
