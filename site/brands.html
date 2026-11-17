@@ -1870,12 +1870,20 @@
         entries.forEach(function(e){ if(e.isIntersecting){ warmImages(); warmIO.disconnect(); } });
       },{ root: null, threshold: 0, rootMargin: '0px 0px 150% 0px' });
       warmIO.observe(grid);
-      var popped=false;
+      var popped=false, gen=0, timers=[];
+      function later(fn,ms){ var g=gen; timers.push(setTimeout(function(){ if(g===gen) fn(); },ms)); }
+      // Back to the resting state so the cascade can play again next time.
+      function resetCascade(){
+        gen++; popped=false; priorSpawns=[];
+        timers.forEach(clearTimeout); timers=[];
+        [].forEach.call(grid.querySelectorAll('.cl-pebble'),function(p){ p.parentNode.removeChild(p); });
+        allTiles.forEach(function(el){ el.classList.remove('pop'); el.style.transform=''; el.style.transition=''; });
+      }
       function popCascade(){
         if(popped) return; popped=true;
         // 55ms per tile stagger — with ~15 tiles this gives a ~800ms cascade,
         // long enough to read as an entrance animation rather than a flash.
-        byTop.forEach(function(el,i){ setTimeout(function(){ el.classList.add('pop'); }, i*55); });
+        byTop.forEach(function(el,i){ later(function(){ el.classList.add('pop'); }, i*55); });
         // Two pebbles emerge in sequence after the cascade — a 100px one
         // 2s after cascade end, then an 80px one 2s after that, each from a
         // different intersection near the middle. Time-based physics, not
@@ -1890,8 +1898,8 @@
         ['assets/img/community-primary/p1.png','assets/img/community-primary/p2.png']
           .forEach(function(src){ var im=new Image(); im.src=src; });
         var cascadeMs = byTop.length*55 + 680; // last tile + one full transition
-        setTimeout(function(){ pebbleEmerge(50, 'assets/img/community-primary/p1.png'); }, cascadeMs + 2000); // 100px
-        setTimeout(function(){ pebbleEmerge(40, 'assets/img/community-primary/p2.png'); }, cascadeMs + 4000); // 80px
+        later(function(){ pebbleEmerge(50, 'assets/img/community-primary/p1.png'); }, cascadeMs + 2000); // 100px
+        later(function(){ pebbleEmerge(40, 'assets/img/community-primary/p2.png'); }, cascadeMs + 4000); // 80px
       }
 
       // Pebble images load eagerly (not lazy): the pebble is inserted at a
@@ -1991,12 +1999,13 @@
         // would fight rAF for who owns the value.
         bodies.forEach(function(b){ if(!b.spawn){ b.el.style.transition='transform 0s'; } });
 
-        var t0=performance.now();
+        var t0=performance.now(), myGen=gen;
         var GROW_MS=680;   // 0 -> 40px over ~0.7s
         var SETTLE_MS=1200;// physics keeps easing beyond growth to remove residual overlap
         function easeOut(t){ return 1 - Math.pow(1-t, 3); }
 
         function frame(now){
+          if(myGen!==gen) return;
           var t=now-t0;
           // Grow the spawn (ease-out for a natural "pop" feel).
           var g=Math.min(1,t/GROW_MS);
@@ -2049,8 +2058,11 @@
         requestAnimationFrame(frame);
       }
       var popIO=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ popCascade(); popIO.disconnect(); } });
-      },{ root: null, threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        entries.forEach(function(e){
+          if(e.isIntersecting) popCascade();
+          else if(e.boundingClientRect.top>0) resetCascade();   // scrolled back above: play again next time
+        });
+      },{ root: null, threshold: 0.5 });
       popIO.observe(grid);
     };
 
