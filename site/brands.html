@@ -468,7 +468,7 @@
      (the sticky nav is accounted for at the top). */
   @media (max-width: 767px) {
     #rvSection, #agreeScreen section[data-screen-label="Community"],
-    #brandsForSection, #talkSection {
+    #brandsForSection {
       min-height: 100vh; min-height: 100svh; box-sizing: border-box;
       display: flex; flex-direction: column; justify-content: center;
       padding-top: calc(var(--nav-h, 52px) + 24px) !important; padding-bottom: 24px !important;
@@ -619,6 +619,9 @@
 
   /* "This call is for" runs straight into "Grow your brand" */
   #brandsForSection { min-height: 100vh; box-sizing: border-box; padding-bottom: 0 !important; }
+
+  /* Pull 'Interested? Let's talk' up over the empty bottom of the Grow pin */
+  #talkSection { margin-top: -12vh !important; }
 }
 </style>
 </head>
@@ -1589,7 +1592,7 @@
           .ctaPlus.leaving, .ctaPlus svg { animation: none !important; }
         }
       </style>
-      <section id="talkSection" style="position: relative; background: #161616; padding: 26px 24px calc(var(--sp-section) + 25px); text-align: center;">
+      <section id="talkSection" style="position: relative; background: #161616; padding: 26px 24px calc(var(--sp-section) + 25px); text-align: center; margin-top: -14vh; margin-top: -14svh;">
         <h2 class="cReveal" style="margin: 0 0 var(--sp-heading); font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em;">
           <span style="display: block; color: #ADADAD;">Interested?</span>
           <span style="display: block; color: #FFFFFF;">Let&rsquo;s talk</span>
