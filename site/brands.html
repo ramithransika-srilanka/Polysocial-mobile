@@ -705,10 +705,6 @@
           .coTouch i { position: absolute; inset: 0; border-radius: inherit; transition: transform 0.16s var(--co-ease); }
           .coTouch.press i { transform: scale(0.8); background: rgba(18,18,18,0.12); }
 
-          /* Step indicator under the card */
-          .coSteps { display: flex; justify-content: center; gap: 6px; margin-top: 22px; }
-          .coSteps span { height: 32px; padding: 0 12px; white-space: nowrap; border-radius: 999px; display: flex; align-items: center; font-size: 13px; font-weight: 500; color: #8A8A8E; background: #EBEBED; transition: background-color 0.3s var(--co-ease), color 0.3s var(--co-ease); }
-          .coSteps span.on { background: #121212; color: #FFFFFF; }
 
           /* Step 4: Polysocial notification overlay */
           .coNoteDim { position: absolute; inset: 0; z-index: 6; background: rgba(18,18,18,0.28); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; transition: opacity 0.45s var(--co-ease); pointer-events: none; }
@@ -829,9 +825,6 @@
           <div class="coTouch"><i></i></div>
         </div>
 
-        <div class="coSteps ov-reveal" aria-hidden="true">
-          <span data-step="0">Select</span><span data-step="1">Add units</span><span data-step="2">Pay</span><span data-step="3">Get invited</span>
-        </div>
         </div>
         </div>
 
