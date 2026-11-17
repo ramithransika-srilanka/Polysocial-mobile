@@ -984,6 +984,38 @@
         </script>
       </section>
 
+      <!-- Campaign card: every customer gets their own campaign. Normal scroll. -->
+      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; padding: var(--sp-panel) 24px; background: #F6F6F6; overflow: hidden;">
+        <style>
+          #campSection h2 { margin: 0 auto 36px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
+          .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
+          .campPhone > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 2; pointer-events: none; }
+          /* Screen sits behind the frame's transparent glass (measured from the frame art). */
+          .campScreen { position: absolute; left: 4.22%; top: 2.17%; width: 89.33%; height: 95%; border-radius: 13.5% / 6.2%; overflow: hidden; background: #FFFFFF; container-type: inline-size; }
+          .campCard { position: absolute; left: 3%; top: 10.8%; width: 94%; }
+          .campCard img { display: block; width: 100%; height: auto; }
+          .campInfo { position: absolute; left: 7.2%; right: 7%; top: 44%; }
+          .campTitle { margin: 0; font-size: 4.1cqw; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: #121212; }
+          .campMeta { margin: 2.2cqw 0 0; font-size: 3cqw; font-weight: 500; color: #8A8A8E; }
+          .campBar { height: 1.3cqw; margin-top: 3cqw; border-radius: 999px; background: #E6E6E8; overflow: hidden; }
+          .campBar i { display: block; width: 8%; height: 100%; border-radius: inherit; background: #D6157F; }
+        </style>
+
+        <h2 class="ov-reveal">A unique campaign is created for every customer</h2>
+
+        <div class="campPhone ov-reveal" role="img" aria-label="Polysocial app showing a personal campaign: Patty Pop BBQ Napoleon Chicken burger launch campaign, Rs. 100K flat, on TikTok and Instagram">
+          <div class="campScreen">
+            <div class="campCard"><img src="assets/img/brands-campaign-card.webp" width="868" height="630" alt="" loading="lazy" decoding="async"></div>
+            <div class="campInfo">
+              <p class="campTitle">Patty Pop BBQ Napoleon Chicken burger launch campaign</p>
+              <p class="campMeta">1 min ago &nbsp;&middot;&nbsp; 10 d left</p>
+              <div class="campBar"><i></i></div>
+            </div>
+          </div>
+          <img src="assets/img/brands-phone-frame.webp" width="700" height="1431" alt="" loading="lazy" decoding="async">
+        </div>
+      </section>
+
       <!-- 2. Community -->
       <section data-screen-label="Community" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 12px var(--sp-panel); background: #F6F6F6; overflow: hidden;">
         <!-- Dark card. It is a fixed aspect box (mobile portrait / desktop 16:9,
