@@ -989,6 +989,14 @@
         <style>
           #campSection h2 { margin: 0 auto 36px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
+          /* Slides up from below the fold when the section is reached (iOS sheet curve);
+             resets once the section is scrolled back out below the viewport. */
+          .campPhone { transform: translateY(80%); transition: transform 1.05s cubic-bezier(0.32,0.72,0,1); will-change: transform; }
+          .campPhone.up { transform: translateY(0); }
+          @media (prefers-reduced-motion: reduce) {
+            .campPhone { transform: none; opacity: 0; transition: opacity 0.4s ease; }
+            .campPhone.up { opacity: 1; }
+          }
           .campPhone > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 2; pointer-events: none; }
           /* Screen sits behind the frame's transparent glass (measured from the frame art). */
           .campScreen { position: absolute; left: 4.22%; top: 2.17%; width: 89.33%; height: 95%; border-radius: 13.5% / 6.2%; overflow: hidden; background: #FFFFFF; container-type: inline-size; }
@@ -1003,7 +1011,7 @@
 
         <h2 class="ov-reveal">A unique campaign is created for every customer</h2>
 
-        <div class="campPhone ov-reveal" role="img" aria-label="Polysocial app showing a personal campaign: Patty Pop BBQ Napoleon Chicken burger launch campaign, Rs. 100K flat, on TikTok and Instagram">
+        <div class="campPhone" role="img" aria-label="Polysocial app showing a personal campaign: Patty Pop BBQ Napoleon Chicken burger launch campaign, Rs. 100K flat, on TikTok and Instagram">
           <div class="campScreen">
             <div class="campCard"><img src="assets/img/brands-campaign-card.webp" width="868" height="630" alt="" loading="lazy" decoding="async"></div>
             <div class="campInfo">
@@ -1014,6 +1022,18 @@
           </div>
           <img src="assets/img/brands-phone-frame.webp" width="700" height="1431" alt="" loading="lazy" decoding="async">
         </div>
+        <script>
+        (function(){
+          var sec=document.getElementById('campSection'), phone=sec&&sec.querySelector('.campPhone');
+          if(!phone) return;
+          if(!('IntersectionObserver' in window)){ phone.classList.add('up'); return; }
+          // Trigger: the section's top has climbed into the lower part of the screen.
+          new IntersectionObserver(function(es){ es.forEach(function(e){
+            if(e.isIntersecting) phone.classList.add('up');
+            else if(e.boundingClientRect.top>0) phone.classList.remove('up'); // scrolled back above it
+          }); },{ rootMargin: '0px 0px -55% 0px', threshold: 0 }).observe(sec);
+        })();
+        </script>
       </section>
 
       <!-- 2. Community -->
