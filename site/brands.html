@@ -733,7 +733,7 @@
           .coTile.press { transform: scale(0.96); }
           .coTile.sel { box-shadow: inset 0 0 0 2px #1548EB; }
           .coImg { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 0.86; border-radius: 15px; background: #F2F2F4; }
-          .coName { margin: 9px 6px 0; font-size: 13px; font-weight: 500; color: #121212; letter-spacing: -0.01em; }
+          .coName { margin: 9px 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 500; color: #121212; letter-spacing: -0.01em; }
           .coPrice { margin: 2px 6px 0; font-size: 12px; font-weight: 500; color: #8A8A8E; }
 
           /* Bottom sheet */
@@ -855,7 +855,7 @@
         <div id="coFlip">
         <div id="coCard" aria-hidden="true">
           <div class="coBar">
-            <b>Store</b>
+            <b>Patty Pop</b>
             <div class="coCart">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 7h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 7Z" stroke="#121212" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="#121212" stroke-width="1.8" stroke-linecap="round"/></svg>
               <span class="coBadge"></span>
@@ -864,10 +864,10 @@
 
           <div class="coGrid">
             <!-- Product tiles: image placeholders for now -->
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,800</p></div>
-            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 2,400</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 3,200</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Product name</p><p class="coPrice">LKR 1,200</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Classic Smash Burger</p><p class="coPrice">LKR 1,800</p></div>
+            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">BBQ Napoleon Burger</p><p class="coPrice">LKR 2,400</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Family Meal Box</p><p class="coPrice">LKR 3,200</p></div>
+            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Loaded Cheese Fries</p><p class="coPrice">LKR 1,200</p></div>
           </div>
 
           <div class="coScrim"></div>
@@ -876,7 +876,7 @@
             <div class="coGrab"></div>
             <div class="coItem">
               <div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-              <div><b>Product name</b><span>LKR 2,400 each</span></div>
+              <div><b>BBQ Napoleon Chicken Burger</b><span>LKR 2,400 each</span></div>
             </div>
             <div class="coRow">
               <span>Quantity</span>
@@ -907,7 +907,7 @@
               <div class="coNoteMain">
                 <div class="coNoteTop"><b>Polysocial</b><span>now</span></div>
                 <p class="coNoteTitle">Earn LKR 50,000 by creating content</p>
-                <p class="coNoteText">Store invited you to share your order on your socials.</p>
+                <p class="coNoteText">Patty Pop invited you to share your order on your socials.</p>
               </div>
             </div>
             <div class="coNoteMore"><div><div class="coNoteInner">
