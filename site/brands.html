@@ -1234,6 +1234,9 @@
 
           /* Donut: two slices with gaps and rounded ends, no track */
           .payPie { position: absolute; left: 50%; bottom: calc(100% + 8px); width: 96px; height: 96px; margin-left: -48px; overflow: visible; }
+          /* Keep a steady 24px between the donut and whichever text is showing */
+          .payPie { transform: translateY(-9px); transition: transform 0.5s var(--pay-out); }
+          #paySection[data-step="0"] .payPie { transform: translateY(14px); }
           .payPie g { transform-origin: 48px 48px; transform: rotate(-90deg); transition: transform 0.85s var(--pay-move); }
           .payPie circle { fill: none; stroke-width: 15; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1s var(--pay-out), opacity 0.4s var(--pay-out), stroke-width 0.4s var(--pay-out); }
           .payPie .a { stroke: #1548EB; }
@@ -1246,7 +1249,7 @@
           #paySection[data-step="1"] .payPie .a, #paySection[data-step="2"] .payPie .b { stroke-width: 17; }
 
           /* The flipping centre: three faces in one spot */
-          .payFlip { position: relative; width: 100%; max-width: 345px; height: 190px; perspective: 900px; }
+          .payFlip { position: relative; width: 100%; max-width: 345px; height: 150px; perspective: 900px; }
           .payFace { position: absolute; left: 0; right: 0; top: 50%; transform-origin: 50% 50%; backface-visibility: hidden; -webkit-backface-visibility: hidden;
                      transform: translateY(-50%) rotateX(-80deg) translateZ(30px); opacity: 0; filter: blur(4px);
                      transition: transform 0.6s var(--pay-out), opacity 0.35s var(--pay-out), filter 0.35s var(--pay-out); }
