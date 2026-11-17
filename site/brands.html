@@ -469,7 +469,7 @@
   @media (max-width: 767px) {
     #rvSection, #agreeScreen section[data-screen-label="Community"],
     #brandsForSection, #talkSection {
-      min-height: 100vh; min-height: 100dvh; box-sizing: border-box;
+      min-height: 100vh; min-height: 100svh; box-sizing: border-box;
       display: flex; flex-direction: column; justify-content: center;
       padding-top: calc(var(--nav-h, 52px) + 24px) !important; padding-bottom: 24px !important;
     }
@@ -579,7 +579,7 @@
 </style>
 </head>
 <body>
-<div style="min-height:100dvh;display:flex;justify-content:center;background:#EDEDED;">
+<div style="min-height:100vh;min-height:100svh;display:flex;justify-content:center;background:#EDEDED;">
   <div id="appRoot" style="position:relative;width:393px;max-width:100%;background:#FFFFFF;overflow-x:clip;">
 
     <div class="navScope" style="position:relative;">
@@ -618,7 +618,7 @@
     </div>
 
 <!-- 2. Hero -->
-    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100dvh - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+    <div id="top" style="position: relative; z-index: 1; width: 322px; min-height: calc(100vh - var(--nav-h, 52px)); min-height: calc(100svh - var(--nav-h, 52px)); margin: 0 auto; padding: 24px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
       
       <h1 style="margin: 0; font-weight: 600; font-size: 48px; line-height: 1.06; letter-spacing: -0.02em; text-align: center; text-wrap: balance;">
         <span data-anim="" style="display: block; animation: riseIn 0.62s cubic-bezier(0.23,1,0.32,1) both; animation-delay: 0.14s;"><span style="color: #ADADAD;">Turn your</span></span>
@@ -638,7 +638,7 @@
 
     <!-- Statement + rest of the page (normal flow) -->
     <div id="agreeScreen" data-screen-label="Statement" style="position: relative; width: 100%;">
-      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
+      <div id="agreePanel" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; background: #EEEEEE url('assets/img/brands-statement-people.webp') center / 100% auto no-repeat; overflow: hidden; container-type: inline-size;">
         <div class="ov-reveal" style="width: 64cqw; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
           <p style="margin: 0; font-weight: 600; font-size: 6.4cqw; line-height: 1.2; letter-spacing: -0.01em; text-align: center; text-wrap: balance; color: #717171;">Every customer who loves<br class="dBr"> your product is a <span style="color: #000000;">creator<br class="dBr"> waiting to be activated</span> &mdash; with<br class="dBr"> an audience your ads never<br class="dBr"> reach.</p>
         </div>
@@ -648,7 +648,7 @@
       <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 480vh; background: #F6F6F6;">
         <style>
           #coSection { --co-ease: cubic-bezier(0.23,1,0.32,1); --co-move: cubic-bezier(0.77,0,0.175,1); --co-sheet: cubic-bezier(0.32,0.72,0,1); }
-          #coPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
+          #coPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
           #coStage { width: 100%; transform-origin: 50% 50%; }
           /* Pager-style control pinned to the bottom of the stage */
           .coCtl { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: flex; align-items: center; gap: 10px; transform: translateX(-50%); transition: opacity 0.3s var(--co-ease), transform 0.4s var(--co-ease); }
@@ -1018,7 +1018,8 @@
           }
           var ticking=false;
           window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; onScroll(); }); } },{ passive:true });
-          window.addEventListener('resize',function(){ fit(); onScroll(); });
+          var lastW=window.innerWidth;
+          window.addEventListener('resize',function(){ if(window.innerWidth!==lastW){ lastW=window.innerWidth; fit(); } onScroll(); });
           var c0=card.getBoundingClientRect();
           touch.style.transform='translate('+(card.offsetWidth*0.5)+'px,'+(card.offsetHeight*0.98)+'px)';
           settle(0); fit(); onScroll();
@@ -1027,7 +1028,7 @@
       </section>
 
       <!-- Campaign card: every customer gets their own campaign. Normal scroll. -->
-      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100dvh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
+      <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100svh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
         <style>
           #campSection h2 { align-self: end; margin: 0 auto 32px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           /* Only the top of the phone shows (just past the card details): the section's bottom edge cuts it cleanly. */
@@ -1236,7 +1237,7 @@
       <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; background: #FFFFFF;">
         <style>
           #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); --pay-move: cubic-bezier(0.77,0,0.175,1); }
-          .payPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 24px 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
+          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 24px 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
 
           /* Donut: two slices with gaps and rounded ends, no track */
           .payPie { display: block; width: 96px; height: 96px; margin: 0 auto 32px; overflow: visible; }
