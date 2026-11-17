@@ -631,6 +631,13 @@
   #brandsForSection { min-height: 100vh; box-sizing: border-box; padding-bottom: 0 !important; }
 }
 </style>
+<style id="section-titles">
+/* Section titles match the creators page's "More you reach / More you earn":
+   28px on phones, 42px on desktop, semibold, 1.08 line height, -0.8px tracking.
+   ("Set your budget. Pay from it." and the hero keep their own sizes.) */
+#coSection .coHead, #campSection h2, #rvSection h2, #agreeScreen section[data-screen-label="Community"] h2, #brandsForSection > h2, #talkSection > h2 { font-size: 28px !important; line-height: 1.08 !important; letter-spacing: -0.8px !important; font-weight: 600 !important; }
+@media (min-width: 768px) { #coSection .coHead, #campSection h2, #rvSection h2, #agreeScreen section[data-screen-label="Community"] h2, #brandsForSection > h2, #talkSection > h2 { font-size: 42px !important; } }
+</style>
 </head>
 <body>
 <div style="min-height:100vh;min-height:100svh;min-height:calc(var(--vh, 1svh) * 100);display:flex;justify-content:center;background:#EDEDED;">
