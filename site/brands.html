@@ -1029,9 +1029,9 @@
       <!-- Campaign card: every customer gets their own campaign. Normal scroll. -->
       <section id="campSection" data-screen-label="Unique campaign" style="position: relative; height: 100vh; height: 100dvh; box-sizing: border-box; display: grid; grid-template-rows: 1fr auto; padding: var(--nav-h, 52px) 24px 0; background: #FFFFFF; overflow: hidden;">
         <style>
-          #campSection h2 { align-self: center; margin: 0 auto; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
+          #campSection h2 { align-self: end; margin: 0 auto 32px; max-width: 330px; font-weight: 600; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: #121212; text-align: center; text-wrap: balance; }
           /* Only the top of the phone shows (just past the card details): the section's bottom edge cuts it cleanly. */
-          .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.39 * 300px * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
+          .campPhone { position: relative; width: 300px; max-width: 100%; aspect-ratio: 1350 / 2760; margin: 0 auto calc(-0.30 * 300px * 2760 / 1350); align-self: end; filter: drop-shadow(0 24px 40px rgba(18,31,96,0.14)); }
           /* Slides up from below the fold when the section is reached (iOS sheet curve);
              resets once the section is scrolled back out below the viewport. */
           .campPhone { transform: translateY(80%); transition: transform 1.05s cubic-bezier(0.32,0.72,0,1); will-change: transform; }
