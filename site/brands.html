@@ -620,6 +620,7 @@
   #paySection .payIcons svg { width: 28px !important; height: 28px !important; }
   #paySection .payFlip { max-width: 900px !important; height: 230px !important; }
   #paySection .payPie { width: 128px !important; height: 128px !important; margin-left: -64px !important; }
+  #paySection .payPin { padding-top: 218px !important; }
   #paySection .payPie { transform: translateY(6px) !important; }
   #paySection[data-step="0"] .payPie { transform: translateY(2px) !important; }
 
@@ -1249,12 +1250,12 @@
       <section id="paySection" data-screen-label="Payments" style="position: relative; height: 300vh; height: calc(var(--vh, 1vh) * 300); background: #FFFFFF;">
         <style>
           #paySection { --pay-out: cubic-bezier(0.23,1,0.32,1); --pay-move: cubic-bezier(0.77,0,0.175,1); }
-          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; height: calc(var(--vh, 1svh) * 100); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; box-sizing: border-box; overflow: hidden; text-align: center; }
+          .payPin { position: sticky; top: 0; height: 100vh; height: 100svh; height: calc(var(--vh, 1svh) * 100); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 244px 24px 0; box-sizing: border-box; overflow: hidden; text-align: center; }
 
           /* Donut: two slices with gaps and rounded ends, no track */
-          .payPie { position: absolute; left: 50%; bottom: calc(100% + 8px); width: 96px; height: 96px; margin-left: -48px; overflow: visible; }
+          .payPie { position: absolute; left: 50%; bottom: calc(100% + 8px); width: 168px; height: 168px; margin-left: -84px; overflow: visible; }
           /* Keep a steady 24px between the donut and whichever text is showing */
-          .payPie { transform: translateY(-9px); transition: transform 0.5s var(--pay-out); }
+          .payPie { transform: translateY(-2px); transition: transform 0.5s var(--pay-out); }
           #paySection[data-step="0"] .payPie { transform: translateY(14px); }
           .payPie g { transform-origin: 48px 48px; transform: rotate(-90deg); transition: transform 0.85s var(--pay-move); }
           .payPie circle { fill: none; stroke-width: 15; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1s var(--pay-out), opacity 0.4s var(--pay-out), stroke-width 0.4s var(--pay-out); }
@@ -1278,8 +1279,8 @@
           .payHead span { display: block; }
           .payIcons { display: flex; justify-content: center; gap: 14px; margin-bottom: 16px; }
           .payIcons svg { display: block; width: 24px; height: 24px; }
-          .payFace h3 { margin: 0; font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
-          .payFace p { margin: 10px auto 0; max-width: 300px; font-size: 17px; line-height: 1.45; font-weight: 500; color: #6C6C70; text-wrap: balance; }
+          .payFace h3 { margin: 0; font-size: 26px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
+          .payFace p { margin: 8px auto 0; max-width: 300px; font-size: 15px; line-height: 1.5; font-weight: 500; color: #6C6C70; text-wrap: balance; }
 
           @media (prefers-reduced-motion: reduce) {
             .payFace, .payFace.on, .payFace.past { transform: translateY(-50%); filter: none; transition: opacity 0.3s ease; }
