@@ -732,7 +732,7 @@
           .coTile { position: relative; border-radius: 20px; padding: 6px 6px 10px; background: #FFFFFF; transition: transform 0.16s var(--co-ease), box-shadow 0.25s var(--co-ease); box-shadow: inset 0 0 0 1px #EEEEF0; }
           .coTile.press { transform: scale(0.96); }
           .coTile.sel { box-shadow: inset 0 0 0 2px #1548EB; }
-          .coImg { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 0.86; border-radius: 15px; background: #F2F2F4; }
+          .coImg { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 0.86; border-radius: 15px; background: #F1ECEA center / cover no-repeat; }
           .coName { margin: 9px 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 500; color: #121212; letter-spacing: -0.01em; }
           .coPrice { margin: 2px 6px 0; font-size: 12px; font-weight: 500; color: #8A8A8E; }
 
@@ -743,7 +743,7 @@
           #coCard.sheetOpen .coSheet { transform: translateY(0); }
           .coGrab { width: 36px; height: 5px; margin: 0 auto 16px; border-radius: 999px; background: #E2E2E5; }
           .coItem { display: flex; align-items: center; gap: 14px; }
-          .coItem .coImg { width: 72px; aspect-ratio: 1; border-radius: 16px; flex: none; }
+          .coItem .coImg { width: 72px; aspect-ratio: 1; border-radius: 16px; flex: none; background-size: 150%; background-position: center 45%; }
           .coItem b { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #121212; }
           .coItem span { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: #8A8A8E; }
           .coRow { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; font-size: 15px; font-weight: 500; color: #121212; }
@@ -864,10 +864,10 @@
 
           <div class="coGrid">
             <!-- Product tiles: image placeholders for now -->
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Velvet Lip Tint</p><p class="coPrice">LKR 1,800</p></div>
-            <div class="coTile" data-pick><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Vitamin C Serum</p><p class="coPrice">LKR 2,400</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">SPF 50 Sunscreen</p><p class="coPrice">LKR 3,200</p></div>
-            <div class="coTile"><div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div><p class="coName">Gentle Face Wash</p><p class="coPrice">LKR 1,200</p></div>
+            <div class="coTile"><div class="coImg" style="background-image: url('assets/img/brands-prod-lip-tint.webp');" role="img" aria-label="Velvet Lip Tint"></div><p class="coName">Velvet Lip Tint</p><p class="coPrice">LKR 1,800</p></div>
+            <div class="coTile" data-pick><div class="coImg" style="background-image: url('assets/img/brands-prod-serum.webp');" role="img" aria-label="Vitamin C Serum"></div><p class="coName">Vitamin C Serum</p><p class="coPrice">LKR 2,400</p></div>
+            <div class="coTile"><div class="coImg" style="background-image: url('assets/img/brands-prod-sunscreen.webp');" role="img" aria-label="SPF 50 Sunscreen"></div><p class="coName">SPF 50 Sunscreen</p><p class="coPrice">LKR 3,200</p></div>
+            <div class="coTile"><div class="coImg" style="background-image: url('assets/img/brands-prod-face-wash.webp');" role="img" aria-label="Gentle Face Wash"></div><p class="coName">Gentle Face Wash</p><p class="coPrice">LKR 1,200</p></div>
           </div>
 
           <div class="coScrim"></div>
@@ -875,7 +875,7 @@
           <div class="coSheet">
             <div class="coGrab"></div>
             <div class="coItem">
-              <div class="coImg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="#C7C7CC" stroke-width="1.6"/><circle cx="9" cy="10" r="1.8" fill="#C7C7CC"/><path d="M4 17l4.5-4.5 3.5 3.5 2.5-2.5L20 18" stroke="#C7C7CC" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+              <div class="coImg" style="background-image: url('assets/img/brands-prod-serum.webp');" role="img" aria-label="Vitamin C Glow Serum"></div>
               <div><b>Vitamin C Glow Serum</b><span>LKR 2,400 each</span></div>
             </div>
             <div class="coRow">
