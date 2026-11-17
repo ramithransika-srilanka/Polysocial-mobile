@@ -641,7 +641,7 @@
       </div>
 
       <!-- Checkout micro-animation: select a product -> add units -> pay. Loops while on screen. -->
-      <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 400vh; background: #F6F6F6;">
+      <section id="coSection" data-screen-label="Checkout" style="position: relative; height: 480vh; background: #F6F6F6;">
         <style>
           #coSection { --co-ease: cubic-bezier(0.23,1,0.32,1); --co-move: cubic-bezier(0.77,0,0.175,1); --co-sheet: cubic-bezier(0.32,0.72,0,1); }
           #coPin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 56px 24px 16px; box-sizing: border-box; overflow: hidden; }
@@ -738,6 +738,19 @@
           .coAccept .coCheck path { stroke-dashoffset: 24; }
           .coAccept.done .coCheck path { stroke-dashoffset: 0; }
 
+          /* Step 5: the whole card flips to a text-only back */
+          #coFlipWrap { perspective: 1400px; }
+          #coFlip { position: relative; max-width: 345px; margin: 0 auto; transform-style: preserve-3d; transition: transform 0.95s cubic-bezier(0.77,0,0.175,1); }
+          #coFlip.flipped { transform: rotateY(180deg); }
+          #coFlip #coCard, .coBack { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+          .coBack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 36px 30px; box-sizing: border-box; border-radius: 32px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(18,18,18,0.04), 0 18px 48px rgba(18,31,96,0.10); transform: rotateY(180deg); }
+          .coBack p { margin: 0; font-weight: 600; font-size: 30px; line-height: 1.22; letter-spacing: -0.02em; text-align: center; text-wrap: balance; color: #8A8A8E; }
+          .coBack .ink { color: #121212; }
+          .coBack .blue { color: #1548EB; white-space: nowrap; }
+          /* The words settle in just after the turn completes */
+          .coBack p { opacity: 0; transform: translateY(8px); filter: blur(4px); transition: opacity 0.2s var(--co-ease), transform 0.2s var(--co-ease), filter 0.2s var(--co-ease); }
+          #coFlip.flipped .coBack p { opacity: 1; transform: none; filter: blur(0); transition: opacity 0.5s var(--co-ease) 0.6s, transform 0.6s var(--co-ease) 0.6s, filter 0.5s var(--co-ease) 0.6s; }
+
           @media (prefers-reduced-motion: reduce) {
             .coTouch { display: none; }
             .coSheet { transform: none; opacity: 0; transition: opacity 0.3s ease; }
@@ -745,6 +758,10 @@
             .coGrid, #coCard.sheetOpen .coGrid { transform: none; }
             .coRoll > span.out, .coRoll > span.pre { transform: none; }
             .coNote, #coCard.noteOpen .coNote { transform: none; filter: none; }
+            #coFlip, #coFlip.flipped { transform: none; }
+            .coBack { transform: none; opacity: 0; transition: opacity 0.3s ease; }
+            #coFlip.flipped .coBack { opacity: 1; }
+            #coFlip.flipped #coCard { opacity: 0; transition: opacity 0.3s ease; }
           }
         </style>
 
@@ -752,7 +769,9 @@
         <div id="coStage">
         <h2 class="coHead ov-reveal">It starts at checkout</h2>
 
-        <div id="coCard" class="ov-reveal" aria-hidden="true">
+        <div id="coFlipWrap" class="ov-reveal">
+        <div id="coFlip">
+        <div id="coCard" aria-hidden="true">
           <div class="coBar">
             <b>Store</b>
             <div class="coCart">
@@ -824,6 +843,12 @@
 
           <div class="coTouch"><i></i></div>
         </div>
+          <!-- Back of the card: text only -->
+          <div class="coBack">
+            <p>Create an <span class="ink">authentic review</span> of your purchase and earn up to <span class="blue">LKR&nbsp;100,000.</span></p>
+          </div>
+        </div>
+        </div>
 
         </div>
         </div>
@@ -833,7 +858,7 @@
            (select -> add units -> pay); once triggered, the step plays out on
            its own timing. Scrolling back up returns the card to the earlier step. */
         (function(){
-          var sec=document.getElementById('coSection'), card=document.getElementById('coCard'), stage=document.getElementById('coStage');
+          var sec=document.getElementById('coSection'), card=document.getElementById('coCard'), flip=document.getElementById('coFlip'), stage=document.getElementById('coStage');
           if(!sec||!card) return;
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           var touch=card.querySelector('.coTouch'), pick=card.querySelector('[data-pick]');
@@ -875,6 +900,7 @@
             badge.classList.toggle('on', n>=3); if(n>=3) badge.textContent='3';
             card.classList.toggle('noteOpen', n>=4); card.classList.toggle('noteMore', n>=4);
             accepted(n>=4);
+            flip.classList.toggle('flipped', n>=5);
             step(Math.min(n,4)-1);
           }
           function accepted(on){ accLabel.classList.toggle('hide',on); accDone.classList.toggle('hide',!on); accept.classList.toggle('done',on); }
@@ -907,6 +933,10 @@
                 .then(function(){ touch.style.opacity='1'; moveTo(accept); return wait(760,id); })
                 .then(function(){ return tap(accept,id); })
                 .then(function(){ accepted(true); hideTouch(); return wait(300,id); });
+            },
+            function(id){ // 5. Flip the whole card to the text-only back
+              hideTouch(); flip.classList.add('flipped');
+              return wait(1100,id);
             }];
 
           // Play forward one step at a time until we reach the step the scroll asks for.
@@ -923,7 +953,7 @@
           function onScroll(){
             var r=sec.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
             var span=sec.offsetHeight-vh, p=span>0 ? -r.top/span : 0;
-            var w = r.top > vh*0.35 ? 0 : p<0.16 ? 1 : p<0.40 ? 2 : p<0.64 ? 3 : 4;
+            var w = r.top > vh*0.35 ? 0 : p<0.13 ? 1 : p<0.32 ? 2 : p<0.51 ? 3 : p<0.72 ? 4 : 5;
             if(w!==want){
               want=w;
               if(want<shown || (busy && want<=shown)){ run++; busy=false; shown=want; settle(shown); }
