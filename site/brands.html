@@ -1224,37 +1224,32 @@
           .payEg b { display: block; margin-top: 2px; font-size: 14px; color: #1548EB; font-weight: 600; letter-spacing: -0.01em; }
           .payOpt { display: flex; flex-direction: column; }
           .payOpt .payEg { margin-top: auto; }
-          .payOpt .payPrice { margin-bottom: 12px; }
+          .payOpt .payPrice { margin-bottom: 0; }
 
           @media (prefers-reduced-motion: reduce) { .payBar i { transition: none; } }
         </style>
 
         <h2 class="ov-reveal">Set a monthly budget. Pay from it.</h2>
-        <p class="payLead ov-reveal">Pay a flat fee for each piece of content, or pay on performance, by views.</p>
+        <p class="payLead ov-reveal">Pay a flat fee, or pay by views.</p>
 
         <div class="payWrap">
           <div class="payCard ov-reveal" id="payBudget">
-            <div class="payLabel">Monthly budget <i>Resets every month</i></div>
+            <div class="payLabel">Monthly budget</div>
             <p class="payBig"><small>LKR</small>500,000</p>
             <div class="payBar"><i></i></div>
             <div class="payNums"><span><b data-pay="spent">LKR 0</b> spent</span><span><b data-pay="left">LKR 500,000</b> left</span></div>
-            <p class="payNote">Every creator payment comes out of this budget, so you never spend more than you set.</p>
           </div>
 
           <div class="payOpts">
             <div class="payCard payOpt ov-reveal">
               <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="#121212" stroke-width="1.8"/><path d="M4 10h16" stroke="#121212" stroke-width="1.8"/></svg></div>
               <h3>Flat fee</h3>
-              <p>One fixed price per approved piece.</p>
-              <p class="payPrice">LKR 25,000<small>per piece of content</small></p>
-              <div class="payEg"><span data-pay="pieces">0</span> pieces <b data-pay="flat">LKR 0</b></div>
+              <p class="payPrice">LKR 25,000<small>per content</small></p>
             </div>
             <div class="payCard payOpt ov-reveal">
               <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="#121212" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#121212" stroke-width="1.8"/></svg></div>
               <h3>Performance</h3>
-              <p>Pay only for the views it gets (CPM).</p>
-              <p class="payPrice">LKR 2,000<small>per 1,000 views</small></p>
-              <div class="payEg"><span data-pay="views">0</span> views <b data-pay="cost">LKR 0</b></div>
+              <p class="payPrice">LKR 2,000<small>per 1K views</small></p>
             </div>
           </div>
         </div>
@@ -1268,16 +1263,12 @@
           var sec=document.getElementById('paySection'); if(!sec) return;
           var card=document.getElementById('payBudget');
           var spentEl=sec.querySelector('[data-pay="spent"]'), leftEl=sec.querySelector('[data-pay="left"]');
-          var viewsEl=sec.querySelector('[data-pay="views"]'), costEl=sec.querySelector('[data-pay="cost"]');
-          var piecesEl=sec.querySelector('[data-pay="pieces"]'), flatEl=sec.querySelector('[data-pay="flat"]');
           var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           var BUDGET=500000, SPENT=312000, VIEWS=48500, CPM=2000, raf=0;
           var fmt=function(n){ return Math.round(n).toLocaleString('en-US'); };
           card.style.setProperty('--fill', (SPENT/BUDGET).toFixed(3));
           function draw(t){
             spentEl.textContent='LKR '+fmt(SPENT*t); leftEl.textContent='LKR '+fmt(BUDGET-SPENT*t);
-            var v=Math.round(VIEWS*t/100)*100; viewsEl.textContent=fmt(v); costEl.textContent='LKR '+fmt(v/1000*CPM);
-            var n=Math.round(4*t); piecesEl.textContent=n; flatEl.textContent='LKR '+fmt(n*25000);
           }
           function play(){
             card.classList.add('go'); if(reduce){ draw(1); return; }
