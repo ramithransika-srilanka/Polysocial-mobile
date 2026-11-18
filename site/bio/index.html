@@ -39,7 +39,8 @@
     --bg: #F5F5F5;                  /* matches the photo's sky */
     --radius-pill: 999px;
     --shadow-button: 2px 2px 12px 0px rgba(0,0,0,0.08);
-    --type-button-large: 600 16px/20px var(--font-sans);
+    --type-button: 500 14px/16px var(--font-sans);   /* Inter Medium 14, as the home page CTA */
+    --space-sm: 12px;
     --space-md: 16px;
     --space-xl: 24px;
     --space-2xl: 32px;
@@ -102,25 +103,25 @@
   @keyframes drift2 { 0%,100% { transform: translate(0,0) rotate(0deg); } 30% { transform: translate(-1.8px,1.2px) rotate(-.6deg); } 55% { transform: translate(1px,-1.8px) rotate(.5deg); } 80% { transform: translate(1.5px,.8px) rotate(-.3deg); } }
   @keyframes drift3 { 0%,100% { transform: translate(0,0) rotate(0deg); } 26% { transform: translate(1.2px,1.6px) rotate(-.4deg); } 52% { transform: translate(-1.6px,-1px) rotate(.6deg); } 74% { transform: translate(.8px,-1.4px) rotate(-.5deg); } }
 
-  /* Buttons: design-system primary pill. Inter Semi Bold (button-large type),
+  /* Buttons: design-system primary pill. Inter Medium 14px,
      pill radius, --shadow-button, hover/pressed shades, 0.96 press scale. */
+  /* Sized like the home page mobile CTA: 39px tall, 26px side padding.
+     The grid makes both buttons as wide as the longer label. */
   .actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
+    display: grid;
+    justify-content: center;
+    gap: var(--space-sm);
     margin-top: var(--space-2xl);
   }
   .btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: min(100%, 300px);
-    height: 52px;
-    padding: 0 var(--space-xl);
+    height: 39px;
+    padding: 0 26px;
     border-radius: var(--radius-pill);
     color: var(--text-on-brand);
-    font: var(--type-button-large);
+    font: var(--type-button);
     text-decoration: none;
     white-space: nowrap;
     box-shadow: var(--shadow-button);
@@ -177,7 +178,7 @@
 
   @media (max-height: 640px) {
     .top { padding-top: max(28px, calc(env(safe-area-inset-top) + 16px)); }
-    .actions { margin-top: var(--space-xl); gap: 12px; }
+    .actions { margin-top: var(--space-xl); }
     .contact { margin-top: 20px; }
   }
   @media (prefers-reduced-motion: reduce) {
