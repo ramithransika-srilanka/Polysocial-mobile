@@ -24,139 +24,166 @@
   @font-face { font-family: Inter; font-weight: 500; font-display: swap; src: url(/bio/fonts/inter-latin-500.woff2) format("woff2"); }
   @font-face { font-family: Inter; font-weight: 600 700; font-display: swap; src: url(/bio/fonts/inter-latin-600.woff2) format("woff2"); }
 
+  /* Tokens from the Polysocial design system (foundations in site/index.html). */
   :root {
-    --bg: #F5F5F5;
-    --ink: #111111;
-    --muted: #8F8F8F;
-    --creator: #FF6C4B;
-    --brand: #1548EB;
-    /* everything scales off the column width (the phone width in Instagram's browser) */
-    --w: min(100vw, 480px);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --blue-500: #1548EB;            /* --brand-primary */
+    --blue-600: #123BBD;            /* --brand-primary-hover */
+    --blue-700: #0F2D8F;            /* --brand-primary-pressed */
+    --orange-500: #FF6B4A;          /* brand orange (hero CTA gradient, theme colour) */
+    --orange-600: #E85A3B;
+    --orange-700: #CC4B2F;
+    --text-on-brand: #FFFFFF;
+    --ink: #121212;                 /* hero headline black */
+    --ink-muted: #ADADAD;           /* hero headline grey */
+    --bg: #F5F5F5;                  /* matches the photo's sky */
+    --radius-pill: 999px;
+    --shadow-button: 2px 2px 12px 0px rgba(0,0,0,0.08);
+    --type-button-large: 600 16px/20px var(--font-sans);
+    --space-md: 16px;
+    --space-xl: 24px;
+    --space-2xl: 32px;
+
+    --w: min(100vw, 480px);         /* column width = phone width in Instagram's browser */
+    --photo-gap: 28px;              /* minimum space between contact buttons and photo */
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
   }
 
   .page {
-    position: relative;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
     min-height: 100vh;
-    min-height: 100dvh;           /* Instagram's in-app browser: fill exactly the visible area */
+    min-height: 100dvh;             /* fill exactly the visible area of the in-app browser */
     display: flex;
     flex-direction: column;
   }
 
   .top {
-    position: relative;
-    z-index: 1;
-    padding: calc(var(--w) * 0.15) 16px 0;
-    padding-top: max(calc(var(--w) * 0.15), calc(env(safe-area-inset-top) + 24px));
+    padding: max(calc(var(--w) * 0.14), calc(env(safe-area-inset-top) + 24px)) var(--space-md) 0;
     text-align: center;
   }
 
+  /* Headline: same treatment as the home page hero */
   h1 {
-    font-weight: 700;
-    font-size: clamp(26px, calc(var(--w) * 0.074), 36px);
-    line-height: 1.32;
-    letter-spacing: -0.015em;
+    font-weight: 600;
+    font-size: clamp(28px, calc(var(--w) * 0.082), 38px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
   }
-  h1 .muted { color: var(--muted); display: block; }
-  h1 .line { display: block; white-space: nowrap; }
+  h1 > span { display: block; white-space: nowrap; }
+  h1 .muted { color: var(--ink-muted); }
+  h1 > .line { display: flex; align-items: center; justify-content: center; gap: 0.2em; margin-top: 0.08em; }
 
-  .faces {
-    display: inline-flex;
-    vertical-align: -0.12em;
-    margin-right: 0.12em;
-  }
+  .faces { display: inline-flex; align-items: center; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.16)); }
+  .faces picture { display: block; flex: none; }
+  .faces picture + picture { margin-left: -0.15em; }
   .faces img {
-    width: 0.92em;
-    height: 0.92em;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .12);
+    display: block;
+    width: 0.97em;
+    height: 0.97em;
+    border-radius: var(--radius-pill);
     object-fit: cover;
+    border: 1.4px solid #F6F6F6;
     background: #ddd;
   }
-  .faces img + img { margin-left: -0.2em; }
+  .faces picture:nth-child(1) img { animation: drift1 7.5s ease-in-out infinite; }
+  .faces picture:nth-child(2) img { animation: drift2 8.7s ease-in-out infinite .6s; }
+  .faces picture:nth-child(3) img { animation: drift3 6.9s ease-in-out infinite 1.1s; }
+  @keyframes drift1 { 0%,100% { transform: translate(0,0) rotate(0deg); } 22% { transform: translate(1.6px,-2px) rotate(.7deg); } 48% { transform: translate(-1.4px,-.6px) rotate(-.5deg); } 70% { transform: translate(-1px,1.6px) rotate(.3deg); } }
+  @keyframes drift2 { 0%,100% { transform: translate(0,0) rotate(0deg); } 30% { transform: translate(-1.8px,1.2px) rotate(-.6deg); } 55% { transform: translate(1px,-1.8px) rotate(.5deg); } 80% { transform: translate(1.5px,.8px) rotate(-.3deg); } }
+  @keyframes drift3 { 0%,100% { transform: translate(0,0) rotate(0deg); } 26% { transform: translate(1.2px,1.6px) rotate(-.4deg); } 52% { transform: translate(-1.6px,-1px) rotate(.6deg); } 74% { transform: translate(.8px,-1.4px) rotate(-.5deg); } }
 
+  /* Buttons: design-system primary pill. Inter Semi Bold (button-large type),
+     pill radius, --shadow-button, hover/pressed shades, 0.96 press scale. */
   .actions {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(16px, calc(var(--w) * 0.048), 22px);
-    margin-top: clamp(28px, calc(var(--w) * 0.088), 44px);
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
   }
   .btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: min(100%, max(260px, calc(var(--w) * 0.61)));
-    height: clamp(46px, calc(var(--w) * 0.09), 54px);
-    border-radius: 999px;
-    color: #fff;
+    width: min(100%, 300px);
+    height: 52px;
+    padding: 0 var(--space-xl);
+    border-radius: var(--radius-pill);
+    color: var(--text-on-brand);
+    font: var(--type-button-large);
     text-decoration: none;
-    font-weight: 500;
-    font-size: clamp(16px, calc(var(--w) * 0.035), 18px);
-    letter-spacing: 0.005em;
-    box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .25);
-    transition: transform .15s ease, filter .15s ease;
+    white-space: nowrap;
+    box-shadow: var(--shadow-button);
+    transition: transform .16s ease-out, background-color .16s ease-out;
   }
-  .btn:active { transform: scale(.97); filter: brightness(.94); }
-  .btn--creator { background: var(--creator); }
-  .btn--brand { background: var(--brand); }
+  .btn:active { transform: scale(.96); }
+  .btn--creator { background: var(--orange-500); }
+  .btn--creator:hover { background: var(--orange-600); }
+  .btn--creator:active { background: var(--orange-700); }
+  .btn--brand { background: var(--blue-500); }
+  .btn--brand:hover { background: var(--blue-600); }
+  .btn--brand:active { background: var(--blue-700); }
+  .btn:focus-visible, .contact a:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 3px; }
 
   .contact {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin-top: clamp(24px, calc(var(--w) * 0.066), 34px);
+    margin-top: var(--space-xl);
   }
   .contact a {
     display: grid;
     place-items: center;
-    width: clamp(42px, calc(var(--w) * 0.092), 48px);
-    height: clamp(42px, calc(var(--w) * 0.092), 48px);
-    border-radius: 50%;
-    background: #111;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-pill);
+    background: var(--ink);
     color: #fff;
-    transition: transform .15s ease;
+    box-shadow: var(--shadow-button);
+    transition: transform .16s ease-out;
   }
-  .contact a:active { transform: scale(.93); }
-  .contact svg { width: 50%; height: 50%; }
+  .contact a:active { transform: scale(.96); }
+  .contact svg { width: 24px; height: 24px; }
 
-  /* The photo fills whatever height is left and sits on the bottom edge.
-     Its sky is the same grey as the page, so cropping the top is invisible. */
+  /* Photo: takes the space left under the contact buttons, always at least
+     --photo-gap below them. With room to spare it sits on the bottom edge;
+     on short screens it stays pinned under the gap and is cut off at the
+     bottom (an auto margin collapses to 0 when the image is taller than its box). */
   .photo {
-    position: relative;
-    flex: 1 0 auto;
-    min-height: calc(var(--w) * 0.62);
-    margin-top: 8px;
+    flex: 1 1 0;
+    min-height: calc(var(--w) * 0.5);
+    margin-top: var(--photo-gap);
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
   .photo img {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    display: block;
+    flex: none;
     width: 100%;
     height: auto;
-    display: block;
-  }
-  /* short in-app viewports: tighten the top so the photo still shows faces */
-  @media (max-height: 640px) {
-    .top { padding-top: max(28px, calc(env(safe-area-inset-top) + 16px)); }
-    .actions { margin-top: 22px; gap: 14px; }
-    .contact { margin-top: 20px; }
+    margin-top: auto;
   }
 
+  @media (max-height: 640px) {
+    .top { padding-top: max(28px, calc(env(safe-area-inset-top) + 16px)); }
+    .actions { margin-top: var(--space-xl); gap: 12px; }
+    .contact { margin-top: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faces img { animation: none; }
+    .btn, .contact a { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -164,8 +191,15 @@
   <section class="top">
     <h1>
       <span class="muted">Welcome to the</span>
-      <span class="line"><span class="faces" aria-hidden="true"><img src="/bio/img/avatar-1.webp" alt="" width="48" height="48"><img src="/bio/img/avatar-2.webp" alt="" width="48" height="48"><img src="/bio/img/avatar-3.webp" alt="" width="48" height="48"></span>creator</span>
-      <span class="line">economy.</span>
+      <span class="line">
+        <span class="faces" aria-hidden="true">
+          <picture><source type="image/avif" srcset="/assets/img/2fb456f2.220w.ea1f6e567f.avif"><source type="image/webp" srcset="/assets/img/2fb456f2.220w.69fb1c54b7.webp"><img src="/assets/img/2fb456f2.fallback.c759abd967.png" alt="" width="220" height="220" decoding="async"></picture>
+          <picture><source type="image/avif" srcset="/assets/img/a14a7902.220w.2c14f172d6.avif"><source type="image/webp" srcset="/assets/img/a14a7902.220w.7c9f48bc2d.webp"><img src="/assets/img/a14a7902.fallback.33b48a6bb4.png" alt="" width="220" height="220" decoding="async"></picture>
+          <picture><source type="image/avif" srcset="/assets/img/6776e340.220w.90e3414892.avif"><source type="image/webp" srcset="/assets/img/6776e340.220w.1647ac5db4.webp"><img src="/assets/img/6776e340.fallback.b9c0c160eb.png" alt="" width="220" height="220" decoding="async"></picture>
+        </span>
+        <span>creator</span>
+      </span>
+      <span>economy.</span>
     </h1>
 
     <nav class="actions" aria-label="Choose your path">
